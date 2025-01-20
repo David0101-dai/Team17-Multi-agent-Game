@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -63,10 +64,15 @@ public class PlayerState : CharacterState<Player>
         dashDir = Input.xAxis == 0 ? Flip.facingDir : Input.xAxis;
     }
 
-    public async void BusyFor(float seconds)
+    public IEnumerator BusyFor(float seconds)
     {
         isBusy = true;
-        await Task.Delay((int)(seconds * 1000));
+        Debug.Log("IS BUSY");
+
+        //await Task.Delay((int)(seconds * 1000));
+       yield return new WaitForSeconds(seconds);
+
+        Debug.Log("NOT BUSY");
         isBusy = false;
     }
 }

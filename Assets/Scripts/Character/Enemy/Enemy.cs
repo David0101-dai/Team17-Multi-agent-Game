@@ -3,6 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(EnemyDamageable))]
 [RequireComponent(typeof(FlashFX))]
+
 public abstract class Enemy : Character
 {
     #region Value

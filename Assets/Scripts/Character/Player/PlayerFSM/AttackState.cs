@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class AttackState : PlayerState
 {
@@ -47,15 +48,16 @@ public class AttackState : PlayerState
         }
     }
 
-    public override void Exit(IState newState)
-    {
-        base.Exit(newState);
+   public override void Exit(IState newState)
+{
+    base.Exit(newState);
 
-        BusyFor(0.5f);
+    Character.StartCoroutine(BusyFor(0.15f)); // 确保 Player 或 Character 是一个 MonoBehaviour
 
-        Anim.speed = 1;
+    Anim.speed = 1;
 
-        comboCounter++;
-        lastAttackTime = Time.time;
-    }
+    comboCounter++;
+    lastAttackTime = Time.time;
+}
+
 }

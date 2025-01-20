@@ -26,11 +26,11 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        Anim = GetComponentInChildren<Animator>();
-        Rb = GetComponent<Rigidbody2D>();
-        Flip = GetComponent<FlipSprite>();
-        ColDetect = GetComponent<CollisionDetection>();
-        Sr = GetComponentInChildren<SpriteRenderer>();
+        Anim = GetComponentInChildren<Animator>(); //获取动画器
+        Rb = GetComponent<Rigidbody2D>();  //获取刚体
+        Flip = GetComponent<FlipSprite>();  //获取反转脚本
+        ColDetect = GetComponent<CollisionDetection>();  //获取碰撞脚本
+        Sr = GetComponentInChildren<SpriteRenderer>();  //获取渲染者
         Fsm = new FSM();
     }
 

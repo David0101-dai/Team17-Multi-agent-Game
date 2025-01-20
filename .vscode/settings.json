@@ -56,6 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "RpgUdemyCourse.sln",
+    "dotnet.defaultSolution": "Team17-Multi-agent-Game.sln",
     "git.ignoreLimitWarning": true
 }

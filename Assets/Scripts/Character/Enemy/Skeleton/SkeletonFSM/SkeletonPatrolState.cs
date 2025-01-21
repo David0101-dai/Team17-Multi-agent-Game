@@ -22,6 +22,8 @@ public class SkeletonPatrolState : SkeletonGroundState
         if (ColDetect.IsWallDetected || !ColDetect.IsGrounded)
         {
             Flip.Flip();
+            Debug.Log("骷髅没有找到地面,开始反转");
+            SetVelocity(Flip.facingDir * Character.moveSpeed, Rb.velocity.y);
             Fsm.SwitchState(Character.IdleState);
         }
     }

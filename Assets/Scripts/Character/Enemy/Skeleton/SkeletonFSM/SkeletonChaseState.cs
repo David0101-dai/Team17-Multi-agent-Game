@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkeletonChaseState : SkeletonGroundState
+public class SkeletonChaseState : SkeletonState
 {
     public SkeletonChaseState(FSM fsm, Skeleton character, string animBoolName) : base(fsm, character, animBoolName)
     {
@@ -28,16 +28,18 @@ public class SkeletonChaseState : SkeletonGroundState
         var moveDir = isRight ? 1 : isLeft ? -1 : 0;
 
         var distance = Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);
-        SetVelocity(moveDir * Character.moveSpeed, Rb.velocity.y);
+        SetVelocity(moveDir * Character.moveSpeed * 2, Rb.velocity.y);
 
         if (attackCooldownTimer < 0 && distance < Character.attackDistance)
         {
             Fsm.SwitchState(Character.AttackState);
         }
 
+
         if (StateTimer < 0 || distance - 1 > ColDetect.playerCheckDistance)
         {
             ColDetect.DetectedPlayer = null;
+            Flip.Flip();
             Fsm.SwitchState(Character.IdleState);
         }
     }

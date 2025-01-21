@@ -687,14 +687,14 @@ MonoBehaviour:
   IsGrounded: 0
   groundCheckDistance: 0.15
   IsWallDetected: 0
-  wallCheckDistance: 3
+  wallCheckDistance: 1.65
   isFullDetected: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
   DetectedPlayer: {fileID: 0}
-  playerCheckDistance: 15
-  playerCheckBackDistance: 5
+  playerCheckDistance: 6.35
+  playerCheckBackDistance: 1.93
   isNeedPlayerCheck: 1
 --- !u!114 &8928521661072112105
 MonoBehaviour:
@@ -718,6 +718,7 @@ MonoBehaviour:
   shockColor:
   - {r: 0.972549, g: 1, b: 0.29803923, a: 1}
   - {r: 1, g: 0.8117647, b: 0.29803923, a: 1}
+  hitMat: {fileID: 0}
 --- !u!114 &2804243171117335249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,10 +802,10 @@ MonoBehaviour:
   IsIgnited: 0
   IsChilled: 0
   IsShocked: 0
-  igniteDuration: 4
-  chillDuration: 4
+  igniteDuration: 0.2
+  chillDuration: 0.2
   thunderStrikePrefab: {fileID: 4050344180660983985, guid: 197d6a6330fb1a047aa8e053e9df76bb, type: 3}
-  shockDuration: 4
+  shockDuration: 0.8
 --- !u!114 &2880547275683043672
 MonoBehaviour:
   m_ObjectHideFlags: 0

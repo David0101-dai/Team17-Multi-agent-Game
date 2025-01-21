@@ -15,8 +15,8 @@ public class CollisionDetection : MonoBehaviour
     [Header("Player Check")]
     public LayerMask playerLayer;
     public Transform DetectedPlayer;
-    public float playerCheckDistance = 15f;
-    public float playerCheckBackDistance = 5f;
+    public float playerCheckDistance = 0.0005f;
+    public float playerCheckBackDistance = 0.00005f;
     public bool isNeedPlayerCheck = false;
 
     private BoxCollider2D col;
@@ -75,15 +75,29 @@ public class CollisionDetection : MonoBehaviour
         }
     }
 
-    private void PlayerCheck()
-    {
-        var pos = transform.position + new Vector3(0, col.size.y / 2, 0);
-        var rayDirection = flip.isFacingRight ? Vector2.right : Vector2.left;
-        var hit = Physics2D.Raycast(pos, rayDirection, playerCheckDistance, playerLayer);
-        var hitBack = Physics2D.Raycast(pos, rayDirection * -1, playerCheckBackDistance, playerLayer);
-        if (!hit && !hitBack) return;
-        DetectedPlayer = hit ? hit.collider.transform : hitBack.collider.transform;
-    }
+  private void PlayerCheck()
+{
+    var pos = transform.position + new Vector3(0, col.size.y / 2, 0);
+    var rayDirection = flip.isFacingRight ? Vector2.right : Vector2.left;
+
+    // 绘制射线，前方检测
+    Debug.DrawRay(pos, rayDirection * playerCheckDistance, Color.green);
+    
+    // 绘制射线，后方检测
+    Debug.DrawRay(pos, rayDirection * -1 * playerCheckBackDistance, Color.red);
+
+    // 射线检测玩家
+    var hit = Physics2D.Raycast(pos, rayDirection, playerCheckDistance, playerLayer);
+    var hitBack = Physics2D.Raycast(pos, rayDirection * -1, playerCheckBackDistance, playerLayer);
+
+    // 如果没有检测到玩家，返回
+    if (!hit && !hitBack) return;
+
+    // 如果没有墙阻挡，继续追击
+    DetectedPlayer = hit ? hit.collider.transform : hitBack.collider.transform;
+}
+
+
 
 
 }

@@ -55,7 +55,6 @@ public abstract class Enemy : Character
 
     protected override void Update(){
        base.Update();
-       Debug.Log("骷髅的Current State: " + Fsm.CurrentState.ToString());
     }
 
     public void FreezeTimeForSeconds(float seconds)

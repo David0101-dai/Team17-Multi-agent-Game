@@ -1,3 +1,5 @@
+using System.Numerics;
+
 public class SkeletonAttackState : SkeletonState
 {
     public SkeletonAttackState(FSM fsm, Skeleton character, string animBoolName) : base(fsm, character, animBoolName)
@@ -13,7 +15,7 @@ public class SkeletonAttackState : SkeletonState
     {
         base.Update();
 
-        if (IsAnimationFinished)
+        if (IsAnimationFinished || !ColDetect.DetectedPlayer)
         {
             Fsm.SwitchState(Character.ChaseState);
             attackCooldownTimer = Character.attackCooldown;

@@ -52,7 +52,7 @@ public class AttackState : PlayerState
 {
     base.Exit(newState);
 
-    Character.StartCoroutine(BusyFor(0.15f)); // 确保 Player 或 Character 是一个 MonoBehaviour
+    Character.StartCoroutine(BusyFor(0.15f)); // 确锟斤拷 Player 锟斤拷 Character 锟斤拷一锟斤拷 MonoBehaviour
 
     Anim.speed = 1;
 

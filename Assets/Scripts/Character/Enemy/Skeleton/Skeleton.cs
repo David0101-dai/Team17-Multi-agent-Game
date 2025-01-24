@@ -30,6 +30,7 @@ public class Skeleton : Enemy
     protected override void Update()
     {
         base.Update();
+        Debug.Log("骷髅的Current State: " + Fsm.CurrentState.ToString());
     }
 
     protected override void SwitchHitState()

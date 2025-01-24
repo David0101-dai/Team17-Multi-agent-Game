@@ -39,7 +39,7 @@ public class SkeletonChaseState : SkeletonState
         if (StateTimer < 0 || distance - 1 > ColDetect.playerCheckDistance)
         {
             ColDetect.DetectedPlayer = null;
-            Flip.Flip();
+            //Flip.Flip();
             Fsm.SwitchState(Character.IdleState);
         }
     }

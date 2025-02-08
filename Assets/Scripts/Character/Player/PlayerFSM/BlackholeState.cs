@@ -23,7 +23,7 @@ public class BlackholeState : PlayerState
     {
         base.Update();
 
-        if (SkillManager.Instance.Blackhole.BlackholeFinished())
+        if (Character.Skill.Blackhole.BlackholeFinished())
         {
             Fsm.SwitchState(Character.FallState);
             return;
@@ -38,7 +38,7 @@ public class BlackholeState : PlayerState
             Rb.velocity = new Vector2(0, -0.1f);
             if (!skillUsed)
             {
-                if (!SkillManager.Instance.Blackhole.CanUseSkill()) return;
+                if (!Character.Skill.Blackhole.CanUseSkill()) return;
                 skillUsed = true;
             }
         }

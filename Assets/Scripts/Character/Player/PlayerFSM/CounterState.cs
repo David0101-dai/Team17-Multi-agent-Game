@@ -39,7 +39,7 @@ public class CounterState : PlayerState
 
             if (canCreateClone)
             {
-                SkillManager.Instance.Clone.CreateCloneOnCounterAttack(hit.transform);
+                Character.Skill.Clone.CreateCloneOnCounterAttack(hit.transform);
                 canCreateClone = false;
             }
 

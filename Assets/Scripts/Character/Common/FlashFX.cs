@@ -37,8 +37,6 @@ public class FlashFX : MonoBehaviour
        });
     }
 
-
-
     // 大坑，一样的东西，用task就是无效，修改材质一定要用协程
     // Task.Run(async () =>
     // {

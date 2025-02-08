@@ -9,8 +9,8 @@ public class AimSwordState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
-        SkillManager.Instance.Sword.SetDotsActive(true);
+        
+        Character.Skill.Sword.SetDotsActive(true);
     }
 
     public override void Update()

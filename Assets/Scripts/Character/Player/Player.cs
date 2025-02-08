@@ -47,6 +47,7 @@ public class Player : Character
     public InputController InputController { get; private set; }
     public Damageable Damageable { get; private set; }
     public FlashFX FlashFX { get; private set; }
+    public SkillManager Skill {get; private set;}
     #endregion
 
     #region StateMachine
@@ -73,6 +74,9 @@ public class Player : Character
         moveSpeed = defaultMoveSpeed;
         jumpForce = defaultJumpForce;
         dashSpeed = defaultDashSpeed;
+        
+        //更方便获得技能
+        Skill = SkillManager.Instance;
 
         InputController = GetComponent<InputController>();
         Damageable = GetComponent<Damageable>();
@@ -105,7 +109,7 @@ public class Player : Character
         base.Update();
         dashUsageTimer -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Q))
-            SkillManager.Instance.Crystal.CanUseSkill();
+            Skill.Crystal.CanUseSkill();
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Inventory.Instance.UsedFlask();

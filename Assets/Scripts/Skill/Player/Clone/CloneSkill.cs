@@ -47,19 +47,19 @@ public class CloneSkill : Skill
 
     public void CreateCloneOnDashStart(Transform playerTransform)
     {
-        if (!createCloneOnDashStart) return;
+        if (!createCloneOnDashStart || !SkillManager.Instance.Clone.CanUseSkill()) return;
         CreateClone(playerTransform.position, playerTransform.rotation, Vector3.zero);
     }
 
     public void CreateCloneOnDashOver(Transform playerTransform)
     {
-        if (!createCloneOnDashOver) return;
+        if (!createCloneOnDashOver || !SkillManager.Instance.Clone.CanUseSkill()) return;
         CreateClone(playerTransform.position, playerTransform.rotation, Vector3.zero);
     }
 
     public void CreateCloneOnCounterAttack(Transform enemyTransform)
     {
-        if (!createCloneOnCounterAttack) return;
+        if (!createCloneOnCounterAttack || !SkillManager.Instance.Clone.CanUseSkill()) return;
         CreateClone(enemyTransform.position, enemyTransform.rotation, new Vector3(2 * player.Flip.facingDir, 0));
     }
 

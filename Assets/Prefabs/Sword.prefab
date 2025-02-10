@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6709647513661030793}
   - component: {fileID: 1610702485459348545}
   - component: {fileID: 6496871911354356049}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 7540866549827815351}
   - component: {fileID: 5212586539579304976}
   - component: {fileID: 4625322458649863307}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.2
 --- !u!114 &4625322458649863307
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -46,12 +46,11 @@ public class SwordSkill : Skill
 
     protected override void Update()
     {
-        base.Update();
-
         SetGravity();
 
         if (!player.InputController.isAimSwordPressed)
         {
+            cooldownTimer -= Time.deltaTime;
             var dir = AimDirection();
             finalDir = new Vector2(dir.x * launchForce.x, dir.y * launchForce.y);
         }

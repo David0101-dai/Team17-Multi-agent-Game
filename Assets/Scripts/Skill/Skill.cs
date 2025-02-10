@@ -4,7 +4,7 @@ public abstract class Skill : MonoBehaviour
 {
     public float cooldown;
     protected Player player;
-    protected float cooldownTimer;
+    [SerializeField] protected float cooldownTimer;
 
     protected virtual void Start()
     {

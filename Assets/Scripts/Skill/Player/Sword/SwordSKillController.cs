@@ -6,15 +6,19 @@ public class SwordSKillController : MonoBehaviour
 {
     private SwordType swordType;
 
+    [Header("Bounce Info")]
     private bool isBouncing;
     private float bounceSpeed;
     private int bounceAmount;
     private List<Transform> enemyTargets;
     private int targetIndex;
-
+    
+    [Header("Pierce Info")]
     private bool isPierce;
     private float pierceAmount;
+    
 
+    [Header("Spin Info")]
     private bool isSpinning;
     private float maxTravelDistance;
     private float spinDuration;
@@ -22,7 +26,9 @@ public class SwordSKillController : MonoBehaviour
     private bool wasStopped;
     private float hitTimer;
     private float hitCooldown;
+    
 
+    [Header("State Info")]
     private float returnSpeed;
     private bool canRotate;
     private bool isReturning;
@@ -188,6 +194,9 @@ public class SwordSKillController : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(transform.position, 1);
         foreach (var hit in colliders)
         {
+
+            if (hit.CompareTag("Player")) continue;
+            
             TakeDamage(hit, false);
         }
     }

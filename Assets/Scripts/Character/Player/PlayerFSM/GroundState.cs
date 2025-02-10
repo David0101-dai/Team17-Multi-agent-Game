@@ -45,7 +45,7 @@ public class GroundState : PlayerState
             return;
         }
 
-        if (Input.isAimSwordDown && CanReturnSword())
+        if (Input.isAimSwordDown && CanReturnSword() && Character.Skill.Sword.CanUseSkill())
         {
             Fsm.SwitchState(Character.AimSwordState);
             return;

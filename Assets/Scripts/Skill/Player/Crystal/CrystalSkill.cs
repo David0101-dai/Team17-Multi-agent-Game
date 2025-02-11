@@ -26,7 +26,7 @@ public class CrystalSkill : Skill
     [SerializeField] private int amountOfStacks;
     [SerializeField] private float multiStackCooldown;
     [SerializeField] private float useTimeWindow;
-    [SerializeField] private List<GameObject> crystalLeft;
+    [SerializeField] private List<GameObject> crystalLeft = new List<GameObject>();
 
     private GameObject currentCrystal;
 
@@ -41,10 +41,16 @@ public class CrystalSkill : Skill
         else
         {
             if (canMove) return;
+
             var playerPos = player.transform.position + new Vector3(0, 1);
             var crystalPos = currentCrystal.transform.position + new Vector3(0, -1);
+
             player.transform.position = crystalPos;
-            currentCrystal.transform.position = playerPos;
+
+            //这里可以决定爆炸发生在回溯的起点还是重点
+            //currentCrystal.transform.position = playerPos;
+
+
             if (cloneInsteadOfCrystal)
             {
                 var pos = currentCrystal.transform.position + new Vector3(0, -1);
@@ -98,6 +104,7 @@ public class CrystalSkill : Skill
         var pos = player.transform.position + new Vector3(0, 1);
         var parent = PlayerManager.Instance.fx.transform;
         var newCrystal = Instantiate(crystalToSpawn, pos, Quaternion.identity, parent);
+        
         if (newCrystal.TryGetComponent(out CrystalSkillController sc))
         {
             sc.Setup(

@@ -108,9 +108,12 @@ public class Player : Character
     {
         base.Update();
         dashUsageTimer -= Time.deltaTime;
+
+        //
         if (Input.GetKeyDown(KeyCode.Q))
             Skill.Crystal.CanUseSkill();
-
+        
+        //
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Inventory.Instance.UsedFlask();
     }

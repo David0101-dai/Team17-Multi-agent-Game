@@ -261,7 +261,7 @@ public abstract class Damageable : MonoBehaviour
                     closeDis = disToEnemy;
                     closeEnemy = hit.transform;
                 }
-                if (!closeEnemy || CompareTag("player")) closeEnemy = transform;
+                if (!closeEnemy || CompareTag("Player")) closeEnemy = transform;
                 var pos = transform.position + new Vector3(0, 1);
                 var parent = PlayerManager.Instance.fx.transform;
                 var strike = Instantiate(thunderStrikePrefab, pos, Quaternion.identity, parent);

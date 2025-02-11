@@ -38,6 +38,12 @@ public class CrystalSkillController : MonoBehaviour
         float growSpeed,
         Func<Transform, float, Transform> findClosestEnemy)
     {
+
+        if (player == null)
+        {
+        Debug.LogError("Player reference is null in Setup method!");
+        }
+
         this.player = player;
         crystalExistTimer = duration;
         this.canExplode = canExplode;
@@ -114,11 +120,19 @@ public class CrystalSkillController : MonoBehaviour
     {
         var colliders = Physics2D.OverlapCircleAll(transform.position, cd.radius);
 
+        if (player == null)
+        {
+        Debug.LogError("Player reference is null in Setup method!");
+        }
+
         foreach (var hit in colliders)
         {
             if (hit.CompareTag("Player") || hit.transform == transform) continue;
+
             if (!hit.TryGetComponent(out Damageable damageable)) continue;
+            
             var equipedAmulet = Inventory.Instance.GetEquipmentByType(EquipmentType.Amulet);
+            
             if (equipedAmulet != null)
                 equipedAmulet.ExecuteItemEffect(player.gameObject, hit.gameObject);
             damageable.TakeDamage(player.gameObject, true);

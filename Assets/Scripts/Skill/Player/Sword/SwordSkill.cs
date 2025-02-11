@@ -7,6 +7,7 @@ public class SwordSkill : Skill
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce;
     [SerializeField] private float returnSpeed;
+    [SerializeField] private float freezeTime;
 
     [Header("Dots Value")]
     [SerializeField] private int numberOfDots;
@@ -32,6 +33,8 @@ public class SwordSkill : Skill
     [SerializeField] private float hitCooldown;
 
     private float swordGravity;
+
+
     private GameObject[] dots;
     private Vector2 finalDir;
 
@@ -65,7 +68,8 @@ public class SwordSkill : Skill
 
     public void CreateSword()
     {
-        var newSword = Instantiate(swordPrefab, player.transform.position + new Vector3(0, 1, 0), transform.rotation);
+        var newSword = Instantiate(swordPrefab, player.transform.position 
+        + new Vector3(0, 1, 0), transform.rotation);
         newSword.transform.SetParent(PlayerManager.Instance.fx.transform);
         var newSwordController = newSword.GetComponent<SwordSKillController>();
 
@@ -80,7 +84,8 @@ public class SwordSkill : Skill
             pierceAmount,
             maxTravelDistance,
             spinDuration,
-            hitCooldown);
+            hitCooldown,
+            freezeTime);
 
         player.UsedSword = newSword;
 
@@ -123,7 +128,8 @@ public class SwordSkill : Skill
         var parent = PlayerManager.Instance.fx.transform;
         for (int i = 0; i < numberOfDots; i++)
         {
-            dots[i] = Instantiate(dotsPrefab, player.transform.position + new Vector3(0, 1, 0), Quaternion.identity, parent);
+            dots[i] = Instantiate(dotsPrefab, player.transform.position 
+            + new Vector3(0, 1, 0), Quaternion.identity, parent);
             dots[i].SetActive(false);
         }
     }

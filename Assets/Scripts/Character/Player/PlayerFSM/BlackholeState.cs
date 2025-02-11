@@ -13,7 +13,6 @@ public class BlackholeState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
         skillUsed = false;
         StateTimer = flyTime;
         Rb.gravityScale = 0;

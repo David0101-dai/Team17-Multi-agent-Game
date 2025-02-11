@@ -17,7 +17,6 @@ public class SwordSKillController : MonoBehaviour
     private bool isPierce;
     private float pierceAmount;
     
-
     [Header("Spin Info")]
     private bool isSpinning;
     private float maxTravelDistance;
@@ -26,13 +25,14 @@ public class SwordSKillController : MonoBehaviour
     private bool wasStopped;
     private float hitTimer;
     private float hitCooldown;
-    
+
+    private float spinDirection;
 
     [Header("State Info")]
     private float returnSpeed;
     private bool canRotate;
     private bool isReturning;
-
+    private float freezeTime;
     private Vector2 pos;
     private Vector2 playerPos;
     private Animator anim;
@@ -61,7 +61,8 @@ public class SwordSKillController : MonoBehaviour
         int pierceAmount,
         float maxTravelDistance,
         float spinDuration,
-        float hitCooldown)
+        float hitCooldown,
+        float freezeTime)
     {
         this.swordType = swordType;
         this.player = player;
@@ -74,6 +75,10 @@ public class SwordSKillController : MonoBehaviour
         this.maxTravelDistance = maxTravelDistance;
         this.spinDuration = spinDuration;
         this.hitCooldown = hitCooldown;
+        this.freezeTime = freezeTime;
+        
+        //新增旋转向前逻辑
+        spinDirection = Mathf.Clamp(rb.velocity.x,-1,1);
 
         if (swordType == SwordType.Bounce)
             isBouncing = true;
@@ -122,21 +127,12 @@ public class SwordSKillController : MonoBehaviour
                 break;
         }
     }
-
     public void ReturnSword()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.SetParent(PlayerManager.Instance.fx.transform);
         isReturning = true;
     }
-
-    private void StopWhenSpinning()
-    {
-        wasStopped = true;
-        rb.constraints = RigidbodyConstraints2D.FreezePosition;
-        spinTimer = spinDuration;
-    }
-
     private void ReturnLogic()
     {
         if (!isReturning) return;
@@ -172,14 +168,24 @@ public class SwordSKillController : MonoBehaviour
     {
         if (Vector2.Distance(playerPos, pos) > maxTravelDistance && !wasStopped)
         {
-            wasStopped = true;
-            rb.constraints = RigidbodyConstraints2D.FreezePosition;
-            spinTimer = spinDuration;
+            StopWhenSpinning();
         }
 
         if (!wasStopped) return;
 
         spinTimer -= Time.deltaTime;
+
+        // 只有当碰撞体是敌人时，才缓慢向前移动
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 1);  // 你可以调整这里的范围
+        foreach (var hit in colliders)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                // 触碰到敌人时，缓慢向前移动
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + spinDirection, transform.position.y), 1.5f * Time.deltaTime);
+            }
+        }
+
         if (spinTimer < 0)
         {
             isReturning = true;
@@ -191,14 +197,20 @@ public class SwordSKillController : MonoBehaviour
 
         hitTimer = hitCooldown;
 
-        var colliders = Physics2D.OverlapCircleAll(transform.position, 1);
+        colliders = Physics2D.OverlapCircleAll(transform.position, 1);
         foreach (var hit in colliders)
         {
-
+            // 跳过Player标签的碰撞体
             if (hit.CompareTag("Player")) continue;
-            
+
             TakeDamage(hit, false);
         }
+    }
+    private void StopWhenSpinning()
+    {
+        wasStopped = true;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        spinTimer = spinDuration;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -223,13 +235,13 @@ public class SwordSKillController : MonoBehaviour
         damageable.TakeDamage(player.gameObject);
         if (!needFreeze) return;
         if (!other.TryGetComponent(out Enemy enemy)) return;
-        enemy.FreezeTimeForSeconds(0.7f);
+        enemy.FreezeTimeForSeconds(freezeTime);
     }
 
     private void GetBounceEnemy()
     {
         if (!isBouncing || enemyTargets.Count > 0) return;
-        var colliders = Physics2D.OverlapCircleAll(transform.position, 10);
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 6);
         foreach (var hit in colliders)
         {
             if (!hit.CompareTag("Enemy")) continue;

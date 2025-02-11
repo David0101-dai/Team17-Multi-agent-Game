@@ -24,6 +24,12 @@ public abstract class Skill : MonoBehaviour
         return true;
     }
 
+    public bool DelayCanUseSkill()
+    {
+        if (cooldownTimer >= 0) return false;
+        return true;
+    }
+
     protected abstract void SkillFunction();
 
     protected virtual Transform FindClosestEnemy(Transform detectTransform, float radius)

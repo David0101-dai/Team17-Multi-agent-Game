@@ -67,12 +67,12 @@ public class PlayerState : CharacterState<Player>
     public IEnumerator BusyFor(float seconds)
     {
         isBusy = true;
-        Debug.Log("IS BUSY");
+        //Debug.Log("IS BUSY");
 
         //await Task.Delay((int)(seconds * 1000));
-       yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(seconds);
 
-        Debug.Log("NOT BUSY");
+        //Debug.Log("NOT BUSY");
         isBusy = false;
     }
 }

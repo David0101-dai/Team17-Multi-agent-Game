@@ -52,7 +52,7 @@ public class AttackState : PlayerState
 {
     base.Exit(newState);
 
-    Character.StartCoroutine(BusyFor(0.15f)); // ȷ�� Player �� Character ��һ�� MonoBehaviour
+    Character.StartCoroutine(BusyFor(0.15f));
 
     Anim.speed = 1;
 

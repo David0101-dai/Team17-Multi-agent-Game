@@ -16,6 +16,9 @@ public abstract class Enemy : Character
     public float attackDistance = 2f;
     public float attackCooldown = 0.4f;
     public float lostPlayerTime = 7f;
+    private float lastHitTime = 0f;
+    public float hitCooldown = 0.5f; // 设置冷却时间为 0.5 秒
+
 
     [Header("Stun Value")]
     public float stunTime = 2f;
@@ -40,17 +43,28 @@ public abstract class Enemy : Character
         Damageable.OnTakeDamage += (from, to) =>
         {
             damageFrom = from;
-            if (damageFrom.CompareTag("Player") && IsInStunState())
+
+            // 检查是否符合冷却时间
+            if (Time.time - lastHitTime >= hitCooldown)
             {
-                var isRight = damageFrom.transform.position.x > transform.position.x;
-                var isLeft = damageFrom.transform.position.x < transform.position.x;
-                var faceDir = isRight ? 1 : isLeft ? -1 : 0;
-                Rb.velocity = new Vector2(faceDir * -1 * knockbackXSpeed, knockbackYSpeed);
-                if (faceDir != 0 && faceDir != Flip.facingDir) Flip.Flip();
-                return;
+                // 更新时间戳
+                lastHitTime = Time.time;
+
+                if (damageFrom.CompareTag("Player") && IsInStunState())
+                {
+                    var isRight = damageFrom.transform.position.x > transform.position.x;
+                    var isLeft = damageFrom.transform.position.x < transform.position.x;
+                    var faceDir = isRight ? 1 : isLeft ? -1 : 0;
+                    Rb.velocity = new Vector2(faceDir * -1 * knockbackXSpeed, knockbackYSpeed);
+                    if (faceDir != 0 && faceDir != Flip.facingDir) Flip.Flip();
+                    return;
+                }
+
+                // 只有在冷却时间过去后才触发 SwitchHitState
+                SwitchHitState();
             }
-            SwitchHitState();
         };
+
     }
 
     protected override void Update(){

@@ -741,8 +741,9 @@ MonoBehaviour:
   attackDistance: 2
   attackCooldown: 0.1
   lostPlayerTime: 7
-  stunTime: 2
-  canBeStun: 1
+  hitCooldown: 1
+  stunTime: 0.5
+  canBeStun: 0
   counterImage: {fileID: 9166753232305936480}
 --- !u!114 &5065123994517277822
 MonoBehaviour:

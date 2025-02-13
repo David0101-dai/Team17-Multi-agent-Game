@@ -8,10 +8,10 @@ public abstract class Damageable : MonoBehaviour
     public int currentHp;
 
     [Header("Major Stats")]
-    public Stats Str;
-    public Stats Agi;
-    public Stats Int;
-    public Stats Vit;
+    public Stats Str;  //力量， 可以提高伤害
+    public Stats Agi;  //敏捷，敏捷可以提高闪避的概率
+    public Stats Int;   //理智，可以提高魔法伤害
+    public Stats Vit;   //防御， 可以减少收到的伤害
 
     [Header("offensive Stats")]
     public Stats Damage;
@@ -20,9 +20,9 @@ public abstract class Damageable : MonoBehaviour
 
     [Header("Defensive Stats")]
     public Stats MaxHp;
-    public Stats Armor;
-    public Stats Evasion;
-    public Stats MagicResistance;
+    public Stats Armor;  //装甲
+    public Stats Evasion; //闪避
+    public Stats MagicResistance; //抗魔
 
     [Header("Magic Stats")]
     public Stats FireDamage;
@@ -156,14 +156,14 @@ public abstract class Damageable : MonoBehaviour
         {
             if (damage != 0)
             {
-                // Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
+                 Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
                 OnTakeDamage?.Invoke(from, gameObject);
                 AttackSense.Instance.HitPause(0.1f);
                 AttackSense.Instance.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
             }
             else
             {
-                // Debug.Log($"{gameObject.name} 回避了来自 {from.name} 的攻击");
+                 Debug.Log($"{gameObject.name} 回避了来自 {from.name} 的攻击");
             }
         }
         else
@@ -190,11 +190,12 @@ public abstract class Damageable : MonoBehaviour
             finalDamage -= to.Armor.GetValue();
         }
 
-        var finalCritical = CritChance.GetValue() + Agi.GetValue();
+        var finalCritical = from.CritChance.GetValue() + from.Agi.GetValue();
         if (UnityEngine.Random.Range(0, 100) <= finalCritical)
         {
             var finalCritPower = (CritPower.GetValue() + Str.GetValue()) * 0.01f;
             finalDamage = Mathf.RoundToInt(finalDamage * finalCritPower);
+            Debug.Log("玩家触发了暴击");
         }
 
         finalDamage = Mathf.Clamp(finalDamage, 1, int.MaxValue);

@@ -48,7 +48,7 @@ public class CrystalSkill : Skill
             player.transform.position = crystalPos;
 
             //这里可以决定爆炸发生在回溯的起点还是重点
-            //currentCrystal.transform.position = playerPos;
+            currentCrystal.transform.position = playerPos;
 
 
             if (cloneInsteadOfCrystal)

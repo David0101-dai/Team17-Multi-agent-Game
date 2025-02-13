@@ -48,7 +48,7 @@ public class CharacterState<T> : IState where T : Character
 
     public virtual void AnimationFinishTrigger()
     {
-        Debug.Log("触发AnimationFinishTrigger");
+        //Debug.Log("触发AnimationFinishTrigger");
         IsAnimationFinished = true;
     }
 }

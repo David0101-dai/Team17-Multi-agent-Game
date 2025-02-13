@@ -4,6 +4,7 @@ public class ThunderStrikeController : MonoBehaviour
 {
     [SerializeField] private Damageable damageable;
     [SerializeField] private float speed;
+    [SerializeField] private float existTimer;
 
     private bool triggered;
     private Animator anim;
@@ -20,6 +21,8 @@ public class ThunderStrikeController : MonoBehaviour
 
     private void Update()
     {
+        existTimer -= Time.deltaTime;
+
         if (!damageable || triggered) return;
 
         var pos = damageable.transform.position + new Vector3(0, 1);
@@ -35,6 +38,10 @@ public class ThunderStrikeController : MonoBehaviour
             triggered = true;
             anim.SetTrigger("Hit");
             Invoke(nameof(Damage), 0.1f);
+        }
+
+        if(existTimer <= 0){
+            Destroy(gameObject);
         }
     }
 

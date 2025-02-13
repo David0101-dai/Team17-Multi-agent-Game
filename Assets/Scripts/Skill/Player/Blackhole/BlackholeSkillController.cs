@@ -64,7 +64,7 @@ public class BlackholeSkillController : MonoBehaviour
         this.shrinkSpeed = shrinkSpeed;
         this.amountOfAttacks = amountOfAttacks;
         this.cloneAttackCooldown = cloneAttackCooldown;
-        this.blackholeDuration = blackholeDuration;
+        this.blackholeDuration = blackholeDuration*2;
         blackholeTimer = blackholeDuration;
 
         playerCanDisaper = !SkillManager.Instance.Clone.crystalInsteadOfClone;
@@ -76,6 +76,7 @@ public class BlackholeSkillController : MonoBehaviour
     private void Update()
     {
         cloneAttackTimer -= Time.deltaTime;
+        blackholeDuration -= Time.deltaTime;
         blackholeTimer -= Time.deltaTime;
         // 黑洞状态管理
         if (currentState == BlackholeState.Growing)
@@ -104,6 +105,10 @@ public class BlackholeSkillController : MonoBehaviour
             ReleaseCloneAttack();
         }
 
+        if(blackholeDuration < 0){
+            FinishBlackhole();
+        }
+
         CloneAttackLogic();
 
     }
@@ -125,7 +130,7 @@ public class BlackholeSkillController : MonoBehaviour
         DestroyHotkeys();
     }
 
-    private void CloneAttackLogic()
+        private void CloneAttackLogic()
     {
         if (cloneAttackReleased && amountOfAttacks > 0 && cloneAttackTimer <= 0)
         {
@@ -133,8 +138,13 @@ public class BlackholeSkillController : MonoBehaviour
             
             // 将 HashSet 转换为 List 进行随机访问
             List<Transform> targetList = new List<Transform>(targets);
+
+            // 过滤掉已经死亡或销毁的目标
+            targetList.RemoveAll(target => target == null); 
+
+            if (targetList.Count == 0) return;  // 如果没有有效目标，则跳过攻击逻辑
+
             int randomIndex = Random.Range(0, targetList.Count);
-            
             var pos = targetList[randomIndex].position;
 
             var offset = new Vector3(Random.Range(0, 100) > 50 ? 2 : -2, 0, 0);
@@ -158,6 +168,7 @@ public class BlackholeSkillController : MonoBehaviour
             }
         }
     }
+
 
 
     private void OnTriggerEnter2D(Collider2D other)

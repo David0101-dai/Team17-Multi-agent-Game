@@ -39,4 +39,10 @@ public class SmallHpBar : MonoBehaviour
     {
         rectTransform.Rotate(0, 180, 0);
     }
+
+
+    private void Update()
+    {
+        slider.value = damageable.currentHp;
+    }
 }

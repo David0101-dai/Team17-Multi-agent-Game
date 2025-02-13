@@ -97,6 +97,14 @@ public abstract class Damageable : MonoBehaviour
 
     public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true)
     {
+
+        if (currentHp <= 0)
+        {
+            isDead = true;
+            Die();
+            currentHp = 0;  // Ensure the HP doesn't go below 0
+        }
+
         if (isDead) return;
 
         var damageFrom = from.GetComponent<Damageable>();

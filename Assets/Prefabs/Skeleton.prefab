@@ -803,10 +803,10 @@ MonoBehaviour:
   IsIgnited: 0
   IsChilled: 0
   IsShocked: 0
-  igniteDuration: 0.2
-  chillDuration: 0.2
+  igniteDuration: 2
+  chillDuration: 2
   thunderStrikePrefab: {fileID: 4050344180660983985, guid: 197d6a6330fb1a047aa8e053e9df76bb, type: 3}
-  shockDuration: 0.8
+  shockDuration: 1
 --- !u!114 &2880547275683043672
 MonoBehaviour:
   m_ObjectHideFlags: 0

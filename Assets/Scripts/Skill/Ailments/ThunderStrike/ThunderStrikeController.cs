@@ -23,6 +23,8 @@ public class ThunderStrikeController : MonoBehaviour
     {
         existTimer -= Time.deltaTime;
 
+        Debug.Log($"Exist Timer: {existTimer}");
+
         if (!damageable || triggered) return;
 
         var pos = damageable.transform.position + new Vector3(0, 1);
@@ -41,9 +43,11 @@ public class ThunderStrikeController : MonoBehaviour
         }
 
         if(existTimer <= 0){
+            Debug.Log("Exist Timer expired, destroying object");
             Destroy(gameObject);
         }
     }
+
 
     private void Damage()
     {

@@ -14,12 +14,12 @@ public abstract class Damageable : MonoBehaviour
     public Stats Vit;   //防御， 可以减少收到的伤害
 
     [Header("offensive Stats")]
-    public Stats Damage;
-    public Stats CritChance;
-    public Stats CritPower;
+    public Stats Damage;  //攻击力
+    public Stats CritChance;  //暴击率
+    public Stats CritPower;  //暴击伤害
 
     [Header("Defensive Stats")]
-    public Stats MaxHp;
+    public Stats MaxHp;  //最大生命值
     public Stats Armor;  //装甲
     public Stats Evasion; //闪避
     public Stats MagicResistance; //抗魔
@@ -29,9 +29,9 @@ public abstract class Damageable : MonoBehaviour
     public Stats IceDamage;
     public Stats LightingDamage;
 
-    public bool IsIgnited;
-    public bool IsChilled;
-    public bool IsShocked;
+    public bool IsIgnited; //持续伤害
+    public bool IsChilled; //减少护甲
+    public bool IsShocked; //减少闪避率
 
     [Header("Ignite")]
     public float igniteDuration;
@@ -83,15 +83,15 @@ public abstract class Damageable : MonoBehaviour
         {
             IsShocked = false;
         }
-
         if (IsIgnited && igniteDamageTimer < 0)
         {
+            // 计算持续的火焰伤害
             currentHp -= igniteDamage;
             if (currentHp <= 0)
             {
                 Die();
             }
-            igniteDamageTimer = igniteDamageCooldown;
+            igniteDamageTimer = igniteDamageCooldown;  // 重置计时器
         }
     }
 
@@ -176,7 +176,9 @@ public abstract class Damageable : MonoBehaviour
     private int CalculateDamage(Damageable from, Damageable to)
     {
         var finalEvasion = to.Evasion.GetValue() + to.Agi.GetValue();
-        if (from.IsShocked) finalEvasion += 20;
+
+        if (from.IsShocked) finalEvasion += 20; //如果被雷劈可以减少地方的闪避率
+
         if (UnityEngine.Random.Range(0, 100) <= finalEvasion) return 0;
 
         var finalDamage = from.Damage.GetValue() + from.Str.GetValue() - to.Vit.GetValue();
@@ -210,6 +212,7 @@ public abstract class Damageable : MonoBehaviour
 
         var finalMagicalDamage = fireDamage + iceDamage + lightingDamage + from.Int.GetValue();
 
+
         finalMagicalDamage -= to.MagicResistance.GetValue() + (to.Int.GetValue() * 3);
 
         finalMagicalDamage = Mathf.Clamp(finalMagicalDamage, 1, int.MaxValue);
@@ -228,7 +231,7 @@ public abstract class Damageable : MonoBehaviour
             IsIgnited = ignite;
             ignitedTimer = igniteDuration;
             flashFX.AlimentsFxFor(flashFX.igniteColor, igniteDuration);
-            Debug.Log("这里被调用1");
+            Debug.Log("结算为燃烧状态");
         }
         if (chill && canApplyChill)
         {
@@ -236,7 +239,7 @@ public abstract class Damageable : MonoBehaviour
             chilledTimer = chillDuration;
             flashFX.AlimentsFxFor(flashFX.chillColor, chillDuration);
             character.SlowBy(0.5f, chillDuration);
-            Debug.Log("这里被调用2");
+            Debug.Log("结算为冻结状态");
         }
         if (shock && canApplyShock)
         {
@@ -245,7 +248,7 @@ public abstract class Damageable : MonoBehaviour
                 IsShocked = shock;
                 shockedTimer = shockDuration;
                 flashFX.AlimentsFxFor(flashFX.shockColor, shockDuration);
-                Debug.Log("这里被调用3");
+                Debug.Log("结算为感电状态");
             }
             else
             {

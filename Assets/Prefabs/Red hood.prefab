@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616989254780633611}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.37, y: 0.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   knockbackXSpeed: 5
   knockbackYSpeed: 0
   damageFrom: {fileID: 0}
-  defaultMoveSpeed: 1.5
+  defaultMoveSpeed: 3
   moveSpeed: 1.5
   attackDistance: 2
   attackCooldown: 0.1
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   Str:
-    value: 30
+    value: 15
     modifiers: 
   Agi:
     value: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
     value: 0
     modifiers: 
   MaxHp:
-    value: 100
+    value: 200
     modifiers: 
   Armor:
     value: 0
@@ -252,7 +252,7 @@ MonoBehaviour:
     value: 0
     modifiers: 
   FireDamage:
-    value: 5
+    value: 20
     modifiers: 
   IceDamage:
     value: 5

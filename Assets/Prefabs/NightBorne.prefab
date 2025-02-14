@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 3.09, y: -0.95}
+  m_AnchoredPosition: {x: 0.21999846, y: 1.9299998}
   m_SizeDelta: {x: 167.5865, y: 43.9722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4895562946707297460
@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2823429415000204189}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 29.851, y: 2.6883, z: 0}
   m_LocalScale: {x: 1.6187, y: 1.6187, z: 1.6187}
   m_ConstrainProportionsScale: 0
@@ -217,7 +217,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.65, y: -1.98}
+  m_Offset: {x: -0.09, y: 0.9}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -228,7 +228,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.29, y: 2.21}
+  m_Size: {x: 1.44, y: 1.9}
   m_EdgeRadius: 0
 --- !u!114 &4881729333243194942
 MonoBehaviour:
@@ -268,8 +268,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   DetectedPlayer: {fileID: 0}
-  playerCheckDistance: 6.35
-  playerCheckBackDistance: 1.93
+  playerCheckDistance: 10
+  playerCheckBackDistance: 10
   isNeedPlayerCheck: 1
 --- !u!114 &8282324458951744264
 MonoBehaviour:
@@ -307,11 +307,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 4784537436579379267}
-  attackCheckRadius: 1
+  attackCheckRadius: 1.52
   knockbackXSpeed: 5
   knockbackYSpeed: 0
   damageFrom: {fileID: 0}
-  defaultMoveSpeed: 1.5
+  defaultMoveSpeed: 4
   moveSpeed: 1.5
   attackDistance: 2
   attackCooldown: 0.1
@@ -337,25 +337,25 @@ MonoBehaviour:
     value: 30
     modifiers: 
   Agi:
-    value: 0
+    value: 40
     modifiers: 
   Int:
     value: 0
     modifiers: 
   Vit:
-    value: 0
+    value: 10
     modifiers: 
   Damage:
     value: 0
     modifiers: 
   CritChance:
-    value: 0
+    value: 15
     modifiers: 
   CritPower:
-    value: 0
+    value: 150
     modifiers: 
   MaxHp:
-    value: 100
+    value: 200
     modifiers: 
   Armor:
     value: 0
@@ -431,7 +431,7 @@ Transform:
   m_GameObject: {fileID: 5147267675705691731}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.347, y: 1.006, z: 0}
+  m_LocalPosition: {x: -2.58, y: 3.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -499,7 +499,7 @@ Animator:
   m_GameObject: {fileID: 5147267675705691731}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5495c722e0264574188c28a38dab2167, type: 2}
+  m_Controller: {fileID: 9100000, guid: 21dbf7cff488c7a4ba95b71595b1ce18, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -547,7 +547,7 @@ Transform:
   m_GameObject: {fileID: 5736619126257908420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.36, y: -2.02, z: 0}
+  m_LocalPosition: {x: 0.59, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -668,7 +668,7 @@ Transform:
   m_GameObject: {fileID: 6551954346932236288}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.01, y: -0.84, z: 0}
+  m_LocalPosition: {x: 0.12999848, y: 2.1, z: 0}
   m_LocalScale: {x: 0.54, y: 0.54, z: 0.54}
   m_ConstrainProportionsScale: 1
   m_Children: []

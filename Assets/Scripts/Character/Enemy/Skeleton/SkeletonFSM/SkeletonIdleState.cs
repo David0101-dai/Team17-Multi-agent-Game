@@ -8,7 +8,7 @@ public class SkeletonIdleState : SkeletonGroundState
     {
         base.Enter(lastState);
 
-        //SetVelocity(0, 0);
+        SetVelocity(0, 0);
 
         StateTimer = 1f;
     }

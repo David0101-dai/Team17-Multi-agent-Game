@@ -708,7 +708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153bec4b33efc5d4296ec1ec3e3869e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashTime: 0.1
   igniteColor:
   - {r: 1, g: 0.39107904, b: 0.23137254, a: 1}
   - {r: 1, g: 0, b: 0.08326101, a: 1}
@@ -719,6 +718,7 @@ MonoBehaviour:
   - {r: 0.972549, g: 1, b: 0.29803923, a: 1}
   - {r: 1, g: 0.8117647, b: 0.29803923, a: 1}
   hitMat: {fileID: 0}
+  flashTime: 0.1
 --- !u!114 &2804243171117335249
 MonoBehaviour:
   m_ObjectHideFlags: 0

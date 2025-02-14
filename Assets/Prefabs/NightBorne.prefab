@@ -313,11 +313,11 @@ MonoBehaviour:
   damageFrom: {fileID: 0}
   defaultMoveSpeed: 4
   moveSpeed: 1.5
-  attackDistance: 2
-  attackCooldown: 0.1
+  attackDistance: 3
+  attackCooldown: 2
   lostPlayerTime: 7
   hitCooldown: 1
-  stunTime: 0.5
+  stunTime: 5
   canBeStun: 0
   counterImage: {fileID: 6551954346932236288}
 --- !u!114 &2038227743501116559

@@ -205,7 +205,7 @@ public abstract class Damageable : MonoBehaviour
         {
             var finalCritPower = (CritPower.GetValue() + Str.GetValue()) * 0.01f;
             finalDamage = Mathf.RoundToInt(finalDamage * finalCritPower);
-            Debug.Log("玩家触发了暴击");
+            Debug.Log("触发了暴击");
         }
 
         finalDamage = Mathf.Clamp(finalDamage, 1, int.MaxValue);

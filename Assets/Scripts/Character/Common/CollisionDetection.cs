@@ -62,6 +62,9 @@ public class CollisionDetection : MonoBehaviour
 
         var middlePos = transform.position + new Vector3(col.size.x / 2 * facingValue, col.size.y / 2, 0);
         var middleWallChecked = Physics2D.Raycast(middlePos, rayDirection, wallCheckDistance, platformLayer);
+        
+        Debug.DrawRay(middlePos, rayDirection * wallCheckDistance, Color.red);
+
 
         IsWallDetected = !isFullDetected ? middleWallChecked : middleWallChecked || FullDetected();
 

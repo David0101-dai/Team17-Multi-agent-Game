@@ -7,10 +7,6 @@ using UnityEngine;
 
 public class FlashFX : MonoBehaviour
 {
-    
-      
-    
-    public float flashTime = 0.1f;
     public List<Color> igniteColor;
     public List<Color> chillColor;
     public List<Color> shockColor;
@@ -20,45 +16,25 @@ public class FlashFX : MonoBehaviour
 
     [Header("Flash FX")]
     [SerializeField] private Material hitMat;
-    private Material originalMat;
 
+    [SerializeField] private float flashTime = 0.1f;
 
 
     private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
-        originalMat = sr.material;
         damageable = transform.GetComponent<Damageable>();
+    }
+
+
+    private void Update()
+    {
         damageable.OnTakeDamage += (from, to) => UniTask.ToCoroutine(async () =>
        {
            sr.material.SetInt("_Flash", Convert.ToInt32(true));
-           await UniTask.WaitForSeconds(0.3f);
+           await UniTask.WaitForSeconds(flashTime);
            sr.material.SetInt("_Flash", Convert.ToInt32(false));
        });
-    }
-
-    // 大坑，一样的东西，用task就是无效，修改材质一定要用协程
-    // Task.Run(async () =>
-    // {
-    //     render.material.SetInt("_Flash", 1);
-    //     await Task.Delay((int)0.1f * 1000);
-    //     render.material.SetInt("_Flash", 0);
-    // });
-
-
-    // IEnumerator Flash()
-    // {
-    //     sr.material.SetInt("_Flash", Convert.ToInt32(true));
-    //     yield return new WaitForSeconds(5);
-    //     sr.material.SetInt("_Flash", Convert.ToInt32(false));
-    // }
-
-    private IEnumerator Flash(){
-         sr.material = hitMat;
-
-         yield return new WaitForSeconds(.2f);
-
-         sr.material = originalMat;
     }
 
     public void RedBlink(bool isOn)
@@ -96,3 +72,28 @@ public class FlashFX : MonoBehaviour
         }
     }
 }
+
+    // 大坑，一样的东西，用task就是无效，修改材质一定要用协程
+    // Task.Run(async () =>
+    // {
+    //     render.material.SetInt("_Flash", 1);
+    //     await Task.Delay((int)0.1f * 1000);
+    //     render.material.SetInt("_Flash", 0);
+    // });
+
+
+    // IEnumerator Flash()
+    // {
+    //     sr.material.SetInt("_Flash", Convert.ToInt32(true));
+    //     yield return new WaitForSeconds(5);
+    //     sr.material.SetInt("_Flash", Convert.ToInt32(false));
+    // }
+
+
+    // private IEnumerator Flash(){
+    //      sr.material = hitMat;
+
+    //      yield return new WaitForSeconds(.2f);
+
+    //      sr.material = originalMat;
+    // }

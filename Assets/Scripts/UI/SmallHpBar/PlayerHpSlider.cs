@@ -12,6 +12,9 @@ public class PlayerHpSlider : MonoBehaviour
     {
         slider = GetComponentInChildren<Slider>();
         damageable = Player.GetComponent<Damageable>();
+
+        slider.maxValue = damageable.MaxHp.GetValue();
+        slider.value = damageable.currentHp;
     }
     
      private void Update(){

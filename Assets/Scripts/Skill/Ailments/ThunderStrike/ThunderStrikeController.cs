@@ -21,9 +21,18 @@ public class ThunderStrikeController : MonoBehaviour
 
     private void Update()
     {
+
+         // 如果 damageable 为空，直接销毁物体
+        if (!damageable)
+        {
+            Debug.Log("Damageable is null, destroying object.");
+            Destroy(gameObject);
+            return; // 不继续执行后续代码
+        }
+
         existTimer -= Time.deltaTime;
 
-        Debug.Log($"Exist Timer: {existTimer}");
+        //Debug.Log($"Exist Timer: {existTimer}");
 
         if (!damageable || triggered) return;
 
@@ -31,6 +40,7 @@ public class ThunderStrikeController : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(transform.position, pos, speed * Time.deltaTime);
         transform.right = transform.position - pos;
+
         if (Vector2.Distance(transform.position, pos) < 0.1f)
         {
             anim.transform.localPosition = new Vector3(0, 0.5f);
@@ -42,10 +52,12 @@ public class ThunderStrikeController : MonoBehaviour
             Invoke(nameof(Damage), 0.1f);
         }
 
+
         if(existTimer <= 0){
-            Debug.Log("Exist Timer expired, destroying object");
+           // Debug.Log("Exist Timer expired, destroying object");
             Destroy(gameObject);
         }
+        
     }
 
 

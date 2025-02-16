@@ -17,6 +17,7 @@ public abstract class Damageable : MonoBehaviour
     public Stats Damage;  //攻击力
     public Stats CritChance;  //暴击率
     public Stats CritPower;  //暴击伤害
+    private bool triggerCriticalStrike;
 
     [Header("Defensive Stats")]
     public Stats MaxHp;  //最大生命值
@@ -62,6 +63,7 @@ public abstract class Damageable : MonoBehaviour
         flashFX = GetComponent<FlashFX>();
         character = GetComponent<Character>();
         isDead = false;
+        triggerCriticalStrike = false;
     }
 
     private void Update()
@@ -97,6 +99,7 @@ public abstract class Damageable : MonoBehaviour
 
     public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true)
     {
+        
 
         if (currentHp <= 0)
         {
@@ -110,16 +113,19 @@ public abstract class Damageable : MonoBehaviour
         var damageFrom = from.GetComponent<Damageable>();
 
         var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
+        
         currentHp -= damage;
 
         if (from.CompareTag("Player") && canEffect)
         {
             Inventory.Instance.GetEquipmentByType(EquipmentType.Weapon)?.ExecuteItemEffect(from, gameObject);
         }
+
         if (CompareTag("Player") && ((float)currentHp / MaxHp.GetValue()) < 0.3)
         {
             Inventory.Instance.GetEquipmentByType(EquipmentType.Armor)?.ExecuteItemEffect(from, gameObject);
         }
+
 
         if (isMagic)
         {
@@ -167,7 +173,10 @@ public abstract class Damageable : MonoBehaviour
                  Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
                 OnTakeDamage?.Invoke(from, gameObject);
                 AttackSense.Instance.HitPause(0.1f);
-                AttackSense.Instance.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+                if(triggerCriticalStrike){
+                    AttackSense.Instance.GetComponent<CinemachineImpulseSource>().GenerateImpulse(); 
+                    triggerCriticalStrike = false;
+                }
             }
             else
             {
@@ -206,6 +215,7 @@ public abstract class Damageable : MonoBehaviour
             var finalCritPower = (CritPower.GetValue() + Str.GetValue()) * 0.01f;
             finalDamage = Mathf.RoundToInt(finalDamage * finalCritPower);
             Debug.Log("触发了暴击");
+            triggerCriticalStrike = true;
         }
 
         finalDamage = Mathf.Clamp(finalDamage, 1, int.MaxValue);

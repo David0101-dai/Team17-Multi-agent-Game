@@ -1,3 +1,7 @@
+using System.Diagnostics;
+using System.Collections;
+using UnityEngine;
+
 public class JumpState : AirState
 {
     public JumpState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
@@ -8,17 +12,22 @@ public class JumpState : AirState
     {
         base.Enter(lastState);
 
-        if (airJumpCounter >= Character.airJumpCount)
-        {
-            return;
-        }
-
         if (!ColDetect.IsGrounded)
         {
             airJumpCounter++;
+        }else{
+            airJumpCounter = 0;
+        }       
+
+        if (airJumpCounter >= Character.airJumpCount+1)
+        {
+            UnityEngine.Debug.Log("return");
+            return;
         }
 
         SetVelocity(Rb.velocity.x, Character.jumpForce);
+        UnityEngine.Debug.Log("Jump");
+
     }
 
     public override void Update()

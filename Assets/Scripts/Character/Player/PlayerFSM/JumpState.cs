@@ -21,12 +21,12 @@ public class JumpState : AirState
 
         if (airJumpCounter >= Character.airJumpCount+1)
         {
-            UnityEngine.Debug.Log("return");
+            //UnityEngine.Debug.Log("return");
             return;
         }
 
         SetVelocity(Rb.velocity.x, Character.jumpForce);
-        UnityEngine.Debug.Log("Jump");
+        //UnityEngine.Debug.Log("Jump");
 
     }
 
@@ -40,7 +40,7 @@ public class JumpState : AirState
         }
     }
 
-    public override void Exit(IState newState)
+    public override void Exit(IState newState)  
     {
         base.Exit(newState);
     }

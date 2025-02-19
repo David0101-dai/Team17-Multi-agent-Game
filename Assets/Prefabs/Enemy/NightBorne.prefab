@@ -129,9 +129,9 @@ GameObject:
   - component: {fileID: 4881729333243194942}
   - component: {fileID: 3158955714548910414}
   - component: {fileID: 8282324458951744264}
-  - component: {fileID: 2880346641206811402}
   - component: {fileID: 2038227743501116559}
   - component: {fileID: 129597537502425150}
+  - component: {fileID: 8915871462528617019}
   m_Layer: 7
   m_Name: NightBorne
   m_TagString: Enemy
@@ -294,32 +294,6 @@ MonoBehaviour:
   - {r: 1, g: 0.8117647, b: 0.29803923, a: 1}
   hitMat: {fileID: 0}
   flashTime: 0.1
---- !u!114 &2880346641206811402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2823429415000204189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15fc738e1e69244585f312eeb37d2fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCheck: {fileID: 4784537436579379267}
-  attackCheckRadius: 1.52
-  knockbackXSpeed: 5
-  knockbackYSpeed: 0
-  damageFrom: {fileID: 0}
-  defaultMoveSpeed: 4
-  moveSpeed: 1.5
-  attackDistance: 3
-  attackCooldown: 2
-  lostPlayerTime: 7
-  hitCooldown: 1
-  stunTime: 5
-  canBeStun: 0
-  counterImage: {fileID: 6551954346932236288}
 --- !u!114 &2038227743501116559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +377,32 @@ MonoBehaviour:
   - {fileID: 11400000, guid: feb828e4c31f99b48ad48d9bc5d5ded9, type: 2}
   - {fileID: 11400000, guid: d1975db937e48994d867fe87ef88feee, type: 2}
   dropList: []
+--- !u!114 &8915871462528617019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2823429415000204189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5855d211a5ab04b40a5b0f72c6569c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCheck: {fileID: 4784537436579379267}
+  attackCheckRadius: 1.91
+  knockbackXSpeed: 3
+  knockbackYSpeed: 3
+  damageFrom: {fileID: 0}
+  defaultMoveSpeed: 7
+  moveSpeed: 0
+  attackDistance: 3
+  attackCooldown: 0.4
+  lostPlayerTime: 7
+  hitCooldown: 0.5
+  stunTime: 2
+  canBeStun: 1
+  counterImage: {fileID: 0}
 --- !u!1 &5147267675705691731
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 2019059043993729342}
   - component: {fileID: 8697514135177966869}
   - component: {fileID: 9012976853296890084}
-  - component: {fileID: 1979652711748255168}
+  - component: {fileID: 7408988752063942211}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -510,7 +510,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1979652711748255168
+--- !u!114 &7408988752063942211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -519,7 +519,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5147267675705691731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7879f54f236d24e4bab858e0d99bdd49, type: 3}
+  m_Script: {fileID: 11500000, guid: e33bb4eea551a404a8e89b489570a432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5736619126257908420

@@ -1,4 +1,5 @@
 using System.Numerics;
+using UnityEngine;
 
 public class NightBorneAttackState : NightBorneState
 {
@@ -15,9 +16,11 @@ public class NightBorneAttackState : NightBorneState
     {
         base.Update();
 
-        if (IsAnimationFinished || !ColDetect.DetectedPlayer)
-        {
-            Fsm.SwitchState(Character.ChaseState);
+        var distance = UnityEngine.Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);
+
+        if (IsAnimationFinished || !ColDetect.DetectedPlayer )
+        {              
+            Fsm.SwitchState(Character.IdleState);
             attackCooldownTimer = Character.attackCooldown;
         }
     }

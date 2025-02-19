@@ -30,7 +30,7 @@ public class NightBorne : Enemy
     protected override void Update()
     {
         base.Update();
-       // Debug.Log("骷髅的Current State: " + Fsm.CurrentState.ToString());
+        Debug.Log("夜魔的Current State: " + Fsm.CurrentState.ToString());
     }
 
     protected override void SwitchHitState()

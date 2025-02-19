@@ -16,7 +16,7 @@ public class NightBorneState : CharacterState<NightBorne>, IState
     public override void Update()
     {
         base.Update();
-
+        
         attackCooldownTimer -= Time.deltaTime;
     }
 

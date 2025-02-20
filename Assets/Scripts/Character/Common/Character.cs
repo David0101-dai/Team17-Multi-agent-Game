@@ -9,6 +9,7 @@ public abstract class Character : MonoBehaviour
     [Header("Attack Colider")]
     public Transform attackCheck;
     public float attackCheckRadius;
+    public bool canAttack = false;
 
     [Header("Knockback Value")]
     public float knockbackXSpeed = 3f;
@@ -37,7 +38,34 @@ public abstract class Character : MonoBehaviour
     protected virtual void Update()
     {
         Fsm.CurrentState?.Update();
+
+        if (attackCheck == null)
+        {
+            Debug.LogError("attackCheck 没有正确赋值！");
+            return;
+        }
+
+        var colliders = Physics2D.OverlapCircleAll(attackCheck.position, attackCheckRadius);
+
+        foreach (var hit in colliders)
+        {
+            Debug.Log("检测到碰撞体: " + hit.gameObject.name);
+
+            // 确保 transform.parent 不为 null，并且正确判断敌人
+            if (hit.CompareTag("Player"))
+            {
+                canAttack = true;
+                Debug.Log("可以攻击");
+                break;  // 找到一个符合条件的玩家后直接跳出循环
+            }
+            else
+            {
+                canAttack = false;
+            }
+        }
     }
+
+
 
     protected virtual void OnDrawGizmos()
     {
@@ -47,6 +75,11 @@ public abstract class Character : MonoBehaviour
     public void MakeTransprent(bool isTransprent)
     {
         Sr.color = isTransprent ? Color.clear : Color.white;
+    }
+
+    public bool CanAttack()
+    {
+        return canAttack;
     }
 
     public abstract void SlowBy(float slowPercentage, float slowDuration);

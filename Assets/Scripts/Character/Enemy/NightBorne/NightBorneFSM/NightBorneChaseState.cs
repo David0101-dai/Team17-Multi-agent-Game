@@ -7,7 +7,6 @@ public class NightBorneChaseState : NightBorneState
     {
     }
 
-    private bool canAttack = false;
 
     public override void Enter(IState lastState)
     {
@@ -32,26 +31,15 @@ public class NightBorneChaseState : NightBorneState
 
         var distance = Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);
        
-       
-        if(canAttack == false){
+        if(!Character.canAttack){
             SetVelocity(moveDir * Character.moveSpeed * 2, Rb.velocity.y);
         }else{
             SetVelocity(0, Rb.velocity.y);
-        }
-        
-        if (distance < Character.attackDistance)
-        {   
-            if(attackCooldownTimer > 0){
-                Fsm.SwitchState(Character.IdleState);
-            }else{
-            canAttack = true;
-            SetVelocity(0, Rb.velocity.y);
-            Fsm.SwitchState(Character.AttackState);   
+            if(attackCooldownTimer <= 0){
+               Fsm.SwitchState(Character.AttackState);
             }
-        }else{
-            canAttack = false;
         }
-                 
+
         if (StateTimer < 0 || distance - 1 > ColDetect.playerCheckDistance)
         {
             ColDetect.DetectedPlayer = null;

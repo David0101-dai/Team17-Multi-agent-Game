@@ -16,8 +16,6 @@ public class NightBorneAttackState : NightBorneState
     {
         base.Update();
 
-        var distance = UnityEngine.Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);
-
         if (IsAnimationFinished || !ColDetect.DetectedPlayer )
         {              
             Fsm.SwitchState(Character.IdleState);

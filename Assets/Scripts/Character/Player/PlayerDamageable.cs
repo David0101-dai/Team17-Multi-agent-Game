@@ -1,8 +1,10 @@
 using UnityEngine;
 
 public class PlayerDamageable : Damageable
-{
+{   
+    [Header("Effect")]
     public GameObject bloodEffect;  // 流血特效
+    public float offset = 1.0f;      // 特效的偏移量
 
     // 重写 Die 方法
     protected override void Die()
@@ -16,9 +18,7 @@ public class PlayerDamageable : Damageable
     {
         // 调用父类的 TakeDamage 方法
         base.TakeDamage(from, isMagic, canEffect);
-        // 设置特效的偏移量，这里我们让特效在 y 轴上偏移 0.5 个单位
-        Vector3 effectPosition = transform.position + new Vector3(0, 1.0f, 0);
-
+        Vector3 effectPosition = transform.position + new Vector3(0, offset, 0);
         // 在角色的偏移位置生成流血特效
         Instantiate(bloodEffect, effectPosition, Quaternion.identity);
     }

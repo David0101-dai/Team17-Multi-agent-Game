@@ -7,6 +7,8 @@ public class MoveState : GroundState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
+
+        AudioManager.instance.PlaySFX(1); //走路音效
     }
 
     public override void Update()
@@ -23,6 +25,7 @@ public class MoveState : GroundState
 
     public override void Exit(IState newState)
     {
+        AudioManager.instance.StopSFX(1); //挥刀砍 音效退出
         base.Exit(newState);
     }
 }

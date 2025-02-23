@@ -28,10 +28,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        AudioManager.instance.PlayBGM(0);
-    }
 
     private void Update()
     {

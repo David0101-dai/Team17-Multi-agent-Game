@@ -8,6 +8,8 @@ public class DashState : PlayerState
     {
         base.Enter(lastState);
 
+        AudioManager.instance.PlaySFX(4); //≥Â¥Ã“Ù–ß
+
         StateTimer = Character.dashDuration;
 
        Character.Skill.Clone.CreateCloneOnDashStart(Character.transform);

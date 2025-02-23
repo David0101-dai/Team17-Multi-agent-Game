@@ -7,6 +7,8 @@ public class WallSlideState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
+
+        AudioManager.instance.PlaySFX(5); //下滑音效
     }
 
     public override void Update()
@@ -33,6 +35,8 @@ public class WallSlideState : PlayerState
 
     public override void Exit(IState newState)
     {
+        AudioManager.instance.StopSFX(5); //下滑音效停止
+
         base.Exit(newState);
     }
 }

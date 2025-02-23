@@ -12,6 +12,8 @@ public class JumpState : AirState
     {
         base.Enter(lastState);
 
+        AudioManager.instance.PlaySFX(0); //ÆğÌøÒôĞ§
+
         if (!ColDetect.IsGrounded)
         {
             airJumpCounter++;

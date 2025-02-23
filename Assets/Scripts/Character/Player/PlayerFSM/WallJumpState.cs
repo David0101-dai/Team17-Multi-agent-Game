@@ -8,7 +8,7 @@ public class WallJumpState : AirState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(0); //起跳音效
+        AudioManager.instance.PlaySFX(0,null); //起跳音效
 
         SetVelocity(Character.wallJumpXSpeed * Flip.facingDir * -1, Character.jumpForce);
 

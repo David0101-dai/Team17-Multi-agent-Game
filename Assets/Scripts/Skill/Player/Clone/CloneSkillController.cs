@@ -66,7 +66,7 @@ public class CloneSkillController : MonoBehaviour
             attackDelayTimer = Mathf.Infinity;
             anim.SetInteger("AttackNumber", UnityEngine.Random.Range(1, 3));
 
-            AudioManager.instance.PlaySFX(2); //ª”µ∂“Ù–ß
+            AudioManager.instance.PlaySFX(2,null); //ª”µ∂“Ù–ß
         }
 
         if (cloneTimer < 0)

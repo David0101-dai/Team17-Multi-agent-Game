@@ -8,7 +8,7 @@ public class MoveState : GroundState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(1); //走路音效
+        AudioManager.instance.PlaySFX(1,null); //走路音效
     }
 
     public override void Update()

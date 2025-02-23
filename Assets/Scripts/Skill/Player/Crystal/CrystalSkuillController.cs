@@ -39,7 +39,7 @@ public class CrystalSkillController : MonoBehaviour
         Func<Transform, float, Transform> findClosestEnemy)
     {
 
-        AudioManager.instance.PlaySFX(8); //释放水晶音效
+        AudioManager.instance.PlaySFX(8,null); //释放水晶音效
 
         if (player == null)
         {
@@ -120,7 +120,7 @@ public class CrystalSkillController : MonoBehaviour
 
     private void AnimationExplodeEvent()
     {
-        AudioManager.instance.PlaySFX(9); //水晶爆炸音效
+        AudioManager.instance.PlaySFX(9,null); //水晶爆炸音效
 
         var colliders = Physics2D.OverlapCircleAll(transform.position, cd.radius);
 

@@ -14,7 +14,7 @@ public class AttackState : PlayerState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(2); //»Óµ¶¿³ ÒôÐ§
+        AudioManager.instance.PlaySFX(2, null); //»Óµ¶¿³ ÒôÐ§
 
         if (comboCounter >= Character.comboCount || Time.time >= lastAttackTime + Character.comboWindow)
         {

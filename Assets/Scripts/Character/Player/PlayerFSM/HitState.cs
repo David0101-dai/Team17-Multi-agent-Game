@@ -10,6 +10,8 @@ public class HitState : PlayerState
     {
         base.Enter(lastState);
 
+        AudioManager.instance.PlaySFX(6); //ÊÜ»÷ÒôÐ§
+
         if (Character.damageFrom)
         {
             var isRight = Character.damageFrom.transform.position.x > Character.transform.position.x;

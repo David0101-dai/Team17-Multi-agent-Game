@@ -13,6 +13,9 @@ public class BlackholeState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
+
+        AudioManager.instance.PlaySFX(7); //¥Û’–“Ù–ß
+
         skillUsed = false;
         StateTimer = flyTime;
         Rb.gravityScale = 0;

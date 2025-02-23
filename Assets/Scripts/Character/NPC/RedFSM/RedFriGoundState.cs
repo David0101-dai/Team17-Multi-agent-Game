@@ -17,12 +17,27 @@ public class RedFriGoundState : RedFriState
     {
         base.Update();
 
-        // if (Fsm.CurrentState != Character.MoveState && ColDetect.DetectedPlayer)
-        //     Fsm.SwitchState(Character.MoveState);
+        if(Character.DistanceBetweenPlayer > Character.MaxDistance){
+            Fsm.SwitchState(Character.MoveState);
+        }
+
     }
 
     public override void Exit(IState newState)
     {
         base.Exit(newState);
+    }
+
+    public void MoveTowardsPlayer()
+    {
+        if (PlayerManager.Instance != null && PlayerManager.Instance.fx != null)
+        {
+            Vector3 playerPosition = PlayerManager.Instance.player.transform.position;
+            Vector3 direction = (playerPosition - Character.transform.position).normalized;
+
+            // 设置移动的速度
+            float moveSpeed = Character.defaultMoveSpeed;
+            SetVelocity(direction.x * moveSpeed, Character.Rb.velocity.y);
+        }
     }
 }

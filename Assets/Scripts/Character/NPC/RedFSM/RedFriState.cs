@@ -19,7 +19,6 @@ public class RedFriState : CharacterState<RedFriend>, IState
     public override void Update()
     {
         base.Update();
-
         attackCooldownTimer -= Time.deltaTime;
     }
 

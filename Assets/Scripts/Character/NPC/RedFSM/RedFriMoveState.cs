@@ -16,14 +16,11 @@ public class RedFriMoveState : RedFriGoundState
     public override void Update()
     {
         base.Update();
-
         // 追踪玩家
         MoveTowardsPlayer();
 
-        // 如果和玩家的距离小于或等于5，返回 Idle 状态
-        if (Character.DistanceBetweenPlayer <= 5)
-        {
-            Fsm.SwitchState(Character.IdleState);
+        if(Character.DistanceBetweenPlayer < Character.MaxDistance){
+            Fsm.SwitchState(Character.FollowState);
         }
     }
 
@@ -32,17 +29,4 @@ public class RedFriMoveState : RedFriGoundState
         base.Exit(newState);
     }
 
-    // 向玩家移动的方法
-    private void MoveTowardsPlayer()
-    {
-        if (PlayerManager.Instance != null && PlayerManager.Instance.fx != null)
-        {
-            Vector3 playerPosition = PlayerManager.Instance.player.transform.position;
-            Vector3 direction = (playerPosition - Character.transform.position).normalized;
-
-            // 设置移动的速度
-            float moveSpeed = Character.defaultMoveSpeed;
-            SetVelocity(direction.x * moveSpeed, Character.Rb.velocity.y);
-        }
-    }
 }

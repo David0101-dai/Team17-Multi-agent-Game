@@ -17,10 +17,14 @@ public class RedFriGoundState : RedFriState
     {
         base.Update();
 
+        if(ColDetect.IsWallDetected){
+            Fsm.SwitchState(Character.JumpState);
+        }
+        
         if(Character.DistanceBetweenPlayer > Character.MaxDistance){
             Fsm.SwitchState(Character.MoveState);
         }
-
+    
     }
 
     public override void Exit(IState newState)

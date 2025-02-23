@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 4157751490546585926}
   - component: {fileID: 6780089617732951241}
   - component: {fileID: 1855003277724078775}
-  - component: {fileID: 4766323535775453593}
+  - component: {fileID: 8981163165349456267}
   m_Layer: 6
   m_Name: Animator
   m_TagString: Untagged
@@ -300,7 +300,7 @@ Animator:
   m_GameObject: {fileID: 2740794919171418708}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a8998ae93864864b9580f4333e4e46b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 069dbc16a1a794b438782cbdda17d5d7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -311,7 +311,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4766323535775453593
+--- !u!114 &8981163165349456267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2740794919171418708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7879f54f236d24e4bab858e0d99bdd49, type: 3}
+  m_Script: {fileID: 11500000, guid: ae40b5ee64ee18d41bf7606cd2cf89a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5668395287905475499
@@ -656,7 +656,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8804228585125523017}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.39, y: -4.05, z: 8.288347}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -682,7 +682,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -726,7 +726,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.04}
+  m_Offset: {x: 0, y: 1.18}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -804,6 +804,7 @@ MonoBehaviour:
   attackCooldown: 0.4
   lostPlayerTime: 7
   hitCooldown: 0.5
+  player: {fileID: 0}
 --- !u!114 &6782713268718767097
 MonoBehaviour:
   m_ObjectHideFlags: 0

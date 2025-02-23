@@ -170,7 +170,7 @@ public abstract class Damageable : MonoBehaviour
         {
             if (damage != 0)
             {
-                 Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
+               // Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
                 OnTakeDamage?.Invoke(from, gameObject);
                 AttackSense.Instance.HitPause(0.1f);
                 if(triggerCriticalStrike){
@@ -214,7 +214,7 @@ public abstract class Damageable : MonoBehaviour
         {
             var finalCritPower = (CritPower.GetValue() + Str.GetValue()) * 0.01f;
             finalDamage = Mathf.RoundToInt(finalDamage * finalCritPower);
-            Debug.Log("触发了暴击");
+            //Debug.Log("触发了暴击");
             triggerCriticalStrike = true;
         }
 

@@ -19,7 +19,13 @@ public class RedFriState : CharacterState<RedFriend>, IState
     public override void Update()
     {
         base.Update();
-        attackCooldownTimer -= Time.deltaTime;
+        attackCooldownTimer -= Time.deltaTime;   
+
+        if (Rb.velocity.y < 0)
+        {
+            Fsm.SwitchState(Character.FallState);
+        }
+        
     }
 
     public override void Exit(IState newState)

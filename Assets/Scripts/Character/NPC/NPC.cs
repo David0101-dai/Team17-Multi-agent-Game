@@ -11,6 +11,8 @@ public abstract class NPC : Character
     #region Value
     [Header("Move Value")]
     public float defaultMoveSpeed = 7f;
+
+    public float defaultJumpForce = 20f;
     [HideInInspector] public float moveSpeed;
 
     [Header("Attack Value")]

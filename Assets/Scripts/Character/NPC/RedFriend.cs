@@ -8,6 +8,9 @@ public class RedFriend : NPC
     public IState IdleState { get; private set; }
     public IState MoveState { get; private set; }
     public IState FollowState { get; private set; }  // 新增跟随状态
+    public IState JumpState { get; private set; }
+    public IState FallState { get; private set; }   
+    public IState LandState { get; private set; }
     #endregion
 
     #region Player
@@ -28,6 +31,9 @@ public class RedFriend : NPC
         IdleState = new RedFriIdleState(Fsm, this, "Idle");
         MoveState = new RedFriMoveState(Fsm, this, "Move");
         FollowState = new RedFriFollowState(Fsm, this, "Move");
+        JumpState = new RedFriJumpState(Fsm, this, "Jump");
+        FallState = new RedFriFallState(Fsm, this, "Fall");
+        LandState = new RedFriLandState(Fsm, this, "Land");
         // 初始状态切换
         Fsm.SwitchState(IdleState);
     }

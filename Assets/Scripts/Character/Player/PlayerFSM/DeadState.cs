@@ -16,6 +16,9 @@ public class DeadState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
+
+        AudioManager.instance.PlaySFX(14, null);
+
         Character.StartCoroutine(Dissolve());
         Task.Run(async () =>
         {

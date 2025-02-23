@@ -76,7 +76,9 @@ public class SwordSKillController : MonoBehaviour
         this.spinDuration = spinDuration;
         this.hitCooldown = hitCooldown;
         this.freezeTime = freezeTime;
-        
+
+        AudioManager.instance.PlaySFX(11);
+
         //新增旋转向前逻辑
         spinDirection = Mathf.Clamp(rb.velocity.x,-1,1);
 
@@ -154,6 +156,9 @@ public class SwordSKillController : MonoBehaviour
                 TakeDamage(enemyTargets[targetIndex].GetComponent<Collider2D>(), true);
                 targetIndex = (targetIndex + 1) % enemyTargets.Count;
                 bounceAmount--;
+
+                AudioManager.instance.StopSFX(10); //停止旋转音效
+
                 if (bounceAmount <= 0)
                 {
                     enemyTargets.Clear();
@@ -205,6 +210,8 @@ public class SwordSKillController : MonoBehaviour
 
             TakeDamage(hit, false);
         }
+
+        AudioManager.instance.PlaySFX(10); //回旋镖音效
     }
     private void StopWhenSpinning()
     {
@@ -263,6 +270,7 @@ public class SwordSKillController : MonoBehaviour
         if (isPierce && pierceAmount > 0)
         {
             pierceAmount--;
+
             return true;
         }
 

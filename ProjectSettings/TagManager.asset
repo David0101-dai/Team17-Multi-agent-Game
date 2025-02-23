@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Platform
+  - NPC
   layers:
   - Default
   - TransparentFX

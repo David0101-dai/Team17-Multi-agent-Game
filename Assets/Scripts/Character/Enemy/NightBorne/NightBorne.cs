@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class NightBorne : Enemy
 {
+    [Header("Self detonation")]
+    public Transform detonationCheck;
+    public float detonationCheckRadius;
     #region State
     public IState IdleState { get; private set; }
     public IState PatrolState { get; private set; }
@@ -25,12 +28,26 @@ public class NightBorne : Enemy
         DeadState = new NightBorneDeadState(Fsm, this, "Dead");
         StunState = new NightBorneStunState(Fsm, this, "Stun");
         Fsm.SwitchState(IdleState);
+
+        if (detonationCheck == null)
+        {
+            Debug.LogError("detonationCheck 没有正确赋值！");
+            return;
+        }
+
+        var colliders = Physics2D.OverlapCircleAll(detonationCheck.position, detonationCheckRadius);
     }
 
     protected override void Update()
     {
         base.Update();
         Debug.Log("夜魔的Current State: " + Fsm.CurrentState.ToString());
+    }
+
+    protected  override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.DrawWireSphere(detonationCheck.position, detonationCheckRadius);
     }
 
     protected override void SwitchHitState()

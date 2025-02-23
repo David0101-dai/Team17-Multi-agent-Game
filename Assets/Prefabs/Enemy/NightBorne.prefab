@@ -155,6 +155,7 @@ Transform:
   - {fileID: 2019059043993729342}
   - {fileID: 4784537436579379267}
   - {fileID: 4276084120955816403}
+  - {fileID: 9114345166457223550}
   - {fileID: 4080044639577397032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -391,18 +392,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 4784537436579379267}
   attackCheckRadius: 1.91
+  canAttack: 0
   knockbackXSpeed: 3
   knockbackYSpeed: 3
   damageFrom: {fileID: 0}
   defaultMoveSpeed: 7
   moveSpeed: 0
   attackDistance: 3.5
-  attackCooldown: 0
+  attackCooldown: 0.1
   lostPlayerTime: 7
   hitCooldown: 0.5
   stunTime: 3
   canBeStun: 1
   counterImage: {fileID: 6551954346932236288}
+  detonationCheck: {fileID: 9114345166457223550}
+  detonationCheckRadius: 2.62
 --- !u!1 &5147267675705691731
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +805,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7483316138932309804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9114345166457223550}
+  m_Layer: 7
+  m_Name: DetonationCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9114345166457223550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7483316138932309804}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.18, y: 0.9328473, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3726107276124838267}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8205878704884173277
 GameObject:
   m_ObjectHideFlags: 0

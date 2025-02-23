@@ -28,13 +28,15 @@ public class SkeletonChaseState : SkeletonState
         var moveDir = isRight ? 1 : isLeft ? -1 : 0;
 
         var distance = Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);
-        SetVelocity(moveDir * Character.moveSpeed * 2, Rb.velocity.y);
-
-        if (attackCooldownTimer < 0 && distance < Character.attackDistance)
-        {
-            Fsm.SwitchState(Character.AttackState);
+       
+        if(!Character.canAttack){
+            SetVelocity(moveDir * Character.moveSpeed * 2, Rb.velocity.y);
+        }else{
+            SetVelocity(0, Rb.velocity.y);
+            if(attackCooldownTimer <= 0){
+               Fsm.SwitchState(Character.AttackState);
+            }
         }
-
 
         if (StateTimer < 0 || distance - 1 > ColDetect.playerCheckDistance)
         {

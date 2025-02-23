@@ -39,6 +39,8 @@ public class CrystalSkillController : MonoBehaviour
         Func<Transform, float, Transform> findClosestEnemy)
     {
 
+        AudioManager.instance.PlaySFX(8); //释放水晶音效
+
         if (player == null)
         {
         Debug.LogError("Player reference is null in Setup method!");
@@ -118,6 +120,8 @@ public class CrystalSkillController : MonoBehaviour
 
     private void AnimationExplodeEvent()
     {
+        AudioManager.instance.PlaySFX(9); //水晶爆炸音效
+
         var colliders = Physics2D.OverlapCircleAll(transform.position, cd.radius);
 
         if (player == null)

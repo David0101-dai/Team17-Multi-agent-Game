@@ -14,7 +14,7 @@ public class BlackholeState : PlayerState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(7); //大招音效
+        AudioManager.instance.PlaySFX(7,null); //大招音效
 
         skillUsed = false;
         StateTimer = flyTime;

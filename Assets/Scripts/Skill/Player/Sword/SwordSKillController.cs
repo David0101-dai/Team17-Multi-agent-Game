@@ -77,7 +77,7 @@ public class SwordSKillController : MonoBehaviour
         this.hitCooldown = hitCooldown;
         this.freezeTime = freezeTime;
 
-        AudioManager.instance.PlaySFX(11);
+        AudioManager.instance.PlaySFX(11,null);
 
         //新增旋转向前逻辑
         spinDirection = Mathf.Clamp(rb.velocity.x,-1,1);
@@ -211,7 +211,7 @@ public class SwordSKillController : MonoBehaviour
             TakeDamage(hit, false);
         }
 
-        AudioManager.instance.PlaySFX(10); //回旋镖音效
+        AudioManager.instance.PlaySFX(10,null); //回旋镖音效
     }
     private void StopWhenSpinning()
     {

@@ -10,7 +10,7 @@ public class HitState : PlayerState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(6); //受击音效
+        AudioManager.instance.PlaySFX(6,null); //受击音效
 
         if (Character.damageFrom)
         {

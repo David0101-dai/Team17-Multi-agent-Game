@@ -8,7 +8,7 @@ public class DashState : PlayerState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(4); //≥Â¥Ã“Ù–ß
+        AudioManager.instance.PlaySFX(4,null); //≥Â¥Ã“Ù–ß
 
         StateTimer = Character.dashDuration;
 

@@ -14,6 +14,8 @@ public class ItemTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             itemObject.PickupItem();
+
+            AudioManager.instance.PlaySFX(13, null); //ÕÊº“ ∞»°“Ù–ß
         }
     }
 }

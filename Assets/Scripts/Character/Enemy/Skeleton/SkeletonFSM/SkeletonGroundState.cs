@@ -7,6 +7,8 @@ public class SkeletonGroundState : SkeletonState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
+
+        AudioManager.instance.PlaySFX(12, Character.transform); //÷¼÷Ã½ÐÒôÐ§
     }
 
     public override void Update()

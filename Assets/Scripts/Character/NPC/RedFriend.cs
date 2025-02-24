@@ -44,10 +44,7 @@ public class RedFriend : NPC
         //实时计算和玩家之间的距离
         player = PlayerManager.Instance.player;
         DistanceBetweenPlayer = Vector2.Distance(transform.position, player.transform.position);
-        Debug.Log("RedFriend的Current State: " + Fsm.CurrentState.ToString());
-
         FollowPlayer();
-
     }
 
     private void FollowPlayer()

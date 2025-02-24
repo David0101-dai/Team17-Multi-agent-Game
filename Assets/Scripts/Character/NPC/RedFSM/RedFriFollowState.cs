@@ -29,8 +29,7 @@ public class RedFriFollowState : RedFriGoundState
             followDirection = (playerPosition - Character.transform.position).normalized;
             isDirectionSet = true;  // 标记方向已经确定
         }
-
-        Debug.Log("RedFriend进入伴随状态");
+      //  Debug.Log("RedFriend进入伴随状态");
     }
 
     public override void Update()
@@ -58,7 +57,7 @@ public class RedFriFollowState : RedFriGoundState
     {
         base.Exit(newState);
         isDirectionSet = false;
-        Debug.Log("RedFriend离开伴随状态");
+        //Debug.Log("RedFriend离开伴随状态");
     }
 
     // 向固定方向移动的方法
@@ -66,6 +65,6 @@ public class RedFriFollowState : RedFriGoundState
     {
         float moveSpeed = Character.defaultMoveSpeed;
         // 按给定的方向继续移动
-        SetVelocity(direction.x * moveSpeed, Character.Rb.velocity.y);
+        SetVelocity(direction.x * moveSpeed, 0);
     }
 }

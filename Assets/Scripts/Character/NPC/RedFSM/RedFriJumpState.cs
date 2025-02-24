@@ -18,7 +18,7 @@ public class RedFriJumpState : RedFriAirState
     {
         base.Update();
 
-        if (Rb.velocity.y < 0)
+        if (Rb.velocity.y <= 0)
         {
             Fsm.SwitchState(Character.FallState);
         }

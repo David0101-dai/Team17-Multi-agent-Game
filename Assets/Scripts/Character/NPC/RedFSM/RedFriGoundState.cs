@@ -41,7 +41,7 @@ public class RedFriGoundState : RedFriState
 
             // 设置移动的速度
             float moveSpeed = Character.defaultMoveSpeed;
-            SetVelocity(direction.x * moveSpeed, Character.Rb.velocity.y);
+            SetVelocity(direction.x * moveSpeed, 0);
         }
     }
 }

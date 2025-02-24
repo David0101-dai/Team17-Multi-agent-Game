@@ -19,10 +19,19 @@ public class RedFriMoveState : RedFriGoundState
         // 追踪玩家
         MoveTowardsPlayer();
 
-        SetVelocity(Rb.velocity.x,0);
+        //SetVelocity(Rb.velocity.x,0);
 
         if(Character.DistanceBetweenPlayer < Character.MaxDistance){
             Fsm.SwitchState(Character.FollowState);
+        }
+
+        if(ColDetect.IsWallDetected){
+            Fsm.SwitchState(Character.JumpState);
+        }
+
+        if (!ColDetect.IsGrounded)
+        {
+            Fsm.SwitchState(Character.FallState);
         }
     }
 

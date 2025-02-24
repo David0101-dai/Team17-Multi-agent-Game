@@ -12,11 +12,7 @@ public class JumpState : AirState
     {
         base.Enter(lastState);
 
-<<<<<<< HEAD
-        AudioManager.instance.PlaySFX(0);
-=======
-        AudioManager.instance.PlaySFX(0,null); //ÆðÌøÒôÐ§
->>>>>>> 64fafdfa523affb7ec4b72245a635243aaca58fb
+        AudioManager.instance.PlaySFX(0,null); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 
         if (!ColDetect.IsGrounded)
         {

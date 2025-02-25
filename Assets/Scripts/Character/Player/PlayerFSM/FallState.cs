@@ -20,6 +20,8 @@ public class FallState : AirState
 
         if (ColDetect.IsGrounded)
         {
+            AudioManager.instance.PlaySFX(0, null);//¬‰µÿ“Ù–ß
+
             Fsm.SwitchState(Character.IdleState);
             airJumpCounter = 0;
         }

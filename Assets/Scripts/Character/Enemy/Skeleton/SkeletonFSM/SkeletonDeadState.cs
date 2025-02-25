@@ -13,6 +13,9 @@ public class SkeletonDeadState : SkeletonState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
+
+        AudioManager.instance.PlaySFX(15, Character.transform); //÷¼÷ÃËÀÍöÒôĞ§
+
         Character.StartCoroutine(Dissolve());
     }
 

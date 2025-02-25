@@ -23,6 +23,10 @@ public class SkeletonChaseState : SkeletonState
             return;
         }
 
+        if(ColDetect.IsWallDetected || ColDetect.ShouldFlip){
+            Flip.Flip();
+        }
+
         var isRight = ColDetect.DetectedPlayer.position.x > Character.transform.position.x;
         var isLeft = ColDetect.DetectedPlayer.position.x < Character.transform.position.x;
         var moveDir = isRight ? 1 : isLeft ? -1 : 0;

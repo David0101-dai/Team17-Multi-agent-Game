@@ -7,6 +7,7 @@ public class CollisionDetection : MonoBehaviour
     [Header("Platform Check")]
     public LayerMask platformLayer;
     public bool IsGrounded = false;
+    public bool ShouldFlip = false;
     public float groundCheckDistance = 1.0f;
     public bool IsWallDetected = false;
     public float wallCheckDistance = 0.15f;
@@ -53,6 +54,7 @@ public class CollisionDetection : MonoBehaviour
     var rightGrounded = Physics2D.Raycast(rightPos, Vector2.down, groundCheckDistance, platformLayer);
 
     IsGrounded = leftGrounded || middleGrounded || rightGrounded;
+    ShouldFlip = !leftGrounded || !rightGrounded;
 }
 
     private void WallCheck(bool isFullDetected)

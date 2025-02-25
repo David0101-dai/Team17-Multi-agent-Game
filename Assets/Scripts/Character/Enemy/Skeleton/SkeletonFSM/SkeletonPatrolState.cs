@@ -18,14 +18,7 @@ public class SkeletonPatrolState : SkeletonGroundState
 
         SetVelocity(Flip.facingDir * Character.moveSpeed, Rb.velocity.y);
         //Debug.Log(" | IsGrounded: " + ColDetect.IsGrounded);
-        
-        if (ColDetect.IsWallDetected || !ColDetect.IsGrounded)
-        {
-            Flip.Flip();
-          //  Debug.Log("骷髅没有找到地面,开始反转");
-            SetVelocity(Flip.facingDir * Character.moveSpeed, Rb.velocity.y);
-            Fsm.SwitchState(Character.IdleState);
-        }
+
     }
 
     public override void Exit(IState newState)

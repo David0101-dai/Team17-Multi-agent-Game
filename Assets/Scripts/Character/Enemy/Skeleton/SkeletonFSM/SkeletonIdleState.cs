@@ -8,7 +8,7 @@ public class SkeletonIdleState : SkeletonGroundState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(12,  Character.transform); //÷¼÷Ã½ÐÒôÐ§
+        AudioManager.instance.PlaySFX(12,  Character.transform);
 
         SetVelocity(0, 0);
 

@@ -27,9 +27,26 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (item == null) return;
+
+        Vector2 mousePosition = Input.mousePosition;
+
+        float xOffset = 0;
+        float yOffset = 0;
+
+        if (mousePosition.x > 600)
+            xOffset = -100;
+        else
+            xOffset = 100;
+
+        if (mousePosition.y > 320)
+            yOffset = -100;
+        else
+            yOffset = 100;
+
         var equipment = item.data as ItemDataEquipment;
         if (equipment == null) return;
         ui.tooltip.ShowTooltip(equipment);
+        ui.tooltip.transform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
     }
 
     public void OnPointerExit(PointerEventData eventData)

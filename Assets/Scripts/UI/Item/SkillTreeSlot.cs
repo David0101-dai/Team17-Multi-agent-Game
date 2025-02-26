@@ -9,6 +9,8 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private SkillTreeSlot[] shouldBeUnlocked;
     [SerializeField] private SkillTreeSlot[] shouldBeLocked;
     private Image skillImage;
+
+    [SerializeField] private int skillPrice;
     [SerializeField] private string skillName;
     [SerializeField] private string skillDescription;
     [SerializeField] private Color lockedColor;
@@ -19,6 +21,10 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         gameObject.name = $"Skill - {skillName}";
     }
 
+    private void Awake()
+    { 
+        GetComponent<Button>().onClick.AddListener(() => UnlockSkill());
+    }
     private void Start()
     {
         skillImage = GetComponent<Image>();
@@ -27,11 +33,14 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         skillImage.color = lockedColor;
 
-        GetComponent<Button>().onClick.AddListener(() => UnlockSkill());
+        
     }
 
     public void UnlockSkill()
     {
+        if (unlocked)
+            return;
+
         foreach (var item in shouldBeUnlocked)
         {
             if (!item.unlocked) return;
@@ -41,6 +50,9 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             if (item.unlocked) return;
         }
+
+        if (PlayerManager.Instance.HaveEnoughMoney(skillPrice) == false)
+            return;
 
         unlocked = true;
         skillImage.color = Color.white;

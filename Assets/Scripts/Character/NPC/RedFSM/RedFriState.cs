@@ -26,7 +26,7 @@ public class RedFriState : CharacterState<RedFriend>, IState
             Fsm.SwitchState(Character.FallState);
         }
 
-        Debug.Log("RedFriend的Current State: " + Fsm.CurrentState.ToString());
+        //Debug.Log("RedFriend的Current State: " + Fsm.CurrentState.ToString());
         
     }
 

@@ -766,7 +766,6 @@ MonoBehaviour:
   shouldBeUnlocked:
   - {fileID: 3301958456599183408}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: DashSeeMe
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -2281,7 +2280,6 @@ MonoBehaviour:
   shouldBeLocked:
   - {fileID: 7062975197436675341}
   - {fileID: 5039280461594469045}
-  skillImage: {fileID: 0}
   skillName: SpinSword
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -2694,7 +2692,6 @@ MonoBehaviour:
   - {fileID: 8772075996349050451}
   shouldBeLocked:
   - {fileID: 4698843734456377195}
-  skillImage: {fileID: 0}
   skillName: ControlledDestruction
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -3454,7 +3451,6 @@ MonoBehaviour:
   - {fileID: 7629318014056150049}
   - {fileID: 1394990338167514808}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: Vulnerability
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -3598,7 +3594,6 @@ MonoBehaviour:
   - {fileID: 4698843734456377195}
   shouldBeLocked:
   - {fileID: 4698843734456377195}
-  skillImage: {fileID: 0}
   skillName: MultipleDestruction
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -4715,7 +4710,6 @@ MonoBehaviour:
   shouldBeUnlocked:
   - {fileID: 5653159863281510386}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: CounterBuff
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -5738,7 +5732,6 @@ MonoBehaviour:
   - {fileID: 455034471091190939}
   shouldBeLocked:
   - {fileID: 1368111773757942998}
-  skillImage: {fileID: 0}
   skillName: MultipleMirage
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -6755,7 +6748,6 @@ MonoBehaviour:
   unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: Crystal
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -6895,7 +6887,6 @@ MonoBehaviour:
   unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: ImageMirage
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -8755,7 +8746,6 @@ MonoBehaviour:
   shouldBeUnlocked:
   - {fileID: 455034471091190939}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: Blackhole
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -9342,7 +9332,6 @@ MonoBehaviour:
   - {fileID: 455034471091190939}
   shouldBeLocked:
   - {fileID: 8742933483432481751}
-  skillImage: {fileID: 0}
   skillName: CrystalMirage
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -9482,7 +9471,6 @@ MonoBehaviour:
   unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: ThrowSword
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -9699,7 +9687,6 @@ MonoBehaviour:
   shouldBeUnlocked:
   - {fileID: 455034471091190939}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: AggresiveMirage
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -10694,6 +10681,7 @@ MonoBehaviour:
   craftUI: {fileID: 6304807297943296495}
   optionsUI: {fileID: 1388647144692456204}
   tooltip: {fileID: 6723628091214336598}
+  skillToolTip: {fileID: 0}
 --- !u!1 &3541137319238693420
 GameObject:
   m_ObjectHideFlags: 0
@@ -11474,7 +11462,6 @@ MonoBehaviour:
   unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: Dodge
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -13543,7 +13530,6 @@ MonoBehaviour:
   shouldBeLocked:
   - {fileID: 928378047025138445}
   - {fileID: 5039280461594469045}
-  skillImage: {fileID: 0}
   skillName: PierceSwrod
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -16432,7 +16418,6 @@ MonoBehaviour:
   - {fileID: 1640884080998155096}
   - {fileID: 5653159863281510386}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: CounterMirage
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -18762,7 +18747,6 @@ MonoBehaviour:
   unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: Counter
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -19915,7 +19899,6 @@ MonoBehaviour:
   shouldBeUnlocked:
   - {fileID: 1394990338167514808}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: TimeStop
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -21010,7 +20993,6 @@ MonoBehaviour:
   shouldBeUnlocked:
   - {fileID: 4639142511243144258}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: DodgeMirage
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -21360,7 +21342,6 @@ MonoBehaviour:
   unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: Dash
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -22537,7 +22518,6 @@ MonoBehaviour:
   - {fileID: 8772075996349050451}
   shouldBeLocked:
   - {fileID: 4698843734456377195}
-  skillImage: {fileID: 0}
   skillName: Explosion
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -24623,7 +24603,6 @@ MonoBehaviour:
   shouldBeLocked:
   - {fileID: 928378047025138445}
   - {fileID: 7062975197436675341}
-  skillImage: {fileID: 0}
   skillName: BounceSword
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -24977,7 +24956,6 @@ MonoBehaviour:
   - {fileID: 7778935447085001750}
   - {fileID: 7127100246445778285}
   - {fileID: 7585919196912471834}
-  skillImage: {fileID: 0}
   skillName: Mirage
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
@@ -25952,7 +25930,6 @@ MonoBehaviour:
   - {fileID: 4009728534572774618}
   - {fileID: 3301958456599183408}
   shouldBeLocked: []
-  skillImage: {fileID: 0}
   skillName: DashHereIAm
   skillDescription: 
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}

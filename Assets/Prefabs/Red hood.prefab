@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3192125265148117340}
   - component: {fileID: 4646324957130893986}
   - component: {fileID: 3277731752192871867}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: StatsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3171266304876006792}
   - component: {fileID: 6318371505476421103}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 6780089617732951241}
   - component: {fileID: 1855003277724078775}
   - component: {fileID: 8981163165349456267}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8319214067353848481}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6624802416110269519}
   - component: {fileID: 1748470029232525779}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: CounterImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9194410194510801704}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AttackCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 565831573682218121}
   - component: {fileID: 7616141219892785111}
   - component: {fileID: 3747535776940421834}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +560,7 @@ GameObject:
   - component: {fileID: 7766248848481645118}
   - component: {fileID: 3804091199250686768}
   - component: {fileID: 2414221031996950064}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 6782713268718767097}
   - component: {fileID: 4958030408026762412}
   - component: {fileID: 9096162033619129168}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Red hood
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -682,15 +682,15 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
-  m_Material: {fileID: 0}
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 16eb013bb385bc44d9cfdfad86a5f853, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -769,9 +769,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 0
+  ShouldFlip: 0
   groundCheckDistance: 0.15
   IsWallDetected: 0
-  wallCheckDistance: 1.65
+  wallCheckDistance: 2.42
   isFullDetected: 1
   playerLayer:
     serializedVersion: 2
@@ -798,13 +799,20 @@ MonoBehaviour:
   knockbackXSpeed: 3
   knockbackYSpeed: 3
   damageFrom: {fileID: 0}
-  defaultMoveSpeed: 4
+  defaultMoveSpeed: 8
+  defaultJumpForce: 20
   moveSpeed: 0
   attackDistance: 2
   attackCooldown: 0.4
   lostPlayerTime: 7
   hitCooldown: 0.5
   player: {fileID: 0}
+  moveTimer: 5
+  moveTime: 5
+  isFollowing: 0
+  FollowTimeout: 5
+  MaxDistance: 5
+  ExtraMoveChance: 0.2
 --- !u!114 &6782713268718767097
 MonoBehaviour:
   m_ObjectHideFlags: 0

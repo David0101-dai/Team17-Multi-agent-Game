@@ -39,7 +39,7 @@ public class CrystalSkillController : MonoBehaviour
         Func<Transform, float, Transform> findClosestEnemy)
     {
 
-        AudioManager.instance.PlaySFX(8,null); //ÊÍ·ÅË®¾§ÒôÐ§
+        AudioManager.instance.PlaySFX(8,null); //ï¿½Í·ï¿½Ë®ï¿½ï¿½ï¿½ï¿½Ð§
 
         if (player == null)
         {
@@ -120,7 +120,7 @@ public class CrystalSkillController : MonoBehaviour
 
     private void AnimationExplodeEvent()
     {
-        AudioManager.instance.PlaySFX(9,null); //Ë®¾§±¬Õ¨ÒôÐ§
+        AudioManager.instance.PlaySFX(9,null); //Ë®ï¿½ï¿½ï¿½ï¿½Õ¨ï¿½ï¿½Ð§
 
         var colliders = Physics2D.OverlapCircleAll(transform.position, cd.radius);
 

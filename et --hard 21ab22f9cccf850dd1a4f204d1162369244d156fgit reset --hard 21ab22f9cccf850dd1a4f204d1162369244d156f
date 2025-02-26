@@ -1,0 +1,280 @@
+[33mcommit 551045ce3d750409dd35ef79ab0c7c734709b7cf[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: cd5b8aa 37dbe90
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Wed Feb 26 00:16:19 2025 +0800
+
+    ye
+
+[33mcommit cd5b8aa0c834161c831b47d82729ef2d930592e8[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Wed Feb 26 00:15:45 2025 +0800
+
+    ye
+
+[33mcommit 37dbe90b615627029c22d20a1ae76924d800efd1[m
+Author: scygz4 <scygz4@nottingham.edu.cn.com>
+Date:   Wed Feb 26 00:09:13 2025 +0800
+
+    8
+
+[33mcommit cf4987b598dbe627e2658016dd2c1d00625bfe70[m
+Merge: 03c1277 21ab22f
+Author: scygz4 <scygz4@nottingham.edu.cn.com>
+Date:   Tue Feb 25 23:51:20 2025 +0800
+
+    7
+
+[33mcommit 03c127713465ce854074a35a820363af8122024d[m
+Author: scygz4 <scygz4@nottingham.edu.cn.com>
+Date:   Tue Feb 25 23:20:45 2025 +0800
+
+    Add Level System
+
+[33mcommit 21ab22f9cccf850dd1a4f204d1162369244d156f[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Tue Feb 25 19:28:50 2025 +0800
+
+    添加地刺，修改了地图
+
+[33mcommit 7be57cdc1161b114333a0b63e946170bb5c92463[m
+Merge: 3c1f941 18d8e3b
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Tue Feb 25 16:44:46 2025 +0800
+
+    .
+
+[33mcommit 3c1f9410a1c3d00ee5b14d064d40e0e0be89a9d5[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Tue Feb 25 16:31:37 2025 +0800
+
+    添加新地图
+
+[33mcommit 18d8e3b498262af46929fd2b5d66026a1992394e[m
+Merge: 6695b1a f8abc43
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Tue Feb 25 16:20:39 2025 +0800
+
+    修改遇空地反转脚本
+
+[33mcommit 6695b1a2d6998505b9c2fe6fd834680797626b5a[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Tue Feb 25 16:20:20 2025 +0800
+
+    修改遇空地反转脚本
+
+[33mcommit f8abc43d55ba4e9991a89a5503be0e9b3111f1ad[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Tue Feb 25 14:46:00 2025 +0800
+
+    修改地图，增加怪物数量
+
+[33mcommit 508ba588bc380b43d17c21ad10e6f82f7b87d21a[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Mon Feb 24 21:52:41 2025 +0800
+
+    拷贝mainsence为Zihan,修改了地图
+
+[33mcommit c5a2262de67012de747f1924f693d5c1e036653c[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Mon Feb 24 20:31:04 2025 +0800
+
+    增加骷髅死亡音效，跟换玩家死亡音效，开启背景音乐
+
+[33mcommit 8dd5d7ae118f31e4048fc5ed648dfbbbc81c23f5[m
+Merge: 006ed0b 63cfb6c
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Mon Feb 24 16:03:07 2025 +0800
+
+    合并
+
+[33mcommit 63cfb6c7b96d5ae3c410e5997724cfc14ca049ba[m
+Merge: e484b10 3bbfa05
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Mon Feb 24 12:28:40 2025 +0800
+
+    修复小红帽虚空踏步问题
+
+[33mcommit e484b10e6329c2b78cdc2e90105fd3f1f2b59fe4[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Mon Feb 24 12:28:19 2025 +0800
+
+    修复小红帽虚空踏步问题
+
+[33mcommit 006ed0b47a08d6fa13376c4c07d727f1344db351[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Mon Feb 24 00:16:15 2025 +0800
+
+    增加死亡音效
+
+[33mcommit 3bbfa058e5ce5f136318f243300ec83b6780f177[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Mon Feb 24 00:09:31 2025 +0800
+
+    增加拾取音效
+
+[33mcommit 32ce366dff318ce6e4a41ca518cd1bbbe4454886[m
+Merge: 4a506b1 3ae349e
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 23:59:56 2025 +0800
+
+    完成合并: 整合团队最新修改“
+
+[33mcommit 4a506b15dc32e3e07ee7b1dd647bc50a3ec18d38[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 23:56:23 2025 +0800
+
+    增加了玩家拾取物体的音效
+
+[33mcommit 3ae349e52b0af5b95fb366a0f08b2394418ca1ba[m
+Merge: 06bcc28 64fafdf
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Sun Feb 23 21:51:17 2025 +0800
+
+    增加npc的跳跃逻辑
+
+[33mcommit 06bcc2835e95a3761167ef997dcafb23ba74d9fb[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Sun Feb 23 21:50:53 2025 +0800
+
+    增加npc的跳跃逻辑
+
+[33mcommit 64fafdfa523affb7ec4b72245a635243aaca58fb[m
+Merge: 6b3e52e f44661c
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 18:26:53 2025 +0800
+
+    增加骷髅受击音效，增加骷髅吼叫声（靠近才出现）
+
+[33mcommit 6b3e52ec558761fe557c00769b2bd4a96d3f5a28[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 18:24:31 2025 +0800
+
+    增加骷髅受击声音，增加骷髅吼叫声音（靠近才发出）
+
+[33mcommit f44661c690838a083c961ab10e2c91173396054d[m
+Merge: 04c5df3 01149fe
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Sun Feb 23 17:52:26 2025 +0800
+
+    Merge branch 'main' of https://github.com/David0101-dai/Team17-Multi-agent-Game
+
+[33mcommit 04c5df3c170a436733951ad2100ce1e6be6a1247[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Sun Feb 23 17:52:13 2025 +0800
+
+    优化npc逻辑
+
+[33mcommit 01149fea34d11056da1a46e45177b37bbac42166[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 17:15:57 2025 +0800
+
+    增加回旋镖音效
+
+[33mcommit 20cc4df85102b85d8ca9938e951eb04d3d968355[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 16:36:20 2025 +0800
+
+    增加了GameManager预制体和脚本，增加了玩家克隆体的挥刀音效
+
+[33mcommit 3bd7e8e83c98619edb46a5a09190040eb6eaf57c[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 15:30:24 2025 +0800
+
+    导入了背景音乐
+
+[33mcommit a74866dbf3ee89c31c442fc3600228902bb406d9[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Sun Feb 23 15:28:28 2025 +0800
+
+    新增格挡动画
+
+[33mcommit b2cad12cd263f3f11523078d5902c9b73886d5e1[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Sun Feb 23 15:16:05 2025 +0800
+
+    新增友好npc
+
+[33mcommit ae42a45ea70d4630f39299f9a7116aede8d7f606[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 14:10:55 2025 +0800
+
+    增加释放水晶和水晶爆炸的音效
+
+[33mcommit 6df11af6d435daac6832e8d2676095186422bbfd[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 13:42:11 2025 +0800
+
+    增加受击和大招音效
+
+[33mcommit 605fbb8efee54d60318b79e2454456b590a14fa2[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sun Feb 23 12:48:34 2025 +0800
+
+    增加冲刺，跳跃，爬墙跳跃，爬墙下滑音效
+
+[33mcommit 61907aa8446a0b9a2d30747a1dbb49fee1f2e6f6[m
+Merge: baf3f58 9209d42
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sat Feb 22 21:27:10 2025 +0800
+
+    添加了挥刀音效和奔跑音效
+
+[33mcommit baf3f581053a737246124f49f1746dd80c8dd2de[m
+Author: Zihan Yu <scyzy6@nottingham.edu.cn>
+Date:   Sat Feb 22 21:11:37 2025 +0800
+
+    添加挥刀音效和跑步音效
+
+[33mcommit 9209d4213b33d136bd9906625f0c7060db7e3c3e[m
+Author: Robot-John-6 <yzh1878023036@outlook.com>
+Date:   Sat Feb 22 20:02:05 2025 +0800
+
+    上传了修改后的格挡动作
+
+[33mcommit 5b60ff9512289c3f057655c4eb465713427ec030[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Thu Feb 20 22:01:52 2025 +0800
+
+    优化敌人的攻击逻辑，改为进入攻击范围攻击
+
+[33mcommit 375af97526bd293d97dfdb335661a827788c4d65[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Thu Feb 20 20:09:40 2025 +0800
+
+    流血的实现
+
+[33mcommit e5ea97036d3d5a633c1c5a9ca44b0f3c29f37e71[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Wed Feb 19 15:56:38 2025 +0800
+
+    夜魔代码修复
+
+[33mcommit a4f629ee0fec9a39d0a6bd635d9ff43f5f1807fd[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Wed Feb 19 09:59:32 2025 +0800
+
+    夜魔代码独立
+
+[33mcommit 32e86b740c801ad5bfea757fb0297a1cdd3e434a[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Tue Feb 18 20:15:39 2025 +0800
+
+    修复了被击中后无法跳跃的bug
+
+[33mcommit f6e857ea9e88ffb95875ecad7dbc4aa6b99484e7[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Tue Feb 18 19:36:32 2025 +0800
+
+    加强夜魔
+
+[33mcommit 1e3d97e19ca5386c3270af8c84c6c4d9176c1bdc[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Sun Feb 16 16:17:26 2025 +0800
+
+    削弱夜魔
+
+[33mcommit 46e907106a3bc523740974a6b6e96aa1b0018e86[m
+Author: Yuanhao <scyyd8@nottingham.edu.cn>
+Date:   Fri Feb 14 21:52:16 2025 +0800
+
+   

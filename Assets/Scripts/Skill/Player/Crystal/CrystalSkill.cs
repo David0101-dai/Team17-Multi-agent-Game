@@ -1,3 +1,5 @@
+using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +9,13 @@ public class CrystalSkill : Skill
     [SerializeField] private float duration;
 
     [Header("Crystal Mirage")]
+    [SerializeField] private SkillTreeSlot unlockCloneInsteadbutton;
     [SerializeField] private bool cloneInsteadOfCrystal;
+
+
+    [Header("Crystal Simple")]
+    [SerializeField] private SkillTreeSlot unlockCrystalButton;
+    public bool crystalUnlocked { get; private set; }
 
     [Header("Growing Crystal")]
     [SerializeField] private Vector2 maxSize;
@@ -15,13 +23,16 @@ public class CrystalSkill : Skill
 
 
     [Header("Explosive Crystal")]
+    [SerializeField] private SkillTreeSlot unlockExplosiveButton;
     [SerializeField] private bool canExplode;
 
     [Header("Moving Crystal")]
+    [SerializeField] private SkillTreeSlot unlockMovingButton;
     [SerializeField] private bool canMove;
     [SerializeField] private float moveSpeed;
 
     [Header("Multi Stacking Crystal")]
+    [SerializeField] private SkillTreeSlot unlockMultiStackButton;
     [SerializeField] private bool canUseMultiStacks;
     [SerializeField] private int amountOfStacks;
     [SerializeField] private float multiStackCooldown;
@@ -29,6 +40,51 @@ public class CrystalSkill : Skill
     [SerializeField] private List<GameObject> crystalLeft = new List<GameObject>();
 
     private GameObject currentCrystal;
+
+
+
+    protected override void Start() {
+        base.Start();
+
+        unlockCrystalButton.GetComponent<Button>().onClick.AddListener(UnlockCrystal);
+        unlockCloneInsteadbutton.GetComponent<Button>().onClick.AddListener(UnlockCrystalMirage);
+        unlockMovingButton.GetComponent<Button>().onClick.AddListener(UnlockMovingCrystal);
+        unlockExplosiveButton.GetComponent<Button>().onClick.AddListener(UnlockExplosiveCrystal);
+        unlockMultiStackButton.GetComponent<Button>().onClick.AddListener(UnlockMulitStack);
+
+    }
+
+    #region Unlock Skill Region
+    private void UnlockCrystal()
+    {
+        if (unlockCrystalButton.unlocked)
+            crystalUnlocked = true;
+    }
+
+    private void UnlockCrystalMirage()
+    {
+        if (unlockCloneInsteadbutton.unlocked)
+            cloneInsteadOfCrystal = true;
+    }
+
+    private void UnlockMovingCrystal()
+    {
+        if (unlockMovingButton.unlocked)
+            canMove = true;
+    }
+
+    private void UnlockExplosiveCrystal()
+    {
+        if (unlockExplosiveButton.unlocked)
+            canExplode = true;
+    }
+
+    private void UnlockMulitStack()
+    {
+        if (unlockMultiStackButton.unlocked)
+            canUseMultiStacks = true;
+    }
+    #endregion
 
     protected override void SkillFunction()
     {

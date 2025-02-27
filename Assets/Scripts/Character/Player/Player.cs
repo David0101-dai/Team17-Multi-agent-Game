@@ -115,7 +115,7 @@ public class Player : Character
         dashUsageTimer -= Time.deltaTime;
 
         //
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && Skill.Crystal.crystalUnlocked)
             Skill.Crystal.CanUseSkill();
         
         //

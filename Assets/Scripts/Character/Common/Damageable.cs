@@ -110,6 +110,14 @@ public abstract class Damageable : MonoBehaviour
 
         if (isDead) return;
 
+        // 如果当前对象是玩家，并且处于无敌状态，则忽略伤害
+        var playerComponent = GetComponent<Player>();
+        if (playerComponent != null && playerComponent.isInvincible)
+        {
+            Debug.Log($"{gameObject.name}处于无敌状态，忽略伤害");
+            return;
+        }
+
         var damageFrom = from.GetComponent<Damageable>();
 
         var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);

@@ -2,17 +2,33 @@ using UnityEngine;
 
 public class CounterState : PlayerState
 {
-    private bool canCreateClone;
+    private bool canCreateClone = false;
+    private bool hasDefenseBuff = false;
 
-    public CounterState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
+
+   
+    public CounterState(FSM fsm, Player character, string animBoolName)
+        : base(fsm, character, animBoolName)
     {
+        
     }
 
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
 
-        canCreateClone = true;
+        // 1级：解锁counter
+        if (!SkillManager.Instance.Counter.counterUnlocked)
+        {
+            Fsm.SwitchState(Character.IdleState);
+            return;
+        }
+
+        // 2级：解锁counterBuff
+        hasDefenseBuff = SkillManager.Instance.Counter.counterBuffUnlocked;
+
+        // 3级：解锁counterMirage
+        canCreateClone = SkillManager.Instance.Counter.counterMiragelUnlocked;
 
         StateTimer = Character.counterDuration;
         Anim.SetBool("CounterSuccess", false);
@@ -24,27 +40,34 @@ public class CounterState : PlayerState
 
         SetVelocity(0, 0);
 
-        Collider2D[] coliders = Physics2D.OverlapCircleAll(Character.attackCheck.position, Character.attackCheckRadius);
+        // 在防御期间设置角色无敌
+        Character.isInvincible = true;
 
-        foreach (var hit in coliders)
+        if (hasDefenseBuff)
         {
-            if (!hit.CompareTag("Enemy")) continue;
+            Collider2D[] coliders = Physics2D.OverlapCircleAll(Character.attackCheck.position, Character.attackCheckRadius);
 
-            var enemy = hit.GetComponent<Enemy>();
-
-            if (!enemy || !enemy.CanBeStun()) continue;
-
-            StateTimer = 10;
-            Anim.SetBool("CounterSuccess", true);
-
-            if (canCreateClone)
+            foreach (var hit in coliders)
             {
-                Character.Skill.Clone.CreateCloneOnCounterAttack(hit.transform);
-                canCreateClone = false;
-            }
+                if (!hit.CompareTag("Enemy")) continue;
 
-            if (!hit.TryGetComponent(out Damageable to)) return;
-            to.TakeDamage(Character.gameObject);
+                var enemy = hit.GetComponent<Enemy>();
+
+                if (!enemy || !enemy.CanBeStun()) continue;
+
+                // 触发反击效果
+                StateTimer = 10;
+                Anim.SetBool("CounterSuccess", true);
+
+                if (canCreateClone)
+                {
+                    Character.Skill.Clone.CreateCloneOnCounterAttack(hit.transform);
+                    canCreateClone = false;
+                }
+
+                if (!hit.TryGetComponent(out Damageable to)) return;
+                to.TakeDamage(Character.gameObject);
+            }
         }
 
         if (StateTimer < 0 || IsAnimationFinished)
@@ -55,6 +78,7 @@ public class CounterState : PlayerState
 
     public override void Exit(IState newState)
     {
+        Character.isInvincible = false;
         base.Exit(newState);
     }
 }

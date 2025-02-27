@@ -41,6 +41,11 @@ public class Player : Character
 
     [Header("Counter Value")]
     public float counterDuration = 0.2f;
+
+    [Header("Status")]
+    // 添加无敌属性
+    public bool isInvincible = false;
+
     #endregion
 
     #region Component

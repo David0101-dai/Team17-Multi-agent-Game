@@ -14,6 +14,13 @@ public class BlackholeState : PlayerState
     {
         base.Enter(lastState);
 
+
+        if (!SkillManager.Instance.Blackhole.blackHole)
+        {
+            Fsm.SwitchState(Character.IdleState);
+            return;
+        }
+
         AudioManager.instance.PlaySFX(7,null); //¥Û’–“Ù–ß
 
         skillUsed = false;

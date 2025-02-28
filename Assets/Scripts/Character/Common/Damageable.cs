@@ -51,6 +51,7 @@ public abstract class Damageable : MonoBehaviour
     private float shockedTimer;
 
     private bool isDead;
+    private bool isVulnerable;
 
     public event Action<GameObject, GameObject> OnTakeDamage;
     private FlashFX flashFX;
@@ -97,6 +98,18 @@ public abstract class Damageable : MonoBehaviour
         }
     }
 
+    public void MakeVulnerableFor(float _duration) => StartCoroutine(VulnerableCorutine(_duration));
+    
+
+    private IEnumerator VulnerableCorutine(float _duration)
+    {
+        isVulnerable = true;
+
+        yield return new WaitForSeconds(_duration);
+
+        isVulnerable = false;
+    }
+
     public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true)
     {
         
@@ -121,7 +134,12 @@ public abstract class Damageable : MonoBehaviour
         var damageFrom = from.GetComponent<Damageable>();
 
         var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
-        
+
+        if (isVulnerable)
+        {
+            damage = Mathf.RoundToInt(damage * 2.0f);
+        }
+
         currentHp -= damage;
 
         if (from.CompareTag("Player") && canEffect)

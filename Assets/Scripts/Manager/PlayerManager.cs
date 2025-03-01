@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour , ISaveManager
     public GameObject fx;
     public GameObject item;
 
-    public int currency;
+    public int currency; 
     private void Awake()
     {
         if (Instance != null)

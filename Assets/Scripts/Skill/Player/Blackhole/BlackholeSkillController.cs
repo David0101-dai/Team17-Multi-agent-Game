@@ -67,7 +67,7 @@ public class BlackholeSkillController : MonoBehaviour
         this.blackholeDuration = blackholeDuration*2;
         blackholeTimer = blackholeDuration;
 
-        playerCanDisaper = !SkillManager.Instance.Clone.crystalInsteadOfClone;
+        //playerCanDisaper = !SkillManager.Instance.Clone.crystalInsteadOfClone;
     }
 
 
@@ -149,15 +149,8 @@ public class BlackholeSkillController : MonoBehaviour
 
             var offset = new Vector3(Random.Range(0, 100) > 50 ? 2 : -2, 0, 0);
 
-            if (SkillManager.Instance.Clone.crystalInsteadOfClone)
-            {
-                SkillManager.Instance.Crystal.CreateCrystal();
-                SkillManager.Instance.Crystal.CurrentCrystalChooseRandomTarget();
-            }
-            else
-            {
-                SkillManager.Instance.Clone.CreateClone(pos, Quaternion.identity, offset);
-            }
+            SkillManager.Instance.Clone.CreateClone(pos, Quaternion.identity, offset);
+            
 
             amountOfAttacks--;
 

@@ -1334,7 +1334,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1352093888}
+  - {fileID: 704358476}
+  - {fileID: 710860850}
   m_Father: {fileID: 686665273}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &446003888
@@ -9010,11 +9013,20 @@ MonoBehaviour:
   cloneColor: {r: 0, g: 0.718313, b: 1, a: 1}
   isDelayAttack: 1
   attackDelay: 0.5
+  attackMultiplier: 0
   createCloneOnDashStart: 1
   createCloneOnDashOver: 0
   createCloneOnCounterAttack: 1
+  unlockCloneAttackbutton: {fileID: 0}
+  cloneMultiplier: 0
+  canAttack: 0
+  unlockAggresiveClonebutton: {fileID: 0}
+  aggresiveCloneMultiplier: 0
+  unlockMultipleClonebutton: {fileID: 0}
+  multipleCloneMultiplier: 0
   canDuplicateClone: 1
   duplicateProbability: 40
+  unlockCrystalInsteadClonebutton: {fileID: 0}
   crystalInsteadOfClone: 0
 --- !u!114 &628067991
 MonoBehaviour:
@@ -9030,6 +9042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 2
   cooldownTimer: 0
+  swordUnlockButton: {fileID: 0}
   swordType: 3
   swordPrefab: {fileID: 7200626980533826460, guid: b42e328bbdd29e9449f31f788eda392d, type: 3}
   launchForce: {x: 50, y: 50}
@@ -9039,15 +9052,20 @@ MonoBehaviour:
   spaceBetweenDots: 0.07
   dotsPrefab: {fileID: 4615334635856642284, guid: 3dbe26cfa54b87a4992fde4f962e440f, type: 3}
   regularGravity: 0.2
+  bounceUnlockButton: {fileID: 0}
   bounceGravity: 0.2
   bounceSpeed: 20
   bounceAmount: 4
+  pierceUnlockButton: {fileID: 0}
   pierceGravity: 0.05
   pierceAmount: 2
+  spinUnlockButton: {fileID: 0}
   SpinGravity: 0.05
   maxTravelDistance: 7
   spinDuration: 2
   hitCooldown: 0.35
+  timeStopUnlockButton: {fileID: 0}
+  volnurableUnlockButton: {fileID: 0}
 --- !u!114 &628067992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9069,6 +9087,8 @@ MonoBehaviour:
   amountOfAttacks: 8
   cloneAttackCooldown: 0.3
   blackholeDuration: 3
+  unlockBlackHolebutton: {fileID: 0}
+  blackHole: 0
 --- !u!114 &628067993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9085,12 +9105,17 @@ MonoBehaviour:
   cooldownTimer: 0
   crystalPrefab: {fileID: 2509991441140528705, guid: 37df4f685792aae479a478cbafc49768, type: 3}
   duration: 5
+  unlockCloneInsteadbutton: {fileID: 0}
   cloneInsteadOfCrystal: 1
+  unlockCrystalButton: {fileID: 0}
   maxSize: {x: 3, y: 3}
   growSpeed: 5
+  unlockExplosiveButton: {fileID: 0}
   canExplode: 1
+  unlockMovingButton: {fileID: 0}
   canMove: 1
   moveSpeed: 5
+  unlockMultiStackButton: {fileID: 0}
   canUseMultiStacks: 1
   amountOfStacks: 3
   multiStackCooldown: 4
@@ -9508,12 +9533,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704358474}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 29.28, y: -2.51, z: 0}
   m_LocalScale: {x: 0.64055, y: 0.64055, z: 0.64055}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 446003887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &710860848
 GameObject:
@@ -9592,12 +9617,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710860848}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 30.46, y: -2.21, z: 0}
   m_LocalScale: {x: 0.72894, y: 0.72894, z: 0.72894}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 446003887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &751844805
 GameObject:
@@ -93541,12 +93566,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352093886}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25.31, y: -2.54, z: 0}
   m_LocalScale: {x: 0.74662, y: 0.74662, z: 0.74662}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 446003887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1414553911
 GameObject:
@@ -95001,6 +95026,7 @@ MonoBehaviour:
   player: {fileID: 985054164}
   fx: {fileID: 39575202}
   item: {fileID: 9758045}
+  currency: 0
 --- !u!1 &1858546838
 GameObject:
   m_ObjectHideFlags: 0
@@ -98993,6 +99019,3 @@ SceneRoots:
   - {fileID: 9758046}
   - {fileID: 8677964413986080351}
   - {fileID: 957795606}
-  - {fileID: 1352093888}
-  - {fileID: 704358476}
-  - {fileID: 710860850}

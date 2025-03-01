@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISaveManager
 {
     public static Inventory Instance { get; private set; }
 
@@ -229,5 +229,21 @@ public class Inventory : MonoBehaviour
     public void CanCraft(ItemDataEquipment craftData, object craftingMaterials)
     {
         throw new NotImplementedException();
+    }
+
+    public void LoadData(GameData _data)
+    {
+        //throw new NotImplementedException();
+        Debug.Log("Loading Inventory Data");
+    }
+
+    public void SaveData(ref GameData _data)
+    {
+        _data.inventory.Clear();
+        foreach (KeyValuePair<ItemData, InventoryItem> pair in inventoryDic)
+        {
+            _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
+        }
+        //throw new NotImplementedException();
     }
 }

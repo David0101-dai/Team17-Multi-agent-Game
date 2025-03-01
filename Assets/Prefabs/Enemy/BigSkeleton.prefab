@@ -219,7 +219,7 @@ Transform:
   m_GameObject: {fileID: 2471181379676303743}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2, y: 0.69, z: 0}
+  m_LocalPosition: {x: 0.83, y: 0.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -733,6 +733,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 0
+  ShouldFlip: 0
   groundCheckDistance: 0.15
   IsWallDetected: 0
   wallCheckDistance: 1.65
@@ -756,7 +757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153bec4b33efc5d4296ec1ec3e3869e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashTime: 0.1
   igniteColor:
   - {r: 1, g: 0.39107904, b: 0.23137254, a: 1}
   - {r: 1, g: 0, b: 0.08326101, a: 1}
@@ -766,7 +766,8 @@ MonoBehaviour:
   shockColor:
   - {r: 0.972549, g: 1, b: 0.29803923, a: 1}
   - {r: 1, g: 0.8117647, b: 0.29803923, a: 1}
-  hitMat: {fileID: 0}
+  hitMat: {fileID: 2100000, guid: e226a9d4e3aad8a4bb3923eb86d6d0c6, type: 2}
+  flashTime: 0.1
 --- !u!114 &5303668370601226960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,15 +781,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 753186176926008865}
-  attackCheckRadius: 1
+  attackCheckRadius: 1.44
+  canAttack: 0
   knockbackXSpeed: 5
   knockbackYSpeed: 0
   damageFrom: {fileID: 0}
-  defaultMoveSpeed: 1.5
+  defaultMoveSpeed: 2.1
   moveSpeed: 1.5
-  attackDistance: 2
+  attackDistance: 3.83
   attackCooldown: 0.1
   lostPlayerTime: 7
+  hitCooldown: 0.5
   stunTime: 2
   canBeStun: 1
   counterImage: {fileID: 2659422093387306534}
@@ -827,7 +830,7 @@ MonoBehaviour:
     value: 0
     modifiers: 
   MaxHp:
-    value: 100
+    value: 205
     modifiers: 
   Armor:
     value: 0
@@ -850,10 +853,11 @@ MonoBehaviour:
   IsIgnited: 0
   IsChilled: 0
   IsShocked: 0
-  igniteDuration: 0.2
-  chillDuration: 0.2
+  igniteDuration: 1.5
+  chillDuration: 1.5
   thunderStrikePrefab: {fileID: 4050344180660983985, guid: 197d6a6330fb1a047aa8e053e9df76bb, type: 3}
   shockDuration: 0.8
+  level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
 --- !u!114 &844995633411001112
 MonoBehaviour:
   m_ObjectHideFlags: 0

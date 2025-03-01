@@ -656,7 +656,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8281320021191277464}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 65.35, y: -2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -769,6 +769,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 0
+  ShouldFlip: 0
   groundCheckDistance: 0.15
   IsWallDetected: 0
   wallCheckDistance: 1.65
@@ -817,12 +818,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 7789659888648839136}
   attackCheckRadius: 3.81
+  canAttack: 0
   knockbackXSpeed: 0
   knockbackYSpeed: 0
   damageFrom: {fileID: 0}
   defaultMoveSpeed: 2
   moveSpeed: 1.5
-  attackDistance: 1
+  attackDistance: 4
   attackCooldown: 0.1
   lostPlayerTime: 7
   hitCooldown: 1
@@ -891,6 +893,7 @@ MonoBehaviour:
   chillDuration: 2
   thunderStrikePrefab: {fileID: 4050344180660983985, guid: 197d6a6330fb1a047aa8e053e9df76bb, type: 3}
   shockDuration: 1
+  level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
 --- !u!114 &8720956939563397207
 MonoBehaviour:
   m_ObjectHideFlags: 0

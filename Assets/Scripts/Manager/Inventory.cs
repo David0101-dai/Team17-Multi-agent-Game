@@ -60,6 +60,23 @@ public class Inventory : MonoBehaviour, ISaveManager
         inventoryItemSlots = inventorySlotParent.GetComponentsInChildren<ItemSlot>();
         stashItemSlots = stashSlotParent.GetComponentsInChildren<ItemSlot>();
         statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
+
+        AddStartingItems();
+    }
+
+    private void AddStartingItems()
+    {
+        if (loadedItems.Count > 0)
+        {
+            foreach (var item in loadedItems)
+            {
+                for (int i = 0; i < item.stackSize; i++)
+                {
+                    AddItem(item.data);
+                }
+            }
+            return;
+        }
     }
 
     public void EquipItem(ItemData item)

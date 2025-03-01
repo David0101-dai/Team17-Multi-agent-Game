@@ -7989,10 +7989,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 347736059}
   - {fileID: 1466275367}
   - {fileID: 1020709379}
   - {fileID: 1143616786}
-  - {fileID: 347736059}
   m_Father: {fileID: 1822176935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &902165106
@@ -62271,10 +62271,10 @@ MonoBehaviour:
   - {fileID: 1278405551}
   - {fileID: 175580718}
   bgm:
+  - {fileID: 347736060}
   - {fileID: 1020709380}
   - {fileID: 1466275368}
   - {fileID: 1143616787}
-  - {fileID: 347736060}
   playBgm: 1
 --- !u!4 &1822176935
 Transform:

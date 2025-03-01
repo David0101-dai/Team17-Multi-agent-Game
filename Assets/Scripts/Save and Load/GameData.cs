@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameData
 {
     public int currency;
-    public SerializableDictionary<string, int> inventory;
+    public SerializableDictionary<string, int> inventory; // 确保是 public 或 [SerializeField]
 
     public GameData()
     {

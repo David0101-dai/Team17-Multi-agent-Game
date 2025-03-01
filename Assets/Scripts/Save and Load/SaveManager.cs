@@ -61,11 +61,10 @@ public class SaveManager : MonoBehaviour
     {
         foreach (ISaveManager saveManager in saveManagers)
         {
-            saveManager.SaveData(ref gameData);
+            saveManager.SaveData(ref gameData); // 确保这里正确填充了 gameData
         }
-        
-        fileDataHandler.SaveData(gameData);
 
+        fileDataHandler.SaveData(gameData);
     }
 
     private void OnApplicationQuit()

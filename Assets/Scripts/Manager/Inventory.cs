@@ -239,11 +239,13 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public void SaveData(ref GameData _data)
     {
+        Debug.Log("Saving Inventory Data");
         _data.inventory.Clear();
+        
         foreach (KeyValuePair<ItemData, InventoryItem> pair in inventoryDic)
         {
+            Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
         }
-        //throw new NotImplementedException();
     }
 }

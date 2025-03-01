@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            transform.SetParent(null); // 解除父对象关系
             DontDestroyOnLoad(gameObject);
         }
         else

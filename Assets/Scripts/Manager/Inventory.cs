@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
+using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Inventory : MonoBehaviour, ISaveManager
 {
@@ -29,6 +33,9 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     [Header("ItemsCooldown")]
     private float lastTimeUsedFlask;
+
+    [Header("Data Base")]
+    public List<InventoryItem> loadedItems;
 
     private void Awake()
     {
@@ -233,8 +240,32 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public void LoadData(GameData _data)
     {
-        //throw new NotImplementedException();
-        Debug.Log("Loading Inventory Data");
+        foreach (KeyValuePair<string, int> pair in _data.inventory)
+        {
+            foreach (var item in GetItemDataBase())
+            {
+                if (item.itemId != pair.Key) continue;
+                var newItem = new InventoryItem(item);
+                newItem.stackSize = pair.Value;
+                loadedItems.Add(newItem);
+
+                // 将加载的物品添加到 inventoryItems 或 stashItems 中
+                if (item.itemType == ItemType.Equipment)
+                {
+                    inventoryItems.Add(newItem);
+                    inventoryDic.Add(item, newItem);
+                }
+                else if (item.itemType == ItemType.Material)
+                {
+                    stashItems.Add(newItem);
+                    stashDic.Add(item, newItem);
+                }
+            }
+        }
+
+        // 更新 UI
+        UpdateSlotUI(inventoryItemSlots, inventoryItems);
+        UpdateSlotUI(stashItemSlots, stashItems);
     }
 
     public void SaveData(ref GameData _data)
@@ -247,5 +278,25 @@ public class Inventory : MonoBehaviour, ISaveManager
             Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
         }
+    }
+
+private List<ItemData> GetItemDataBase()
+    {
+        List<ItemData> itemDataBase = new List<ItemData>();
+
+#if UNITY_EDITOR
+        string[] assetNames = AssetDatabase.FindAssets("", new[] { "Assets/Scripts/Item/ScriptableObject" });
+        foreach (var SOName in assetNames)
+        {
+            var SOpath = AssetDatabase.GUIDToAssetPath(SOName); // 修正：将 GUID 转换为路径
+            var itemData = AssetDatabase.LoadAssetAtPath<ItemData>(SOpath); // 确保 SOpath 是 string 类型
+            if (itemData != null)
+            {
+                itemDataBase.Add(itemData); // 添加 ItemData 对象
+            }
+        }
+#endif
+
+        return itemDataBase;
     }
 }

@@ -145,6 +145,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 0
+  ShouldFlip: 0
   groundCheckDistance: 0.15
   IsWallDetected: 0
   wallCheckDistance: 1.65
@@ -193,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 6448133198350811833}
   attackCheckRadius: 1
+  canAttack: 0
   knockbackXSpeed: 5
   knockbackYSpeed: 0
   damageFrom: {fileID: 0}
@@ -267,6 +269,7 @@ MonoBehaviour:
   chillDuration: 2
   thunderStrikePrefab: {fileID: 4050344180660983985, guid: 197d6a6330fb1a047aa8e053e9df76bb, type: 3}
   shockDuration: 1
+  level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
 --- !u!114 &6138075457592379974
 MonoBehaviour:
   m_ObjectHideFlags: 0

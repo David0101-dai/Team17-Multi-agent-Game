@@ -236,13 +236,22 @@ public class SwordSKillController : MonoBehaviour
         StuckInTo(other);
     }
 
+
     private void TakeDamage(Collider2D other, bool needFreeze)
     {
         if (!other.TryGetComponent(out Damageable damageable)) return;
-        damageable.TakeDamage(player.gameObject);
-        if (!needFreeze) return;
         if (!other.TryGetComponent(out Enemy enemy)) return;
-        enemy.FreezeTimeForSeconds(freezeTime);
+
+        EnemyDamageable enemyDamageable = enemy.GetComponent<EnemyDamageable>();
+
+
+        damageable.TakeDamage(player.gameObject, false, true);
+        if (!needFreeze) return;
+        
+        if (player.Skill.Sword.timeStopUnlocked)
+            enemy.FreezeTimeForSeconds(freezeTime);
+        if (player.Skill.Sword.volnurableUnlocked)
+            enemyDamageable.MakeVulnerableFor(freezeTime);
     }
 
     private void GetBounceEnemy()

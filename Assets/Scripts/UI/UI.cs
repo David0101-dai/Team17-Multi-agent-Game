@@ -8,6 +8,7 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject optionsUI;
 
     [SerializeField] public Tooltip tooltip;
+    [SerializeField] public UI_SkillToolTip skillToolTip;
 
     private void Start()
     {

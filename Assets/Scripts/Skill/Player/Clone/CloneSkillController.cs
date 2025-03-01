@@ -6,6 +6,7 @@ public class CloneSkillController : MonoBehaviour
     [SerializeField] private Transform attackCheck;
     [SerializeField] private float attackCheckRadius;
 
+    private float attackMultiplier;
     private float attackDelayTimer;
     private float cloneDuration;
     private Color cloneColor;
@@ -37,8 +38,9 @@ public class CloneSkillController : MonoBehaviour
         float attackDelay,
         bool canDuplicateClone,
         float duplicateProbability,
-        Func<Transform, float, Transform> findClosestEnemy)
+        Func<Transform, float, Transform> findClosestEnemy, float _attackMultiplier)
     {
+        attackMultiplier = _attackMultiplier;
         this.player = player;
         cloneTimer = cloneDuration;
         this.cloneDuration = cloneDuration;
@@ -94,7 +96,9 @@ public class CloneSkillController : MonoBehaviour
             if (hit.CompareTag("Player")
                 || hit.transform == transform.parent
                 || !hit.TryGetComponent(out Damageable damageable)) continue;
-            damageable.TakeDamage(player.gameObject);
+            damageable.CloneTakeDamage(player.gameObject, false, true, attackMultiplier);
+
+           
 
             if (!canDuplicateClone || UnityEngine.Random.Range(0, 100) >= duplicateProbability) continue;
             SkillManager.Instance.Clone.CreateClone(hit.transform.position, player.transform.rotation, new Vector3(1.5f * facingDir, 0));

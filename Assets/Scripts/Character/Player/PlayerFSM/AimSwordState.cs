@@ -9,7 +9,13 @@ public class AimSwordState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-        
+
+        if (!SkillManager.Instance.Sword.swordUnlocked)
+        {
+            Fsm.SwitchState(Character.IdleState);
+            return;
+        }
+
         Character.Skill.Sword.SetDotsActive(true);
     }
 

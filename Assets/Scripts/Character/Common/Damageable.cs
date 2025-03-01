@@ -51,6 +51,7 @@ public abstract class Damageable : MonoBehaviour
     private float shockedTimer;
 
     private bool isDead;
+    private bool isVulnerable;
 
     public event Action<GameObject, GameObject> OnTakeDamage;
     private FlashFX flashFX;
@@ -97,6 +98,18 @@ public abstract class Damageable : MonoBehaviour
         }
     }
 
+    public void MakeVulnerableFor(float _duration) => StartCoroutine(VulnerableCorutine(_duration));
+    
+
+    private IEnumerator VulnerableCorutine(float _duration)
+    {
+        isVulnerable = true;
+
+        yield return new WaitForSeconds(_duration);
+
+        isVulnerable = false;
+    }
+
     public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true)
     {
         
@@ -110,10 +123,23 @@ public abstract class Damageable : MonoBehaviour
 
         if (isDead) return;
 
+        // 如果当前对象是玩家，并且处于无敌状态，则忽略伤害
+        var playerComponent = GetComponent<Player>();
+        if (playerComponent != null && playerComponent.isInvincible)
+        {
+            Debug.Log($"{gameObject.name}处于无敌状态，忽略伤害");
+            return;
+        }
+
         var damageFrom = from.GetComponent<Damageable>();
 
         var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
-        
+
+        if (isVulnerable)
+        {
+            damage = Mathf.RoundToInt(damage * 2.0f);
+        }
+
         currentHp -= damage;
 
         if (from.CompareTag("Player") && canEffect)
@@ -318,6 +344,114 @@ public abstract class Damageable : MonoBehaviour
     }
 
     protected abstract void Die();
+
+    public virtual void CloneTakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, float _multiplier = 1f)
+    {
+
+
+        if (currentHp <= 0)
+        {
+            isDead = true;
+            Die();
+            currentHp = 0;  // Ensure the HP doesn't go below 0
+        }
+
+        if (isDead) return;
+
+        // 如果当前对象是玩家，并且处于无敌状态，则忽略伤害
+        var playerComponent = GetComponent<Player>();
+        if (playerComponent != null && playerComponent.isInvincible)
+        {
+            Debug.Log($"{gameObject.name}处于无敌状态，忽略伤害");
+            return;
+        }
+
+        var damageFrom = from.GetComponent<Damageable>();
+
+        var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
+
+        if (_multiplier > 0 )
+        {
+            damage = Mathf.RoundToInt(damage * _multiplier);
+        }
+
+        currentHp -= damage;
+
+        if (from.CompareTag("Player") && canEffect)
+        {
+            Inventory.Instance.GetEquipmentByType(EquipmentType.Weapon)?.ExecuteItemEffect(from, gameObject);
+        }
+
+        if (CompareTag("Player") && ((float)currentHp / MaxHp.GetValue()) < 0.3)
+        {
+            Inventory.Instance.GetEquipmentByType(EquipmentType.Armor)?.ExecuteItemEffect(from, gameObject);
+        }
+
+
+        if (isMagic)
+        {
+            var fireDamage = damageFrom.FireDamage.GetValue();
+            var iceDamage = damageFrom.IceDamage.GetValue();
+            var lightingDamage = damageFrom.LightingDamage.GetValue();
+
+            if (Mathf.Max(fireDamage, iceDamage, lightingDamage) <= 0) return;
+
+            bool canApplyIgnite = fireDamage > iceDamage && fireDamage > lightingDamage;
+            bool canApplyChill = iceDamage > lightingDamage && iceDamage > fireDamage;
+            bool canApplyShock = lightingDamage > fireDamage && lightingDamage > iceDamage;
+
+            while (!canApplyIgnite && !canApplyChill && !canApplyShock)
+            {
+                if (UnityEngine.Random.value < 0.3f && fireDamage > 0)
+                {
+                    canApplyIgnite = true;
+                    break;
+                }
+                if (UnityEngine.Random.value < 0.45f && iceDamage > 0)
+                {
+                    canApplyChill = true;
+                    break;
+                }
+                if (UnityEngine.Random.value < 0.7f && lightingDamage > 0)
+                {
+                    canApplyShock = true;
+                    break;
+                }
+            }
+
+            if (canApplyIgnite)
+            {
+                SetupIgniteDamage(Mathf.RoundToInt(fireDamage * 0.2f));
+            }
+
+            ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+        }
+
+        if (currentHp > 0)
+        {
+            if (damage != 0)
+            {
+                // Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
+                OnTakeDamage?.Invoke(from, gameObject);
+                AttackSense.Instance.HitPause(0.1f);
+                if (triggerCriticalStrike)
+                {
+                    AttackSense.Instance.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+                    triggerCriticalStrike = false;
+                }
+            }
+            else
+            {
+                Debug.Log($"{gameObject.name} 回避了来自 {from.name} 的攻击");
+            }
+        }
+        else
+        {
+            isDead = true;
+            Die();
+        }
+    }
+
 
     public Stats StatsOfType(StatType type) => type switch
     {

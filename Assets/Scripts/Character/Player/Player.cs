@@ -41,6 +41,11 @@ public class Player : Character
 
     [Header("Counter Value")]
     public float counterDuration = 0.2f;
+
+    [Header("Status")]
+    // 添加无敌属性
+    public bool isInvincible = false;
+
     #endregion
 
     #region Component
@@ -110,7 +115,7 @@ public class Player : Character
         dashUsageTimer -= Time.deltaTime;
 
         //
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && Skill.Crystal.crystalUnlocked)
             Skill.Crystal.CanUseSkill();
         
         //

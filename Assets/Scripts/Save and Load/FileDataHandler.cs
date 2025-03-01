@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 using System;
 
-public class FileDataHandler : MonoBehaviour
+public class FileDataHandler
 {
     private string dataDirPath = "";
     private string dataFileName = "";

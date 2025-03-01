@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
 {
     [SerializeField]
@@ -10,30 +10,29 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
     [SerializeField]
     private List<TValue> values = new List<TValue>();
 
+    // 序列化时调用
     public void OnBeforeSerialize()
-{
-    keys.Clear();
-    values.Clear();
-    foreach (KeyValuePair<TKey, TValue> pair in this)
     {
-        keys.Add(pair.Key);
-        values.Add(pair.Value);
+        keys.Clear();
+        values.Clear();
+        foreach (KeyValuePair<TKey, TValue> pair in this)
+        {
+            keys.Add(pair.Key);
+            values.Add(pair.Value);
+        }
     }
-    Debug.Log($"Serialized Dictionary: {keys.Count} keys, {values.Count} values");
-}
 
-public void OnAfterDeserialize()
-{
-    this.Clear();
-
-    if (keys.Count != values.Count)
-        throw new System.Exception(string.Format("There are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
-
-    for (int i = 0; i < keys.Count; i++)
+    // 反序列化时调用
+    public void OnAfterDeserialize()
     {
-        this.Add(keys[i], values[i]);
-    }
-    Debug.Log($"Deserialized Dictionary: {keys.Count} keys, {values.Count} values");
-}
-}
+        this.Clear();
 
+        if (keys.Count != values.Count)
+            throw new System.Exception(string.Format("There are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable."));
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            this.Add(keys[i], values[i]);
+        }
+    }
+}

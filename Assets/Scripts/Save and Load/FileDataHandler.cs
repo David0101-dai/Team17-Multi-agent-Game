@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System;
 using Newtonsoft.Json;
+
 public class FileDataHandler
 {
     private string dataDirPath = "";
@@ -15,56 +16,61 @@ public class FileDataHandler
         dataFileName = _dataFileName;
     }
 
-    
-
-public void SaveData(GameData _data)
-{
-    string dataPath = Path.Combine(dataDirPath, dataFileName);
-    try
+    public void SaveData(GameData _data)
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(dataPath));
-
-        // 使用 Newtonsoft.Json 序列化
-        string dataToSave = JsonConvert.SerializeObject(_data, Formatting.Indented);
-
-        using (FileStream fs = new FileStream(dataPath, FileMode.Create))
-        {
-            using (StreamWriter writer = new StreamWriter(fs))
-            {
-                writer.Write(dataToSave);
-            }
-        }
-    }
-    catch (Exception e)
-    {
-        Debug.Log("Error on trying to save data to file " + dataPath + "\n" + e.Message);
-    }
-}
-
-public GameData LoadData()
-{
-    string dataPath = Path.Combine(dataDirPath, dataFileName);
-    GameData loadedData = null;
-    if (File.Exists(dataPath))
-    {
+        string dataPath = Path.Combine(dataDirPath, dataFileName);
         try
         {
-            string dataToLoad = "";
-            using (FileStream fs = new FileStream(dataPath, FileMode.Open))
+            Directory.CreateDirectory(Path.GetDirectoryName(dataPath));
+
+            // 在序列化前调用 OnBeforeSerialize
+            _data.OnBeforeSerialize();
+
+            // 使用 Newtonsoft.Json 序列化
+            string dataToSave = JsonConvert.SerializeObject(_data, Formatting.Indented);
+
+            using (FileStream fs = new FileStream(dataPath, FileMode.Create))
             {
-                using (StreamReader reader = new StreamReader(fs))
+                using (StreamWriter writer = new StreamWriter(fs))
                 {
-                    dataToLoad = reader.ReadToEnd();
+                    writer.Write(dataToSave);
                 }
             }
-            // 使用 Newtonsoft.Json 反序列化
-            loadedData = JsonConvert.DeserializeObject<GameData>(dataToLoad);
         }
         catch (Exception e)
         {
-            Debug.Log("Error on trying to load data from file " + dataPath + "\n" + e.Message);
+            Debug.Log("Error on trying to save data to file " + dataPath + "\n" + e.Message);
         }
     }
-    return loadedData;
-}
+
+    public GameData LoadData()
+    {
+        string dataPath = Path.Combine(dataDirPath, dataFileName);
+        GameData loadedData = null;
+        if (File.Exists(dataPath))
+        {
+            try
+            {
+                string dataToLoad = "";
+                using (FileStream fs = new FileStream(dataPath, FileMode.Open))
+                {
+                    using (StreamReader reader = new StreamReader(fs))
+                    {
+                        dataToLoad = reader.ReadToEnd();
+                    }
+                }
+
+                // 使用 Newtonsoft.Json 反序列化
+                loadedData = JsonConvert.DeserializeObject<GameData>(dataToLoad);
+
+                // 在反序列化后调用 OnAfterDeserialize
+                loadedData.OnAfterDeserialize();
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error on trying to load data from file " + dataPath + "\n" + e.Message);
+            }
+        }
+        return loadedData;
+    }
 }

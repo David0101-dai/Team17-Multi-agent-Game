@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public InventoryItem item;
 
@@ -20,6 +20,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public virtual void OnPointerClick(PointerEventData eventData)
     {
         if (item == null) return;
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            Inventory.Instance.RemoveItem(item.data);
+            return;
+        }
         if (item.data.itemType != ItemType.Equipment) return;
         Inventory.Instance.EquipItem(item.data);
     }
@@ -55,9 +60,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         ui.tooltip.HideTooltip();
     }
 
-    public void OnPointerMove(PointerEventData eventData)
-    {
-    }
+
 
     public void UpdateSlot(InventoryItem newItem)
     {

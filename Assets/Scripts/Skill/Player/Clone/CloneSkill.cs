@@ -20,9 +20,7 @@ public class CloneSkill : Skill
     [SerializeField] private SkillTreeSlot unlockCloneAttackbutton;
     [SerializeField] private float cloneMultiplier;
     [SerializeField] private bool canAttack;
-    [Header("Aggresive Clone")]         
-    [SerializeField] private SkillTreeSlot unlockAggresiveClonebutton;
-    [SerializeField] private float aggresiveCloneMultiplier;
+   
     public bool canApplyOnHitEffect { get; private set; }
 
 
@@ -32,9 +30,7 @@ public class CloneSkill : Skill
     [SerializeField] private bool canDuplicateClone;
     [SerializeField] private float duplicateProbability;
 
-    [Header("Crystal Instead Of Clone")]
-    [SerializeField] private SkillTreeSlot unlockCrystalInsteadClonebutton;
-    [SerializeField] public bool crystalInsteadOfClone;
+    
 
 
 
@@ -43,9 +39,8 @@ public class CloneSkill : Skill
         base.Start();
 
         unlockCloneAttackbutton.GetComponent<Button>().onClick.AddListener(UnlockCloneAttack);
-        unlockAggresiveClonebutton.GetComponent<Button>().onClick.AddListener(UnlockAggresiveClone);
         unlockMultipleClonebutton.GetComponent<Button>().onClick.AddListener(UnlockMultipleClone);
-        unlockCrystalInsteadClonebutton.GetComponent<Button>().onClick.AddListener(UnlockCrystalInsteadClone);
+        
 
     }
 
@@ -59,14 +54,7 @@ public class CloneSkill : Skill
             
     }
 
-    private void UnlockAggresiveClone()
-    {
-        if (unlockAggresiveClonebutton.unlocked) {
-            canApplyOnHitEffect = true;
-            attackMultiplier = aggresiveCloneMultiplier;
-        }
-            
-    }
+    
 
     private void UnlockMultipleClone()
     {
@@ -76,22 +64,14 @@ public class CloneSkill : Skill
         }
     }
 
-    private void UnlockCrystalInsteadClone()
-    {
-        if (unlockCrystalInsteadClonebutton.unlocked)
-            crystalInsteadOfClone = true;
-    }
+    
 
 
     #endregion
 
     public void CreateClone(Vector3 position, Quaternion rotation, Vector3 offset)
     {
-        if (crystalInsteadOfClone)
-        {
-            SkillManager.Instance.Crystal.CreateCrystal();
-            return;
-        }
+        
 
         var newClone = Instantiate(clonePrefab);
         newClone.transform.SetParent(PlayerManager.Instance.fx.transform);

@@ -65,16 +65,19 @@ public class Inventory : MonoBehaviour, ISaveManager
         statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
 
         AddStartingItems();
-        AddInitialItem();
+        //AddInitialItem();
     }
 
-    private void AddInitialItem()
-    {
-        for (int i = 0; i < startingEquipment.Count; i++)
-        {
-            AddItem(startingEquipment[i]);
-        }
-    }
+    //private void AddInitialItem()
+    //{
+    //    Debug.Log($"Starting Equipment Count: {startingEquipment.Count}");
+    //    for (int i = 0; i < startingEquipment.Count; i++)
+    //    {
+    //        Debug.Log($"Adding item: {startingEquipment[i].itemName}");
+    //        AddItem(startingEquipment[i]);
+    //    }
+    //}
+
 
     private void AddStartingItems()
     {
@@ -149,6 +152,7 @@ public class Inventory : MonoBehaviour, ISaveManager
     public void AddItem(ItemData item)
     {
         if (!CanAddItem(item)) return;
+        Debug.Log("try additem");
         switch (item.itemType)
         {
             case ItemType.Material:
@@ -187,10 +191,12 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         if (itemDic.TryGetValue(item, out InventoryItem value))
         {
+            Debug.Log("addstack:" + item.itemName);
             value.AddStack();
         }
         else
         {
+            Debug.Log("addnew:" + item.itemName);
             var newItem = new InventoryItem(item);
             items.Add(newItem);
             itemDic.Add(item, newItem);
@@ -221,10 +227,12 @@ public class Inventory : MonoBehaviour, ISaveManager
 
             if (!slot)
             {
+                Debug.Log("!slot:");
                 slots[i].UpdateSlot(i < items.Count ? items[i] : null);
             }
             else
             {
+                Debug.Log("slot");
                 slots[i].UpdateSlot(null);
                 for (int j = 0; j < items.Count; j++)
                 {
@@ -281,10 +289,10 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
     }
 
-    public void CanCraft(ItemDataEquipment craftData, object craftingMaterials)
-    {
-        throw new NotImplementedException();
-    }
+    //public void CanCraft(ItemDataEquipment craftData, object craftingMaterials)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     public void LoadData(GameData _data)
     {
@@ -370,7 +378,7 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
     }
 
-private List<ItemData> GetItemDataBase()
+    private List<ItemData> GetItemDataBase()
     {
         List<ItemData> itemDataBase = new List<ItemData>();
 
@@ -388,5 +396,38 @@ private List<ItemData> GetItemDataBase()
 #endif
 
         return itemDataBase;
+    }
+
+    public bool CanCraft(ItemDataEquipment itemToCraft, List<InventoryItem> requiredMaterials)
+    {
+        List<InventoryItem> materialsToRemove = new List<InventoryItem>();
+
+        for (int i = 0; i < requiredMaterials.Count; i++)
+        {
+            if (stashDic.TryGetValue(requiredMaterials[i].data, out InventoryItem stashValue))
+            {
+                if (stashValue.stackSize < requiredMaterials[i].stackSize)
+                {
+                    Debug.Log("not enough materials");
+                    return false;
+                }
+                else
+                {
+                    materialsToRemove.Add(stashValue);
+                }
+            }
+            else
+            {
+                Debug.Log("not enough materials");
+                return false;
+            }
+        }
+        for (int i = 0; i < materialsToRemove.Count; i++)
+        {
+            RemoveItem(materialsToRemove[i].data);
+        }
+        AddItem(itemToCraft);
+        Debug.Log("Here is your item " + itemToCraft.name);
+        return true;
     }
 }

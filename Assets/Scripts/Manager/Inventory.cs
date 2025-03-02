@@ -11,6 +11,8 @@ public class Inventory : MonoBehaviour, ISaveManager
 {
     public static Inventory Instance { get; private set; }
 
+    public List<ItemData> startingEquipment;
+
     public List<InventoryItem> equipmentItems;
     public Dictionary<ItemDataEquipment, InventoryItem> equipmentDic;
 
@@ -62,6 +64,15 @@ public class Inventory : MonoBehaviour, ISaveManager
         statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
 
         AddStartingItems();
+        AddInitialItem();
+    }
+
+    private void AddInitialItem()
+    {
+        for (int i = 0; i < startingEquipment.Count; i++)
+        {
+            AddItem(startingEquipment[i]);
+        }
     }
 
     private void AddStartingItems()

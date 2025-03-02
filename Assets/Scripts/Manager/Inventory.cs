@@ -256,10 +256,14 @@ public class Inventory : MonoBehaviour, ISaveManager
         //}
         if (item.itemType == ItemType.Material)
         {
+            var old = stashDic.ContainsKey(item);
+            if (old) return true;
             return stashItems.Count < stashItemSlots.Length;
         }
         else
         {
+            var old = inventoryDic.ContainsKey(item);
+            if (old) return true;
             return inventoryItems.Count < inventoryItemSlots.Length;
         }
     }

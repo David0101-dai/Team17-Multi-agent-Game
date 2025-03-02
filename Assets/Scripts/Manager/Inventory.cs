@@ -36,6 +36,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     [Header("Data Base")]
     public List<InventoryItem> loadedItems;
+    public List<ItemDataEquipment> loadedEquipment;
 
     private void Awake()
     {
@@ -66,6 +67,13 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     private void AddStartingItems()
     {
+        // 加载装备
+        foreach (ItemDataEquipment item in loadedEquipment)
+        {
+            EquipItem(item);
+        }
+
+        // 加载其他物品
         if (loadedItems.Count > 0)
         {
             foreach (var item in loadedItems)
@@ -75,7 +83,6 @@ public class Inventory : MonoBehaviour, ISaveManager
                     AddItem(item.data);
                 }
             }
-            return;
         }
     }
 
@@ -273,6 +280,15 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public void LoadData(GameData _data)
     {
+        // 清空当前数据
+        inventoryItems.Clear();
+        inventoryDic.Clear();
+        stashItems.Clear();
+        stashDic.Clear();
+        equipmentItems.Clear();
+        equipmentDic.Clear();
+
+        // 加载 inventory 和 stash
         foreach (KeyValuePair<string, int> pair in _data.inventory)
         {
             foreach (var item in GetItemDataBase())
@@ -296,26 +312,53 @@ public class Inventory : MonoBehaviour, ISaveManager
             }
         }
 
+        // 加载装备
+        foreach (string loadedItemId in _data.equipmentId)
+        {
+            foreach (var item in GetItemDataBase())
+            {
+                if (item.itemId != loadedItemId) continue;
+                var newItem = new InventoryItem(item);
+                newItem.stackSize = 1;
+                loadedEquipment.Add(item as ItemDataEquipment);
+
+                // 将加载的装备添加到 equipmentItems 和 equipmentDic 中
+                equipmentItems.Add(newItem);
+                equipmentDic.Add(item as ItemDataEquipment, newItem);
+            }
+        }
+
         // 更新 UI
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(stashItemSlots, stashItems);
+        UpdateSlotUI(equipmentSlots, equipmentItems);
     }
 
     public void SaveData(ref GameData _data)
     {
         Debug.Log("Saving Inventory Data");
         _data.inventory.Clear();
-        
+        _data.equipmentId.Clear(); // 清空装备 ID 列表
+
+        // 保存 inventoryDic
         foreach (KeyValuePair<ItemData, InventoryItem> pair in inventoryDic)
         {
             Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
         }
 
+        // 保存 stashDic
         foreach (KeyValuePair<ItemData, InventoryItem> pair in stashDic)
         {
             Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
+        }
+
+        // 保存 equipmentDic
+        foreach (KeyValuePair<ItemDataEquipment, InventoryItem> pair in equipmentDic)
+        {
+            Debug.Log($"Saving equipment: {pair.Key.itemId}");
+            _data.equipmentId.Add(pair.Key.itemId); // 保存装备 ID
         }
     }
 

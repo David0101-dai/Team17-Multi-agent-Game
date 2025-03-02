@@ -10,6 +10,9 @@ public class GameData
     public List<string> inventoryKeys = new List<string>();
     public List<int> inventoryValues = new List<int>();
 
+    // 存储当前穿戴的装备 ID
+    public List<string> equipmentId = new List<string>();
+
     // 实际使用的字典（标记为不序列化，避免重复）
     [System.NonSerialized]
     public SerializableDictionary<string, int> inventory = new SerializableDictionary<string, int>();
@@ -18,6 +21,7 @@ public class GameData
     {
         this.currency = 0;
         this.inventory = new SerializableDictionary<string, int>();
+        this.equipmentId = new List<string>();
     }
 
     // 在序列化前调用，将字典的键和值填充到列表中

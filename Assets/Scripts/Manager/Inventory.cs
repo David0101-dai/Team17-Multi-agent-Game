@@ -134,10 +134,12 @@ public class Inventory : MonoBehaviour, ISaveManager
         switch (item.itemType)
         {
             case ItemType.Material:
+                Debug.Log($"Adding material item: {item.itemId}");
                 AddItemMethod(stashItems, stashDic, item);
                 UpdateSlotUI(stashItemSlots, stashItems);
                 break;
             case ItemType.Equipment:
+                Debug.Log($"Adding equipment item: {item.itemId}");
                 AddItemMethod(inventoryItems, inventoryDic, item);
                 UpdateSlotUI(inventoryItemSlots, inventoryItems);
                 break;
@@ -305,6 +307,12 @@ public class Inventory : MonoBehaviour, ISaveManager
         _data.inventory.Clear();
         
         foreach (KeyValuePair<ItemData, InventoryItem> pair in inventoryDic)
+        {
+            Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
+            _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
+        }
+
+        foreach (KeyValuePair<ItemData, InventoryItem> pair in stashDic)
         {
             Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);

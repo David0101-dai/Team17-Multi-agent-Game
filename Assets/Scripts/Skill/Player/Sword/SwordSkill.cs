@@ -53,6 +53,17 @@ public class SwordSkill : Skill
     private GameObject[] dots;
     private Vector2 finalDir;
 
+        protected override void OnEnable()
+    {
+        base.OnEnable();
+        SaveManager.OnSaveDataLoaded += CheckUnlock;
+    }
+
+    private void OnDisable()
+    {
+        SaveManager.OnSaveDataLoaded -= CheckUnlock;
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -137,6 +148,15 @@ public class SwordSkill : Skill
     }
 
     #region Unlock Skill Region
+    protected override void CheckUnlock()
+    {
+        UnlockTimeStop();
+        UnlockVolnurable();
+        UnlockSwordUnlock();
+        UnlockBounce();
+        UnlockPierce();
+        UnlockSpin();
+    }
     private void UnlockTimeStop()
     {
         if (timeStopUnlockButton.unlocked)
@@ -150,9 +170,10 @@ public class SwordSkill : Skill
     }
     private void UnlockSwordUnlock()
     {
-        if (swordUnlockButton.unlocked)
+        if (swordUnlockButton.unlocked){
             swordType = SwordType.Regular;
             swordUnlocked = true;
+        }   
     }
     private void UnlockBounce()
     {

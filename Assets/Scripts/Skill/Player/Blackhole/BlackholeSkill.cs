@@ -20,17 +20,24 @@ public class BlackholeSkill : Skill
     [SerializeField] private SkillTreeSlot unlockBlackHolebutton;
     [SerializeField] public bool blackHole;
 
+        protected override void OnEnable()
+    {
+        base.OnEnable();
+        SaveManager.OnSaveDataLoaded += CheckUnlock;
+    }
 
+    private void OnDisable()
+    {
+        SaveManager.OnSaveDataLoaded -= CheckUnlock;
+    }
 
 
     protected override void Start()
     {
         base.Start();
-
         unlockBlackHolebutton.GetComponent<Button>().onClick.AddListener(UnlockBlackHole);
-        
-
     }
+
 
 
     private void UnlockBlackHole()
@@ -38,8 +45,6 @@ public class BlackholeSkill : Skill
         if (unlockBlackHolebutton.unlocked)
             blackHole = true;
     }
-
-
     protected override void SkillFunction()
     {
         var pos = player.transform.position + new Vector3(0, 1);
@@ -65,5 +70,11 @@ public class BlackholeSkill : Skill
     public float GetBlackholeRadius()
     {
         return maxSize / 2;
+    }
+
+    protected override void CheckUnlock()
+    {
+        base.CheckUnlock();
+        UnlockBlackHole();
     }
 }

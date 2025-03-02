@@ -19,7 +19,7 @@ public class CloneSkill : Skill
     [Header("Clone Attack")]
     [SerializeField] private SkillTreeSlot unlockCloneAttackbutton;
     [SerializeField] private float cloneMultiplier;
-    [SerializeField] private bool canAttack;
+ //   [SerializeField] private bool canAttack;
    
     public bool canApplyOnHitEffect { get; private set; }
 
@@ -30,9 +30,16 @@ public class CloneSkill : Skill
     [SerializeField] private bool canDuplicateClone;
     [SerializeField] private float duplicateProbability;
 
-    
+        protected override void OnEnable()
+    {
+        base.OnEnable();
+        SaveManager.OnSaveDataLoaded += CheckUnlock;
+    }
 
-
+    private void OnDisable()
+    {
+        SaveManager.OnSaveDataLoaded -= CheckUnlock;
+    }
 
     protected override void Start()
     {
@@ -40,21 +47,23 @@ public class CloneSkill : Skill
 
         unlockCloneAttackbutton.GetComponent<Button>().onClick.AddListener(UnlockCloneAttack);
         unlockMultipleClonebutton.GetComponent<Button>().onClick.AddListener(UnlockMultipleClone);
-        
-
     }
 
     #region Unlock Skill Region
+
+    protected override void CheckUnlock()
+    {
+        UnlockCloneAttack();
+        UnlockMultipleClone();
+    }
+
     private void UnlockCloneAttack()
     {
         if (unlockCloneAttackbutton.unlocked) {
-            canAttack = true;
+            //canAttack = true;
             attackMultiplier = cloneMultiplier;
         }
-            
     }
-
-    
 
     private void UnlockMultipleClone()
     {
@@ -63,16 +72,11 @@ public class CloneSkill : Skill
             attackMultiplier = multipleCloneMultiplier;
         }
     }
-
-    
-
-
     #endregion
+
 
     public void CreateClone(Vector3 position, Quaternion rotation, Vector3 offset)
     {
-        
-
         var newClone = Instantiate(clonePrefab);
         newClone.transform.SetParent(PlayerManager.Instance.fx.transform);
         var controller = newClone.GetComponent<CloneSkillController>();

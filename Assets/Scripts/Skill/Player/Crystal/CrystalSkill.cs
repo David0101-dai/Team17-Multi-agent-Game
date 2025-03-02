@@ -42,6 +42,16 @@ public class CrystalSkill : Skill
     private GameObject currentCrystal;
 
 
+        protected override void OnEnable()
+    {
+        base.OnEnable();
+        SaveManager.OnSaveDataLoaded += CheckUnlock;
+    }
+
+    private void OnDisable()
+    {
+        SaveManager.OnSaveDataLoaded -= CheckUnlock;
+    }
 
     protected override void Start() {
         base.Start();
@@ -55,6 +65,16 @@ public class CrystalSkill : Skill
     }
 
     #region Unlock Skill Region
+
+    protected override void CheckUnlock()
+    {
+        UnlockCrystal();
+        UnlockCrystalMirage();
+        UnlockMovingCrystal();
+        UnlockExplosiveCrystal();
+        UnlockMulitStack();
+    }
+
     private void UnlockCrystal()
     {
         if (unlockCrystalButton.unlocked)

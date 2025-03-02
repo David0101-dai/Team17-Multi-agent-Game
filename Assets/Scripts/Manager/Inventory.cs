@@ -130,7 +130,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public void AddItem(ItemData item)
     {
-        if (!CanAddItem()) return;
+        if (!CanAddItem(item)) return;
         switch (item.itemType)
         {
             case ItemType.Material:
@@ -245,9 +245,23 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
     }
 
-    public bool CanAddItem()
+    public bool CanAddItem(ItemData item)
     {
-        return inventoryItems.Count < inventoryItemSlots.Length;
+        //switch (item.itemType)
+        //{
+        //    case ItemType.Material:
+        //        return stashItems.Count < stashItemSlots.Length;
+        //    case ItemType.Equipment:
+        //        return inventoryItems.Count < inventoryItemSlots.Length;
+        //}
+        if (item.itemType == ItemType.Material)
+        {
+            return stashItems.Count < stashItemSlots.Length;
+        }
+        else
+        {
+            return inventoryItems.Count < inventoryItemSlots.Length;
+        }
     }
 
     public void CanCraft(ItemDataEquipment craftData, object craftingMaterials)

@@ -28,7 +28,7 @@ public class ItemObject : MonoBehaviour
 
     public void PickupItem()
     {
-        if (!Inventory.Instance.CanAddItem())
+        if (!Inventory.Instance.CanAddItem(itemData))
         {
             rb.velocity = new Vector2(0, 7);
             return;

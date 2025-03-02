@@ -11,6 +11,8 @@ public class Inventory : MonoBehaviour, ISaveManager
 {
     public static Inventory Instance { get; private set; }
 
+    public List<ItemData> startingEquipment;
+
     public List<InventoryItem> equipmentItems;
     public Dictionary<ItemDataEquipment, InventoryItem> equipmentDic;
 
@@ -63,6 +65,15 @@ public class Inventory : MonoBehaviour, ISaveManager
         statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
 
         AddStartingItems();
+        AddInitialItem();
+    }
+
+    private void AddInitialItem()
+    {
+        for (int i = 0; i < startingEquipment.Count; i++)
+        {
+            AddItem(startingEquipment[i]);
+        }
     }
 
     private void AddStartingItems()
@@ -256,19 +267,16 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public bool CanAddItem(ItemData item)
     {
-        //switch (item.itemType)
-        //{
-        //    case ItemType.Material:
-        //        return stashItems.Count < stashItemSlots.Length;
-        //    case ItemType.Equipment:
-        //        return inventoryItems.Count < inventoryItemSlots.Length;
-        //}
         if (item.itemType == ItemType.Material)
         {
+            var old = stashDic.ContainsKey(item);
+            if (old) return true;
             return stashItems.Count < stashItemSlots.Length;
         }
         else
         {
+            var old = inventoryDic.ContainsKey(item);
+            if (old) return true;
             return inventoryItems.Count < inventoryItemSlots.Length;
         }
     }

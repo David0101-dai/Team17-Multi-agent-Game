@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+
 
 public abstract class Skill : MonoBehaviour
 {
@@ -6,14 +8,33 @@ public abstract class Skill : MonoBehaviour
     protected Player player;
     [SerializeField] protected float cooldownTimer;
 
+        protected virtual void OnEnable()
+    {
+        StartCoroutine(DelayedCheckUnlock());
+    }
+
+    private IEnumerator DelayedCheckUnlock()
+    {
+        // 等待一帧，确保 SaveManager 加载数据后 SkillTreeSlot 的状态已更新
+        yield return null;
+        CheckUnlock();
+    }
+
+
     protected virtual void Start()
     {
         player = PlayerManager.Instance.player.GetComponent<Player>();
+        //CheckUnlock();
     }
 
     protected virtual void Update()
     {
         cooldownTimer -= Time.deltaTime;
+    }
+
+    protected virtual void CheckUnlock()
+    {
+
     }
 
     public bool CanUseSkill()
@@ -35,7 +56,6 @@ public abstract class Skill : MonoBehaviour
     protected virtual Transform FindClosestEnemy(Transform detectTransform, float radius)
     {
         var collider = Physics2D.OverlapCircleAll(detectTransform.position, radius);
-
         var closeDis = Mathf.Infinity;
 
         Transform closeEnemy = null;

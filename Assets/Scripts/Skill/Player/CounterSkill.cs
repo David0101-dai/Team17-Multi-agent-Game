@@ -17,6 +17,17 @@ public class CounterSkill : Skill
     public bool counterMiragelUnlocked;
     [SerializeField] public SkillTreeSlot counterMiragelUnlockedButton;
 
+        protected override void OnEnable()
+    {
+        base.OnEnable();
+        SaveManager.OnSaveDataLoaded += CheckUnlock;
+    }
+
+    private void OnDisable()
+    {
+        SaveManager.OnSaveDataLoaded -= CheckUnlock;
+    }
+
     protected override void SkillFunction()
     {
     }
@@ -28,6 +39,13 @@ public class CounterSkill : Skill
         counterUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCounter);
         counterBuffUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCounterBuff);
         counterMiragelUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCounterMirage);
+    }
+
+    protected override void CheckUnlock()
+    {
+        UnlockCounter();
+        UnlockCounterBuff();
+        UnlockCounterMirage();
     }
 
     private void UnlockCounter()

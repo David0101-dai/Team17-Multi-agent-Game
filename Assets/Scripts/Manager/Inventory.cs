@@ -6,6 +6,8 @@ using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+
 
 public class Inventory : MonoBehaviour, ISaveManager
 {
@@ -42,12 +44,44 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     private void Awake()
     {
+        Debug.Log("Inventory Awake");
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
+
+        // 如果 SaveManager 尚未创建，则等待一帧后再注册
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.RegisterSaveManager(this);
+            Debug.Log("Inventory registered in SaveManager (Awake)");
+        }
+        else
+        {
+            // 如果 SaveManager 在此时还没初始化，可使用协程等待
+            StartCoroutine(RegisterWhenReady());
+        }
     }
 
+    private IEnumerator RegisterWhenReady()
+    {
+        while (SaveManager.instance == null)
+        {
+            yield return null;
+        }
+        SaveManager.instance.RegisterSaveManager(this);
+        Debug.Log("Inventory registered in SaveManager (Coroutine)");
+    }
+
+    private void OnEnable()
+    {
+        // 确保组件启用时也注册（避免因禁用后重新启用未注册）
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.RegisterSaveManager(this);
+            Debug.Log("Inventory OnEnable: Registered in SaveManager");
+        }
+    }
     private void Start()
     {
         equipmentItems = new List<InventoryItem>();
@@ -68,15 +102,15 @@ public class Inventory : MonoBehaviour, ISaveManager
         //AddInitialItem();
     }
 
-    //private void AddInitialItem()
-    //{
-    //    Debug.Log($"Starting Equipment Count: {startingEquipment.Count}");
-    //    for (int i = 0; i < startingEquipment.Count; i++)
-    //    {
-    //        Debug.Log($"Adding item: {startingEquipment[i].itemName}");
-    //        AddItem(startingEquipment[i]);
-    //    }
-    //}
+    private void AddInitialItem()
+    {
+       Debug.Log($"Starting Equipment Count: {startingEquipment.Count}");
+       for (int i = 0; i < startingEquipment.Count; i++)
+       {
+           Debug.Log($"Adding item: {startingEquipment[i].itemName}");
+           AddItem(startingEquipment[i]);
+       }
+    }
 
 
     private void AddStartingItems()
@@ -152,16 +186,16 @@ public class Inventory : MonoBehaviour, ISaveManager
     public void AddItem(ItemData item)
     {
         if (!CanAddItem(item)) return;
-        Debug.Log("try additem");
+        //Debug.Log("try additem");
         switch (item.itemType)
         {
             case ItemType.Material:
-                Debug.Log($"Adding material item: {item.itemId}");
+                //Debug.Log($"Adding material item: {item.itemId}");
                 AddItemMethod(stashItems, stashDic, item);
                 UpdateSlotUI(stashItemSlots, stashItems);
                 break;
             case ItemType.Equipment:
-                Debug.Log($"Adding equipment item: {item.itemId}");
+                //Debug.Log($"Adding equipment item: {item.itemId}");
                 AddItemMethod(inventoryItems, inventoryDic, item);
                 UpdateSlotUI(inventoryItemSlots, inventoryItems);
                 break;
@@ -191,12 +225,12 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         if (itemDic.TryGetValue(item, out InventoryItem value))
         {
-            Debug.Log("addstack:" + item.itemName);
+           // Debug.Log("addstack:" + item.itemName);
             value.AddStack();
         }
         else
         {
-            Debug.Log("addnew:" + item.itemName);
+          //  Debug.Log("addnew:" + item.itemName);
             var newItem = new InventoryItem(item);
             items.Add(newItem);
             itemDic.Add(item, newItem);
@@ -227,12 +261,12 @@ public class Inventory : MonoBehaviour, ISaveManager
 
             if (!slot)
             {
-                Debug.Log("!slot:");
+               //Debug.Log("!slot:");
                 slots[i].UpdateSlot(i < items.Count ? items[i] : null);
             }
             else
             {
-                Debug.Log("slot");
+               //Debug.Log("slot");
                 slots[i].UpdateSlot(null);
                 for (int j = 0; j < items.Count; j++)
                 {
@@ -294,8 +328,9 @@ public class Inventory : MonoBehaviour, ISaveManager
     //    throw new NotImplementedException();
     //}
 
-    public void LoadData(GameData _data)
+ public void LoadData(GameData _data)
     {
+        Debug.Log("Loading Inventory Data");
         // 清空当前数据
         inventoryItems.Clear();
         inventoryDic.Clear();
@@ -359,21 +394,21 @@ public class Inventory : MonoBehaviour, ISaveManager
         // 保存 inventoryDic
         foreach (KeyValuePair<ItemData, InventoryItem> pair in inventoryDic)
         {
-            Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
+          //  Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
         }
 
         // 保存 stashDic
         foreach (KeyValuePair<ItemData, InventoryItem> pair in stashDic)
         {
-            Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
+           // Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
         }
 
         // 保存 equipmentDic
         foreach (KeyValuePair<ItemDataEquipment, InventoryItem> pair in equipmentDic)
         {
-            Debug.Log($"Saving equipment: {pair.Key.itemId}");
+           // Debug.Log($"Saving equipment: {pair.Key.itemId}");
             _data.equipmentId.Add(pair.Key.itemId); // 保存装备 ID
         }
     }

@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+
 using System.IO;
 
 public class SaveManager : MonoBehaviour
 {
+    public static event Action OnSaveDataLoaded;
     [SerializeField] private string fileName;
     public static SaveManager instance;
     private GameData gameData;
@@ -18,7 +21,7 @@ public class SaveManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            //Load();
+            saveManagers = new List<ISaveManager>();
         }
         else
         {
@@ -26,26 +29,31 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        // 延迟一帧，确保其他组件的 Awake/OnEnable 都已执行完毕
+        yield return null;
         fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-        saveManagers = FindSaveManagers();
+        // 补充：查找可能未在 OnEnable/Awake中注册的 SaveManager
+        if (saveManagers == null || saveManagers.Count == 0)
+        {
+            saveManagers = FindSaveManagers();
+        }
         LoadGame();
     }
 
     public void NewGame()
     {
         gameData = new GameData();
-        //Save();
     }
 
     public void LoadGame()
     {
         gameData = fileDataHandler.LoadData();
 
-        if(this.gameData == null)
+        if (gameData == null)
         {
-            Debug.Log("Game data is null");
+            Debug.Log("Game data is null, creating new game data.");
             NewGame();
         }
 
@@ -54,16 +62,15 @@ public class SaveManager : MonoBehaviour
             saveManager.LoadData(gameData);
         }
 
-        Debug.Log("Loaded currency: " + gameData.currency);
+        OnSaveDataLoaded?.Invoke();
     }
 
     public void SaveGame()
     {
         foreach (ISaveManager saveManager in saveManagers)
         {
-            saveManager.SaveData(ref gameData); // 确保这里正确填充了 gameData
+            saveManager.SaveData(ref gameData);
         }
-
         fileDataHandler.SaveData(gameData);
     }
 
@@ -72,10 +79,23 @@ public class SaveManager : MonoBehaviour
         SaveGame();
     }
 
+    // 查找场景中所有实现 ISaveManager 接口的组件
     private List<ISaveManager> FindSaveManagers()
     {
-        IEnumerable<ISaveManager> saveManagers = FindObjectsOfType<MonoBehaviour>().OfType<ISaveManager>();
-        
-        return new List<ISaveManager>(saveManagers);
+        IEnumerable<ISaveManager> foundManagers = FindObjectsOfType<MonoBehaviour>().OfType<ISaveManager>();
+        return new List<ISaveManager>(foundManagers);
     }
+
+    public void RegisterSaveManager(ISaveManager saveManager)
+    {
+        if (saveManagers == null)
+            saveManagers = new List<ISaveManager>();
+        if (!saveManagers.Contains(saveManager))
+        {
+            saveManagers.Add(saveManager);
+        }
+    }
+
+
+    
 }

@@ -400,6 +400,11 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public bool CanCraft(ItemDataEquipment itemToCraft, List<InventoryItem> requiredMaterials)
     {
+        if (!CanAddItem(itemToCraft))
+        {
+            Debug.Log("Please empty your inventory");
+            return false;
+        }
         List<InventoryItem> materialsToRemove = new List<InventoryItem>();
 
         for (int i = 0; i < requiredMaterials.Count; i++)

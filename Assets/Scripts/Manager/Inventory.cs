@@ -249,13 +249,6 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public bool CanAddItem(ItemData item)
     {
-        //switch (item.itemType)
-        //{
-        //    case ItemType.Material:
-        //        return stashItems.Count < stashItemSlots.Length;
-        //    case ItemType.Equipment:
-        //        return inventoryItems.Count < inventoryItemSlots.Length;
-        //}
         if (item.itemType == ItemType.Material)
         {
             var old = stashDic.ContainsKey(item);

@@ -51,31 +51,50 @@ public class GameData
             skillTreeKeys.Add(pair.Key);
             skillTreeValues.Add(pair.Value);
         }
+
+        Debug.Log("OnBeforeSerialize: SkillTree keys and values serialized.");
     }
 
     // 在反序列化后调用，将列表中的键和值填充到字典中
     public void OnAfterDeserialize()
     {
         inventory.Clear();
+        skillTree.Clear();
 
+        // 反序列化 inventory
         if (inventoryKeys.Count != inventoryValues.Count)
-            throw new System.Exception("Keys and values count mismatch after deserialization.");
-
-        for (int i = 0; i < inventoryKeys.Count; i++)
         {
-            inventory.Add(inventoryKeys[i], inventoryValues[i]);
+            Debug.LogError("Inventory keys and values count mismatch after deserialization.");
+        }
+        else
+        {
+            for (int i = 0; i < inventoryKeys.Count; i++)
+            {
+                inventory.Add(inventoryKeys[i], inventoryValues[i]);
+            }
         }
 
         // 反序列化 skillTree
-        skillTree.Clear();
         if (skillTreeKeys.Count != skillTreeValues.Count)
-            throw new System.Exception("SkillTree keys and values count mismatch after deserialization.");
-
-        for (int i = 0; i < skillTreeKeys.Count; i++)
         {
-            skillTree.Add(skillTreeKeys[i], skillTreeValues[i]);
+            Debug.LogError("SkillTree keys and values count mismatch after deserialization.");
         }
+        else
+        {
+            for (int i = 0; i < skillTreeKeys.Count; i++)
+            {
+                if (!skillTree.ContainsKey(skillTreeKeys[i]))
+                {
+                    skillTree.Add(skillTreeKeys[i], skillTreeValues[i]);
+                    //Debug.Log($"Deserialized skill: {skillTreeKeys[i]}, value: {skillTreeValues[i]}");
+                }
+                else
+                {
+                    //Debug.LogWarning($"Duplicate key found in skillTree: {skillTreeKeys[i]}");
+                }
+            }
+        }
+
+        Debug.Log("OnAfterDeserialize: SkillTree keys and values deserialized.");
     }
 }
-
-    

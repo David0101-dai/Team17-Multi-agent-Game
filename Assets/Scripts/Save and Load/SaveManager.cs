@@ -31,14 +31,8 @@ public class SaveManager : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // 延迟一帧，确保其他组件的 Awake/OnEnable 都已执行完毕
-        yield return null;
+        yield return null; // 延迟一帧，确保其他组件初始化完成
         fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-        // 补充：查找可能未在 OnEnable/Awake中注册的 SaveManager
-        if (saveManagers == null || saveManagers.Count == 0)
-        {
-            saveManagers = FindSaveManagers();
-        }
         LoadGame();
     }
 
@@ -90,12 +84,15 @@ public class SaveManager : MonoBehaviour
     {
         if (saveManagers == null)
             saveManagers = new List<ISaveManager>();
+
         if (!saveManagers.Contains(saveManager))
         {
             saveManagers.Add(saveManager);
+            // 如果游戏数据已经加载，则立即更新新注册的组件
+            if (gameData != null)
+            {
+                saveManager.LoadData(gameData);
+            }
         }
     }
-
-
-    
 }

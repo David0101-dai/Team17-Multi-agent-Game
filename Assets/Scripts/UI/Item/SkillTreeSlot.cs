@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISaveManager
 {
@@ -19,24 +20,26 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         gameObject.name = $"Skill - {skillName}";
     }
 
-    private void Awake()
-{
-    skillImage = GetComponent<Image>();
-    ui = GetComponentInParent<UI>();
+        private void Awake()
+        {
+            skillImage = GetComponent<Image>();
+            ui = GetComponentInParent<UI>();
 
-    // 如果还需要监听按钮点击，也可以放在这里
-    var button = GetComponent<Button>();
-    if (button != null)
-    {
-        button.onClick.AddListener(UnlockSkill);
-    }
+            var button = GetComponent<Button>();
+            if (button != null)
+            {
+                button.onClick.AddListener(UnlockSkill);
+            }
 
-    // 同理，若 SaveManager.instance 不为 null，则在这里注册
-    if (SaveManager.instance != null)
-    {
-        SaveManager.instance.RegisterSaveManager(this);
-    }
-}
+            if (SaveManager.instance != null)
+            {
+                SaveManager.instance.RegisterSaveManager(this);
+            }
+            else
+            {
+                StartCoroutine(RegisterWhenReady());
+            }
+        }
 
 
     private void OnEnable()
@@ -92,7 +95,7 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         ui.skillToolTip.HideToolTip();
     }
 
-    public void LoadData(GameData _data)
+        public void LoadData(GameData _data)
     {
         Debug.Log("Loading skill tree data");
 
@@ -101,6 +104,9 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             Debug.LogError("SkillTree dictionary is null.");
             return;
         }
+
+        Debug.Log($"SkillTree keys: {string.Join(", ", _data.skillTreeKeys)}");
+        Debug.Log($"Current skillName: {skillName}");
 
         if (_data.skillTree.TryGetValue(skillName, out bool value))
         {
@@ -114,7 +120,7 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         skillImage.color = unlocked ? Color.white : lockedColor;
     }
-    
+        
     public void SaveData(ref GameData _data)
     {
         Debug.Log($"Saving skill: {skillName}, unlocked: {unlocked}");
@@ -126,5 +132,15 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             _data.skillTree.Add(skillName, unlocked);
         }
+    }
+
+     private IEnumerator RegisterWhenReady()
+    {
+        while (SaveManager.instance == null)
+        {
+            yield return null;
+        }
+        SaveManager.instance.RegisterSaveManager(this);
+        Debug.Log("Inventory registered in SaveManager (Coroutine)");
     }
 }

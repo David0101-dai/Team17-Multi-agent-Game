@@ -28,14 +28,14 @@ public class CrystalSkill : Skill
 
     [Header("Moving Crystal")]
     [SerializeField] private SkillTreeSlot unlockMovingButton;
-    [SerializeField] private bool canMove;
+    [SerializeField] public bool canMove;
     [SerializeField] private float moveSpeed;
 
     [Header("Multi Stacking Crystal")]
     [SerializeField] private SkillTreeSlot unlockMultiStackButton;
     [SerializeField] private bool canUseMultiStacks;
     [SerializeField] private int amountOfStacks;
-    [SerializeField] private float multiStackCooldown;
+    [SerializeField] public float multiStackCooldown;
     [SerializeField] private float useTimeWindow;
     [SerializeField] private List<GameObject> crystalLeft = new List<GameObject>();
 
@@ -116,7 +116,11 @@ public class CrystalSkill : Skill
         }
         else
         {
-            if (canMove) return;
+            if (canMove)
+            {
+                cooldown = multiStackCooldown;
+                return;
+            }
 
             var playerPos = player.transform.position + new Vector3(0, 1);
             var crystalPos = currentCrystal.transform.position + new Vector3(0, -1);

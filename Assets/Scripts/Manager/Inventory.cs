@@ -38,6 +38,10 @@ public class Inventory : MonoBehaviour, ISaveManager
     [Header("ItemsCooldown")]
     private float lastTimeUsedFlask;
 
+    [Header("Flask Settings")]
+    [SerializeField] public float flaskCooldown = 10f;
+
+
     [Header("Data Base")]
     public List<InventoryItem> loadedItems;
     public List<ItemDataEquipment> loadedEquipment;
@@ -299,13 +303,16 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         var currentFlask = GetEquipmentByType(EquipmentType.Flask);
         if (!currentFlask) return;
-        var canUseFlask = Time.time > lastTimeUsedFlask + currentFlask.ItemCooldown;
+
+        // 使用 Inventory 中独立的 flaskCooldown
+        var canUseFlask = Time.time > lastTimeUsedFlask + flaskCooldown;
         if (canUseFlask)
         {
             currentFlask.ExecuteItemEffect(null, null);
             lastTimeUsedFlask = Time.time;
         }
     }
+
 
     public bool CanAddItem(ItemData item)
     {

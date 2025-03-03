@@ -19,7 +19,7 @@ public class CloneSkill : Skill
     [Header("Clone Attack")]
     [SerializeField] private SkillTreeSlot unlockCloneAttackbutton;
     [SerializeField] private float cloneMultiplier;
- //   [SerializeField] private bool canAttack;
+    [SerializeField] private bool canAttack;
    
     public bool canApplyOnHitEffect { get; private set; }
 
@@ -60,7 +60,7 @@ public class CloneSkill : Skill
     private void UnlockCloneAttack()
     {
         if (unlockCloneAttackbutton.unlocked) {
-            //canAttack = true;
+            canAttack = true;
             attackMultiplier = cloneMultiplier;
         }
     }

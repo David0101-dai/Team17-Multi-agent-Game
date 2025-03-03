@@ -36,6 +36,7 @@ public class INGAMEUI : MonoBehaviour
         blackholeCoolDown = SkillManager.Instance.Blackhole.cooldown;
         //blackholeCoolDown = SkillManager.Instance.Blackhole.cooldown;
         //skills = SkillManager.Instance;
+
     }
 
     // Update is called once per frame

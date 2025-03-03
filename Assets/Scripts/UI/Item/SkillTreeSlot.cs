@@ -105,17 +105,17 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return;
         }
 
-        Debug.Log($"SkillTree keys: {string.Join(", ", _data.skillTreeKeys)}");
-        Debug.Log($"Current skillName: {skillName}");
+        // Debug.Log($"SkillTree keys: {string.Join(", ", _data.skillTreeKeys)}");
+        // Debug.Log($"Current skillName: {skillName}");
 
         if (_data.skillTree.TryGetValue(skillName, out bool value))
         {
             unlocked = value;
-            Debug.Log($"Loaded skill: {skillName}, unlocked: {unlocked}");
+            // Debug.Log($"Loaded skill: {skillName}, unlocked: {unlocked}");
         }
         else
         {
-            Debug.LogWarning($"Skill {skillName} not found in skillTree.");
+            // Debug.LogWarning($"Skill {skillName} not found in skillTree.");
         }
 
         skillImage.color = unlocked ? Color.white : lockedColor;

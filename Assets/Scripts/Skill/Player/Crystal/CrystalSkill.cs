@@ -45,12 +45,27 @@ public class CrystalSkill : Skill
         protected override void OnEnable()
     {
         base.OnEnable();
-        SaveManager.OnSaveDataLoaded += CheckUnlock;
+        // 使用协程确保在 SaveManager 数据加载完成后再检查技能解锁状态
+        StartCoroutine(WaitAndCheckUnlock());
     }
 
-    private void OnDisable()
+    private IEnumerator WaitAndCheckUnlock()
     {
-        SaveManager.OnSaveDataLoaded -= CheckUnlock;
+        // 等待直到 SaveManager 实例存在并且 gameData 已加载
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData == null)
+        {
+            yield return null;
+        }
+        // 主动刷新技能槽数据
+        unlockCrystalButton.LoadData(SaveManager.instance.CurrentGameData);
+        unlockCloneInsteadbutton.LoadData(SaveManager.instance.CurrentGameData);
+        unlockMovingButton.LoadData(SaveManager.instance.CurrentGameData);
+        unlockExplosiveButton.LoadData(SaveManager.instance.CurrentGameData);
+        unlockMultiStackButton.LoadData(SaveManager.instance.CurrentGameData);
+        // 等待一帧，确保 SkillTreeSlot 的状态更新完成
+        yield return new WaitForEndOfFrame();
+        
+        CheckUnlock();
     }
 
     protected override void Start() {

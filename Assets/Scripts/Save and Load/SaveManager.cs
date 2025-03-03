@@ -95,4 +95,10 @@ public class SaveManager : MonoBehaviour
             }
         }
     }
+
+        public GameData CurrentGameData
+    {
+        get { return gameData; }
+    }
+
 }

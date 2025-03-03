@@ -1,6 +1,5 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine;
 
 public class TransitionManager : MonoBehaviour
 {
@@ -23,19 +22,7 @@ public class TransitionManager : MonoBehaviour
         }
     }
 
-    public IEnumerator TransitionToScene(string sceneName)
-    {
-        // 渐入黑屏
-        yield return StartCoroutine(Fade(0, 1));
-
-        // 加载新场景
-        SceneManager.LoadScene(sceneName);
-
-        // 渐出黑屏
-        yield return StartCoroutine(Fade(1, 0));
-    }
-
-    private IEnumerator Fade(float startAlpha, float targetAlpha)
+    public IEnumerator Fade(float startAlpha, float targetAlpha)
     {
         float timer = 0;
         fadeCanvasGroup.alpha = startAlpha;

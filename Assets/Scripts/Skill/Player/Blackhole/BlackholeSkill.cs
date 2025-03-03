@@ -20,17 +20,35 @@ public class BlackholeSkill : Skill
     [SerializeField] private SkillTreeSlot unlockBlackHolebutton;
     [SerializeField] public bool blackHole;
 
+        protected override void OnEnable()
+    {
+        base.OnEnable();
+        // 使用协程确保在 SaveManager 数据加载完成后再检查技能解锁状态
+        StartCoroutine(WaitAndCheckUnlock());
+    }
 
+    private IEnumerator WaitAndCheckUnlock()
+    {
+        // 等待直到 SaveManager 实例存在并且 gameData 已加载
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData == null)
+        {
+            yield return null;
+        }
+        // 主动刷新技能槽数据
+        unlockBlackHolebutton.LoadData(SaveManager.instance.CurrentGameData);
+        // 等待一帧，确保 SkillTreeSlot 的状态更新完成
+        yield return new WaitForEndOfFrame();
+        
+        CheckUnlock();
+    }
 
 
     protected override void Start()
     {
         base.Start();
-
         unlockBlackHolebutton.GetComponent<Button>().onClick.AddListener(UnlockBlackHole);
-        
-
     }
+
 
 
     private void UnlockBlackHole()
@@ -38,8 +56,6 @@ public class BlackholeSkill : Skill
         if (unlockBlackHolebutton.unlocked)
             blackHole = true;
     }
-
-
     protected override void SkillFunction()
     {
         var pos = player.transform.position + new Vector3(0, 1);
@@ -65,5 +81,11 @@ public class BlackholeSkill : Skill
     public float GetBlackholeRadius()
     {
         return maxSize / 2;
+    }
+
+    protected override void CheckUnlock()
+    {
+        base.CheckUnlock();
+        UnlockBlackHole();
     }
 }

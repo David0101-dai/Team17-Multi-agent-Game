@@ -6,6 +6,8 @@ using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+
 
 public class Inventory : MonoBehaviour, ISaveManager
 {
@@ -36,18 +38,54 @@ public class Inventory : MonoBehaviour, ISaveManager
     [Header("ItemsCooldown")]
     private float lastTimeUsedFlask;
 
+    [Header("Flask Settings")]
+    [SerializeField] public float flaskCooldown = 10f;
+
+
     [Header("Data Base")]
     public List<InventoryItem> loadedItems;
     public List<ItemDataEquipment> loadedEquipment;
 
     private void Awake()
     {
+        Debug.Log("Inventory Awake");
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
+
+        // 如果 SaveManager 尚未创建，则等待一帧后再注册
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.RegisterSaveManager(this);
+            Debug.Log("Inventory registered in SaveManager (Awake)");
+        }
+        else
+        {
+            // 如果 SaveManager 在此时还没初始化，可使用协程等待
+            StartCoroutine(RegisterWhenReady());
+        }
     }
 
+    private IEnumerator RegisterWhenReady()
+    {
+        while (SaveManager.instance == null)
+        {
+            yield return null;
+        }
+        SaveManager.instance.RegisterSaveManager(this);
+        Debug.Log("Inventory registered in SaveManager (Coroutine)");
+    }
+
+    private void OnEnable()
+    {
+        // 确保组件启用时也注册（避免因禁用后重新启用未注册）
+        if (SaveManager.instance != null)
+        {
+            SaveManager.instance.RegisterSaveManager(this);
+            Debug.Log("Inventory OnEnable: Registered in SaveManager");
+        }
+    }
     private void Start()
     {
         equipmentItems = new List<InventoryItem>();
@@ -65,16 +103,19 @@ public class Inventory : MonoBehaviour, ISaveManager
         statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
 
         AddStartingItems();
-        AddInitialItem();
+        //AddInitialItem();
     }
 
     private void AddInitialItem()
     {
-        for (int i = 0; i < startingEquipment.Count; i++)
-        {
-            AddItem(startingEquipment[i]);
-        }
+       Debug.Log($"Starting Equipment Count: {startingEquipment.Count}");
+       for (int i = 0; i < startingEquipment.Count; i++)
+       {
+           Debug.Log($"Adding item: {startingEquipment[i].itemName}");
+           AddItem(startingEquipment[i]);
+       }
     }
+
 
     private void AddStartingItems()
     {
@@ -149,15 +190,16 @@ public class Inventory : MonoBehaviour, ISaveManager
     public void AddItem(ItemData item)
     {
         if (!CanAddItem(item)) return;
+        //Debug.Log("try additem");
         switch (item.itemType)
         {
             case ItemType.Material:
-                Debug.Log($"Adding material item: {item.itemId}");
+                //Debug.Log($"Adding material item: {item.itemId}");
                 AddItemMethod(stashItems, stashDic, item);
                 UpdateSlotUI(stashItemSlots, stashItems);
                 break;
             case ItemType.Equipment:
-                Debug.Log($"Adding equipment item: {item.itemId}");
+                //Debug.Log($"Adding equipment item: {item.itemId}");
                 AddItemMethod(inventoryItems, inventoryDic, item);
                 UpdateSlotUI(inventoryItemSlots, inventoryItems);
                 break;
@@ -187,10 +229,12 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         if (itemDic.TryGetValue(item, out InventoryItem value))
         {
+           // Debug.Log("addstack:" + item.itemName);
             value.AddStack();
         }
         else
         {
+          //  Debug.Log("addnew:" + item.itemName);
             var newItem = new InventoryItem(item);
             items.Add(newItem);
             itemDic.Add(item, newItem);
@@ -221,10 +265,12 @@ public class Inventory : MonoBehaviour, ISaveManager
 
             if (!slot)
             {
+               //Debug.Log("!slot:");
                 slots[i].UpdateSlot(i < items.Count ? items[i] : null);
             }
             else
             {
+               //Debug.Log("slot");
                 slots[i].UpdateSlot(null);
                 for (int j = 0; j < items.Count; j++)
                 {
@@ -257,13 +303,16 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         var currentFlask = GetEquipmentByType(EquipmentType.Flask);
         if (!currentFlask) return;
-        var canUseFlask = Time.time > lastTimeUsedFlask + currentFlask.ItemCooldown;
+
+        // 使用 Inventory 中独立的 flaskCooldown
+        var canUseFlask = Time.time > lastTimeUsedFlask + flaskCooldown;
         if (canUseFlask)
         {
             currentFlask.ExecuteItemEffect(null, null);
             lastTimeUsedFlask = Time.time;
         }
     }
+
 
     public bool CanAddItem(ItemData item)
     {
@@ -281,13 +330,14 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
     }
 
-    public void CanCraft(ItemDataEquipment craftData, object craftingMaterials)
-    {
-        throw new NotImplementedException();
-    }
+    //public void CanCraft(ItemDataEquipment craftData, object craftingMaterials)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void LoadData(GameData _data)
+ public void LoadData(GameData _data)
     {
+        Debug.Log("Loading Inventory Data");
         // 清空当前数据
         inventoryItems.Clear();
         inventoryDic.Clear();
@@ -351,26 +401,26 @@ public class Inventory : MonoBehaviour, ISaveManager
         // 保存 inventoryDic
         foreach (KeyValuePair<ItemData, InventoryItem> pair in inventoryDic)
         {
-            Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
+          //  Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
         }
 
         // 保存 stashDic
         foreach (KeyValuePair<ItemData, InventoryItem> pair in stashDic)
         {
-            Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
+           // Debug.Log($"Saving item: {pair.Key.itemId}, stack size: {pair.Value.stackSize}");
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
         }
 
         // 保存 equipmentDic
         foreach (KeyValuePair<ItemDataEquipment, InventoryItem> pair in equipmentDic)
         {
-            Debug.Log($"Saving equipment: {pair.Key.itemId}");
+           // Debug.Log($"Saving equipment: {pair.Key.itemId}");
             _data.equipmentId.Add(pair.Key.itemId); // 保存装备 ID
         }
     }
 
-private List<ItemData> GetItemDataBase()
+    private List<ItemData> GetItemDataBase()
     {
         List<ItemData> itemDataBase = new List<ItemData>();
 
@@ -388,5 +438,43 @@ private List<ItemData> GetItemDataBase()
 #endif
 
         return itemDataBase;
+    }
+
+    public bool CanCraft(ItemDataEquipment itemToCraft, List<InventoryItem> requiredMaterials)
+    {
+        if (!CanAddItem(itemToCraft))
+        {
+            Debug.Log("Please empty your inventory");
+            return false;
+        }
+        List<InventoryItem> materialsToRemove = new List<InventoryItem>();
+
+        for (int i = 0; i < requiredMaterials.Count; i++)
+        {
+            if (stashDic.TryGetValue(requiredMaterials[i].data, out InventoryItem stashValue))
+            {
+                if (stashValue.stackSize < requiredMaterials[i].stackSize)
+                {
+                    Debug.Log("not enough materials");
+                    return false;
+                }
+                else
+                {
+                    materialsToRemove.Add(stashValue);
+                }
+            }
+            else
+            {
+                Debug.Log("not enough materials");
+                return false;
+            }
+        }
+        for (int i = 0; i < materialsToRemove.Count; i++)
+        {
+            RemoveItem(materialsToRemove[i].data);
+        }
+        AddItem(itemToCraft);
+        Debug.Log("Here is your item " + itemToCraft.name);
+        return true;
     }
 }

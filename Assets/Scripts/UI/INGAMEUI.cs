@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,8 @@ public class INGAMEUI : MonoBehaviour
     [SerializeField] private float blackholeCoolDown;
     [SerializeField] private float flaskCoolDown;
 
+    [SerializeField] private TextMeshProUGUI souls;
+
 
     //private SkillManager skills;
 
@@ -38,6 +41,9 @@ public class INGAMEUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        souls.text = PlayerManager.Instance.currentCurrencyAmount().ToString("#,#");
+
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.Instance.Dash.dashUnlocked)
         {
             SetCoolDownOf(dashImage);

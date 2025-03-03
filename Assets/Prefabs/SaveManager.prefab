@@ -8868,6 +8868,7 @@ MonoBehaviour:
   swordCoolDown: 0
   blackholeCoolDown: 0
   flaskCoolDown: 0
+  souls: {fileID: 0}
 --- !u!1 &3150666408696311273
 GameObject:
   m_ObjectHideFlags: 0

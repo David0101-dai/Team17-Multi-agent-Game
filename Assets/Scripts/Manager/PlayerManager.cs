@@ -41,4 +41,6 @@ public class PlayerManager : MonoBehaviour , ISaveManager
     {
         _data.currency = this.currency;
     }
+
+    public int currentCurrencyAmount() => currency;
 }

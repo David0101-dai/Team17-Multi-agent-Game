@@ -11,6 +11,7 @@ public class SaveManager : MonoBehaviour
 {
     public static event Action OnSaveDataLoaded;
     [SerializeField] private string fileName;
+    [SerializeField] private bool encryptData;
     public static SaveManager instance;
     private GameData gameData;
     private List<ISaveManager> saveManagers;
@@ -19,7 +20,7 @@ public class SaveManager : MonoBehaviour
     [ContextMenu("Delete Save Data")]
     private void DeleteSaveData()
     {
-        fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName, encryptData);
         fileDataHandler.DeleteData();
     }
 
@@ -40,7 +41,7 @@ public class SaveManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return null; // 延迟一帧，确保其他组件初始化完成
-        fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName, encryptData);
         LoadGame();
     }
 

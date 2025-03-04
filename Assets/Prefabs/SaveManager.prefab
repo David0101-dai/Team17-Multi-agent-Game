@@ -19370,6 +19370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: data.alexdev
+  encryptData: 0
 --- !u!1 &6989769854724443592
 GameObject:
   m_ObjectHideFlags: 0

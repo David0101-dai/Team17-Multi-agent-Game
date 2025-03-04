@@ -9,11 +9,14 @@ public class FileDataHandler
 {
     private string dataDirPath = "";
     private string dataFileName = "";
+    private bool encryptData = false;
+    private string codeW = "alexdev";
 
-    public FileDataHandler(string _dataDirPath, string _dataFileName)
+    public FileDataHandler(string _dataDirPath, string _dataFileName,bool _encryptData)
     {
         dataDirPath = _dataDirPath;
         dataFileName = _dataFileName;
+        encryptData = _encryptData;
     }
 
     public void SaveData(GameData _data)
@@ -26,6 +29,12 @@ public class FileDataHandler
             _data.OnBeforeSerialize();
             // 使用 Newtonsoft.Json 序列化
             string dataToSave = JsonConvert.SerializeObject(_data, Formatting.Indented);
+           
+           if (encryptData)
+            {
+                dataToSave = EncryptDecrypt(dataToSave);
+            }
+
             using (FileStream fs = new FileStream(dataPath, FileMode.Create))
             {
                 using (StreamWriter writer = new StreamWriter(fs))
@@ -56,6 +65,11 @@ public class FileDataHandler
                         dataToLoad = reader.ReadToEnd();
                     }
                 }
+
+                if (encryptData)
+                {
+                    dataToLoad = EncryptDecrypt(dataToLoad);
+                }
                 // 使用 Newtonsoft.Json 反序列化
                 loadedData = JsonConvert.DeserializeObject<GameData>(dataToLoad);
                 // 在反序列化后调用 OnAfterDeserialize
@@ -83,5 +97,15 @@ public class FileDataHandler
                 Debug.Log("Error on trying to delete data file " + dataPath + "\n" + e.Message);
             }
         }
+    }
+
+    private string EncryptDecrypt(string _data)
+    {
+        string result = "";
+        for (int i = 0; i < _data.Length; i++)
+        {
+            result += (char)(_data[i] ^ codeW[i % codeW.Length]);
+        }
+        return result;
     }
 }

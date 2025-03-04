@@ -17,10 +17,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: 2b49cdfd63b44ca4b879761c8044bd8d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/New Folder/Scene1.unity
     guid: 4f791f5798b5dc34fbfc100a96906a83
+<<<<<<< HEAD
   - enabled: 1
     path: Assets/Scenes/New Folder/Scene2.unity
     guid: ebd8a8e78923b0d498488907d9913ac5
+=======
+  - enabled: 0
+    path: Assets/Scenes/New Folder/Scene2.unity
+    guid: ebd8a8e78923b0d498488907d9913ac5
+  - enabled: 1
+    path: Assets/Scenes/New Folder/Prototype.unity
+    guid: fc00e31e5ae96604ab7b3d5d63bcc783
+>>>>>>> 7e1041899bc1eff8c94c471344ff1ed5c40b0911
   m_configObjects: {}

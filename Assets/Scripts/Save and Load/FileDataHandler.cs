@@ -22,13 +22,10 @@ public class FileDataHandler
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(dataPath));
-
             // 在序列化前调用 OnBeforeSerialize
             _data.OnBeforeSerialize();
-
             // 使用 Newtonsoft.Json 序列化
             string dataToSave = JsonConvert.SerializeObject(_data, Formatting.Indented);
-
             using (FileStream fs = new FileStream(dataPath, FileMode.Create))
             {
                 using (StreamWriter writer = new StreamWriter(fs))
@@ -59,10 +56,8 @@ public class FileDataHandler
                         dataToLoad = reader.ReadToEnd();
                     }
                 }
-
                 // 使用 Newtonsoft.Json 反序列化
                 loadedData = JsonConvert.DeserializeObject<GameData>(dataToLoad);
-
                 // 在反序列化后调用 OnAfterDeserialize
                 loadedData.OnAfterDeserialize();
             }
@@ -72,5 +67,21 @@ public class FileDataHandler
             }
         }
         return loadedData;
+    }
+
+    public void DeleteData()
+    {
+        string dataPath = Path.Combine(dataDirPath, dataFileName);
+        if (File.Exists(dataPath))
+        {
+            try
+            {
+                File.Delete(dataPath);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error on trying to delete data file " + dataPath + "\n" + e.Message);
+            }
+        }
     }
 }

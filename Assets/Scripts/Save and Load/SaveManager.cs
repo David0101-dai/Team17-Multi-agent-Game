@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 
 using System.IO;
+using System.Diagnostics;
 
 public class SaveManager : MonoBehaviour
 {
@@ -14,6 +15,13 @@ public class SaveManager : MonoBehaviour
     private GameData gameData;
     private List<ISaveManager> saveManagers;
     private FileDataHandler fileDataHandler;
+    
+    [ContextMenu("Delete Save Data")]
+    private void DeleteSaveData()
+    {
+        fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        fileDataHandler.DeleteData();
+    }
 
     private void Awake()
     {
@@ -47,7 +55,7 @@ public class SaveManager : MonoBehaviour
 
         if (gameData == null)
         {
-            Debug.Log("Game data is null, creating new game data.");
+            UnityEngine.Debug.Log("Game data is null, creating new game data.");
             NewGame();
         }
 

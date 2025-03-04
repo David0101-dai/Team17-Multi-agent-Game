@@ -32,6 +32,13 @@ public class PlayerManager : MonoBehaviour , ISaveManager
         
     }
 
+    // Ìí¼Ó RefundMoney ·½·¨
+    public void RefundMoney(int amount)
+    {
+        currency += amount;
+        Debug.Log("Refunded " + amount + " currency. New total: " + currency);
+    }
+
     public void LoadData(GameData _data)
     {
         this.currency = _data.currency;

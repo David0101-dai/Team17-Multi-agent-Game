@@ -47,9 +47,14 @@ public class BlackholeSkill : Skill
     {
         base.Start();
         unlockBlackHolebutton.GetComponent<Button>().onClick.AddListener(UnlockBlackHole);
+
+        unlockBlackHolebutton.OnSkillCancelled += OnBlackHoleSkillCancelled;
     }
 
-
+    private void OnBlackHoleSkillCancelled()
+    {
+        blackHole = false;
+    }
 
     private void UnlockBlackHole()
     {

@@ -95,6 +95,13 @@ public class SwordSkill : Skill
         pierceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockPierce);
         spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpin);
 
+        timeStopUnlockButton.OnSkillCancelled += OnTimeStopSkillCancelled;
+        volnurableUnlockButton.OnSkillCancelled += OnVolnurableSkillCancelled;
+        swordUnlockButton.OnSkillCancelled += OnSwordUnlockSkillCancelled;
+        bounceUnlockButton.OnSkillCancelled += OnBounceSkillCancelled;
+        pierceUnlockButton.OnSkillCancelled += OnPierceSkillCancelled;
+        spinUnlockButton.OnSkillCancelled += OnSpinSkillCancelled;
+
     }
 
     protected override void Update()
@@ -162,6 +169,42 @@ public class SwordSkill : Skill
                 break;
         }
     }
+
+    private void OnTimeStopSkillCancelled()
+    {
+        timeStopUnlocked = false;
+        // 此处可以加入关闭技能效果的逻辑
+    }
+
+    private void OnVolnurableSkillCancelled()
+    {
+        volnurableUnlocked = false;
+        // 此处可以加入关闭技能效果的逻辑
+    }
+
+    private void OnSwordUnlockSkillCancelled()
+    {
+        swordUnlocked = false;
+        // 此处可以加入关闭技能效果的逻辑
+    }
+
+    private void OnBounceSkillCancelled()
+    {
+        swordType = SwordType.Regular;
+    }
+
+    private void OnPierceSkillCancelled()
+    {
+        swordType = SwordType.Regular;
+    }
+
+    private void OnSpinSkillCancelled()
+    {
+        swordType = SwordType.Regular;
+    }
+
+
+
 
     #region Unlock Skill Region
     protected override void CheckUnlock()

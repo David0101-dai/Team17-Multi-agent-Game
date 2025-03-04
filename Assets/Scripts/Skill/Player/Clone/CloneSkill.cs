@@ -58,6 +58,9 @@ public class CloneSkill : Skill
 
         unlockCloneAttackbutton.GetComponent<Button>().onClick.AddListener(UnlockCloneAttack);
         unlockMultipleClonebutton.GetComponent<Button>().onClick.AddListener(UnlockMultipleClone);
+
+        unlockCloneAttackbutton.OnSkillCancelled += OnCloneAttackSkillCancelled;
+        unlockMultipleClonebutton.OnSkillCancelled += OnMultipleCloneSkillCancelled;
     }
 
     #region Unlock Skill Region
@@ -66,6 +69,16 @@ public class CloneSkill : Skill
     {
         UnlockCloneAttack();
         UnlockMultipleClone();
+    }
+
+    private void OnCloneAttackSkillCancelled()
+    {
+        attackMultiplier = 0;
+    }
+
+    private void OnMultipleCloneSkillCancelled()
+    {
+        canDuplicateClone = false;
     }
 
     private void UnlockCloneAttack()

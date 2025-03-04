@@ -77,6 +77,12 @@ public class CrystalSkill : Skill
         unlockExplosiveButton.GetComponent<Button>().onClick.AddListener(UnlockExplosiveCrystal);
         unlockMultiStackButton.GetComponent<Button>().onClick.AddListener(UnlockMulitStack);
 
+        unlockCrystalButton.OnSkillCancelled += OnCrystalSkillCancelled;
+        unlockCloneInsteadbutton.OnSkillCancelled += OnCrystalMirageSkillCancelled;
+        unlockMovingButton.OnSkillCancelled += OnMovingCrystalSkillCancelled;
+        unlockExplosiveButton.OnSkillCancelled += OnExplosiveCrystalSkillCancelled;
+        unlockMultiStackButton.OnSkillCancelled += OnMulitStackSkillCancelled;
+
     }
 
     #region Unlock Skill Region
@@ -88,6 +94,31 @@ public class CrystalSkill : Skill
         UnlockMovingCrystal();
         UnlockExplosiveCrystal();
         UnlockMulitStack();
+    }
+
+    private void OnCrystalSkillCancelled()
+    {
+        crystalUnlocked = false;
+    }
+
+    private void OnCrystalMirageSkillCancelled()
+    {
+        cloneInsteadOfCrystal = false;
+    }
+
+    private void OnMovingCrystalSkillCancelled()
+    {
+        canMove = false;
+    }
+
+    private void OnExplosiveCrystalSkillCancelled()
+    {
+        canExplode = false;
+    }
+
+    private void OnMulitStackSkillCancelled()
+    {
+        canUseMultiStacks = false;
     }
 
     private void UnlockCrystal()

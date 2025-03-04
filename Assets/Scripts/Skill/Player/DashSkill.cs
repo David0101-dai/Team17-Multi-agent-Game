@@ -22,10 +22,26 @@ public class DashSkill : Skill
         dashUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockDash);
         cloneOnDashUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCloneOnDash);
         //cloneOnArrivalUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCloneOnArrival);
+
+        // 订阅取消技能事件，确保当对应 SkillTreeSlot 被取消时更新技能状态
+        dashUnlockedButton.OnSkillCancelled += OnDashSkillCancelled;
+        cloneOnDashUnlockedButton.OnSkillCancelled += OnCloneOnDashSkillCancelled;
     }
 
 
-        protected override void CheckUnlock()
+    private void OnDashSkillCancelled()
+    {
+        dashUnlocked = false;
+        // 此处可以加入关闭技能效果的逻辑
+    }
+
+    private void OnCloneOnDashSkillCancelled()
+    {
+        cloneOnDashUnlocked = false;
+        // 此处可以加入关闭技能效果的逻辑
+    }
+
+    protected override void CheckUnlock()
     {
         UnlockDash();
         UnlockCloneOnDash();

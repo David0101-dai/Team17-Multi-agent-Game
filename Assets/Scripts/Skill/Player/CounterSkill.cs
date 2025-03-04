@@ -52,6 +52,10 @@ public class CounterSkill : Skill
         counterUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCounter);
         counterBuffUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCounterBuff);
         counterMiragelUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCounterMirage);
+
+        counterUnlockedButton.OnSkillCancelled += OnCounterSkillCancelled;
+        counterBuffUnlockedButton.OnSkillCancelled += OnCounterBuffSkillCancelled;
+        counterMiragelUnlockedButton.OnSkillCancelled += OnCounterMirageSkillCancelled;
     }
 
     protected override void CheckUnlock()
@@ -60,6 +64,24 @@ public class CounterSkill : Skill
         UnlockCounterBuff();
         UnlockCounterMirage();
     }
+
+    private void OnCounterSkillCancelled()
+    {
+        counterUnlocked = false;
+        
+    }
+
+    private void OnCounterBuffSkillCancelled()
+    {
+        counterBuffUnlocked = false;
+        
+    }
+
+    private void OnCounterMirageSkillCancelled()
+    {
+        counterMiragelUnlocked = false;
+    }
+        
 
     private void UnlockCounter()
     {

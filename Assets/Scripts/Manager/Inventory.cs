@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour, ISaveManager
             Destroy(gameObject);
 
         // 如果 SaveManager 尚未创建，则等待一帧后再注册
-        if (SaveManager.instance != null)
+        if (SaveManager.instance != null && SaveManager.instance.CurrentGameData != null)
         {
             SaveManager.instance.RegisterSaveManager(this);
             Debug.Log("Inventory registered in SaveManager (Awake)");
@@ -66,6 +66,7 @@ public class Inventory : MonoBehaviour, ISaveManager
             StartCoroutine(RegisterWhenReady());
         }
     }
+
 
     private IEnumerator RegisterWhenReady()
     {

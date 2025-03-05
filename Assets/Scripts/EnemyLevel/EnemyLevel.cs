@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyLevel", menuName = "GameSettings/EnemyLevel")]
@@ -7,5 +8,10 @@ public class EnemyLevel : ScriptableObject
     public int GetLevel()
     {
         return enemyLevel;
+    }
+
+    internal void SetLevel(int level)
+    {
+        enemyLevel=level;
     }
 }

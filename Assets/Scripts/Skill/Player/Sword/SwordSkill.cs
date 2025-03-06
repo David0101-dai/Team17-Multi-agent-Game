@@ -63,17 +63,17 @@ public class SwordSkill : Skill
     private IEnumerator WaitAndCheckUnlock()
     {
         // 等待直到 SaveManager 实例存在并且 gameData 已加载
-        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData == null)
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
         {
             yield return null;
         }
         // 主动刷新技能槽数据
-        timeStopUnlockButton.LoadData(SaveManager.instance.CurrentGameData);
-        volnurableUnlockButton.LoadData(SaveManager.instance.CurrentGameData);
-        swordUnlockButton.LoadData(SaveManager.instance.CurrentGameData);
-        bounceUnlockButton.LoadData(SaveManager.instance.CurrentGameData);
-        pierceUnlockButton.LoadData(SaveManager.instance.CurrentGameData);
-        spinUnlockButton.LoadData(SaveManager.instance.CurrentGameData);
+        timeStopUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        volnurableUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        swordUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        bounceUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        pierceUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        spinUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
         // 等待一帧，确保 SkillTreeSlot 的状态更新完成
         yield return new WaitForEndOfFrame();
         

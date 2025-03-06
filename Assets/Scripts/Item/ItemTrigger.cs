@@ -9,13 +9,20 @@ public class ItemTrigger : MonoBehaviour
         itemObject = GetComponentInParent<ItemObject>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+private void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.CompareTag("Player"))
     {
-        if (other.CompareTag("Player"))
+        if (itemObject != null)
         {
             itemObject.PickupItem();
-
-            AudioManager.instance.PlaySFX(13, null); //Íæ¼ÒÊ°È¡ÒôĞ§
+            AudioManager.instance.PlaySFX(13, null); // æ’­æ”¾æ‹¾å–éŸ³æ•ˆ
+        }
+        else
+        {
+            Debug.LogError("ItemObject is null. Cannot pick up item.");
         }
     }
+}
+
 }

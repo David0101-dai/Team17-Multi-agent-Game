@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         AudioManager.instance.PlayBGM(0);
-        Debug.Log($"��������");
+        Debug.Log($"播放背景音乐");
     }
 
     // Update is called once per frame

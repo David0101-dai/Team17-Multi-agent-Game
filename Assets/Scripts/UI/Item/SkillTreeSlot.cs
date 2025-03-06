@@ -154,19 +154,27 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
       
     }
 
-    public void LoadData(GameData _data)
+public void LoadData(GameData _data)
+{
+    if (_data == null || _data.skillTree == null)
     {
-        if (_data.skillTree == null)
-        {
-            Debug.LogError("SkillTree dictionary is null.");
-            return;
-        }
-        if (_data.skillTree.TryGetValue(skillName, out bool value))
-        {
-            unlocked = value;
-        }
+        Debug.LogError("GameData or skillTree is null. Cannot load data.");
+        return;
+    }
+
+    if (_data.skillTree.ContainsKey(skillName))
+    {
+        unlocked = _data.skillTree[skillName];
         skillImage.color = unlocked ? Color.white : lockedColor;
     }
+    else
+    {
+        unlocked = false;  // 默认为锁定
+        skillImage.color = lockedColor;
+    }
+}
+
+
 
     public void SaveData(ref GameData _data)
     {
@@ -178,6 +186,9 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             _data.skillTree.Add(skillName, unlocked);
         }
+
+        // 如果需要，还可以调试日志来确保数据保存
+        Debug.Log($"Saved skill: {skillName} with state: {unlocked}");
     }
 
     private IEnumerator RegisterWhenReady()

@@ -4,17 +4,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class UI_MainMenu : MonoBehaviour
 {
     [SerializeField] private EnemyLevel levelstage;
     [SerializeField] private TMP_Dropdown dropdown;
-    [SerializeField] private string sceneName = "MainScene";
-    [SerializeField] private GameObject continueButton;
+    [SerializeField] private string sceneName = "Prototype";
+    //[SerializeField] private GameObject continueButton;
+    public Button continueButton; // 继续游戏按钮
+    public Button newGameButton;  // 新游戏按钮
+    private SaveManager saveManager;
     // Start is called before the first frame update 
     private void Awake()
     {
-
         if (dropdown != null)
         {
             dropdown.onValueChanged.AddListener(setLevel);
@@ -27,27 +29,49 @@ public class UI_MainMenu : MonoBehaviour
 
     private IEnumerator Start()
     {
+        saveManager = SaveManager.instance;
         // 等待直到 SaveManager 完全初始化
-        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData == null)
+        while (saveManager == null || saveManager.CurrentGameData() == null)
         {
             yield return null;  // 每帧检查，直到 SaveManager 和 gameData 完全加载
         }
 
         // 确保 SaveManager 初始化完成后，才检查是否有存档
-        if (!SaveManager.instance.HasSaveData())
+        if (saveManager.HasSaveData())
         {
-            continueButton.SetActive(false);
+            continueButton.interactable = true;
         }
-    }
- 
-    public void ContinueGame(){
-        SceneManager.LoadScene(sceneName);
+        else
+        {
+            continueButton.interactable = false;
+        }
+
+        continueButton.onClick.AddListener(ContinueGame);
+        newGameButton.onClick.AddListener(StartNewGame);
     }
 
-      public void StartNewGame(){
-        SaveManager.instance.DeleteSaveData();
-        SceneManager.LoadScene(sceneName);
+        
+    public void ContinueGame()
+    {
+        saveManager.LoadGame();
+        if (saveManager.CurrentGameData() != null)
+        {
+            SceneManager.LoadScene(sceneName);  // 游戏场景名称
+        }
+        else
+        {
+            Debug.LogError("Failed to load game data, cannot continue.");
+        }
     }
+
+    public void StartNewGame()
+    {
+        saveManager.DeleteSaveData();
+        saveManager.NewGame();
+        SceneManager.LoadScene(sceneName);  // 游戏场景名称
+    }
+
+
     public void setLevel(int index)
     {
         int level = index + 1;

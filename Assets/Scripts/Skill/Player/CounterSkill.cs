@@ -27,14 +27,14 @@ public class CounterSkill : Skill
     private IEnumerator WaitAndCheckUnlock()
     {
         // 等待直到 SaveManager 实例存在并且 gameData 已加载
-        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData == null)
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
         {
             yield return null;
         }
         // 主动刷新技能槽数据
-        counterUnlockedButton.LoadData(SaveManager.instance.CurrentGameData);
-        counterBuffUnlockedButton.LoadData(SaveManager.instance.CurrentGameData);
-        counterMiragelUnlockedButton.LoadData(SaveManager.instance.CurrentGameData);
+        counterUnlockedButton.LoadData(SaveManager.instance.CurrentGameData());
+        counterBuffUnlockedButton.LoadData(SaveManager.instance.CurrentGameData());
+        counterMiragelUnlockedButton.LoadData(SaveManager.instance.CurrentGameData());
         // 等待一帧，确保 SkillTreeSlot 的状态更新完成
         yield return new WaitForEndOfFrame();
         

@@ -49,34 +49,38 @@ public class Inventory : MonoBehaviour, ISaveManager
     private void Awake()
     {
         Debug.Log("Inventory Awake");
+
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
 
         // 如果 SaveManager 尚未创建，则等待一帧后再注册
-        if (SaveManager.instance != null && SaveManager.instance.CurrentGameData != null)
+        if (SaveManager.instance != null && SaveManager.instance.CurrentGameData() != null)
         {
             SaveManager.instance.RegisterSaveManager(this);
             Debug.Log("Inventory registered in SaveManager (Awake)");
         }
         else
         {
-            // 如果 SaveManager 在此时还没初始化，可使用协程等待
+            // 如果 SaveManager 在此时还没初始化，使用协程等待
             StartCoroutine(RegisterWhenReady());
         }
     }
 
-
     private IEnumerator RegisterWhenReady()
     {
-        while (SaveManager.instance == null)
+        // 等待 SaveManager 初始化完成
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
         {
-            yield return null;
+            yield return null;  // 每帧检查，直到 SaveManager 和 gameData 完全加载
         }
+
+        // 当 SaveManager 准备好时，注册
         SaveManager.instance.RegisterSaveManager(this);
         Debug.Log("Inventory registered in SaveManager (Coroutine)");
     }
+
 
     private void OnEnable()
     {
@@ -87,25 +91,32 @@ public class Inventory : MonoBehaviour, ISaveManager
             Debug.Log("Inventory OnEnable: Registered in SaveManager");
         }
     }
-    private void Start()
+private void Start()
+{
+    equipmentItems = new List<InventoryItem>();
+    equipmentDic = new Dictionary<ItemDataEquipment, InventoryItem>();
+
+    inventoryItems = new List<InventoryItem>();
+    inventoryDic = new Dictionary<ItemData, InventoryItem>();
+
+    stashItems = new List<InventoryItem>();
+    stashDic = new Dictionary<ItemData, InventoryItem>();
+
+    // 确保 inventoryItemSlots 正确初始化
+    inventoryItemSlots = inventorySlotParent.GetComponentsInChildren<ItemSlot>();
+    Debug.Log($"inventoryItemSlots count: {inventoryItemSlots.Length}");
+    if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
     {
-        equipmentItems = new List<InventoryItem>();
-        equipmentDic = new Dictionary<ItemDataEquipment, InventoryItem>();
-
-        inventoryItems = new List<InventoryItem>();
-        inventoryDic = new Dictionary<ItemData, InventoryItem>();
-
-        stashItems = new List<InventoryItem>();
-        stashDic = new Dictionary<ItemData, InventoryItem>();
-
-        equipmentSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlot>();
-        inventoryItemSlots = inventorySlotParent.GetComponentsInChildren<ItemSlot>();
-        stashItemSlots = stashSlotParent.GetComponentsInChildren<ItemSlot>();
-        statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
-
-        AddStartingItems();
-        //AddInitialItem();
+        Debug.LogError("inventoryItemSlots is null or empty. Please check your UI setup.");
     }
+
+    equipmentSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlot>();
+    stashItemSlots = stashSlotParent.GetComponentsInChildren<ItemSlot>();
+    statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
+
+    AddStartingItems();
+}
+
 
     private void AddInitialItem()
     {
@@ -118,26 +129,37 @@ public class Inventory : MonoBehaviour, ISaveManager
     }
 
 
-    private void AddStartingItems()
+private void AddStartingItems()
+{
+    // 加载装备
+    foreach (ItemDataEquipment item in loadedEquipment)
     {
-        // 加载装备
-        foreach (ItemDataEquipment item in loadedEquipment)
+        if (item == null)
         {
-            EquipItem(item);
+            Debug.LogWarning("Loaded equipment item is null.");
+            continue;
         }
+        EquipItem(item);
+    }
 
-        // 加载其他物品
-        if (loadedItems.Count > 0)
+    // 加载其他物品
+    if (loadedItems.Count > 0)
+    {
+        foreach (var item in loadedItems)
         {
-            foreach (var item in loadedItems)
+            if (item.data == null)
             {
-                for (int i = 0; i < item.stackSize; i++)
-                {
-                    AddItem(item.data);
-                }
+                Debug.LogWarning("Loaded item data is null.");
+                continue;
+            }
+            for (int i = 0; i < item.stackSize; i++)
+            {
+                AddItem(item.data);
             }
         }
     }
+}
+
 
     public void EquipItem(ItemData item)
     {
@@ -188,19 +210,23 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
     }
 
-    public void AddItem(ItemData item)
+        public void AddItem(ItemData item)
     {
+        if (item == null)
+        {
+            Debug.LogError("Item is null. Cannot add item.");
+            return;
+        }
+
         if (!CanAddItem(item)) return;
-        //Debug.Log("try additem");
+
         switch (item.itemType)
         {
             case ItemType.Material:
-                //Debug.Log($"Adding material item: {item.itemId}");
                 AddItemMethod(stashItems, stashDic, item);
                 UpdateSlotUI(stashItemSlots, stashItems);
                 break;
             case ItemType.Equipment:
-                //Debug.Log($"Adding equipment item: {item.itemId}");
                 AddItemMethod(inventoryItems, inventoryDic, item);
                 UpdateSlotUI(inventoryItemSlots, inventoryItems);
                 break;
@@ -211,6 +237,12 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public void RemoveItem(ItemData item)
     {
+        if (item == null)
+        {
+            Debug.LogError("Item is null. Cannot remove item.");
+            return;
+        }
+
         switch (item.itemType)
         {
             case ItemType.Material:
@@ -225,6 +257,7 @@ public class Inventory : MonoBehaviour, ISaveManager
                 break;
         }
     }
+
 
     private void AddItemMethod(List<InventoryItem> items, Dictionary<ItemData, InventoryItem> itemDic, ItemData item)
     {
@@ -258,35 +291,46 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
     }
 
-    public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
+public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
+{
+    if (slots == null)
     {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            var slot = slots[i] as EquipmentSlot;
+        Debug.LogError("Slots array is null in UpdateSlotUI.");
+        return;
+    }
 
-            if (!slot)
-            {
-               //Debug.Log("!slot:");
-                slots[i].UpdateSlot(i < items.Count ? items[i] : null);
-            }
-            else
-            {
-               //Debug.Log("slot");
-                slots[i].UpdateSlot(null);
-                for (int j = 0; j < items.Count; j++)
-                {
-                    var data = items[j].data as ItemDataEquipment;
-                    if (!data || slot.slotType != data.equipmentType) continue;
-                    slots[i].UpdateSlot(items[j]);
-                }
-            }
+    if (items == null)
+    {
+        Debug.LogError("Items list is null in UpdateSlotUI.");
+        return;
+    }
+
+    for (int i = 0; i < slots.Length; i++)
+    {
+        var slot = slots[i] as EquipmentSlot;
+
+        if (!slot)
+        {
+            slots[i].UpdateSlot(i < items.Count ? items[i] : null);
         }
-
-        for (int i = 0; i < statSlots.Length; i++)
+        else
         {
-            statSlots[i].UpdateStatValue();
+            slots[i].UpdateSlot(null);
+            for (int j = 0; j < items.Count; j++)
+            {
+                var data = items[j].data as ItemDataEquipment;
+                if (!data || slot.slotType != data.equipmentType) continue;
+                slots[i].UpdateSlot(items[j]);
+            }
         }
     }
+
+    for (int i = 0; i < statSlots.Length; i++)
+    {
+        statSlots[i].UpdateStatValue();
+    }
+}
+
 
     public ItemDataEquipment GetEquipmentByType(EquipmentType equipmentType)
     {
@@ -315,36 +359,64 @@ public class Inventory : MonoBehaviour, ISaveManager
     }
 
 
-    public bool CanAddItem(ItemData item)
+public bool CanAddItem(ItemData item)
+{
+    if (item == null)
     {
-        if (item.itemType == ItemType.Material)
-        {
-            var old = stashDic.ContainsKey(item);
-            if (old) return true;
-            return stashItems.Count < stashItemSlots.Length;
-        }
-        else
-        {
-            var old = inventoryDic.ContainsKey(item);
-            if (old) return true;
-            return inventoryItems.Count < inventoryItemSlots.Length;
-        }
+        Debug.LogError("Cannot add item: item is null.");
+        return false;
     }
+
+    if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
+    {
+        Debug.LogError("inventoryItemSlots is null or empty. Cannot add item.");
+        return false;
+    }
+
+    if (item.itemType == ItemType.Material)
+    {
+        var old = stashDic.ContainsKey(item);
+        if (old) return true;
+        return stashItems.Count < stashItemSlots.Length;
+    }
+    else
+    {
+        var old = inventoryDic.ContainsKey(item);
+        if (old) return true;
+
+        // 检查物品数量是否超过插槽数量
+        if (inventoryItems.Count >= inventoryItemSlots.Length)
+        {
+            Debug.LogError("Cannot add item: inventory is full.");
+            return false;
+        }
+
+        return inventoryItems.Count < inventoryItemSlots.Length;
+    }
+}
+
 
     //public void CanCraft(ItemDataEquipment craftData, object craftingMaterials)
     //{
     //    throw new NotImplementedException();
     //}
 
- public void LoadData(GameData _data)
+    public void LoadData(GameData _data)
     {
         Debug.Log("Loading Inventory Data");
+
+        // 确保 inventoryDic 已经初始化
+        if (inventoryDic == null) inventoryDic = new Dictionary<ItemData, InventoryItem>();
+        if (stashDic == null) stashDic = new  Dictionary<ItemData, InventoryItem>();
+        if (equipmentDic == null) equipmentDic = new Dictionary<ItemDataEquipment, InventoryItem>();
         // 清空当前数据
         inventoryItems.Clear();
-        inventoryDic.Clear();
         stashItems.Clear();
-        stashDic.Clear();
         equipmentItems.Clear();
+
+        // 清空字典
+        inventoryDic.Clear();
+        stashDic.Clear();
         equipmentDic.Clear();
 
         // 加载 inventory 和 stash
@@ -361,7 +433,7 @@ public class Inventory : MonoBehaviour, ISaveManager
                 if (item.itemType == ItemType.Equipment)
                 {
                     inventoryItems.Add(newItem);
-                    inventoryDic.Add(item, newItem);
+                    inventoryDic.Add(item, newItem);  // 添加前要确保 dictionary 已初始化
                 }
                 else if (item.itemType == ItemType.Material)
                 {
@@ -392,6 +464,7 @@ public class Inventory : MonoBehaviour, ISaveManager
         UpdateSlotUI(stashItemSlots, stashItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
     }
+
 
     public void SaveData(ref GameData _data)
     {

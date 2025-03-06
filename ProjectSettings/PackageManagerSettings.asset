@@ -31,6 +31,11 @@ MonoBehaviour:
   m_RegistryInfoDraft:
     m_Modified: 0
     m_ErrorMessage: 
+<<<<<<< HEAD
     m_UserModificationsInstanceId: -828
     m_OriginalInstanceId: -830
+=======
+    m_UserModificationsInstanceId: -850
+    m_OriginalInstanceId: -852
+>>>>>>> ad17ee13e38301603436f3afae9e28ec0068af69
   m_LoadAssets: 0

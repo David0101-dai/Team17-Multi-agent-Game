@@ -66,6 +66,11 @@ public class Inventory : MonoBehaviour, ISaveManager
             // 如果 SaveManager 在此时还没初始化，使用协程等待
             StartCoroutine(RegisterWhenReady());
         }
+
+        equipmentSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlot>();
+        stashItemSlots = stashSlotParent.GetComponentsInChildren<ItemSlot>();
+        statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
+        
     }
     private IEnumerator RegisterWhenReady()
     {   // 等待 SaveManager 初始化完成
@@ -76,40 +81,30 @@ public class Inventory : MonoBehaviour, ISaveManager
         SaveManager.instance.RegisterSaveManager(this);
         //Debug.Log("Inventory registered in SaveManager (Coroutine)");
     }
-    private void OnEnable()
+
+    private void Start()
     {
-        // 确保组件启用时也注册（避免因禁用后重新启用未注册）
-        if (SaveManager.instance != null)
+        equipmentItems = new List<InventoryItem>();
+        equipmentDic = new Dictionary<ItemDataEquipment, InventoryItem>();
+
+        inventoryItems = new List<InventoryItem>();
+        inventoryDic = new Dictionary<ItemData, InventoryItem>();
+
+        stashItems = new List<InventoryItem>();
+        stashDic = new Dictionary<ItemData, InventoryItem>();
+
+        // 确保 inventoryItemSlots 正确初始化
+        inventoryItemSlots = inventorySlotParent.GetComponentsInChildren<ItemSlot>();
+        //Debug.Log($"inventoryItemSlots count: {inventoryItemSlots.Length}");
+        if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
         {
-            SaveManager.instance.RegisterSaveManager(this);
-            Debug.Log("Inventory OnEnable: Registered in SaveManager");
+            Debug.LogError("inventoryItemSlots is null or empty. Please check your UI setup.");
         }
+        // equipmentSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlot>();
+        // stashItemSlots = stashSlotParent.GetComponentsInChildren<ItemSlot>();
+        // statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
+        AddStartingItems();
     }
-private void Start()
-{
-    equipmentItems = new List<InventoryItem>();
-    equipmentDic = new Dictionary<ItemDataEquipment, InventoryItem>();
-
-    inventoryItems = new List<InventoryItem>();
-    inventoryDic = new Dictionary<ItemData, InventoryItem>();
-
-    stashItems = new List<InventoryItem>();
-    stashDic = new Dictionary<ItemData, InventoryItem>();
-
-    // 确保 inventoryItemSlots 正确初始化
-    inventoryItemSlots = inventorySlotParent.GetComponentsInChildren<ItemSlot>();
-    //Debug.Log($"inventoryItemSlots count: {inventoryItemSlots.Length}");
-    if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
-    {
-        Debug.LogError("inventoryItemSlots is null or empty. Please check your UI setup.");
-    }
-    equipmentSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlot>();
-    stashItemSlots = stashSlotParent.GetComponentsInChildren<ItemSlot>();
-    statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
-    AddStartingItems();
-}
-
-
     private void AddInitialItem()
     {
        Debug.Log($"Starting Equipment Count: {startingEquipment.Count}");
@@ -119,41 +114,37 @@ private void Start()
            AddItem(startingEquipment[i]);
        }
     }
-
-
-private void AddStartingItems()
-{
-    // 加载装备
-    foreach (ItemDataEquipment item in loadedEquipment)
+    private void AddStartingItems()
     {
-        if (item == null)
+        // 加载装备
+        foreach (ItemDataEquipment item in loadedEquipment)
         {
-            Debug.LogWarning("Loaded equipment item is null.");
-            continue;
-        }
-        EquipItem(item);
-    }
-
-    // 加载其他物品
-    if (loadedItems.Count > 0)
-    {
-        foreach (var item in loadedItems)
-        {
-            if (item.data == null)
+            if (item == null)
             {
-                Debug.LogWarning("Loaded item data is null.");
+                Debug.LogWarning("Loaded equipment item is null.");
                 continue;
             }
-            for (int i = 0; i < item.stackSize; i++)
+            EquipItem(item);
+        }
+
+        // 加载其他物品
+        if (loadedItems.Count > 0)
+        {
+            foreach (var item in loadedItems)
             {
-                AddItem(item.data);
+                if (item.data == null)
+                {
+                    Debug.LogWarning("Loaded item data is null.");
+                    continue;
+                }
+                for (int i = 0; i < item.stackSize; i++)
+                {
+                    AddItem(item.data);
+                }
             }
         }
     }
-}
-
-
-    public void EquipItem(ItemData item)
+        public void EquipItem(ItemData item)
     {
         var newEquipment = item as ItemDataEquipment;
         var newItem = new InventoryItem(newEquipment);
@@ -286,14 +277,12 @@ private void AddStartingItems()
 public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
 {
     if (slots == null)
-    {
-        Debug.LogError("Slots array is null in UpdateSlotUI.");
+    {// Debug.Log("Slots array is null in UpdateSlotUI.");
         return;
     }
 
     if (items == null)
-    {
-        Debug.LogError("Items list is null in UpdateSlotUI.");
+    {//Debug.Log("Items list is null in UpdateSlotUI.");
         return;
     }
 

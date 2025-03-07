@@ -23,34 +23,44 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         gameObject.name = $"Skill - {skillName}";
     }
 
-    private void Awake()
+private void Awake()
+{
+    skillImage = GetComponent<Image>();
+     if (skillImage == null)
     {
-        skillImage = GetComponent<Image>();
-        ui = GetComponentInParent<UI>();
+        Debug.LogError("skillImage is not assigned in SkillTreeSlot.");
+    }
+    ui = GetComponentInParent<UI>();
 
-        // 如果存在 Button 组件，则绑定左键解锁逻辑
-        var button = GetComponent<Button>();
-        if (button != null)
-        {
-            button.onClick.AddListener(UnlockSkill);
-        }
-
-        if (SaveManager.instance != null)
-        {
-            SaveManager.instance.RegisterSaveManager(this);
-        }
-        else
-        {
-            StartCoroutine(RegisterWhenReady());
-        }
+    // 如果存在 Button 组件，则绑定左键解锁逻辑
+    var button = GetComponent<Button>();
+    if (button != null)
+    {
+        button.onClick.AddListener(UnlockSkill);
     }
 
-    private void OnEnable()
+    // 确保 SaveManager 已初始化并且 gameData 加载完成
+    if (SaveManager.instance != null && SaveManager.instance.CurrentGameData() != null)
     {
-        if (SaveManager.instance != null)
+        SaveManager.instance.RegisterSaveManager(this);
+    }
+    else
+    {
+        StartCoroutine(RegisterWhenReady());
+    }
+}
+
+    private IEnumerator RegisterWhenReady()
+    {
+        // 等待直到 SaveManager 实例存在并且 gameData 已加载
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
         {
-            SaveManager.instance.RegisterSaveManager(this);
+            yield return null;  // 每一帧检查一次，直到加载完成
         }
+
+        // 当 SaveManager 和 gameData 完全加载后，再进行注册
+        SaveManager.instance.RegisterSaveManager(this);
+        Debug.Log("SkillTreeSlot registered in SaveManager (Coroutine)");
     }
 
     private void Start()
@@ -165,12 +175,18 @@ public void LoadData(GameData _data)
     if (_data.skillTree.ContainsKey(skillName))
     {
         unlocked = _data.skillTree[skillName];
-        skillImage.color = unlocked ? Color.white : lockedColor;
+       if (skillImage != null)
+        {
+            skillImage.color = unlocked ? Color.white : lockedColor;
+        }
     }
     else
     {
         unlocked = false;  // 默认为锁定
-        skillImage.color = lockedColor;
+        if (skillImage != null)
+        {
+            skillImage.color = lockedColor;
+        }
     }
 }
 
@@ -191,13 +207,4 @@ public void LoadData(GameData _data)
         Debug.Log($"Saved skill: {skillName} with state: {unlocked}");
     }
 
-    private IEnumerator RegisterWhenReady()
-    {
-        while (SaveManager.instance == null)
-        {
-            yield return null;
-        }
-        SaveManager.instance.RegisterSaveManager(this);
-        Debug.Log("SkillTreeSlot registered in SaveManager (Coroutine)");
-    }
 }

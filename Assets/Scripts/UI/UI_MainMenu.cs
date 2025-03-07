@@ -10,7 +10,7 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private EnemyLevel levelstage;
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private string sceneName = "Prototype";
-    //[SerializeField] private GameObject continueButton;
+    [SerializeField] UI_FadeScreen fadeScreen;
     public Button continueButton; // 继续游戏按钮
     public Button newGameButton;  // 新游戏按钮
     private SaveManager saveManager;
@@ -53,10 +53,10 @@ public class UI_MainMenu : MonoBehaviour
         
     public void ContinueGame()
     {
-        saveManager.LoadGame();
+        StartCoroutine(LoadSceneWithFadeEffect(1.5f));
         if (saveManager.CurrentGameData() != null)
         {
-            SceneManager.LoadScene(sceneName);  // 游戏场景名称
+            StartCoroutine(LoadSceneWithFadeEffect(1.5f));  // 游戏场景名称
         }
         else
         {
@@ -84,6 +84,13 @@ public class UI_MainMenu : MonoBehaviour
     #else
         Application.Quit();
     #endif
+    }
+
+    IEnumerator LoadSceneWithFadeEffect(float _delay)
+    {
+        fadeScreen.FadeOut();
+        yield return new WaitForSeconds(_delay);
+        SceneManager.LoadScene(sceneName);
     }
 }
 

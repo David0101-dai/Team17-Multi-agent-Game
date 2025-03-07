@@ -20,11 +20,9 @@ public abstract class Skill : MonoBehaviour
         CheckUnlock();
     }
 
-
     protected virtual void Start()
     {
         player = PlayerManager.Instance.player.GetComponent<Player>();
-        //CheckUnlock();
     }
 
     protected virtual void Update()
@@ -32,11 +30,7 @@ public abstract class Skill : MonoBehaviour
         cooldownTimer -= Time.deltaTime;
     }
 
-    protected virtual void CheckUnlock()
-    {
-
-    }
-
+    protected virtual void CheckUnlock(){}
     public bool CanUseSkill()
     {
         if (cooldownTimer >= 0) return false;
@@ -44,20 +38,16 @@ public abstract class Skill : MonoBehaviour
         cooldownTimer = cooldown;
         return true;
     }
-
     public bool DelayCanUseSkill()
     {
         if (cooldownTimer >= 0) return false;
         return true;
     }
-
     protected abstract void SkillFunction();
-
     protected virtual Transform FindClosestEnemy(Transform detectTransform, float radius)
     {
         var collider = Physics2D.OverlapCircleAll(detectTransform.position, radius);
         var closeDis = Mathf.Infinity;
-
         Transform closeEnemy = null;
         foreach (var hit in collider)
         {

@@ -132,7 +132,7 @@ public void RegisterSaveManager(ISaveManager saveManager)
         }
         else
         {
-            Debug.LogError("Game data is not loaded yet.");
+            Debug.Log("Game data is not loaded yet.");
         }
     }
 }

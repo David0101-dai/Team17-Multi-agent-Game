@@ -52,7 +52,7 @@ public class GameData
             skillTreeValues.Add(pair.Value);
         }
 
-        Debug.Log("OnBeforeSerialize: SkillTree keys and values serialized.");
+//        Debug.Log("OnBeforeSerialize: SkillTree keys and values serialized.");
     }
 
     // 在反序列化后调用，将列表中的键和值填充到字典中
@@ -95,6 +95,6 @@ public class GameData
             }
         }
 
-        Debug.Log("OnAfterDeserialize: SkillTree keys and values deserialized.");
+//        Debug.Log("OnAfterDeserialize: SkillTree keys and values deserialized.");
     }
 }

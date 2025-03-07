@@ -67,21 +67,15 @@ public class Inventory : MonoBehaviour, ISaveManager
             StartCoroutine(RegisterWhenReady());
         }
     }
-
     private IEnumerator RegisterWhenReady()
-    {
-        // 等待 SaveManager 初始化完成
+    {   // 等待 SaveManager 初始化完成
         while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
         {
             yield return null;  // 每帧检查，直到 SaveManager 和 gameData 完全加载
-        }
-
-        // 当 SaveManager 准备好时，注册
+        }// 当 SaveManager 准备好时，注册
         SaveManager.instance.RegisterSaveManager(this);
-        Debug.Log("Inventory registered in SaveManager (Coroutine)");
+        //Debug.Log("Inventory registered in SaveManager (Coroutine)");
     }
-
-
     private void OnEnable()
     {
         // 确保组件启用时也注册（避免因禁用后重新启用未注册）
@@ -104,16 +98,14 @@ private void Start()
 
     // 确保 inventoryItemSlots 正确初始化
     inventoryItemSlots = inventorySlotParent.GetComponentsInChildren<ItemSlot>();
-    Debug.Log($"inventoryItemSlots count: {inventoryItemSlots.Length}");
+    //Debug.Log($"inventoryItemSlots count: {inventoryItemSlots.Length}");
     if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
     {
         Debug.LogError("inventoryItemSlots is null or empty. Please check your UI setup.");
     }
-
     equipmentSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlot>();
     stashItemSlots = stashSlotParent.GetComponentsInChildren<ItemSlot>();
     statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
-
     AddStartingItems();
 }
 

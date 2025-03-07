@@ -68,7 +68,7 @@ public class UI_MainMenu : MonoBehaviour
     {
         saveManager.DeleteSaveData();
         saveManager.NewGame();
-        SceneManager.LoadScene(sceneName);  // 游戏场景名称
+        StartCoroutine(LoadSceneWithFadeEffect(1.5f));
     }
 
 

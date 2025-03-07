@@ -14,7 +14,7 @@ public class TransitionManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            DontDestroyOnLoad(fadeCanvasGroup.transform.root.gameObject); // ±£»¤Canvas
+            DontDestroyOnLoad(fadeCanvasGroup.transform.root.gameObject); // ï¿½ï¿½ï¿½ï¿½Canvas
         }
         else
         {

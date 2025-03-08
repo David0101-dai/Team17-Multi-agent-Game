@@ -863,6 +863,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5499207355857766135, guid: 3f3c99a500c3d284daa9cc2fa0a199e3, type: 3}
+      propertyPath: encryptData
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9140421705914205918, guid: 3f3c99a500c3d284daa9cc2fa0a199e3, type: 3}
       propertyPath: m_RootOrder
       value: 3

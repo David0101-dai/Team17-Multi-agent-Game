@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 
 public class CloneSkill : Skill
 {
@@ -19,7 +19,7 @@ public class CloneSkill : Skill
     [Header("Clone Attack")]
     [SerializeField] private SkillTreeSlot unlockCloneAttackbutton;
     [SerializeField] private float cloneMultiplier;
-    [SerializeField] private bool canAttack;
+    //[SerializeField] private bool canAttack;
    
     public bool canApplyOnHitEffect { get; private set; }
 
@@ -29,10 +29,28 @@ public class CloneSkill : Skill
     [SerializeField] private float multipleCloneMultiplier;
     [SerializeField] private bool canDuplicateClone;
     [SerializeField] private float duplicateProbability;
+        protected override void OnEnable()
+    {
+        base.OnEnable();
+        // 使用协程确保在 SaveManager 数据加载完成后再检查技能解锁状态
+        StartCoroutine(WaitAndCheckUnlock());
+    }
 
-    
-
-
+    private IEnumerator WaitAndCheckUnlock()
+    {
+        // 等待直到 SaveManager 实例存在并且 gameData 已加载
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
+        {
+            yield return null;
+        }
+        // 主动刷新技能槽数据
+        unlockCloneAttackbutton.LoadData(SaveManager.instance.CurrentGameData());
+        unlockMultipleClonebutton.LoadData(SaveManager.instance.CurrentGameData());
+        // 等待一帧，确保 SkillTreeSlot 的状态更新完成
+        yield return new WaitForEndOfFrame();
+        
+        CheckUnlock();
+    }
 
     protected override void Start()
     {
@@ -40,21 +58,36 @@ public class CloneSkill : Skill
 
         unlockCloneAttackbutton.GetComponent<Button>().onClick.AddListener(UnlockCloneAttack);
         unlockMultipleClonebutton.GetComponent<Button>().onClick.AddListener(UnlockMultipleClone);
-        
 
+        unlockCloneAttackbutton.OnSkillCancelled += OnCloneAttackSkillCancelled;
+        unlockMultipleClonebutton.OnSkillCancelled += OnMultipleCloneSkillCancelled;
     }
 
     #region Unlock Skill Region
+
+    protected override void CheckUnlock()
+    {
+        UnlockCloneAttack();
+        UnlockMultipleClone();
+    }
+
+    private void OnCloneAttackSkillCancelled()
+    {
+        attackMultiplier = 0;
+    }
+
+    private void OnMultipleCloneSkillCancelled()
+    {
+        canDuplicateClone = false;
+    }
+
     private void UnlockCloneAttack()
     {
         if (unlockCloneAttackbutton.unlocked) {
-            canAttack = true;
+            //canAttack = true;
             attackMultiplier = cloneMultiplier;
         }
-            
     }
-
-    
 
     private void UnlockMultipleClone()
     {
@@ -63,16 +96,11 @@ public class CloneSkill : Skill
             attackMultiplier = multipleCloneMultiplier;
         }
     }
-
-    
-
-
     #endregion
+
 
     public void CreateClone(Vector3 position, Quaternion rotation, Vector3 offset)
     {
-        
-
         var newClone = Instantiate(clonePrefab);
         newClone.transform.SetParent(PlayerManager.Instance.fx.transform);
         var controller = newClone.GetComponent<CloneSkillController>();

@@ -62,7 +62,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
 
 
-    public void UpdateSlot(InventoryItem newItem)
+    public virtual void UpdateSlot(InventoryItem newItem)
     {
         item = newItem;
         if (item != null)

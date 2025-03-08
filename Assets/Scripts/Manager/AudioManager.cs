@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
+using UnityEngine.UI;  // 引入 UI 命名空间
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource[] sfx;
     [SerializeField] private AudioSource[] bgm;
 
+    // 添加两个滑条引用，分别控制背景音乐和音效的音量
+    [SerializeField] public Slider bgmSlider;
+    [SerializeField] public Slider sfxSlider;
 
     public bool playBgm;
     private int bgmIndex;
@@ -28,6 +32,27 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // 初始化背景音乐滑条
+        if (bgmSlider != null)
+        {
+            // 可设置默认值为当前背景音乐音量
+            bgmSlider.value = bgm[bgmIndex].volume;
+            // 注册滑条数值变化事件
+            bgmSlider.onValueChanged.AddListener(UpdateBGMVolume);
+        }
+
+        // 初始化音效滑条
+        if (sfxSlider != null)
+        {
+            if (sfx.Length > 0)
+            {
+                sfxSlider.value = sfx[0].volume;
+            }
+            sfxSlider.onValueChanged.AddListener(UpdateSFXVolume);
+        }
+    }
 
     private void Update()
     {
@@ -77,6 +102,24 @@ public class AudioManager : MonoBehaviour
         for (int i = 0; i < bgm.Length; i++)
         {
             bgm[i].Stop();
+        }
+    }
+
+    // 当背景音乐滑条变化时，更新所有 BGM 的音量
+    private void UpdateBGMVolume(float value)
+    {
+        foreach (AudioSource source in bgm)
+        {
+            source.volume = value;
+        }
+    }
+
+    // 当音效滑条变化时，更新所有 SFX 的音量
+    private void UpdateSFXVolume(float value)
+    {
+        foreach (AudioSource source in sfx)
+        {
+            source.volume = value;
         }
     }
 }

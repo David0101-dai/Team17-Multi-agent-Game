@@ -51,8 +51,7 @@ public class CloneSkillController : MonoBehaviour
 
         if (isDelayAttack)
             attackDelayTimer = attackDelay;
-
-
+            
         var pos = position + offset;
 
         PositionRotationSetup(pos, rotation);
@@ -68,7 +67,7 @@ public class CloneSkillController : MonoBehaviour
             attackDelayTimer = Mathf.Infinity;
             anim.SetInteger("AttackNumber", UnityEngine.Random.Range(1, 3));
 
-            AudioManager.instance.PlaySFX(2,null); //»Óµ¶ÒôÐ§
+            AudioManager.instance.PlaySFX(2,null); //ï¿½Óµï¿½ï¿½ï¿½Ð§
         }
 
         if (cloneTimer < 0)
@@ -97,8 +96,6 @@ public class CloneSkillController : MonoBehaviour
                 || hit.transform == transform.parent
                 || !hit.TryGetComponent(out Damageable damageable)) continue;
             damageable.CloneTakeDamage(player.gameObject, false, true, attackMultiplier);
-
-           
 
             if (!canDuplicateClone || UnityEngine.Random.Range(0, 100) >= duplicateProbability) continue;
             SkillManager.Instance.Clone.CreateClone(hit.transform.position, player.transform.rotation, new Vector3(1.5f * facingDir, 0));

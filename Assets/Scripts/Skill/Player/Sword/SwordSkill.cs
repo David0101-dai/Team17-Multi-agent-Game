@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 public class SwordSkill : Skill
 {
     [Header("Skill Value")]
@@ -53,6 +53,33 @@ public class SwordSkill : Skill
     private GameObject[] dots;
     private Vector2 finalDir;
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        // 使用协程确保在 SaveManager 数据加载完成后再检查技能解锁状态
+        StartCoroutine(WaitAndCheckUnlock());
+    }
+
+    private IEnumerator WaitAndCheckUnlock()
+    {
+        // 等待直到 SaveManager 实例存在并且 gameData 已加载
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
+        {
+            yield return null;
+        }
+        // 主动刷新技能槽数据
+        timeStopUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        volnurableUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        swordUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        bounceUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        pierceUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        spinUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        // 等待一帧，确保 SkillTreeSlot 的状态更新完成
+        yield return new WaitForEndOfFrame();
+        
+        CheckUnlock();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -67,6 +94,13 @@ public class SwordSkill : Skill
         bounceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockBounce);
         pierceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockPierce);
         spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpin);
+
+        timeStopUnlockButton.OnSkillCancelled += OnTimeStopSkillCancelled;
+        volnurableUnlockButton.OnSkillCancelled += OnVolnurableSkillCancelled;
+        swordUnlockButton.OnSkillCancelled += OnSwordUnlockSkillCancelled;
+        bounceUnlockButton.OnSkillCancelled += OnBounceSkillCancelled;
+        pierceUnlockButton.OnSkillCancelled += OnPierceSkillCancelled;
+        spinUnlockButton.OnSkillCancelled += OnSpinSkillCancelled;
 
     }
 
@@ -136,7 +170,52 @@ public class SwordSkill : Skill
         }
     }
 
+    private void OnTimeStopSkillCancelled()
+    {
+        timeStopUnlocked = false;
+        // 此处可以加入关闭技能效果的逻辑
+    }
+
+    private void OnVolnurableSkillCancelled()
+    {
+        volnurableUnlocked = false;
+        // 此处可以加入关闭技能效果的逻辑
+    }
+
+    private void OnSwordUnlockSkillCancelled()
+    {
+        swordUnlocked = false;
+        // 此处可以加入关闭技能效果的逻辑
+    }
+
+    private void OnBounceSkillCancelled()
+    {
+        swordType = SwordType.Regular;
+    }
+
+    private void OnPierceSkillCancelled()
+    {
+        swordType = SwordType.Regular;
+    }
+
+    private void OnSpinSkillCancelled()
+    {
+        swordType = SwordType.Regular;
+    }
+
+
+
+
     #region Unlock Skill Region
+    protected override void CheckUnlock()
+    {
+        UnlockTimeStop();
+        UnlockVolnurable();
+        UnlockSwordUnlock();
+        UnlockBounce();
+        UnlockPierce();
+        UnlockSpin();
+    }
     private void UnlockTimeStop()
     {
         if (timeStopUnlockButton.unlocked)
@@ -150,9 +229,10 @@ public class SwordSkill : Skill
     }
     private void UnlockSwordUnlock()
     {
-        if (swordUnlockButton.unlocked)
+        if (swordUnlockButton.unlocked){
             swordType = SwordType.Regular;
             swordUnlocked = true;
+        }   
     }
     private void UnlockBounce()
     {

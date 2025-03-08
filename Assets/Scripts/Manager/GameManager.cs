@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sc : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
         AudioManager.instance.PlayBGM(0);
-        Debug.Log($"²¥·ÅÒôÀÖ");
+        Debug.Log($"æ’­æ”¾èƒŒæ™¯éŸ³ä¹");
     }
 
     // Update is called once per frame

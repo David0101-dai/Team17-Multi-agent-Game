@@ -17,7 +17,7 @@ public class CounterState : PlayerState
     {
         base.Enter(lastState);
 
-        // 1级：解锁counter
+        // 1级：解锁counters
         if (!SkillManager.Instance.Counter.counterUnlocked)
         {
             Fsm.SwitchState(Character.IdleState);

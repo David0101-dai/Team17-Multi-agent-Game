@@ -17,23 +17,38 @@ public class ItemObject : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+    
 
-    public void Setup(ItemData item, Vector2 velocity)
+public void Setup(ItemData item, Vector2 velocity)
+{
+    if (item == null)
     {
-        itemData = item;
-        GetComponent<Rigidbody2D>().velocity = velocity;
-        GetComponent<SpriteRenderer>().sprite = item.icon;
-        gameObject.name = item.name;
+        Debug.LogError("Item is null. Cannot set up item.");
+        return;
+    }
+    itemData = item;
+    GetComponent<Rigidbody2D>().velocity = velocity;
+    GetComponent<SpriteRenderer>().sprite = item.icon;
+    gameObject.name = item.name;
+}
+
+
+public void PickupItem()
+{
+    if (itemData == null)
+    {
+        Debug.LogError("Item data is null. Cannot add item.");
+        return;
     }
 
-    public void PickupItem()
+    if (!Inventory.Instance.CanAddItem(itemData))
     {
-        if (!Inventory.Instance.CanAddItem())
-        {
-            rb.velocity = new Vector2(0, 7);
-            return;
-        }
-        Inventory.Instance.AddItem(itemData);
-        Destroy(gameObject);
+        rb.velocity = new Vector2(0, 7);
+        return;
     }
+
+    Inventory.Instance.AddItem(itemData);
+    Destroy(gameObject);
+}
+
 }

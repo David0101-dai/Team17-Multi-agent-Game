@@ -1,7 +1,12 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class UI : MonoBehaviour
 {
+    public TextMeshProUGUI endText;    
+    public UI_FadeScreen fadeScreen;
+    [Space]
     [SerializeField] private GameObject characterUI;
     [SerializeField] private GameObject skillTreeUI;
     [SerializeField] private GameObject craftUI;
@@ -10,10 +15,33 @@ public class UI : MonoBehaviour
     [SerializeField] public Tooltip tooltip;
     [SerializeField] public UI_SkillToolTip skillToolTip;
 
+    public static UI Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);  // 确保 UI 在场景切换时不被销毁
+        }
+        else
+        {
+            Destroy(gameObject);  // 如果实例已存在，则销毁当前对象
+        }
+    }
     private void Start()
     {
+        if (fadeScreen == null)
+        {
+            Debug.LogError("fadeScreen 未在 UI 脚本中正确初始化！");
+        }
+        else
+        {
+            Debug.Log("fadeScreen 已初始化！");
+        }
+
         SwitchTo(null);
     }
+
 
     private void Update()
     {
@@ -46,7 +74,10 @@ public class UI : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.SetActive(false);
+            bool isFadeScreen = transform.GetChild(i).GetComponent<UI_FadeScreen>() != null;
+            if(!isFadeScreen){
+                 transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
         menu?.SetActive(true);
     }
@@ -59,5 +90,19 @@ public class UI : MonoBehaviour
             return;
         }
         SwitchTo(menu);
+    }
+
+    public void SwitchOnEndScreen(){
+        fadeScreen.FadeOut();
+        StartCoroutine(EndScreenCorutione());
+    }
+
+    IEnumerator EndScreenCorutione(){
+        yield return new WaitForSeconds(1);
+        endText.gameObject.SetActive(true);
+    }
+
+    public UI_FadeScreen getFadeScreen(){
+        return fadeScreen;
     }
 }

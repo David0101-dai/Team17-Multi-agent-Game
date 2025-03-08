@@ -40,7 +40,7 @@ public class ItemDrop : MonoBehaviour
         var parent = PlayerManager.Instance.item.transform;
         var newDrop = Instantiate(dropPrefab, pos, Quaternion.identity, parent);
         if (!newDrop.TryGetComponent(out ItemObject itemObject)) return;
-        var randomVelocity = new Vector2(Random.Range(-5, 5), Random.Range(10, 15));
+        var randomVelocity = new Vector2(Random.Range(-10, 10), Random.Range(20, 15));
         itemObject.Setup(item, randomVelocity);
     }
 }

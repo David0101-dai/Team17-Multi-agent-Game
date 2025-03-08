@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Linq;
@@ -58,3 +59,4 @@ public class InspectorButton : Editor
         EditorGUILayout.EndHorizontal();
     }
 }
+#endif

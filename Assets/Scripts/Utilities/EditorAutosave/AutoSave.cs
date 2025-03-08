@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
@@ -14,3 +15,4 @@ public class AutoSave
         };
     }
 }
+#endif

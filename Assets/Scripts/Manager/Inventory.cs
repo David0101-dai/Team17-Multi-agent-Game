@@ -221,6 +221,7 @@ public class Inventory : MonoBehaviour, ISaveManager
                 break;
             case ItemType.Coin:
                 PlayerManager.Instance.AddCurrency();
+                Debug.Log("Coin:"+ PlayerManager.Instance.currentCurrencyAmount());
                 break;
             default:
                 break;

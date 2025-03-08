@@ -822,14 +822,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3c73d5af9ee474eb175e81fb8940a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfItems: 2
+  amountOfItems: 3
   dropPrefab: {fileID: 5029221047962218234, guid: 3329f40dff0d6844184b886786b9e603, type: 3}
   possibleDrop:
+  - {fileID: 11400000, guid: 14d1fe8595ec89b429f99a1c53e63fe4, type: 2}
   - {fileID: 11400000, guid: 0215117b3fd4b1447aa8f6929e8cb68d, type: 2}
-  - {fileID: 11400000, guid: 08a81300bfccf0945a436052c2ab706c, type: 2}
-  - {fileID: 11400000, guid: 92ee5a79d2e1e7047b92a22b53889208, type: 2}
-  - {fileID: 11400000, guid: feb828e4c31f99b48ad48d9bc5d5ded9, type: 2}
-  - {fileID: 11400000, guid: d1975db937e48994d867fe87ef88feee, type: 2}
   dropList: []
 --- !u!1 &9166753232305936480
 GameObject:

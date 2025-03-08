@@ -21212,6 +21212,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endText: {fileID: 0}
   fadeScreen: {fileID: 0}
+  inGameUI: {fileID: 0}
+  Equipment: {fileID: 0}
+  Inventory: {fileID: 0}
+  Stash: {fileID: 0}
+  Stat: {fileID: 0}
   characterUI: {fileID: 9163268547328032237}
   skillTreeUI: {fileID: 1275832621132194328}
   craftUI: {fileID: 2716684890507244028}

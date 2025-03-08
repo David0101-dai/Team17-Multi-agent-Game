@@ -7,7 +7,10 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI endText;    
     public UI_FadeScreen fadeScreen;
     public INGAMEUI inGameUI; 
-    public GameObject Equipment;
+    public Transform Equipment;
+    public Transform Inventory;
+    public Transform Stash;
+    public Transform Stat;
     [Space]
     [SerializeField] private GameObject characterUI;
     [SerializeField] private GameObject skillTreeUI;

@@ -48,6 +48,12 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     private void Awake()
     {
+        if (UI.Instance == null)
+    {
+        Debug.LogError("UI.Instance is not initialized.");
+        return;
+    }
+
         Debug.Log("Inventory Awake");
 
         if (Instance == null)
@@ -67,9 +73,9 @@ public class Inventory : MonoBehaviour, ISaveManager
             StartCoroutine(RegisterWhenReady());
         }
 
-        equipmentSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlot>();
-        stashItemSlots = stashSlotParent.GetComponentsInChildren<ItemSlot>();
-        statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
+        equipmentSlots = UI.Instance.Equipment.GetComponentsInChildren<EquipmentSlot>();
+        stashItemSlots = UI.Instance.Stash.GetComponentsInChildren<ItemSlot>();
+        statSlots = UI.Instance.Stat.GetComponentsInChildren<StatsSlot>();
         
     }
     private IEnumerator RegisterWhenReady()
@@ -94,7 +100,7 @@ public class Inventory : MonoBehaviour, ISaveManager
         stashDic = new Dictionary<ItemData, InventoryItem>();
 
         // 确保 inventoryItemSlots 正确初始化
-        inventoryItemSlots = inventorySlotParent.GetComponentsInChildren<ItemSlot>();
+        inventoryItemSlots = UI.Instance.Inventory.GetComponentsInChildren<ItemSlot>();
         //Debug.Log($"inventoryItemSlots count: {inventoryItemSlots.Length}");
         if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
         {

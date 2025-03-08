@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour , ISaveManager
+public class PlayerManager : MonoBehaviour, ISaveManager
 {
     public static PlayerManager Instance { get; private set; }
 
@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour , ISaveManager
         
     }
 
-    // Ìí¼Ó RefundMoney ·½·¨
+    // ï¿½ï¿½ï¿½ï¿½ RefundMoney ï¿½ï¿½ï¿½ï¿½
     public void RefundMoney(int amount)
     {
         currency += amount;

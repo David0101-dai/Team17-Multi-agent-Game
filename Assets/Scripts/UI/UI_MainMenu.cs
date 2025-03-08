@@ -1,20 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class UI_MainMenu : MonoBehaviour
 {
     [SerializeField] private EnemyLevel levelstage;
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private string sceneName = "Prototype";
-    [SerializeField] UI_FadeScreen fadeScreen;
+    [SerializeField] private UI_FadeScreen fadeScreen;
     public Button continueButton; // 继续游戏按钮
     public Button newGameButton;  // 新游戏按钮
     private SaveManager saveManager;
-    // Start is called before the first frame update 
+
     private void Awake()
     {
         if (dropdown != null)
@@ -50,7 +49,6 @@ public class UI_MainMenu : MonoBehaviour
         newGameButton.onClick.AddListener(StartNewGame);
     }
 
-        
     public void ContinueGame()
     {
         StartCoroutine(LoadSceneWithFadeEffect(1.5f));
@@ -71,21 +69,23 @@ public class UI_MainMenu : MonoBehaviour
         StartCoroutine(LoadSceneWithFadeEffect(1.5f));
     }
 
-
     public void setLevel(int index)
     {
         int level = index + 1;
         Debug.Log(level);
         levelstage.SetLevel(level);
     }
-    public void ExitGame(){
-       #if UNITY_EDITOR
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
         Debug.Log("Exit game is called in the editor.");
-    #else
+#else
         Application.Quit();
-    #endif
+#endif
     }
 
+    // 场景加载时执行淡出效果
     IEnumerator LoadSceneWithFadeEffect(float _delay)
     {
         fadeScreen.FadeOut();
@@ -93,4 +93,3 @@ public class UI_MainMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 }
-

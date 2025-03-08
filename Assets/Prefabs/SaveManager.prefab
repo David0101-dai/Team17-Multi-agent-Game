@@ -21210,6 +21210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbac1fcf3c37a1845a7721fdbf6d29f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endText: {fileID: 0}
+  fadeScreen: {fileID: 0}
   characterUI: {fileID: 9163268547328032237}
   skillTreeUI: {fileID: 1275832621132194328}
   craftUI: {fileID: 2716684890507244028}

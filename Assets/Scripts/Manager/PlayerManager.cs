@@ -50,4 +50,5 @@ public class PlayerManager : MonoBehaviour , ISaveManager
     }
 
     public int currentCurrencyAmount() => currency;
+    public void AddCurrency() => currency++;
 }

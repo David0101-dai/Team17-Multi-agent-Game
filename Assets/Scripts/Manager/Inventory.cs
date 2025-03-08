@@ -213,6 +213,10 @@ public class Inventory : MonoBehaviour, ISaveManager
                 AddItemMethod(inventoryItems, inventoryDic, item);
                 UpdateSlotUI(inventoryItemSlots, inventoryItems);
                 break;
+            case ItemType.Coin:
+                PlayerManager.Instance.AddCurrency();
+                Debug.Log("Coin:"+ PlayerManager.Instance.currentCurrencyAmount());
+                break;
             default:
                 break;
         }

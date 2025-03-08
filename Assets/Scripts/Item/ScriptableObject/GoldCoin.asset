@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75be1081be217644389c9d181dcb74dd, type: 3}
   m_Name: GoldCoin
   m_EditorClassIdentifier: 
-  itemType: 0
+  itemType: 2
   itemName: GoldCoin
   icon: {fileID: -1920582380, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   itemId: 14d1fe8595ec89b429f99a1c53e63fe4

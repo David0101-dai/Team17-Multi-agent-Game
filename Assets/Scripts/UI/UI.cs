@@ -6,6 +6,8 @@ public class UI : MonoBehaviour
 {
     public TextMeshProUGUI endText;    
     public UI_FadeScreen fadeScreen;
+    public INGAMEUI inGameUI; 
+    public GameObject Equipment;
     [Space]
     [SerializeField] private GameObject characterUI;
     [SerializeField] private GameObject skillTreeUI;
@@ -74,13 +76,19 @@ public class UI : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            bool isFadeScreen = transform.GetChild(i).GetComponent<UI_FadeScreen>() != null;
-            if(!isFadeScreen){
-                 transform.GetChild(i).gameObject.SetActive(false);
+            var child = transform.GetChild(i).gameObject;
+            bool isFadeScreen = child.GetComponent<UI_FadeScreen>() != null;
+            bool isInGameUI = child.GetComponent<INGAMEUI>() != null;
+            
+            // 仅非FadeScreen且非InGameUI的对象会被禁用
+            if (!isFadeScreen && !isInGameUI)
+            {
+                child.SetActive(false);
             }
         }
         menu?.SetActive(true);
     }
+
 
     public void SwitchWithKeyTo(GameObject menu)
     {

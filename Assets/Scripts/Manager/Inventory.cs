@@ -357,7 +357,10 @@ public bool CanAddItem(ItemData item)
         Debug.LogError("Cannot add item: item is null.");
         return false;
     }
-
+    if(item.itemType== ItemType.Coin)
+    {
+            return true;
+    }
     if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
     {
         Debug.LogError("inventoryItemSlots is null or empty. Cannot add item.");

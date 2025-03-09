@@ -5,66 +5,100 @@ public class DashSkill : Skill
 {
     [Header("Dash")]
     public bool dashUnlocked;
-    [SerializeField] public SkillTreeSlot dashUnlockedButton;
+    private SkillTreeSlot dashUnlockedButton;
     [Header("CloneOnDash")]
     public bool cloneOnDashUnlocked;
-    [SerializeField] public SkillTreeSlot cloneOnDashUnlockedButton;
+    private SkillTreeSlot cloneOnDashUnlockedButton;
     protected override void SkillFunction(){}
 
     protected override void Start()
     {
         base.Start();
-        // 确保 SaveManager 已初始化并且 gameData 已加载
-        StartCoroutine(WaitForSaveManagerInitialization());
+        StartCoroutine(InitializeSkillButtons());
     }
 
-    private IEnumerator WaitForSaveManagerInitialization()
+    private IEnumerator InitializeSkillButtons()
     {
-        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
+        // 等待直到 UI 初始化完成
+        while (UI.Instance == null ||
+         UI.Instance.dashUnlockedButton == null ||
+          UI.Instance.cloneOnDashUnlockedButton == null)
         {
-            yield return null; 
+            yield return null;  // 每一帧检查一次
         }
-        // 继续进行技能按钮的初始化
+
+        // 现在 UI 已经完全初始化，安全地访问按钮
+        dashUnlockedButton = UI.Instance.dashUnlockedButton;
+        cloneOnDashUnlockedButton = UI.Instance.cloneOnDashUnlockedButton;
+
         if (dashUnlockedButton != null)
         {
             dashUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockDash);
             dashUnlockedButton.OnSkillCancelled += OnDashSkillCancelled;
-        } else{Debug.LogError("dashUnlockedButton is not assigned.");}
+        } 
+        else
+        {
+            Debug.LogError("dashUnlockedButton is not assigned.");
+        }
 
         if (cloneOnDashUnlockedButton != null)
         {
             cloneOnDashUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCloneOnDash);
             cloneOnDashUnlockedButton.OnSkillCancelled += OnCloneOnDashSkillCancelled;
-        }else{Debug.LogError("cloneOnDashUnlockedButton is not assigned.");}
+        } 
+        else
+        {
+            Debug.LogError("cloneOnDashUnlockedButton is not assigned.");
+        }
+
+        // 在初始化按钮后，调用 WaitAndCheckUnlock 来加载技能数据
+    yield return StartCoroutine(WaitAndCheckUnlock());
     }
+
     protected override void OnEnable()
     {
         base.OnEnable();
-        StartCoroutine(WaitAndCheckUnlock());
     }
+
     private IEnumerator WaitAndCheckUnlock()
     {
         // 等待直到 SaveManager 实例存在并且 gameData 已加载
         while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
         {
-    ;        yield return null;  // 每一帧检查一次
+            yield return null;  // 每一帧检查一次
         }
-        // 确保 CurrentGameData 不为 null
-        if (SaveManager.instance.CurrentGameData() != null)
+  // 确保 CurrentGameData 不为 null
+    if (SaveManager.instance.CurrentGameData() != null)
+    {
+        if (dashUnlockedButton != null)
         {
-            // 调用 LoadData 并传递已加载的 gameData
             dashUnlockedButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+        else
+        {
+            Debug.LogError("dashUnlockedButton is null during LoadData call.");
+        }
+
+        if (cloneOnDashUnlockedButton != null)
+        {
             cloneOnDashUnlockedButton.LoadData(SaveManager.instance.CurrentGameData());
         }
         else
         {
-            Debug.LogError("CurrentGameData is null!");
+            Debug.LogError("cloneOnDashUnlockedButton is null during LoadData call.");
         }
-        // 等待一帧，确保 SkillTreeSlot 的状态更新完成
-        yield return new WaitForEndOfFrame();
-        // 检查技能是否解锁
-        CheckUnlock();
     }
+    else
+    {
+        Debug.LogError("CurrentGameData is null!");
+    }
+
+    // 等待一帧，确保 SkillTreeSlot 的状态更新完成
+    yield return new WaitForEndOfFrame();
+    // 检查技能是否解锁
+    CheckUnlock();
+    }
+
     private void OnDashSkillCancelled()
     {
         dashUnlocked = false;
@@ -81,7 +115,7 @@ public class DashSkill : Skill
     {
         UnlockDash();
         UnlockCloneOnDash();
-//        Debug.Log($"[DashSkill] dashUnlocked: {dashUnlocked}, cloneOnDashUnlocked: {cloneOnDashUnlocked}");
+        // Debug.Log($"[DashSkill] dashUnlocked: {dashUnlocked}, cloneOnDashUnlocked: {cloneOnDashUnlocked}");
     }
 
     private void UnlockDash()

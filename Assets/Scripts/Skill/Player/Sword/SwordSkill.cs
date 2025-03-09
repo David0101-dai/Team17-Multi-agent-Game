@@ -4,7 +4,7 @@ using System.Collections;
 public class SwordSkill : Skill
 {
     [Header("Skill Value")]
-    [SerializeField] private SkillTreeSlot swordUnlockButton;
+    private SkillTreeSlot swordUnlockButton;
     public bool swordUnlocked {  get; private set; }
 
     [SerializeField] private SwordType swordType = SwordType.Regular;
@@ -23,18 +23,18 @@ public class SwordSkill : Skill
     [SerializeField] private float regularGravity;
 
     [Header("Bounce Value")]
-    [SerializeField] private SkillTreeSlot bounceUnlockButton;
+    private SkillTreeSlot bounceUnlockButton;
     [SerializeField] private float bounceGravity;
     [SerializeField] private float bounceSpeed;
     [SerializeField] private int bounceAmount;
 
     [Header("Pierce Value")]
-    [SerializeField] private SkillTreeSlot pierceUnlockButton;
+    private SkillTreeSlot pierceUnlockButton;
     [SerializeField] private float pierceGravity;
     [SerializeField] private int pierceAmount;
 
     [Header("Spin Value")]
-    [SerializeField] private SkillTreeSlot spinUnlockButton;
+    private SkillTreeSlot spinUnlockButton;
     [SerializeField] private float SpinGravity;
     [SerializeField] private float maxTravelDistance;
     [SerializeField] private float spinDuration;
@@ -42,9 +42,9 @@ public class SwordSkill : Skill
 
 
     [Header("Passive Skills")]
-    [SerializeField] private SkillTreeSlot timeStopUnlockButton;
+    private SkillTreeSlot timeStopUnlockButton;
     public bool timeStopUnlocked { get; private set; }
-    [SerializeField] private SkillTreeSlot volnurableUnlockButton;
+    private SkillTreeSlot volnurableUnlockButton;
     public bool volnurableUnlocked { get; private set; }
 
     private float swordGravity;
@@ -56,8 +56,93 @@ public class SwordSkill : Skill
     protected override void OnEnable()
     {
         base.OnEnable();
-        // 使用协程确保在 SaveManager 数据加载完成后再检查技能解锁状态
-        StartCoroutine(WaitAndCheckUnlock());
+    }
+
+    private IEnumerator InitializeSkillButtons()
+    {
+        // 等待直到 UI 初始化完成，确保所有按钮组件已经被正确绑定
+        while (UI.Instance == null || 
+            UI.Instance.timeStopUnlockButton == null || 
+            UI.Instance.volnurableUnlockButton == null || 
+            UI.Instance.swordUnlockButton == null || 
+            UI.Instance.bounceUnlockButton == null || 
+            UI.Instance.pierceUnlockButton == null || 
+            UI.Instance.spinUnlockButton == null)
+        {
+            yield return null;  // 每一帧检查一次，直到UI实例和按钮完全加载
+        }
+
+        // 赋值并进行空值检查
+        timeStopUnlockButton = UI.Instance.timeStopUnlockButton;
+        volnurableUnlockButton = UI.Instance.volnurableUnlockButton;
+        swordUnlockButton = UI.Instance.swordUnlockButton;
+        bounceUnlockButton = UI.Instance.bounceUnlockButton;
+        pierceUnlockButton = UI.Instance.pierceUnlockButton;
+        spinUnlockButton = UI.Instance.spinUnlockButton;
+
+        // 添加按钮事件监听和空值检查
+        if (timeStopUnlockButton != null)
+        {
+            timeStopUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockTimeStop);
+            timeStopUnlockButton.OnSkillCancelled += OnTimeStopSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("timeStopUnlockButton is not assigned.");
+        }
+
+        if (volnurableUnlockButton != null)
+        {
+            volnurableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVolnurable);
+            volnurableUnlockButton.OnSkillCancelled += OnVolnurableSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("volnurableUnlockButton is not assigned.");
+        }
+
+        if (swordUnlockButton != null)
+        {
+            swordUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSwordUnlock);
+            swordUnlockButton.OnSkillCancelled += OnSwordUnlockSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("swordUnlockButton is not assigned.");
+        }
+
+        if (bounceUnlockButton != null)
+        {
+            bounceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockBounce);
+            bounceUnlockButton.OnSkillCancelled += OnBounceSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("bounceUnlockButton is not assigned.");
+        }
+
+        if (pierceUnlockButton != null)
+        {
+            pierceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockPierce);
+            pierceUnlockButton.OnSkillCancelled += OnPierceSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("pierceUnlockButton is not assigned.");
+        }
+
+        if (spinUnlockButton != null)
+        {
+            spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpin);
+            spinUnlockButton.OnSkillCancelled += OnSpinSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("spinUnlockButton is not assigned.");
+        }
+
+        // 确保按钮初始化完成后，再进行数据加载
+        yield return StartCoroutine(WaitAndCheckUnlock());
     }
 
     private IEnumerator WaitAndCheckUnlock()
@@ -67,41 +152,52 @@ public class SwordSkill : Skill
         {
             yield return null;
         }
-        // 主动刷新技能槽数据
-        timeStopUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
-        volnurableUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
-        swordUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
-        bounceUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
-        pierceUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
-        spinUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+
+        // 主动刷新技能槽数据，先进行空值检查
+        if (timeStopUnlockButton != null)
+        {
+            timeStopUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (volnurableUnlockButton != null)
+        {
+            volnurableUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (swordUnlockButton != null)
+        {
+            swordUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (bounceUnlockButton != null)
+        {
+            bounceUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (pierceUnlockButton != null)
+        {
+            pierceUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (spinUnlockButton != null)
+        {
+            spinUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
         // 等待一帧，确保 SkillTreeSlot 的状态更新完成
         yield return new WaitForEndOfFrame();
-        
+
+        // 调用 CheckUnlock
         CheckUnlock();
     }
+
 
     protected override void Start()
     {
         base.Start();
-
         SetGravity();
-
         GenereateDots();
-
-        timeStopUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockTimeStop);
-        volnurableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVolnurable);
-        swordUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSwordUnlock);
-        bounceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockBounce);
-        pierceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockPierce);
-        spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpin);
-
-        timeStopUnlockButton.OnSkillCancelled += OnTimeStopSkillCancelled;
-        volnurableUnlockButton.OnSkillCancelled += OnVolnurableSkillCancelled;
-        swordUnlockButton.OnSkillCancelled += OnSwordUnlockSkillCancelled;
-        bounceUnlockButton.OnSkillCancelled += OnBounceSkillCancelled;
-        pierceUnlockButton.OnSkillCancelled += OnPierceSkillCancelled;
-        spinUnlockButton.OnSkillCancelled += OnSpinSkillCancelled;
-
+        StartCoroutine(InitializeSkillButtons());
     }
 
     protected override void Update()

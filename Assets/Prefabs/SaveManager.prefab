@@ -21223,6 +21223,25 @@ MonoBehaviour:
   optionsUI: {fileID: 6251303294705630998}
   tooltip: {fileID: 4566141630211188597}
   skillToolTip: {fileID: 8573028592373019853}
+  dashUnlockedButton: {fileID: 0}
+  cloneOnDashUnlockedButton: {fileID: 0}
+  counterUnlockedButton: {fileID: 0}
+  counterBuffUnlockedButton: {fileID: 0}
+  counterMiragelUnlockedButton: {fileID: 0}
+  timeStopUnlockButton: {fileID: 0}
+  volnurableUnlockButton: {fileID: 0}
+  swordUnlockButton: {fileID: 0}
+  bounceUnlockButton: {fileID: 0}
+  pierceUnlockButton: {fileID: 0}
+  spinUnlockButton: {fileID: 0}
+  unlockCrystalButton: {fileID: 0}
+  unlockCloneInsteadbutton: {fileID: 0}
+  unlockMovingButton: {fileID: 0}
+  unlockExplosiveButton: {fileID: 0}
+  unlockMultiStackButton: {fileID: 0}
+  unlockCloneAttackbutton: {fileID: 0}
+  unlockMultipleClonebutton: {fileID: 0}
+  unlockBlackHolebutton: {fileID: 0}
 --- !u!1 &7047747994454889626
 GameObject:
   m_ObjectHideFlags: 0

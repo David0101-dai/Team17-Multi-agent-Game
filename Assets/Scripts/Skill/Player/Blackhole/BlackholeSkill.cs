@@ -17,14 +17,37 @@ public class BlackholeSkill : Skill
 
 
     [Header("Black Hole")]
-    [SerializeField] private SkillTreeSlot unlockBlackHolebutton;
+    private SkillTreeSlot unlockBlackHolebutton;
     [SerializeField] public bool blackHole;
 
         protected override void OnEnable()
     {
         base.OnEnable();
-        // 使用协程确保在 SaveManager 数据加载完成后再检查技能解锁状态
-        StartCoroutine(WaitAndCheckUnlock());
+    }
+
+    private IEnumerator InitializeSkillButtons()
+    {
+        // 等待直到 UI 初始化完成
+        while (UI.Instance == null || UI.Instance.unlockBlackHolebutton == null)
+        {
+            yield return null;  // 每一帧检查一次
+        }
+
+        // 现在 UI 已经完全初始化，安全地访问按钮
+        unlockBlackHolebutton = UI.Instance.unlockBlackHolebutton;
+
+        if (unlockBlackHolebutton != null)
+        {
+            unlockBlackHolebutton.GetComponent<Button>().onClick.AddListener(UnlockBlackHole);
+            unlockBlackHolebutton.OnSkillCancelled += OnBlackHoleSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("unlockBlackHolebutton is not assigned.");
+        }
+
+        // 等待直到 SaveManager 实例和 gameData 完全加载
+        yield return StartCoroutine(WaitAndCheckUnlock());
     }
 
     private IEnumerator WaitAndCheckUnlock()
@@ -32,13 +55,29 @@ public class BlackholeSkill : Skill
         // 等待直到 SaveManager 实例存在并且 gameData 已加载
         while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
         {
-            yield return null;
+            yield return null;  // 每一帧检查一次
         }
-        // 主动刷新技能槽数据
-        unlockBlackHolebutton.LoadData(SaveManager.instance.CurrentGameData());
+
+        // 确保 CurrentGameData 不为 null
+        if (SaveManager.instance.CurrentGameData() != null)
+        {
+            if (unlockBlackHolebutton != null)
+            {
+                unlockBlackHolebutton.LoadData(SaveManager.instance.CurrentGameData());
+            }
+            else
+            {
+                Debug.LogError("unlockBlackHolebutton is null during LoadData call.");
+            }
+        }
+        else
+        {
+            Debug.LogError("CurrentGameData is null!");
+        }
+
         // 等待一帧，确保 SkillTreeSlot 的状态更新完成
         yield return new WaitForEndOfFrame();
-        
+        // 检查技能是否解锁
         CheckUnlock();
     }
 
@@ -46,9 +85,7 @@ public class BlackholeSkill : Skill
     protected override void Start()
     {
         base.Start();
-        unlockBlackHolebutton.GetComponent<Button>().onClick.AddListener(UnlockBlackHole);
-
-        unlockBlackHolebutton.OnSkillCancelled += OnBlackHoleSkillCancelled;
+        StartCoroutine(InitializeSkillButtons());
     }
 
     private void OnBlackHoleSkillCancelled()

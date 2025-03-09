@@ -1,18 +1,33 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class TutorialManager : MonoBehaviour
 {
-    public GameObject tutorialImage;  // 要显示的教程图片
+    public GameObject tutorialImage;  // 拖入你的 Image 对象
+    public Button exitButton;         // 拖入你的退出按钮
 
     void Start()
     {
-        // 确保图片在游戏开始时显示
-        tutorialImage.SetActive(true);
+        // 先隐藏图片和按钮
+        tutorialImage.SetActive(false);
+        exitButton.gameObject.SetActive(false);
+
+        // 2秒后显示
+        StartCoroutine(ShowTutorialAfterDelay(2f));
     }
 
-    // 可以设置一个方法来控制图片的消失
+    IEnumerator ShowTutorialAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        tutorialImage.SetActive(true);
+        exitButton.gameObject.SetActive(true);
+    }
+
     public void HideTutorialImage()
     {
+        Debug.Log("Button clicked! Hiding tutorial image.");
         tutorialImage.SetActive(false);
+        exitButton.gameObject.SetActive(false);
     }
 }

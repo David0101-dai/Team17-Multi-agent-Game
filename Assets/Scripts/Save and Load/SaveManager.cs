@@ -109,24 +109,23 @@ private IEnumerator Start()
 
 public void SaveGame()
 {
-    if (isSaving) return;  // 避免在保存过程中再次触发保存
+    if (isSaving) return;  // 避免重复保存
 
     isSaving = true;
-    // 确保所有数据都已经更新到 gameData 中
+
+    // 保存每个 ISaveManager 的数据
     foreach (ISaveManager saveManager in saveManagers)
     {
-        Debug.Log($"Saving data for {saveManager.GetType().Name}");  // 添加日志，确认调用了 `SaveData`
-        saveManager.SaveData(ref gameData);
+        Debug.Log($"Saving data for {saveManager.GetType().Name}");
+        saveManager.SaveData(ref gameData);  // 保存每个 manager 的数据
     }
-    foreach (var skill in SaveManager.instance.CurrentGameData().skillTree)
-    {
-        Debug.Log($"Saving skill: {skill.Key} with state: {skill.Value}");
-    }
+
     // 最后统一保存数据到文件
     fileDataHandler.SaveData(gameData);
     Debug.Log("Game data saved successfully.");
     isSaving = false;
 }
+
 
 
     private void OnApplicationQuit()
@@ -149,20 +148,27 @@ public void RegisterSaveManager(ISaveManager saveManager)
     if (saveManagers == null)
         saveManagers = new List<ISaveManager>();
 
-    if (!saveManagers.Contains(saveManager))
+    // 在这里检查 saveManager 是否已经注册过
+    if (saveManagers.Contains(saveManager))
     {
-        saveManagers.Add(saveManager);
-//        Debug.Log($"Registered save manager: {saveManager.GetType().Name}");  // 添加日志，确认注册了 `SkillTreeSlot`
-        if (gameData != null)
-        {
-            saveManager.LoadData(gameData);
-        }
-        else
-        {
-            Debug.Log("Game data is not loaded yet.");
-        }
+        Debug.LogWarning($"Attempted to register save manager: {saveManager.GetType().Name}, but it has already been registered.");
+        return; // 如果已经注册，直接返回，防止重复注册
+    }
+    
+    saveManagers.Add(saveManager);
+    Debug.Log($"Registered save manager: {saveManager.GetType().Name}");  // 确认只注册一次
+
+    // 如果 gameData 已经加载，立即调用 LoadData，否则等待加载完成
+    if (gameData != null)
+    {
+        saveManager.LoadData(gameData);
+    }
+    else
+    {
+        Debug.Log("Game data is not loaded yet.");
     }
 }
+
 
 
 

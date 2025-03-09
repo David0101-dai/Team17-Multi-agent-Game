@@ -7,7 +7,7 @@ using System.Collections;
 public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISaveManager
 {
     private bool isRegistered = false;
-    [SerializeField] public bool unlocked;
+    [SerializeField] public bool _unlocked;
     [SerializeField] public SkillTreeSlot[] shouldBeUnlocked;
     [SerializeField] public SkillTreeSlot[] shouldBeLocked;
     private Image skillImage;
@@ -20,10 +20,77 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     // 用来记录鼠标是否悬停在该技能图标上
     private bool isHovered = false;
 
+    public bool unlocked
+    {
+        get => _unlocked;
+        set
+        {
+            if (_unlocked != value)  // 如果状态发生变化
+            {
+                _unlocked = value;
+                SaveDataImmediately();  // 状态改变时立即保存
+            }
+        }
+    }
+
+    // 每次状态改变时立即保存数据
+    private void SaveDataImmediately()
+    {
+        Debug.Log($"Saving skill: {skillName} with state: {unlocked}");
+        GameData gameData = SaveManager.instance.CurrentGameData(); // 获取当前的游戏数据
+        if (gameData != null)
+        {
+            if (gameData.skillTree.ContainsKey(skillName))
+            {
+                gameData.skillTree[skillName] = unlocked;
+            }
+            else
+            {
+                gameData.skillTree.Add(skillName, unlocked);
+            }
+            SaveManager.instance.SaveGame(); // 保存数据
+        }
+    }
+
+    // 当 `SkillTreeSlot` 注册时调用
+    public void SaveData(ref GameData _data)
+    {
+        // 不依赖统一保存，而是即时保存
+        if (!isSaved)
+        {
+            _data.skillTree[skillName] = unlocked;
+            isSaved = true;
+        }
+    }
+
+    public void LoadData(GameData _data)
+    {
+        if (_data != null && _data.skillTree.ContainsKey(skillName))
+        {
+            unlocked = _data.skillTree[skillName];
+        }
+        else
+        {
+            unlocked = false;
+        }
+    }
+
+
     private void OnValidate()
     {
         gameObject.name = $"Skill - {skillName}";
     }
+
+    private IEnumerator RegisterWhenReady()
+    {
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
+        {
+            yield return null;  // 等待 SaveManager 初始化完成
+        }
+        SaveManager.instance.RegisterSaveManager(this);
+        Debug.Log("SkillTreeSlot registered in SaveManager (Coroutine)");
+    }
+
 
     private void Awake()
     {
@@ -43,6 +110,7 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
 
         Debug.Log(skillName + " awake 这个只应该发生一次");
+
         skillImage = GetComponent<Image>();
         if (skillImage == null)
         {
@@ -59,9 +127,20 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             button.onClick.AddListener(UnlockSkill);
         }
-        SaveManager.instance.RegisterSaveManager(this);
         Debug.Log(skillName + " SkillTreeSlot registered in SaveManager (Awake)"); 
+
+        if (SaveManager.instance != null && SaveManager.instance.CurrentGameData() != null)
+        {
+        SaveManager.instance.RegisterSaveManager(this);
+        Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");
         }
+        else
+        {
+        // 如果 SaveManager 还未准备好，使用协程等待
+        StartCoroutine(RegisterWhenReady());
+        }
+        }
+
 
     private void Start()
     {
@@ -165,8 +244,6 @@ public void OnPointerExit(PointerEventData eventData)
         Debug.LogError("skillToolTip is not assigned in UI.");
     }
 }
-
-
     private void Update()
     {
         // 当鼠标悬停在该技能图标上且该技能已解锁时，按下鼠标右键取消技能
@@ -176,68 +253,8 @@ public void OnPointerExit(PointerEventData eventData)
         }
 
         Debug.Log(skillName +" "+ unlocked);
-
-      
+        Debug.Log(skillName + "saved "+ isSaved);
     }
-
-public void SaveData(ref GameData _data)
-{
-     if (isSaved)
-    {
-        Debug.Log($"{skillName} has already been saved.");
-        return;
-    }
-    if (isSaved) return;  // 避免在保存过程中再次触发保存
-    isSaved = true;
-    Debug.Log($" 保存 Saving skill: {skillName} with state: {unlocked}");
-
-    // 检查和打印保存前后的技能状态
-    if (_data.skillTree.ContainsKey(skillName))
-    {
-        Debug.Log($"保存 Before Save: {_data.skillTree[skillName]}");
-    }
-
-    // 保存技能数据
-    if (_data.skillTree.ContainsKey(skillName))
-    {
-        _data.skillTree[skillName] = unlocked;
-    }
-    else
-    {
-        _data.skillTree.Add(skillName, unlocked);
-    }
-
-    Debug.Log($"After Save: {_data.skillTree[skillName]}");
-}
-
-public void LoadData(GameData _data)
-{
-    //Debug.Log($"加载 Loading skill: {skillName}");
-
-    if (_data == null || _data.skillTree == null)
-    {
-        Debug.LogError("GameData or skillTree is null. Cannot load data.");
-        return;
-    }
-
-    if (_data.skillTree.ContainsKey(skillName))
-    {
-        unlocked = _data.skillTree[skillName];
-//        Debug.Log($"加载 Loaded skill state: {unlocked}");
-    }
-    else
-    {
-        unlocked = false;
-        Debug.Log("Skill not found in game data, setting to locked.");
-    }
-
-    if (skillImage != null)
-    {
-        skillImage.color = unlocked ? Color.white : lockedColor;
-    }
-}
-
-
-
+    
 
 }

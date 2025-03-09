@@ -85,17 +85,43 @@ public void LoadGame()
     {
         saveManager.LoadData(gameData);
     }
+
+    // 确保加载技能状态
+    LoadSkillData();
 }
+
+private void LoadSkillData()
+{
+    // 加载技能解锁状态，确保加载时技能状态正确
+    if (gameData != null && gameData.skillTree != null)
+    {
+        foreach (var skill in gameData.skillTree)
+        {
+            Debug.Log($"Loaded skill: {skill.Key} with state: {skill.Value}");
+        }
+    }
+    else
+    {
+        Debug.LogWarning("GameData or skillTree is null, cannot load skill data.");
+    }
+}
+
 
 public void SaveGame()
 {
+    // 确保所有数据都已经更新到 gameData 中
     foreach (ISaveManager saveManager in saveManagers)
     {
         Debug.Log($"Saving data for {saveManager.GetType().Name}");  // 添加日志，确认调用了 `SaveData`
         saveManager.SaveData(ref gameData);
     }
+
+    // 最后统一保存数据到文件
     fileDataHandler.SaveData(gameData);
+    Debug.Log("Game data saved successfully.");
 }
+
+
 
 
         private void OnApplicationQuit()

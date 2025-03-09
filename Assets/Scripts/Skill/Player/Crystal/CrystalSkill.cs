@@ -9,12 +9,12 @@ public class CrystalSkill : Skill
     [SerializeField] private float duration;
 
     [Header("Crystal Mirage")]
-    [SerializeField] private SkillTreeSlot unlockCloneInsteadbutton;
+    private SkillTreeSlot unlockCloneInsteadbutton;
     [SerializeField] private bool cloneInsteadOfCrystal;
 
 
     [Header("Crystal Simple")]
-    [SerializeField] private SkillTreeSlot unlockCrystalButton;
+    private SkillTreeSlot unlockCrystalButton;
     public bool crystalUnlocked { get; private set; }
 
     [Header("Growing Crystal")]
@@ -23,16 +23,16 @@ public class CrystalSkill : Skill
 
 
     [Header("Explosive Crystal")]
-    [SerializeField] private SkillTreeSlot unlockExplosiveButton;
+     private SkillTreeSlot unlockExplosiveButton;
     [SerializeField] private bool canExplode;
 
     [Header("Moving Crystal")]
-    [SerializeField] private SkillTreeSlot unlockMovingButton;
+    private SkillTreeSlot unlockMovingButton;
     [SerializeField] public bool canMove;
     [SerializeField] private float moveSpeed;
 
     [Header("Multi Stacking Crystal")]
-    [SerializeField] private SkillTreeSlot unlockMultiStackButton;
+    private SkillTreeSlot unlockMultiStackButton;
     [SerializeField] private bool canUseMultiStacks;
     [SerializeField] private int amountOfStacks;
     [SerializeField] public float multiStackCooldown;
@@ -45,8 +45,81 @@ public class CrystalSkill : Skill
         protected override void OnEnable()
     {
         base.OnEnable();
-        // 使用协程确保在 SaveManager 数据加载完成后再检查技能解锁状态
-        StartCoroutine(WaitAndCheckUnlock());
+    }
+
+    private IEnumerator InitializeSkillButtons()
+    {
+        // 等待直到 UI 初始化完成，确保所有按钮组件已经被正确绑定
+        while (UI.Instance == null || 
+            UI.Instance.unlockCrystalButton == null || 
+            UI.Instance.unlockCloneInsteadbutton == null || 
+            UI.Instance.unlockMovingButton == null || 
+            UI.Instance.unlockExplosiveButton == null || 
+            UI.Instance.unlockMultiStackButton == null)
+        {
+            yield return null;  // 每一帧检查一次，直到UI实例和按钮完全加载
+        }
+
+        // 赋值并进行空值检查
+        unlockCrystalButton = UI.Instance.unlockCrystalButton;
+        unlockCloneInsteadbutton = UI.Instance.unlockCloneInsteadbutton;
+        unlockMovingButton = UI.Instance.unlockMovingButton;
+        unlockExplosiveButton = UI.Instance.unlockExplosiveButton;
+        unlockMultiStackButton = UI.Instance.unlockMultiStackButton;
+
+        // 添加按钮事件监听和空值检查
+        if (unlockCrystalButton != null)
+        {
+            unlockCrystalButton.GetComponent<Button>().onClick.AddListener(UnlockCrystal);
+            unlockCrystalButton.OnSkillCancelled += OnCrystalSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("unlockCrystalButton is not assigned.");
+        }
+
+        if (unlockCloneInsteadbutton != null)
+        {
+            unlockCloneInsteadbutton.GetComponent<Button>().onClick.AddListener(UnlockCrystalMirage);
+            unlockCloneInsteadbutton.OnSkillCancelled += OnCrystalMirageSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("unlockCloneInsteadbutton is not assigned.");
+        }
+
+        if (unlockMovingButton != null)
+        {
+            unlockMovingButton.GetComponent<Button>().onClick.AddListener(UnlockMovingCrystal);
+            unlockMovingButton.OnSkillCancelled += OnMovingCrystalSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("unlockMovingButton is not assigned.");
+        }
+
+        if (unlockExplosiveButton != null)
+        {
+            unlockExplosiveButton.GetComponent<Button>().onClick.AddListener(UnlockExplosiveCrystal);
+            unlockExplosiveButton.OnSkillCancelled += OnExplosiveCrystalSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("unlockExplosiveButton is not assigned.");
+        }
+
+        if (unlockMultiStackButton != null)
+        {
+            unlockMultiStackButton.GetComponent<Button>().onClick.AddListener(UnlockMulitStack);
+            unlockMultiStackButton.OnSkillCancelled += OnMulitStackSkillCancelled;
+        }
+        else
+        {
+            Debug.LogError("unlockMultiStackButton is not assigned.");
+        }
+
+        // 确保按钮初始化完成后，再进行数据加载
+        yield return StartCoroutine(WaitAndCheckUnlock());
     }
 
     private IEnumerator WaitAndCheckUnlock()
@@ -56,33 +129,44 @@ public class CrystalSkill : Skill
         {
             yield return null;
         }
-        // 主动刷新技能槽数据
-        unlockCrystalButton.LoadData(SaveManager.instance.CurrentGameData());
-        unlockCloneInsteadbutton.LoadData(SaveManager.instance.CurrentGameData());
-        unlockMovingButton.LoadData(SaveManager.instance.CurrentGameData());
-        unlockExplosiveButton.LoadData(SaveManager.instance.CurrentGameData());
-        unlockMultiStackButton.LoadData(SaveManager.instance.CurrentGameData());
+
+        // 主动刷新技能槽数据，先进行空值检查
+        if (unlockCrystalButton != null)
+        {
+            unlockCrystalButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (unlockCloneInsteadbutton != null)
+        {
+            unlockCloneInsteadbutton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (unlockMovingButton != null)
+        {
+            unlockMovingButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (unlockExplosiveButton != null)
+        {
+            unlockExplosiveButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
+        if (unlockMultiStackButton != null)
+        {
+            unlockMultiStackButton.LoadData(SaveManager.instance.CurrentGameData());
+        }
+
         // 等待一帧，确保 SkillTreeSlot 的状态更新完成
         yield return new WaitForEndOfFrame();
-        
+
+        // 调用 CheckUnlock
         CheckUnlock();
     }
 
+
     protected override void Start() {
         base.Start();
-
-        unlockCrystalButton.GetComponent<Button>().onClick.AddListener(UnlockCrystal);
-        unlockCloneInsteadbutton.GetComponent<Button>().onClick.AddListener(UnlockCrystalMirage);
-        unlockMovingButton.GetComponent<Button>().onClick.AddListener(UnlockMovingCrystal);
-        unlockExplosiveButton.GetComponent<Button>().onClick.AddListener(UnlockExplosiveCrystal);
-        unlockMultiStackButton.GetComponent<Button>().onClick.AddListener(UnlockMulitStack);
-
-        unlockCrystalButton.OnSkillCancelled += OnCrystalSkillCancelled;
-        unlockCloneInsteadbutton.OnSkillCancelled += OnCrystalMirageSkillCancelled;
-        unlockMovingButton.OnSkillCancelled += OnMovingCrystalSkillCancelled;
-        unlockExplosiveButton.OnSkillCancelled += OnExplosiveCrystalSkillCancelled;
-        unlockMultiStackButton.OnSkillCancelled += OnMulitStackSkillCancelled;
-
+        StartCoroutine(InitializeSkillButtons());
     }
 
     #region Unlock Skill Region

@@ -83,27 +83,36 @@ private void Awake()
     /// <summary>
     /// 左键点击时解锁技能
     /// </summary>
-    public void UnlockSkill()
+public void UnlockSkill()
+{
+    if (unlocked)
+        return;
+
+    // 检查先决条件：先决技能必须都解锁，依赖该技能的子技能不能解锁
+    foreach (var item in shouldBeUnlocked)
     {
-        if (unlocked)
-            return;
-
-        // 检查先决条件：先决技能必须都解锁，依赖该技能的子技能不能解锁
-        foreach (var item in shouldBeUnlocked)
-        {
-            if (!item.unlocked) return;
-        }
-        foreach (var item in shouldBeLocked)
-        {
-            if (item.unlocked) return;
-        }
-
-        if (!PlayerManager.Instance.HaveEnoughMoney(skillPrice))
-            return;
-
-        unlocked = true;
-        skillImage.color = Color.white;
+        if (!item.unlocked) return;
     }
+    foreach (var item in shouldBeLocked)
+    {
+        if (item.unlocked) return;
+    }
+
+    if (!PlayerManager.Instance.HaveEnoughMoney(skillPrice))
+        return;
+
+    unlocked = true;
+    skillImage.color = Color.white;
+
+    // 更新当前技能状态到 GameData 中
+    SaveManager.instance.CurrentGameData().skillTree[skillName] = true;
+
+    // 不在此时调用 SaveGame，而是等待所有技能解锁后再统一保存
+    Debug.Log($"Skill {skillName} unlocked and marked as saved, but no SaveGame call yet.");
+}
+
+
+
 
     /// <summary>
     /// 取消技能，要求先取消依赖该技能的子技能，然后返还花费
@@ -148,22 +157,42 @@ private void Awake()
         skillImage.color = lockedColor;
         PlayerManager.Instance.RefundMoney(skillPrice);
 
+          // 立即保存技能数据到 GameData
+        SaveManager.instance.SaveGame();  // 调用 SaveGame 保存数据
+
         // 通知其他系统技能已取消
         if (OnSkillCancelled != null)
             OnSkillCancelled.Invoke();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+public void OnPointerEnter(PointerEventData eventData)
+{
+    // 确保 ui.skillToolTip 不为 null
+    if (ui.skillToolTip != null)
     {
         ui.skillToolTip.ShowToolTip(skillDescription, skillName);
         isHovered = true;
     }
+    else
+    {
+        Debug.LogError("skillToolTip is not assigned in UI.");
+    }
+}
 
-    public void OnPointerExit(PointerEventData eventData)
+public void OnPointerExit(PointerEventData eventData)
+{
+    // 确保 ui.skillToolTip 不为 null
+    if (ui.skillToolTip != null)
     {
         ui.skillToolTip.HideToolTip();
         isHovered = false;
     }
+    else
+    {
+        Debug.LogError("skillToolTip is not assigned in UI.");
+    }
+}
+
 
     private void Update()
     {
@@ -178,7 +207,7 @@ private void Awake()
 
 public void LoadData(GameData _data)
 {
-    Debug.Log("加载技能");
+    //    Debug.Log("加载技能");
     if (_data == null || _data.skillTree == null)
     {
         Debug.LogError("GameData or skillTree is null. Cannot load data.");

@@ -60,12 +60,22 @@ public class PlayerState : CharacterState<Player>
             if (damageable != null)
             {
                 damageable.currentHp -= 10; // **每次受伤减少 10 点血量**
-            }
+                spikeDamageTimer = 1.0f; // **设置 1 秒的冷却时间**
 
-            spikeDamageTimer = 1.0f; // **设置 1 秒的冷却时间**
-            Fsm.SwitchState(Character.HitState);
+                // **切换到 HitState**
+                Fsm.SwitchState(Character.HitState);
+                return;
+            }
+        }
+
+        // **检测玩家血量是否归零，切换到 DeadState**
+        if (Character.GetComponent<PlayerDamageable>().currentHp <= 0)
+        {
+            Fsm.SwitchState(Character.DeadState);
         }
     }
+
+
 
     public override void Exit(IState newState)
     {

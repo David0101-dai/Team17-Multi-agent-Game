@@ -10,6 +10,7 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private string sceneName = "Prototype";
     [SerializeField] private UI_FadeScreen fadeScreen;
+    [SerializeField] private Scores scores;
     public Button continueButton; // 继续游戏按钮
     public Button newGameButton;  // 新游戏按钮
     private SaveManager saveManager;
@@ -32,7 +33,25 @@ private IEnumerator Start()
     // 等待直到 SaveManager 完全初始化
     while (saveManager == null || saveManager.CurrentGameData() == null)
     {
-        yield return null;  // 每帧检查，直到 SaveManager 和 gameData 完全加载
+        saveManager = SaveManager.instance;
+        // 等待直到 SaveManager 完全初始化
+        while (saveManager == null || saveManager.CurrentGameData() == null)
+        {
+            yield return null;  // 每帧检查，直到 SaveManager 和 gameData 完全加载
+        }
+
+        // 确保 SaveManager 初始化完成后，才检查是否有存档
+        if (saveManager.HasSaveData())
+        {
+            continueButton.interactable = true;
+        }
+        else
+        {
+            continueButton.interactable = false;
+        }
+        continueButton.onClick.AddListener(ContinueGame);
+        newGameButton.onClick.AddListener(StartNewGame);
+
     }
 
     // 确保 SaveManager 初始化完成后，才检查是否有存档
@@ -65,6 +84,7 @@ public void ContinueGame()
 
     public void StartNewGame()
     {
+        scores.printfScores();
         saveManager.DeleteSaveData();
         saveManager.NewGame();
         StartCoroutine(LoadSceneWithFadeEffect(1.5f));

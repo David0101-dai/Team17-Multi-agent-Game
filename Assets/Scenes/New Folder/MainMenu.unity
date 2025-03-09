@@ -2493,6 +2493,7 @@ MonoBehaviour:
   dropdown: {fileID: 228655284}
   sceneName: Prototype
   fadeScreen: {fileID: 1473802766}
+  scores: {fileID: 11400000, guid: dacf0547ccc998844884af72d8b5a9d5, type: 2}
   continueButton: {fileID: 42816102}
   newGameButton: {fileID: 640771078}
 --- !u!224 &1473802762 stripped

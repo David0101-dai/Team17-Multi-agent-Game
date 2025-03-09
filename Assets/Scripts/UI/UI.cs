@@ -47,6 +47,12 @@ public class UI : MonoBehaviour
         SwitchTo(null);
     }
 
+     private void OnApplicationQuit()
+    {
+        // 在应用退出时保存数据
+        Debug.Log("Saving game data before application quit...");
+        SaveManager.instance.SaveGame();
+    }
 
     private void Update()
     {

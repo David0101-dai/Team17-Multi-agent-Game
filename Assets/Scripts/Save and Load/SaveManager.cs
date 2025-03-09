@@ -60,10 +60,6 @@ private IEnumerator Start()
     LoadGame();
     
 }
-
-
-
-
     public void NewGame()
     {
         gameData = new GameData();
@@ -93,16 +89,16 @@ public void LoadGame()
     }
 }
 
-
-    public void SaveGame()
+public void SaveGame()
+{
+    foreach (ISaveManager saveManager in saveManagers)
     {
-        // 保存游戏数据
-        foreach (ISaveManager saveManager in saveManagers)
-        {
-            saveManager.SaveData(ref gameData);
-        }
-        fileDataHandler.SaveData(gameData);
+        Debug.Log($"Saving data for {saveManager.GetType().Name}");  // 添加日志，确认调用了 `SaveData`
+        saveManager.SaveData(ref gameData);
     }
+    fileDataHandler.SaveData(gameData);
+}
+
 
         private void OnApplicationQuit()
         {
@@ -126,8 +122,7 @@ public void RegisterSaveManager(ISaveManager saveManager)
     if (!saveManagers.Contains(saveManager))
     {
         saveManagers.Add(saveManager);
-
-        // 如果数据已经加载，则立即将数据传递给新注册的组件
+        Debug.Log($"Registered save manager: {saveManager.GetType().Name}");  // 添加日志，确认注册了 `SkillTreeSlot`
         if (gameData != null)
         {
             saveManager.LoadData(gameData);
@@ -138,6 +133,7 @@ public void RegisterSaveManager(ISaveManager saveManager)
         }
     }
 }
+
 
 
     public GameData CurrentGameData()

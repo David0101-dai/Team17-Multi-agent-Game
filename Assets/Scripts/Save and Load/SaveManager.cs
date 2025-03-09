@@ -22,6 +22,7 @@ public class SaveManager : MonoBehaviour
         {
             fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName, encryptData);
         }
+        PlayerManager.Instance.SaveFiniled(ref gameData);
 
         fileDataHandler.DeleteData();
         gameData = null;
@@ -72,6 +73,7 @@ private IEnumerator Start()
 public void LoadGame()
 {
     gameData = fileDataHandler.LoadData();
+        Debug.Log("Score:" + gameData.currencyDic[0]);
 
     // 如果没有加载到数据，则创建新的游戏数据
     if (gameData == null)

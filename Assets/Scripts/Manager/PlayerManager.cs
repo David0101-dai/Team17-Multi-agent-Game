@@ -48,6 +48,10 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     {
         _data.currency = this.currency;
     }
+    public void SaveFiniled(ref GameData _data)
+    {
+        _data.currencyDic.Add(this.currency);
+    }
 
     public int currentCurrencyAmount() => currency;
     public void AddCurrency() => currency++;

@@ -9,6 +9,8 @@ public class PlayerState : CharacterState<Player>
     protected float dashDir;
     protected InputController Input { get; private set; }
 
+    private float spikeDamageTimer = 0f; // **地刺伤害计时器**
+
     public PlayerState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
     {
         Input = character.InputController;
@@ -22,34 +24,46 @@ public class PlayerState : CharacterState<Player>
     }
 
     public override void Update()
-
     {
         base.Update();
-        //Debug.Log("I'm in "+ AnimBoolName);
         Anim.SetFloat("VelocityY", Rb.velocity.y);
 
         if (ColDetect.IsGrounded)
         {
             airDashCounter = 0;
-            
         }
 
         if (Input.isDashDown
             && airDashCounter < Character.airDashCount
             && SkillManager.Instance.Dash.CanUseSkill()
-            && !ColDetect.IsWallDetected && Character.dashUsageTimer<0)
+            && !ColDetect.IsWallDetected && Character.dashUsageTimer < 0)
         {
-
-            
             if (!ColDetect.IsGrounded)
             {
                 airDashCounter++;
             }
             SetDashDir();
             Fsm.SwitchState(Character.DashState);
-
-
             Character.dashUsageTimer = Character.dashCooldown;
+        }
+
+        // **更新地刺伤害计时器**
+        if (spikeDamageTimer > 0)
+        {
+            spikeDamageTimer -= Time.deltaTime;
+        }
+
+        // **检测是否碰到地刺，并限制伤害频率**
+        if (spikeDamageTimer <= 0 && Physics2D.OverlapCircle(Character.transform.position, 0.2f, LayerMask.GetMask("Spikes")))
+        {
+            PlayerDamageable damageable = Character.GetComponent<PlayerDamageable>();
+            if (damageable != null)
+            {
+                damageable.currentHp -= 10; // **每次受伤减少 10 点血量**
+            }
+
+            spikeDamageTimer = 1.0f; // **设置 1 秒的冷却时间**
+            Fsm.SwitchState(Character.HitState);
         }
     }
 

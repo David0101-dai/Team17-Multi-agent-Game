@@ -9,7 +9,6 @@ public class DeadState : PlayerState
 
     private float dissolveRate = 0.0125f;
     private float refreshRate = 0.025f;
-
     public DeadState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
     {
     }
@@ -17,7 +16,8 @@ public class DeadState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
+        Debug.Log("1");
+        PlayerManager.Instance.SaveFinaled();
         AudioManager.instance.PlaySFX(14, null);
 
         // 启动溶解效果协程

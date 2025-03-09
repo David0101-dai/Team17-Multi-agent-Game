@@ -10,6 +10,7 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private string sceneName = "Prototype";
     [SerializeField] private UI_FadeScreen fadeScreen;
+    [SerializeField] private Scores scores;
     public Button continueButton; // 继续游戏按钮
     public Button newGameButton;  // 新游戏按钮
     private SaveManager saveManager;
@@ -44,7 +45,6 @@ public class UI_MainMenu : MonoBehaviour
         {
             continueButton.interactable = false;
         }
-
         continueButton.onClick.AddListener(ContinueGame);
         newGameButton.onClick.AddListener(StartNewGame);
     }
@@ -64,6 +64,7 @@ public class UI_MainMenu : MonoBehaviour
 
     public void StartNewGame()
     {
+        scores.printfScores();
         saveManager.DeleteSaveData();
         saveManager.NewGame();
         StartCoroutine(LoadSceneWithFadeEffect(1.5f));

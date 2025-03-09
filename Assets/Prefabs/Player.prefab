@@ -206,6 +206,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 1
+  ShouldFlip: 0
   groundCheckDistance: 0.15
   IsWallDetected: 0
   wallCheckDistance: 0.15
@@ -279,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 6759337365906021423}
   attackCheckRadius: 1
+  canAttack: 0
   knockbackXSpeed: 5
   knockbackYSpeed: 3
   damageFrom: {fileID: 0}
@@ -305,6 +307,7 @@ MonoBehaviour:
   - {x: 2, y: 0}
   - {x: 5, y: 0}
   counterDuration: 0.2
+  isInvincible: 0
 --- !u!114 &6288281096110144933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   Str:
-    value: 10
+    value: 50
     modifiers: 
   Agi:
     value: 10

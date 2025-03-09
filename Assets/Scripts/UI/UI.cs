@@ -41,16 +41,20 @@ public class UI : MonoBehaviour
     public SkillTreeSlot unlockMultipleClonebutton;
     public SkillTreeSlot unlockBlackHolebutton;
     public static UI Instance { get; private set; }
+    
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);  // 确保 UI 在场景切换时不被销毁
+            Debug.Log("UI Initialized.");
         }
         else
         {
             Destroy(gameObject);  // 如果实例已存在，则销毁当前对象
+            Debug.Log("UI instance already exists, destroying this duplicate.");
+            return;
         }
 
         // 确保 skillToolTip 已初始化
@@ -61,6 +65,12 @@ public class UI : MonoBehaviour
         else
         {
             Debug.Log("skillToolTip has been initialized.");
+        }
+
+        if(dashUnlockedButton == null){
+            Debug.Log("dashUnlockedButton is not assigned in UI.");
+        }else{
+            Debug.Log("dashUnlockedButton has been initialized.");
         }
     }
     private void Start()

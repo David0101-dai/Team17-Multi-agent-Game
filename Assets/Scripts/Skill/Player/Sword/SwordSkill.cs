@@ -223,7 +223,7 @@ public class SwordSkill : Skill
     {
         var newSword = Instantiate(swordPrefab, player.transform.position 
         + new Vector3(0, 1, 0), transform.rotation);
-        newSword.transform.SetParent(PlayerManager.Instance.fx.transform);
+        newSword.transform.SetParent(FxManager.Instance.fx.transform);
         var newSwordController = newSword.GetComponent<SwordSKillController>();
 
         newSwordController.Setup(
@@ -360,7 +360,7 @@ public class SwordSkill : Skill
     private void GenereateDots()
     {
         dots = new GameObject[numberOfDots];
-        var parent = PlayerManager.Instance.fx.transform;
+        var parent = FxManager.Instance.fx.transform;
         for (int i = 0; i < numberOfDots; i++)
         {
             dots[i] = Instantiate(dotsPrefab, player.transform.position 

@@ -15,6 +15,7 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private string skillName;
     [SerializeField][Multiline] private string skillDescription;
     [SerializeField] private Color lockedColor;
+    private bool isSaved;
     private UI ui;
     // 用来记录鼠标是否悬停在该技能图标上
     private bool isHovered = false;
@@ -24,59 +25,46 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         gameObject.name = $"Skill - {skillName}";
     }
 
-private void Awake()
-{
-    skillImage = GetComponent<Image>();
-    if (skillImage == null)
+    private void Awake()
     {
-        Debug.LogError("skillImage is not assigned in SkillTreeSlot.");
-    }
+        // 仅在第一次加载时执行
+        if (isRegistered) return;
 
-    ui = UI.Instance;
+        isRegistered = true;
 
-    var button = GetComponent<Button>();
-    if (button != null)
-    {
-        button.onClick.AddListener(UnlockSkill);
-    }
+         if (ui == null)
+        {
+            ui = UI.Instance;
+            if (ui == null)
+            {
+                Debug.LogError("UI.Instance is not initialized.");
+                return;
+            }
+        }
 
-    if (SaveManager.instance == null)
-    {
-        StartCoroutine(RegisterWhenReady());
-    }
-    else
-    {        
+        Debug.Log(skillName + " awake 这个只应该发生一次");
+        skillImage = GetComponent<Image>();
+        if (skillImage == null)
+        {
+            Debug.LogError("skillImage is not assigned in SkillTreeSlot.");
+        }
+
+
+        ui = UI.Instance;
+
+        var button = GetComponent<Button>();
+        isSaved = false;
+
+        if (button != null)
+        {
+            button.onClick.AddListener(UnlockSkill);
+        }
         SaveManager.instance.RegisterSaveManager(this);
-        Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");  // 确认注册成功
-    }
-}
-
-
-    private IEnumerator RegisterWhenReady()
-    {
-        // 等待直到 SaveManager 实例存在并且 gameData 已加载
-        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
-        {
-            yield return null;  // 每一帧检查一次，直到加载完成
+        Debug.Log(skillName + " SkillTreeSlot registered in SaveManager (Awake)"); 
         }
 
-       // 当 SaveManager 和 gameData 完全加载后，再进行注册
-        RegisterToSaveManager();
-    }
-    
-
-    private void RegisterToSaveManager()
-    {
-        if (!isRegistered && SaveManager.instance != null)
-        {
-            SaveManager.instance.RegisterSaveManager(this);
-            isRegistered = true;
-            Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");
-        }
-    }
     private void Start()
     {
-        SaveManager.instance.RegisterSaveManager(this);
         skillImage.color = unlocked ? Color.white : lockedColor;
     }
 
@@ -103,21 +91,10 @@ public void UnlockSkill()
 
     unlocked = true;
     skillImage.color = Color.white;
-
-    // 更新当前技能状态到 GameData 中
-    SaveManager.instance.CurrentGameData().skillTree[skillName] = true;
-
-    // 不在此时调用 SaveGame，而是等待所有技能解锁后再统一保存
-    Debug.Log($"Skill {skillName} unlocked and marked as saved, but no SaveGame call yet.");
 }
-
-
-
-
     /// <summary>
     /// 取消技能，要求先取消依赖该技能的子技能，然后返还花费
     /// </summary>
-
     public delegate void SkillStatusChanged();
     public event SkillStatusChanged OnSkillCancelled;
 
@@ -156,10 +133,6 @@ public void UnlockSkill()
         unlocked = false;
         skillImage.color = lockedColor;
         PlayerManager.Instance.RefundMoney(skillPrice);
-
-          // 立即保存技能数据到 GameData
-        SaveManager.instance.SaveGame();  // 调用 SaveGame 保存数据
-
         // 通知其他系统技能已取消
         if (OnSkillCancelled != null)
             OnSkillCancelled.Invoke();
@@ -202,49 +175,29 @@ public void OnPointerExit(PointerEventData eventData)
             CancelSkill();
         }
 
+        Debug.Log(skillName +" "+ unlocked);
+
       
     }
 
-public void LoadData(GameData _data)
-{
-    //    Debug.Log("加载技能");
-    if (_data == null || _data.skillTree == null)
-    {
-        Debug.LogError("GameData or skillTree is null. Cannot load data.");
-        return;
-    }
-
-    if (_data.skillTree.ContainsKey(skillName))
-    {
-        unlocked = _data.skillTree[skillName];
-       if (skillImage != null)
-        {
-            skillImage.color = unlocked ? Color.white : lockedColor;
-        }
-    }
-    else
-    {
-        unlocked = false;  // 默认为锁定
-        if (skillImage != null)
-        {
-            skillImage.color = lockedColor;
-        }
-    }
-}
-
-
-
 public void SaveData(ref GameData _data)
 {
-    Debug.Log("保存技能");
-
-    // 如果 skillTree 尚未初始化，进行初始化
-    if (_data.skillTree == null)
+     if (isSaved)
     {
-        _data.skillTree = new SerializableDictionary<string, bool>();  // 初始化为 SerializableDictionary
+        Debug.Log($"{skillName} has already been saved.");
+        return;
+    }
+    if (isSaved) return;  // 避免在保存过程中再次触发保存
+    isSaved = true;
+    Debug.Log($" 保存 Saving skill: {skillName} with state: {unlocked}");
+
+    // 检查和打印保存前后的技能状态
+    if (_data.skillTree.ContainsKey(skillName))
+    {
+        Debug.Log($"保存 Before Save: {_data.skillTree[skillName]}");
     }
 
-    // 保存数据
+    // 保存技能数据
     if (_data.skillTree.ContainsKey(skillName))
     {
         _data.skillTree[skillName] = unlocked;
@@ -254,8 +207,36 @@ public void SaveData(ref GameData _data)
         _data.skillTree.Add(skillName, unlocked);
     }
 
-    Debug.Log($"Saved skill: {skillName} with state: {unlocked}");
+    Debug.Log($"After Save: {_data.skillTree[skillName]}");
 }
+
+public void LoadData(GameData _data)
+{
+    //Debug.Log($"加载 Loading skill: {skillName}");
+
+    if (_data == null || _data.skillTree == null)
+    {
+        Debug.LogError("GameData or skillTree is null. Cannot load data.");
+        return;
+    }
+
+    if (_data.skillTree.ContainsKey(skillName))
+    {
+        unlocked = _data.skillTree[skillName];
+//        Debug.Log($"加载 Loaded skill state: {unlocked}");
+    }
+    else
+    {
+        unlocked = false;
+        Debug.Log("Skill not found in game data, setting to locked.");
+    }
+
+    if (skillImage != null)
+    {
+        skillImage.color = unlocked ? Color.white : lockedColor;
+    }
+}
+
 
 
 

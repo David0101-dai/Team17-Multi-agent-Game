@@ -34,7 +34,7 @@ public class RedFriGoundState : RedFriState
 
     public void MoveTowardsPlayer()
     {
-        if (PlayerManager.Instance != null && PlayerManager.Instance.fx != null)
+        if (PlayerManager.Instance != null && FxManager.Instance.fx != null)
         {
             Vector3 playerPosition = PlayerManager.Instance.player.transform.position;
             Vector3 direction = (playerPosition - Character.transform.position).normalized;

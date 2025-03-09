@@ -318,7 +318,7 @@ public abstract class Damageable : MonoBehaviour
                 }
                 if (!closeEnemy || CompareTag("Player")) closeEnemy = transform;
                 var pos = transform.position + new Vector3(0, 1);
-                var parent = PlayerManager.Instance.fx.transform;
+                var parent = FxManager.Instance.fx.transform;
                 var strike = Instantiate(thunderStrikePrefab, pos, Quaternion.identity, parent);
                 if (!strike.TryGetComponent(out ThunderStrikeController c)) return;
                 if (!closeEnemy.TryGetComponent(out Damageable damageable)) return;

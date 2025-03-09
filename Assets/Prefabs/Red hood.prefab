@@ -34,7 +34,6 @@ RectTransform:
   m_Children:
   - {fileID: 3171266304876006792}
   m_Father: {fileID: 770341209053440824}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -60,6 +59,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -637603871
   m_SortingOrder: 10
   m_TargetDisplay: 0
@@ -147,7 +147,6 @@ RectTransform:
   - {fileID: 8319214067353848481}
   - {fileID: 7766248848481645118}
   m_Father: {fileID: 2694444614596298415}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -231,13 +230,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2740794919171418708}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.01, y: 1.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 770341209053440824}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6780089617732951241
 SpriteRenderer:
@@ -354,7 +353,6 @@ RectTransform:
   m_Children:
   - {fileID: 565831573682218121}
   m_Father: {fileID: 3171266304876006792}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -385,13 +383,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5767691706510379962}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1, y: 2.43, z: 0}
   m_LocalScale: {x: 0.54, y: 0.54, z: 0.54}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 770341209053440824}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1748470029232525779
 SpriteRenderer:
@@ -468,13 +466,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6481338482370633441}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.07, y: 1.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 770341209053440824}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6935881856320289708
 GameObject:
@@ -507,7 +505,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8319214067353848481}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -583,7 +580,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3171266304876006792}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -645,6 +641,7 @@ GameObject:
   - component: {fileID: 6782713268718767097}
   - component: {fileID: 9096162033619129168}
   - component: {fileID: 7152686127210619261}
+  - component: {fileID: 5653562216281596991}
   m_Layer: 7
   m_Name: Red hood
   m_TagString: NPC
@@ -659,6 +656,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8804228585125523017}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.39, y: -4.05, z: 8.288347}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -669,7 +667,6 @@ Transform:
   - {fileID: 6624802416110269519}
   - {fileID: 2694444614596298415}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &315332994783900179
 Rigidbody2D:
@@ -688,6 +685,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 16eb013bb385bc44d9cfdfad86a5f853, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -702,6 +705,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -871,6 +893,69 @@ MonoBehaviour:
     value: 0
     modifiers: 
   MaxHp:
+    value: 8000
+    modifiers: 
+  Armor:
+    value: 0
+    modifiers: 
+  Evasion:
+    value: 0
+    modifiers: 
+  MagicResistance:
+    value: 0
+    modifiers: 
+  FireDamage:
+    value: 0
+    modifiers: 
+  IceDamage:
+    value: 0
+    modifiers: 
+  LightingDamage:
+    value: 0
+    modifiers: 
+  IsIgnited: 0
+  IsChilled: 0
+  IsShocked: 0
+  igniteDuration: 0
+  chillDuration: 0
+  thunderStrikePrefab: {fileID: 0}
+  shockDuration: 0
+  level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
+--- !u!114 &5653562216281596991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8804228585125523017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba61664a5c275c4991ba9477ebb0a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHp: 0
+  Str:
+    value: 0
+    modifiers: 
+  Agi:
+    value: 0
+    modifiers: 
+  Int:
+    value: 0
+    modifiers: 
+  Vit:
+    value: 0
+    modifiers: 
+  Damage:
+    value: 0
+    modifiers: 
+  CritChance:
+    value: 0
+    modifiers: 
+  CritPower:
+    value: 0
+    modifiers: 
+  MaxHp:
     value: 0
     modifiers: 
   Armor:
@@ -898,4 +983,5 @@ MonoBehaviour:
   chillDuration: 0
   thunderStrikePrefab: {fileID: 0}
   shockDuration: 0
-  level: {fileID: 0}
+  bloodEffect: {fileID: 0}
+  offset: 1

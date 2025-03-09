@@ -132,7 +132,7 @@ public class SwordSKillController : MonoBehaviour
     public void ReturnSword()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        transform.SetParent(PlayerManager.Instance.fx.transform);
+        transform.SetParent(FxManager.Instance.fx.transform);
         isReturning = true;
     }
     private void ReturnLogic()

@@ -72,23 +72,6 @@ public class Player : Character
     public IState CatchSwordState { get; private set; }
     public IState BlackholeState { get; private set; }
     #endregion
-
-    // private void Awake()
-    // {
-    //     // 确保 SaveManager 只有一个实例，并且不会在场景切换时销毁
-    //     if (instance == null)
-    //     {
-    //         instance = this;
-    //         transform.SetParent(null);  // 确保它不再是某个子物体，成为场景的根对象
-    //         DontDestroyOnLoad(gameObject);  // 保证 SaveManager 不会在场景切换时销毁
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject);  // 销毁重复的实例，确保只有一个实例
-    //     }
-    // }
-
-
     protected override void Start()
     {
         base.Start();

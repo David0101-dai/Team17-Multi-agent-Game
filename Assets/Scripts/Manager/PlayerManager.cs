@@ -5,11 +5,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour, ISaveManager
 {
     public static PlayerManager Instance { get; private set; }
-
     public GameObject player;
-    public GameObject fx;
-    public GameObject item;
-
     public int currency; 
     private void Awake()
     {
@@ -31,8 +27,6 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         return true;
         
     }
-
-    // ���� RefundMoney ����
     public void RefundMoney(int amount)
     {
         currency += amount;

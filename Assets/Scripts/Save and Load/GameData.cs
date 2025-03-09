@@ -70,7 +70,7 @@ public class GameData
         {
             for (int i = 0; i < inventoryKeys.Count; i++)
             {
-                inventory.Add(inventoryKeys[i], inventoryValues[i]);
+                this.inventory.Add(inventoryKeys[i], inventoryValues[i]);
             }
         }
 
@@ -83,15 +83,8 @@ public class GameData
         {
             for (int i = 0; i < skillTreeKeys.Count; i++)
             {
-                if (!skillTree.ContainsKey(skillTreeKeys[i]))
-                {
-                    skillTree.Add(skillTreeKeys[i], skillTreeValues[i]);
-                    //Debug.Log($"Deserialized skill: {skillTreeKeys[i]}, value: {skillTreeValues[i]}");
-                }
-                else
-                {
-                    //Debug.LogWarning($"Duplicate key found in skillTree: {skillTreeKeys[i]}");
-                }
+
+                this.skillTree.Add(skillTreeKeys[i], skillTreeValues[i]);
             }
         }
 

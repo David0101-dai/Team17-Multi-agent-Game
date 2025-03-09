@@ -348,53 +348,44 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
             lastTimeUsedFlask = Time.time;
         }
     }
-
-
-public bool CanAddItem(ItemData item)
-{
-    if (item == null)
+    public bool CanAddItem(ItemData item)
     {
-        Debug.LogError("Cannot add item: item is null.");
-        return false;
-    }
-    if(item.itemType== ItemType.Coin)
-    {
-            return true;
-    }
-    if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
-    {
-        Debug.LogError("inventoryItemSlots is null or empty. Cannot add item.");
-        return false;
-    }
-
-    if (item.itemType == ItemType.Material)
-    {
-        var old = stashDic.ContainsKey(item);
-        if (old) return true;
-        return stashItems.Count < stashItemSlots.Length;
-    }
-    else
-    {
-        var old = inventoryDic.ContainsKey(item);
-        if (old) return true;
-
-        // 检查物品数量是否超过插槽数量
-        if (inventoryItems.Count >= inventoryItemSlots.Length)
+        if (item == null)
         {
-            Debug.LogError("Cannot add item: inventory is full.");
+            Debug.LogError("Cannot add item: item is null.");
+            return false;
+        }
+        if(item.itemType== ItemType.Coin)
+        {
+                return true;
+        }
+        if (inventoryItemSlots == null || inventoryItemSlots.Length == 0)
+        {
+            Debug.LogError("inventoryItemSlots is null or empty. Cannot add item.");
             return false;
         }
 
-        return inventoryItems.Count < inventoryItemSlots.Length;
+        if (item.itemType == ItemType.Material)
+        {
+            var old = stashDic.ContainsKey(item);
+            if (old) return true;
+            return stashItems.Count < stashItemSlots.Length;
+        }
+        else
+        {
+            var old = inventoryDic.ContainsKey(item);
+            if (old) return true;
+
+            // 检查物品数量是否超过插槽数量
+            if (inventoryItems.Count >= inventoryItemSlots.Length)
+            {
+                Debug.Log("Cannot add item: inventory is full.");
+                return false;
+            }
+
+            return inventoryItems.Count < inventoryItemSlots.Length;
+        }
     }
-}
-
-
-    //public void CanCraft(ItemDataEquipment craftData, object craftingMaterials)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
     public void LoadData(GameData _data)
     {
         Debug.Log("Loading Inventory Data");

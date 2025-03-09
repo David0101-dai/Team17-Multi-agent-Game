@@ -157,7 +157,7 @@ public class CloneSkill : Skill
     public void CreateClone(Vector3 position, Quaternion rotation, Vector3 offset)
     {
         var newClone = Instantiate(clonePrefab);
-        newClone.transform.SetParent(PlayerManager.Instance.fx.transform);
+        newClone.transform.SetParent(FxManager.Instance.fx.transform);
         var controller = newClone.GetComponent<CloneSkillController>();
         controller.Setup(
             player,

@@ -312,7 +312,7 @@ public class CrystalSkill : Skill
     private GameObject CreateCrystal(GameObject crystalToSpawn)
     {
         var pos = player.transform.position + new Vector3(0, 1);
-        var parent = PlayerManager.Instance.fx.transform;
+        var parent = FxManager.Instance.fx.transform;
         var newCrystal = Instantiate(crystalToSpawn, pos, Quaternion.identity, parent);
         
         if (newCrystal.TryGetComponent(out CrystalSkillController sc))

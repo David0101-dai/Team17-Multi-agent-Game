@@ -13,6 +13,7 @@ public class SaveManager : MonoBehaviour
     private GameData gameData;
     private List<ISaveManager> saveManagers;
     private FileDataHandler fileDataHandler;
+    private bool isSaving;
 
     [ContextMenu("Delete Save Data")]
     public void DeleteSaveData()
@@ -33,7 +34,6 @@ private void Awake()
     if (instance == null)
     {
         instance = this;
-        transform.SetParent(null);  // 确保它不再是某个子物体，成为场景的根对象
         DontDestroyOnLoad(gameObject);  // 保证 SaveManager 不会在场景切换时销毁
     }
     else
@@ -42,7 +42,8 @@ private void Awake()
     }
 
     fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName, encryptData);
-    saveManagers = new List<ISaveManager>();
+    if (saveManagers == null) saveManagers = new List<ISaveManager>();
+    isSaving = false;
 }
 
 private IEnumerator Start()
@@ -54,7 +55,7 @@ private IEnumerator Start()
         Debug.LogError("fileDataHandler initialization failed.");
         yield break;  // 如果初始化失败，则退出
     }
-
+    
     // 立即加载游戏数据
     LoadGame();
     
@@ -65,70 +66,75 @@ private IEnumerator Start()
         SaveGame();
     }
 
-public void LoadGame()
-{
-    gameData = fileDataHandler.LoadData();
-
-    // 如果没有加载到数据，则创建新的游戏数据
-    if (gameData == null)
+    public void LoadGame()
     {
-        UnityEngine.Debug.Log("Game data is null, creating new game data.");
-        NewGame();
-    }
-    else
-    {
-        Debug.Log("Game data loaded successfully.");
-    }
+        gameData = fileDataHandler.LoadData();
 
-    // 加载游戏数据后，通知所有的 ISaveManager 实现类
-    foreach (ISaveManager saveManager in saveManagers)
-    {
-        saveManager.LoadData(gameData);
-    }
-
-    // 确保加载技能状态
-    LoadSkillData();
-}
-
-private void LoadSkillData()
-{
-    // 加载技能解锁状态，确保加载时技能状态正确
-    if (gameData != null && gameData.skillTree != null)
-    {
-        foreach (var skill in gameData.skillTree)
+        // 如果没有加载到数据，则创建新的游戏数据
+        if (gameData == null)
         {
-            Debug.Log($"Loaded skill: {skill.Key} with state: {skill.Value}");
+            UnityEngine.Debug.Log("Game data is null, creating new game data.");
+            NewGame();
+        }
+        else
+        {
+            Debug.Log("Game data loaded successfully.");
+        }
+
+        // 加载游戏数据后，通知所有的 ISaveManager 实现类
+        foreach (ISaveManager saveManager in saveManagers)
+        {
+            saveManager.LoadData(gameData);
+        }
+
+        // 确保加载技能状态
+        LoadSkillData();
+    }
+
+    private void LoadSkillData()
+    {
+        // 加载技能解锁状态，确保加载时技能状态正确
+        if (gameData != null && gameData.skillTree != null)
+        {
+            foreach (var skill in gameData.skillTree)
+            {
+//                Debug.Log($"Loaded skill: {skill.Key} with state: {skill.Value}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("GameData or skillTree is null, cannot load skill data.");
         }
     }
-    else
-    {
-        Debug.LogWarning("GameData or skillTree is null, cannot load skill data.");
-    }
-}
-
 
 public void SaveGame()
 {
+    if (isSaving) return;  // 避免在保存过程中再次触发保存
+
+    isSaving = true;
     // 确保所有数据都已经更新到 gameData 中
     foreach (ISaveManager saveManager in saveManagers)
     {
         Debug.Log($"Saving data for {saveManager.GetType().Name}");  // 添加日志，确认调用了 `SaveData`
         saveManager.SaveData(ref gameData);
     }
-
+    foreach (var skill in SaveManager.instance.CurrentGameData().skillTree)
+    {
+        Debug.Log($"Saving skill: {skill.Key} with state: {skill.Value}");
+    }
     // 最后统一保存数据到文件
     fileDataHandler.SaveData(gameData);
     Debug.Log("Game data saved successfully.");
+    isSaving = false;
 }
 
 
-
-
-        private void OnApplicationQuit()
-        {
-            // 应用退出时保存游戏数据
-            SaveGame();
-        }
+    private void OnApplicationQuit()
+    {
+        Debug.Log("游戏退出");
+        // 应用退出时保存游戏数据
+        SaveGame();
+    }
 
     // 查找并注册场景中的所有实现 ISaveManager 接口的组件
     private List<ISaveManager> FindSaveManagers()
@@ -146,7 +152,7 @@ public void RegisterSaveManager(ISaveManager saveManager)
     if (!saveManagers.Contains(saveManager))
     {
         saveManagers.Add(saveManager);
-        Debug.Log($"Registered save manager: {saveManager.GetType().Name}");  // 添加日志，确认注册了 `SkillTreeSlot`
+//        Debug.Log($"Registered save manager: {saveManager.GetType().Name}");  // 添加日志，确认注册了 `SkillTreeSlot`
         if (gameData != null)
         {
             saveManager.LoadData(gameData);

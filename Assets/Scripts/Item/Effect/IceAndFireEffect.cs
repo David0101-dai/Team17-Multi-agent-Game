@@ -10,7 +10,7 @@ public class IceAndFireEffect : ItemEffect
     {
         var pos = from.transform.position + new Vector3(0, 1);
         var rot = from.transform.rotation;
-        var parent = PlayerManager.Instance.fx.transform;
+        var parent = FxManager.Instance.fx.transform;
         if (!from.TryGetComponent(out Player player)) return;
         var thirdAttack = (player.AttackState as AttackState).comboCounter == 2;
         if (!thirdAttack) return;

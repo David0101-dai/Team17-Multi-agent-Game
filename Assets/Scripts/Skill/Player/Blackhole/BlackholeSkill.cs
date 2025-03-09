@@ -101,7 +101,7 @@ public class BlackholeSkill : Skill
     protected override void SkillFunction()
     {
         var pos = player.transform.position + new Vector3(0, 1);
-        var parent = PlayerManager.Instance.fx.transform;
+        var parent = FxManager.Instance.fx.transform;
         var newBlackhole = Instantiate(blackholePrefab, pos, Quaternion.identity, parent);
         if (!newBlackhole.TryGetComponent(out currentBlackhole)) return;
         currentBlackhole.Setup(

@@ -13,6 +13,12 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private Scores scores;
     public Button continueButton; // 继续游戏按钮
     public Button newGameButton;  // 新游戏按钮
+
+    // 新增部分：玩家名称输入界面组件
+    [SerializeField] private GameObject playerNamePanel;         // 玩家名称输入面板
+    [SerializeField] private TMP_InputField playerNameInputField;  // 输入框组件
+    [SerializeField] private Button submitNameButton;              // 提交名称按钮
+
     private SaveManager saveManager;
 
     private void Awake()
@@ -29,6 +35,12 @@ public class UI_MainMenu : MonoBehaviour
 
 private IEnumerator Start()
 {
+     // 初始化时隐藏名称输入面板
+    if (playerNamePanel != null)
+    {
+        playerNamePanel.SetActive(false);
+    }
+
     saveManager = SaveManager.instance;
     // 等待直到 SaveManager 完全初始化
     while (saveManager == null || saveManager.CurrentGameData() == null)
@@ -50,7 +62,11 @@ private IEnumerator Start()
             continueButton.interactable = false;
         }
         continueButton.onClick.AddListener(ContinueGame);
-        newGameButton.onClick.AddListener(StartNewGame);
+
+        // 修改为点击新游戏按钮时显示玩家名称输入面板
+        newGameButton.onClick.RemoveAllListeners();
+        //newGameButton.onClick.AddListener(ShowPlayerNamePanel);
+        //newGameButton.onClick.AddListener(StartNewGame);
 
     }
 
@@ -65,7 +81,18 @@ private IEnumerator Start()
     }
 
     continueButton.onClick.AddListener(ContinueGame);
-    newGameButton.onClick.AddListener(StartNewGame);
+    newGameButton.onClick.RemoveAllListeners();
+    //newGameButton.onClick.AddListener(ShowPlayerNamePanel);
+    //newGameButton.onClick.AddListener(StartNewGame);
+
+
+    // 为提交名称按钮添加监听
+    if (submitNameButton != null)
+    {
+        submitNameButton.onClick.AddListener(OnSubmitPlayerName);
+    }
+
+
 }
 
 
@@ -80,7 +107,36 @@ public void ContinueGame()
         Debug.LogError("Failed to load game data, cannot continue.");
     }
 }
+    // 点击新游戏按钮后显示输入玩家名称的面板
+    public void ShowPlayerNamePanel()
+    {
+        if (playerNamePanel != null)
+        {
+            playerNamePanel.SetActive(true);
+        }
+    }
 
+    // 提交玩家名称时调用
+    public void OnSubmitPlayerName()
+    {
+        string playerName = playerNameInputField.text.Trim();
+        if (string.IsNullOrEmpty(playerName))
+        {
+            Debug.Log("请输入玩家名称！");
+            // 可在此处增加 UI 提示，比如显示错误信息
+            return;
+        }
+
+        // 保存玩家名称（这里使用 PlayerPrefs，你也可以结合 SaveManager 存储）
+        PlayerPrefs.SetString("PlayerName", playerName);
+        Debug.Log("玩家名称已保存：" + playerName);
+
+        // 隐藏名称输入面板
+        playerNamePanel.SetActive(false);
+
+        // 开始新游戏流程
+        StartNewGame();
+    }
 
     public void StartNewGame()
     {

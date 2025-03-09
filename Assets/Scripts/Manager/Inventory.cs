@@ -381,7 +381,6 @@ public bool CanAddItem(ItemData item)
         // 检查物品数量是否超过插槽数量
         if (inventoryItems.Count >= inventoryItemSlots.Length)
         {
-            Debug.LogError("Cannot add item: inventory is full.");
             return false;
         }
 

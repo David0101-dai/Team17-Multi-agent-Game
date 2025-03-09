@@ -21223,6 +21223,7 @@ MonoBehaviour:
   optionsUI: {fileID: 6251303294705630998}
   tooltip: {fileID: 4566141630211188597}
   skillToolTip: {fileID: 8573028592373019853}
+  pauseManager: {fileID: 0}
   dashUnlockedButton: {fileID: 0}
   cloneOnDashUnlockedButton: {fileID: 0}
   counterUnlockedButton: {fileID: 0}

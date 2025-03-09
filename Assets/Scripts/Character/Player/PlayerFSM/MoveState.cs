@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using UnityEngine;
 public class MoveState : GroundState
 {
     public MoveState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
@@ -7,14 +9,16 @@ public class MoveState : GroundState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
         AudioManager.instance.PlaySFX(1,null); //走路音效
     }
 
     public override void Update()
     {
         base.Update();
-
+        if (PauseManager.isPaused)
+        {
+            AudioManager.instance.StopSFX(1); //走路音效
+        }
         SetVelocity(Input.xAxis * Character.moveSpeed, Rb.velocity.y);
 
         if (Input.xAxis == 0)

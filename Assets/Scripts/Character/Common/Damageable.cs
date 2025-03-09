@@ -110,7 +110,7 @@ public abstract class Damageable : MonoBehaviour
         isVulnerable = false;
     }
 
-    public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true)
+    public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, bool isFromSwordSkill = false)
     {
         
 
@@ -134,6 +134,13 @@ public abstract class Damageable : MonoBehaviour
         var damageFrom = from.GetComponent<Damageable>();
 
         var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
+
+        if (isFromSwordSkill)
+        {
+            damage = Mathf.RoundToInt(damage * 0.3f);
+        }
+
+
 
         if (isVulnerable)
         {

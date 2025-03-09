@@ -3,18 +3,19 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
+
 public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISaveManager
 {
+    private bool isRegistered = false;
     [SerializeField] public bool unlocked;
     [SerializeField] public SkillTreeSlot[] shouldBeUnlocked;
     [SerializeField] public SkillTreeSlot[] shouldBeLocked;
     private Image skillImage;
     [SerializeField] private int skillPrice;
     [SerializeField] private string skillName;
-    [SerializeField] private string skillDescription;
+    [SerializeField][Multiline] private string skillDescription;
     [SerializeField] private Color lockedColor;
     private UI ui;
-
     // 用来记录鼠标是否悬停在该技能图标上
     private bool isHovered = false;
 
@@ -26,29 +27,30 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 private void Awake()
 {
     skillImage = GetComponent<Image>();
-     if (skillImage == null)
+    if (skillImage == null)
     {
         Debug.LogError("skillImage is not assigned in SkillTreeSlot.");
     }
-    ui = GetComponentInParent<UI>();
 
-    // 如果存在 Button 组件，则绑定左键解锁逻辑
+    ui = UI.Instance;
+
     var button = GetComponent<Button>();
     if (button != null)
     {
         button.onClick.AddListener(UnlockSkill);
     }
 
-    // 确保 SaveManager 已初始化并且 gameData 加载完成
-    if (SaveManager.instance != null && SaveManager.instance.CurrentGameData() != null)
-    {
-        SaveManager.instance.RegisterSaveManager(this);
-    }
-    else
+    if (SaveManager.instance == null)
     {
         StartCoroutine(RegisterWhenReady());
     }
+    else
+    {        
+        SaveManager.instance.RegisterSaveManager(this);
+        Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");  // 确认注册成功
+    }
 }
+
 
     private IEnumerator RegisterWhenReady()
     {
@@ -58,13 +60,23 @@ private void Awake()
             yield return null;  // 每一帧检查一次，直到加载完成
         }
 
-        // 当 SaveManager 和 gameData 完全加载后，再进行注册
-        SaveManager.instance.RegisterSaveManager(this);
-        Debug.Log("SkillTreeSlot registered in SaveManager (Coroutine)");
+       // 当 SaveManager 和 gameData 完全加载后，再进行注册
+        RegisterToSaveManager();
     }
+    
 
+    private void RegisterToSaveManager()
+    {
+        if (!isRegistered && SaveManager.instance != null)
+        {
+            SaveManager.instance.RegisterSaveManager(this);
+            isRegistered = true;
+            Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");
+        }
+    }
     private void Start()
     {
+        SaveManager.instance.RegisterSaveManager(this);
         skillImage.color = unlocked ? Color.white : lockedColor;
     }
 
@@ -166,6 +178,7 @@ private void Awake()
 
 public void LoadData(GameData _data)
 {
+    Debug.Log("加载技能");
     if (_data == null || _data.skillTree == null)
     {
         Debug.LogError("GameData or skillTree is null. Cannot load data.");
@@ -192,19 +205,29 @@ public void LoadData(GameData _data)
 
 
 
-    public void SaveData(ref GameData _data)
-    {
-        if (_data.skillTree.ContainsKey(skillName))
-        {
-            _data.skillTree[skillName] = unlocked;
-        }
-        else
-        {
-            _data.skillTree.Add(skillName, unlocked);
-        }
+public void SaveData(ref GameData _data)
+{
+    Debug.Log("保存技能");
 
-        // 如果需要，还可以调试日志来确保数据保存
-        Debug.Log($"Saved skill: {skillName} with state: {unlocked}");
+    // 如果 skillTree 尚未初始化，进行初始化
+    if (_data.skillTree == null)
+    {
+        _data.skillTree = new SerializableDictionary<string, bool>();  // 初始化为 SerializableDictionary
     }
+
+    // 保存数据
+    if (_data.skillTree.ContainsKey(skillName))
+    {
+        _data.skillTree[skillName] = unlocked;
+    }
+    else
+    {
+        _data.skillTree.Add(skillName, unlocked);
+    }
+
+    Debug.Log($"Saved skill: {skillName} with state: {unlocked}");
+}
+
+
 
 }

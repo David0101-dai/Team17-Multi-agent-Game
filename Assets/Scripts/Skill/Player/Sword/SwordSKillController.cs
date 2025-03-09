@@ -245,7 +245,7 @@ public class SwordSKillController : MonoBehaviour
         EnemyDamageable enemyDamageable = enemy.GetComponent<EnemyDamageable>();
 
 
-        damageable.TakeDamage(player.gameObject, false, true);
+        damageable.TakeDamage(player.gameObject, false, true, true);
         if (!needFreeze) return;
         
         if (player.Skill.Sword.timeStopUnlocked)

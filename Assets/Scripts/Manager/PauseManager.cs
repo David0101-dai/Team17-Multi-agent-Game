@@ -28,6 +28,13 @@ public class PauseManager : MonoBehaviour
         Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isPaused;
     }
+    public void TogglePauseUI()
+    {
+        isPaused = !isPaused;
+
+        Time.timeScale = isPaused ? 0 : 1;
+
+    }
     public void ResumeGame()
     {
         TogglePause();
@@ -38,5 +45,9 @@ public class PauseManager : MonoBehaviour
         AudioManager.instance.StopAllBGM();
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
+    }
+    public void closeUI()
+    {
+        pauseMenuUI.SetActive(false);
     }
 }

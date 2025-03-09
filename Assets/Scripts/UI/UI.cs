@@ -90,11 +90,12 @@ public class UI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            SwitchWithKeyTo(characterUI);
+            pauseManager.closeUI();
             if (!PauseManager.isPaused)
             {
-                pauseManager.TogglePause();
+                pauseManager.TogglePauseUI();
             }
+            SwitchWithKeyTo(characterUI);
             return;
         }
 
@@ -139,6 +140,7 @@ public class UI : MonoBehaviour
     {
         if (menu && menu.activeSelf)
         {
+            pauseManager.TogglePauseUI();
             menu.SetActive(false);
             return;
         }

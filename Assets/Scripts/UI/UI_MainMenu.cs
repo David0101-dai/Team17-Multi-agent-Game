@@ -106,6 +106,7 @@ public void ContinueGame()
     {
         Debug.LogError("Failed to load game data, cannot continue.");
     }
+    PauseManager.isPaused = false;
 }
     // 点击新游戏按钮后显示输入玩家名称的面板
     public void ShowPlayerNamePanel()
@@ -144,6 +145,7 @@ public void ContinueGame()
         saveManager.DeleteSaveData();
         saveManager.NewGame();
         StartCoroutine(LoadSceneWithFadeEffect(1.5f));
+        PauseManager.isPaused = false;
     }
 
     public void setLevel(int index)

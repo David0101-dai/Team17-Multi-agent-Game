@@ -27,7 +27,11 @@ public class UI_MainMenu : MonoBehaviour
         }
     }
 
-    private IEnumerator Start()
+private IEnumerator Start()
+{
+    saveManager = SaveManager.instance;
+    // 等待直到 SaveManager 完全初始化
+    while (saveManager == null || saveManager.CurrentGameData() == null)
     {
         saveManager = SaveManager.instance;
         // 等待直到 SaveManager 完全初始化
@@ -47,20 +51,36 @@ public class UI_MainMenu : MonoBehaviour
         }
         continueButton.onClick.AddListener(ContinueGame);
         newGameButton.onClick.AddListener(StartNewGame);
+
     }
 
-    public void ContinueGame()
+    // 确保 SaveManager 初始化完成后，才检查是否有存档
+    if (saveManager.HasSaveData())
     {
-        StartCoroutine(LoadSceneWithFadeEffect(1.5f));
-        if (saveManager.CurrentGameData() != null)
-        {
-            StartCoroutine(LoadSceneWithFadeEffect(1.5f));  // 游戏场景名称
-        }
-        else
-        {
-            Debug.LogError("Failed to load game data, cannot continue.");
-        }
+        continueButton.interactable = true;
     }
+    else
+    {
+        continueButton.interactable = false;
+    }
+
+    continueButton.onClick.AddListener(ContinueGame);
+    newGameButton.onClick.AddListener(StartNewGame);
+}
+
+
+public void ContinueGame()
+{
+    if (saveManager.CurrentGameData() != null)
+    {
+        StartCoroutine(LoadSceneWithFadeEffect(1.5f));  // 游戏场景名称
+    }
+    else
+    {
+        Debug.LogError("Failed to load game data, cannot continue.");
+    }
+}
+
 
     public void StartNewGame()
     {

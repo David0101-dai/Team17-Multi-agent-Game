@@ -20,6 +20,26 @@ public class UI : MonoBehaviour
     [SerializeField] public Tooltip tooltip;
     [SerializeField] public UI_SkillToolTip skillToolTip;
 
+    [Header("SKILL")]
+    public SkillTreeSlot dashUnlockedButton;
+    public SkillTreeSlot cloneOnDashUnlockedButton;
+    public SkillTreeSlot counterUnlockedButton;
+    public SkillTreeSlot counterBuffUnlockedButton;
+    public SkillTreeSlot counterMiragelUnlockedButton;
+    public SkillTreeSlot timeStopUnlockButton;
+    public SkillTreeSlot volnurableUnlockButton;
+    public SkillTreeSlot swordUnlockButton;
+    public SkillTreeSlot bounceUnlockButton;
+    public SkillTreeSlot pierceUnlockButton;
+    public SkillTreeSlot spinUnlockButton;
+    public SkillTreeSlot unlockCrystalButton;
+    public SkillTreeSlot unlockCloneInsteadbutton;
+    public SkillTreeSlot unlockMovingButton;
+    public SkillTreeSlot unlockExplosiveButton;
+    public SkillTreeSlot unlockMultiStackButton;
+    public SkillTreeSlot unlockCloneAttackbutton;
+    public SkillTreeSlot unlockMultipleClonebutton;
+    public SkillTreeSlot unlockBlackHolebutton;
     public static UI Instance { get; private set; }
     private void Awake()
     {
@@ -32,12 +52,22 @@ public class UI : MonoBehaviour
         {
             Destroy(gameObject);  // 如果实例已存在，则销毁当前对象
         }
+
+        // 确保 skillToolTip 已初始化
+        if (skillToolTip == null)
+        {
+            Debug.LogError("skillToolTip is not assigned in UI.");
+        }
+        else
+        {
+            Debug.Log("skillToolTip has been initialized.");
+        }
     }
     private void Start()
     {
-        if (fadeScreen == null)
+        if (dashUnlockedButton == null)
         {
-            Debug.LogError("fadeScreen 未在 UI 脚本中正确初始化！");
+            Debug.LogError("button未在 UI 脚本中正确初始化！");
         }
         else
         {
@@ -51,7 +81,7 @@ public class UI : MonoBehaviour
     {
         // 在应用退出时保存数据
         Debug.Log("Saving game data before application quit...");
-        SaveManager.instance.SaveGame();
+       // SaveManager.instance.SaveGame();
     }
 
     private void Update()

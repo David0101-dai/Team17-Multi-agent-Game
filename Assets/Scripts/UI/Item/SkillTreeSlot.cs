@@ -13,7 +13,7 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Image skillImage;
     [SerializeField] private int skillPrice;
     [SerializeField] private string skillName;
-    [SerializeField] private string skillDescription;
+    [SerializeField][Multiline] private string skillDescription;
     [SerializeField] private Color lockedColor;
     private UI ui;
     // 用来记录鼠标是否悬停在该技能图标上

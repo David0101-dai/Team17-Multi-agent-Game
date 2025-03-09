@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-public class DashSkill : Skill
+public class DashSkill: Skill
 {
     [Header("Dash")]
     public bool dashUnlocked;

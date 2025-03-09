@@ -1,58 +1,70 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using UnityEngine;
 using TMPro;
 
 public class TutorialManager : MonoBehaviour
 {
-    public GameObject tutorialImage;  // 拖入你的 Image 对象
-    public Button exitButton;         // 拖入你的退出按钮
-    public TextMeshProUGUI feedbackText; // 拖入TextMeshPro UI组件
-
-    private bool tutorialActive = false; // 标记教程是否激活
+    public TextMeshProUGUI tutorialText; // 绑定 UI 文字组件
+    private bool waitingForInput = false;
 
     void Start()
     {
-        // 先隐藏所有 UI 元素
-        tutorialImage.SetActive(false);
-        exitButton.gameObject.SetActive(false);
-        feedbackText.gameObject.SetActive(false); // 隐藏“Good Job!!!”
-
-        // 2秒后显示教程图片和按钮
-        StartCoroutine(ShowTutorialAfterDelay(2f));
+        StartCoroutine(RunTutorial());
     }
 
-    IEnumerator ShowTutorialAfterDelay(float delay)
+    IEnumerator RunTutorial()
     {
-        yield return new WaitForSeconds(delay);
-        tutorialImage.SetActive(true);
-        exitButton.gameObject.SetActive(true);
-        tutorialActive = true; // 标记教程已激活
+        yield return new WaitForSeconds(1f);
+        yield return ShowMessage("Welcome to the tutorial!", 1f);
+
+        yield return ShowMessage("Press the space bar", 0f);
+        yield return WaitForPlayerInput(KeyCode.Space);
+
+        yield return ShowMessage("Good Job!!!", 1f);
+        yield return ShowMessage("Press A or D to move", 0f);
+        yield return WaitForPlayerInput(KeyCode.A, KeyCode.D);
+
+        yield return ShowMessage("Good Job!!!", 1f);
+        yield return ShowMessage("Press Shift to sprint", 0f);
+        yield return WaitForPlayerInput(KeyCode.LeftShift);
+
+        yield return ShowMessage("Good Job!!!", 1f);
+        yield return ShowMessage("Left Click to attack", 0f);
+        yield return WaitForPlayerInput(KeyCode.Mouse0);
+
+        yield return ShowMessage("Good Job!!!", 1f);
+        yield return ShowMessage("Right Click to block", 0f);
+        yield return WaitForPlayerInput(KeyCode.Mouse1);
+
+        yield return ShowMessage("Good Job!!!", 1f);
+        tutorialText.gameObject.SetActive(false); // 教程结束，隐藏文本
     }
 
-    void Update()
+    IEnumerator ShowMessage(string message, float duration)
     {
-        // 只有当教程图片显示时，才监听空格键
-        if (tutorialActive && Input.GetKeyDown(KeyCode.Space))
+        tutorialText.text = message;
+        tutorialText.color = (message == "Good Job!!!") ? Color.green : Color.white;
+        tutorialText.fontSize = (message == "Good Job!!!") ? 40 : 30;
+        tutorialText.fontStyle = (message == "Good Job!!!") ? FontStyles.Bold | FontStyles.Italic : FontStyles.Normal;
+        tutorialText.gameObject.SetActive(true);
+
+        if (duration > 0) yield return new WaitForSeconds(duration);
+    }
+
+    IEnumerator WaitForPlayerInput(params KeyCode[] keys)
+    {
+        waitingForInput = true;
+        while (waitingForInput)
         {
-            StartCoroutine(ShowGoodJobMessage());
+            foreach (KeyCode key in keys)
+            {
+                if (Input.GetKeyDown(key))
+                {
+                    waitingForInput = false;
+                    break;
+                }
+            }
+            yield return null;
         }
-    }
-
-    IEnumerator ShowGoodJobMessage()
-    {
-        feedbackText.text = "Good Job!!!";
-        feedbackText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(1f); // 显示 1 秒
-
-        feedbackText.gameObject.SetActive(false); // 让它消失
-    }
-
-    public void HideTutorialImage()
-    {
-        tutorialImage.SetActive(false);
-        exitButton.gameObject.SetActive(false);
-        tutorialActive = false; // 关闭教程状态
     }
 }

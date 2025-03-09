@@ -40,21 +40,25 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
-        var movement = movementInput.ReadValue<Vector2>();
-        xAxis = movement.x;
-        yAxis = movement.y;
+        if(!PauseManager.isPaused)
+        {
+            var movement = movementInput.ReadValue<Vector2>();
+            xAxis = movement.x;
+            yAxis = movement.y;
 
-        isJumpDown = jumpInput.triggered;
-        isDashDown = dashInput.triggered;
-        isAttackDown = attackInput.triggered;
-        isCounterDown = counterInput.triggered;
-        isAimSwordDown = aimSwordInput.triggered;
-        isJumpPressed = jumpInput.IsPressed();
-        isDashPressed = dashInput.IsPressed();
-        isAttackPressed = attackInput.IsPressed();
-        isCounterPressed = counterInput.IsPressed();
-        isAimSwordPressed = aimSwordInput.IsPressed();
+            isJumpDown = jumpInput.triggered;
+            isDashDown = dashInput.triggered;
+            isAttackDown = attackInput.triggered;
+            isCounterDown = counterInput.triggered;
+            isAimSwordDown = aimSwordInput.triggered;
+            isJumpPressed = jumpInput.IsPressed();
+            isDashPressed = dashInput.IsPressed();
+            isAttackPressed = attackInput.IsPressed();
+            isCounterPressed = counterInput.IsPressed();
+            isAimSwordPressed = aimSwordInput.IsPressed();
 
-        mousePosition = mouseInput.ReadValue<Vector2>();
+            mousePosition = mouseInput.ReadValue<Vector2>();
+
+        }
     }
 }

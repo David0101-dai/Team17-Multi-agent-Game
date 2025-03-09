@@ -31,6 +31,7 @@ public class CharacterState<T> : IState where T : Character
 
     public virtual void Update()
     {
+        if (Time.timeScale == 0) return;
         StateTimer -= Time.deltaTime;
     }
 

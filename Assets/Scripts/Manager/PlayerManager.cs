@@ -32,12 +32,7 @@ public class PlayerManager : MonoBehaviour, ISaveManager
             StartCoroutine(RegisterWhenReady());
         }
     }
-
-    private void Update()
-    {
-        Debug.Log("playerManager currency " + currency);
-    }    
-
+   
     private IEnumerator RegisterWhenReady()
     {   
         while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
@@ -63,7 +58,7 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     public void RefundMoney(int amount)
     {
         currency += amount;
-        Debug.Log("Refunded " + amount + " currency. New total: " + currency);
+      //  Debug.Log("Refunded " + amount + " currency. New total: " + currency);
     }
 
     public void LoadData(GameData _data)
@@ -71,7 +66,7 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         if (_data != null)
         {
             this.currency = _data.currency;  // 加载游戏数据中的货币
-            Debug.Log("Loaded currency: " + this.currency);  // 添加日志确认加载过程
+           // Debug.Log("Loaded currency: " + this.currency);  // 添加日志确认加载过程
         }
     }
 
@@ -79,7 +74,7 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         public void SaveData(ref GameData _data)
     {
         _data.currency = this.currency;  // 保存当前货币数据
-        Debug.Log("Saved currency: " + this.currency);  // 添加日志确认保存过程
+        //Debug.Log("Saved currency: " + this.currency);  // 添加日志确认保存过程
     }
 
     public void SaveFinaled()

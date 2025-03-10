@@ -6,6 +6,7 @@ public class UI : MonoBehaviour
 {
     public TextMeshProUGUI endText;    
     public UI_FadeScreen fadeScreen;
+    public GameObject ReStartButton;
     public INGAMEUI inGameUI; 
     public Transform Equipment;
     public Transform Inventory;
@@ -19,7 +20,6 @@ public class UI : MonoBehaviour
 
     [SerializeField] public Tooltip tooltip;
     [SerializeField] public UI_SkillToolTip skillToolTip;
-
     [SerializeField] private PauseManager pauseManager;
 
     [Header("SKILL")]
@@ -49,7 +49,7 @@ public class UI : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // 确保 UI 在场景切换时不被销毁
+            //DontDestroyOnLoad(gameObject);
             Debug.Log("UI Initialized.");
         }
         else
@@ -112,7 +112,6 @@ public class UI : MonoBehaviour
         menu?.SetActive(true);
     }
 
-
     public void SwitchWithKeyTo(GameObject menu)
     {
         if (menu && menu.activeSelf)
@@ -132,9 +131,13 @@ public class UI : MonoBehaviour
     IEnumerator EndScreenCorutione(){
         yield return new WaitForSeconds(1);
         endText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        ReStartButton.SetActive(true);
     }
 
     public UI_FadeScreen getFadeScreen(){
         return fadeScreen;
     }
+
+    public void ReStartGameButton() => GameManager.Instance.ReStartGame();   
 }

@@ -16,7 +16,9 @@ public class DeadState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-        Debug.Log("2");
+
+        //Debug.Log("2");
+        
         if (deadCount>0) {
             deadCount--;
             PlayerManager.Instance.SaveFinaled();

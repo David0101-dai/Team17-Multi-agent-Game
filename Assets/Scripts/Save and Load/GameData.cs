@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameData
 {
     public int currency;
-    public List<int> currencyDic=new List<int>();
     // 用于存储字典的键和值
     public List<string> inventoryKeys = new List<string>();
     public List<int> inventoryValues = new List<int>();
@@ -52,7 +51,6 @@ public class GameData
             skillTreeValues.Add(pair.Value);
         }
 
-//        Debug.Log("OnBeforeSerialize: SkillTree keys and values serialized.");
     }
 
     // 在反序列化后调用，将列表中的键和值填充到字典中
@@ -87,7 +85,5 @@ public class GameData
                 this.skillTree.Add(skillTreeKeys[i], skillTreeValues[i]);
             }
         }
-
-//        Debug.Log("OnAfterDeserialize: SkillTree keys and values deserialized.");
     }
 }

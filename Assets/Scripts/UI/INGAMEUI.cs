@@ -16,21 +16,46 @@ public class INGAMEUI : MonoBehaviour
     [SerializeField] private float swordCoolDown;
     [SerializeField] private float blackholeCoolDown;
     [SerializeField] private float flaskCoolDown;
-
     [SerializeField] private TextMeshProUGUI souls;
 
-    void Start()
+    private int currency;
+
+    private int player_currency;
+
+    private IEnumerator Start()
+    {
+        // Wait until PlayerManager is properly initialized and data is loaded
+        yield return new WaitUntil(() => PlayerManager.Instance != null && PlayerManager.Instance.currency != 0);
+
+        // Now that PlayerManager is initialized, we can safely proceed with the rest of the initialization
+        InitializeUI();
+
+        currency = 0;
+    }
+
+    // Initialize UI elements here after PlayerManager is initialized
+    private void InitializeUI()
     {
         dashCoolDown = SkillManager.Instance.Dash.cooldown;
         crystalCoolDown = SkillManager.Instance.Crystal.multiStackCooldown;
         swordCoolDown = SkillManager.Instance.Sword.cooldown;
         blackholeCoolDown = SkillManager.Instance.Blackhole.cooldown;
     }
+
     void Update()
     {
-        souls.text = PlayerManager.Instance.currentCurrencyAmount().ToString("#,#");
+        player_currency = PlayerManager.Instance.currency;
 
+        //Debug.Log("player currency " + player_currency);
 
+        if(currency < player_currency){
+            currency++;
+        }else if(currency > player_currency){
+            currency--;
+        }
+        
+        souls.text = currency.ToString("#,#");  // 获取并显示当前金币数量
+        
         if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.Instance.Dash.dashUnlocked)
         {
             SetCoolDownOf(dashImage);

@@ -36,7 +36,7 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     // 每次状态改变时立即保存数据
     private void SaveDataImmediately()
     {
-        Debug.Log($"Saving skill: {skillName} with state: {unlocked}");
+        //Debug.Log($"Saving skill: {skillName} with state: {unlocked}");
         GameData gameData = SaveManager.instance.CurrentGameData(); // 获取当前的游戏数据
         if (gameData != null)
         {
@@ -109,8 +109,6 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             }
         }
 
-        Debug.Log(skillName + " awake 这个只应该发生一次");
-
         skillImage = GetComponent<Image>();
         if (skillImage == null)
         {
@@ -127,12 +125,14 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             button.onClick.AddListener(UnlockSkill);
         }
-        Debug.Log(skillName + " SkillTreeSlot registered in SaveManager (Awake)"); 
+
+        //  Debug.Log(skillName + " SkillTreeSlot registered in SaveManager (Awake)"); 
 
         if (SaveManager.instance != null && SaveManager.instance.CurrentGameData() != null)
         {
         SaveManager.instance.RegisterSaveManager(this);
-        Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");
+
+        // Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");
         }
         else
         {
@@ -252,8 +252,8 @@ public void OnPointerExit(PointerEventData eventData)
             CancelSkill();
         }
 
-        Debug.Log(skillName +" "+ unlocked);
-        Debug.Log(skillName + "saved "+ isSaved);
+        //Debug.Log(skillName +" "+ unlocked);
+        //Debug.Log(skillName + "saved "+ isSaved);
     }
     
 

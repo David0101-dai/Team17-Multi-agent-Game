@@ -131,6 +131,7 @@ public class Player : Character
 
     public override void Die()
     {
+        Debug.Log("dead");
         Fsm.SwitchState(DeadState);
     }
 

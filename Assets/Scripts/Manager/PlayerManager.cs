@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     public GameObject player;
     public GameObject fx;
     public GameObject item;
-    [SerializeField] private Scores scores;
+    public  Scores scores;
     public int currency; 
 
     private void Awake()

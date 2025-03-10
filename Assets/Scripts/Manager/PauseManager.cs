@@ -39,8 +39,8 @@ public class PauseManager : MonoBehaviour
 
         pauseMenuUI.SetActive(isPaused);
 
-        Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = isPaused;
+        //Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        //Cursor.visible = isPaused;
     }
     public void TogglePauseUI()
     {

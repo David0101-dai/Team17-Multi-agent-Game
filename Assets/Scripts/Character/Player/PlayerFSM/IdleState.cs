@@ -9,7 +9,7 @@ public class IdleState : GroundState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
+        deadCount = 1;
         SetVelocity(0, 0);
     }
 

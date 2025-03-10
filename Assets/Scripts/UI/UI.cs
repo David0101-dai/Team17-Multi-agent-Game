@@ -83,7 +83,7 @@ public class UI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C)||(characterUI.activeSelf&&Input.GetKeyDown(KeyCode.Escape)))
         {
             pauseManager.closeUI();
             if (!PauseManager.isPaused)

@@ -7,6 +7,7 @@ public class PlayerState : CharacterState<Player>
     private int airDashCounter;
     protected static bool isBusy;
     protected float dashDir;
+    protected int deadCount = 1;
     protected InputController Input { get; private set; }
 
     private float spikeDamageTimer = 0f; // **µØ´ÌÉËº¦¼ÆÊ±Æ÷**

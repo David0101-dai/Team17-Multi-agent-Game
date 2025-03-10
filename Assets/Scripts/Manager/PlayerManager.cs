@@ -6,16 +6,46 @@ public class PlayerManager : MonoBehaviour, ISaveManager
 {
     public static PlayerManager Instance { get; private set; }
     public GameObject player;
-    public GameObject fx;
-    public GameObject item;
-    [SerializeField] private Scores scores;
+    public  Scores scores;
     public int currency; 
+
     private void Awake()
     {
-        if (Instance != null)
+            if (Instance != null)
+        {
+            Debug.LogWarning("PlayerManager instance already exists!");
             Destroy(Instance.gameObject);
+        }
         else
+        {
             Instance = this;
+            Debug.Log("PlayerManager initialized!");
+        }
+        // 注册 SaveManager 以便进行数据保存和加载
+        if (SaveManager.instance != null && SaveManager.instance.CurrentGameData() != null)
+        {
+            SaveManager.instance.RegisterSaveManager(this);
+            Debug.Log("PlayerManager registered in SaveManager (Awake)");
+        }
+        else
+        {
+            StartCoroutine(RegisterWhenReady());
+        }
+    }
+
+    private void Update()
+    {
+        Debug.Log("playerManager currency " + currency);
+    }    
+
+    private IEnumerator RegisterWhenReady()
+    {   
+        while (SaveManager.instance == null || SaveManager.instance.CurrentGameData() == null)
+        {
+            yield return null;  // 每帧检查，直到 SaveManager 和 gameData 完全加载
+        }
+
+        SaveManager.instance.RegisterSaveManager(this);
     }
 
     public bool HaveEnoughMoney(int _price)
@@ -26,10 +56,10 @@ public class PlayerManager : MonoBehaviour, ISaveManager
             return false;
         }
 
-        currency = currency - _price;
+        currency -= _price;
         return true;
-        
     }
+
     public void RefundMoney(int amount)
     {
         currency += amount;
@@ -38,18 +68,33 @@ public class PlayerManager : MonoBehaviour, ISaveManager
 
     public void LoadData(GameData _data)
     {
-        this.currency = _data.currency;
+        if (_data != null)
+        {
+            this.currency = _data.currency;  // 加载游戏数据中的货币
+            Debug.Log("Loaded currency: " + this.currency);  // 添加日志确认加载过程
+        }
     }
 
-    public void SaveData(ref GameData _data)
+
+        public void SaveData(ref GameData _data)
     {
-        _data.currency = this.currency;
+        _data.currency = this.currency;  // 保存当前货币数据
+        Debug.Log("Saved currency: " + this.currency);  // 添加日志确认保存过程
     }
+
     public void SaveFinaled()
     {
         scores.AddScore(currency);
     }
 
-    public int currentCurrencyAmount() => currency;
-    public void AddCurrency() => currency++;
+    public void AddCurrency()
+    {
+        currency++;
+        SaveManager.instance.SaveGame();  // 确保数据被保存
+    }
+
+
+
+
 }
+

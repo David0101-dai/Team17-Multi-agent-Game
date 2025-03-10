@@ -78,15 +78,6 @@ public class UI : MonoBehaviour
     }
     private void Start()
     {
-        if (dashUnlockedButton == null)
-        {
-            Debug.LogError("button未在 UI 脚本中正确初始化！");
-        }
-        else
-        {
-            Debug.Log("fadeScreen 已初始化！");
-        }
-
         SwitchTo(null);
     }
 
@@ -102,24 +93,6 @@ public class UI : MonoBehaviour
             SwitchWithKeyTo(characterUI);
             return;
         }
-
-        // if (Input.GetKeyDown(KeyCode.B))
-        // {
-        //     SwitchWithKeyTo(craftUI);
-        //     return;
-        // }
-
-        // if (Input.GetKeyDown(KeyCode.K))
-        // {
-        //     SwitchWithKeyTo(skillTreeUI);
-        //     return;
-        // }
-
-        // if (Input.GetKeyDown(KeyCode.O))
-        // {
-        //     SwitchWithKeyTo(optionsUI);
-        //     return;
-        // }
     }
 
     public void SwitchTo(GameObject menu)

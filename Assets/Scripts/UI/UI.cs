@@ -93,24 +93,6 @@ public class UI : MonoBehaviour
             SwitchWithKeyTo(characterUI);
             return;
         }
-
-        // if (Input.GetKeyDown(KeyCode.B))
-        // {
-        //     SwitchWithKeyTo(craftUI);
-        //     return;
-        // }
-
-        // if (Input.GetKeyDown(KeyCode.K))
-        // {
-        //     SwitchWithKeyTo(skillTreeUI);
-        //     return;
-        // }
-
-        // if (Input.GetKeyDown(KeyCode.O))
-        // {
-        //     SwitchWithKeyTo(optionsUI);
-        //     return;
-        // }
     }
 
     public void SwitchTo(GameObject menu)

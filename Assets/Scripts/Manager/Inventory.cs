@@ -221,7 +221,7 @@ public class Inventory : MonoBehaviour, ISaveManager
                 break;
             case ItemType.Coin:
             PlayerManager.Instance.AddCurrency();
-            SaveManager.instance.SaveGame();  // 在增加金币后，保存数据
+            Debug.Log("add a currency now the currency: " + PlayerManager.Instance.currency);
             break;
             default:
                 break;

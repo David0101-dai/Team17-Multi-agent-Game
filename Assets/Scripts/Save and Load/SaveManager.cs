@@ -112,14 +112,12 @@ private IEnumerator Start()
         if (isSaving) return;  // 避免重复保存
 
         isSaving = true;
-
         // 保存每个 ISaveManager 的数据
         foreach (ISaveManager saveManager in saveManagers)
         {
             //Debug.Log($"Saving data for {saveManager.GetType().Name}");
             saveManager.SaveData(ref gameData);  // 保存每个 manager 的数据
         }
-
         // 最后统一保存数据到文件
         fileDataHandler.SaveData(gameData);
         //Debug.Log("Game data saved successfully.");
@@ -131,13 +129,8 @@ private IEnumerator Start()
         Debug.Log("游戏退出");
         // 应用退出时保存游戏数据
         SaveGame();
-    }
 
-    // 查找并注册场景中的所有实现 ISaveManager 接口的组件
-    private List<ISaveManager> FindSaveManagers()
-    {
-        IEnumerable<ISaveManager> foundManagers = FindObjectsOfType<MonoBehaviour>().OfType<ISaveManager>();
-        return new List<ISaveManager>(foundManagers);
+        
     }
 
     // 注册 SaveManager 以便其他组件可以监听数据加载

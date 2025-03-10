@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameData
 {
     public int currency;
-    public List<int> currencyDic=new List<int>();
     // 用于存储字典的键和值
     public List<string> inventoryKeys = new List<string>();
     public List<int> inventoryValues = new List<int>();
@@ -52,9 +51,6 @@ public class GameData
             skillTreeValues.Add(pair.Value);
         }
 
-        // 序列化 currencyDic
-        currencyDic.Clear();
-        currencyDic.Add(currency);  // 将当前的 currency 添加到 currencyDic
     }
 
     // 在反序列化后调用，将列表中的键和值填充到字典中
@@ -88,12 +84,6 @@ public class GameData
 
                 this.skillTree.Add(skillTreeKeys[i], skillTreeValues[i]);
             }
-        }
-
-        // 反序列化 currencyDic（确保 currencyDic 与 currency 的一致性）
-        if (currencyDic.Count > 0)
-        {
-            currency = currencyDic[currencyDic.Count - 1]; // 取 currencyDic 中最后一个值作为当前货币
         }
     }
 }

@@ -6,18 +6,21 @@ public class PlayerManager : MonoBehaviour, ISaveManager
 {
     public static PlayerManager Instance { get; private set; }
     public GameObject player;
-    public GameObject fx;
-    public GameObject item;
     public  Scores scores;
     public int currency; 
 
     private void Awake()
     {
-        if (Instance != null)
+            if (Instance != null)
+        {
+            Debug.LogWarning("PlayerManager instance already exists!");
             Destroy(Instance.gameObject);
+        }
         else
+        {
             Instance = this;
-
+            Debug.Log("PlayerManager initialized!");
+        }
         // 注册 SaveManager 以便进行数据保存和加载
         if (SaveManager.instance != null && SaveManager.instance.CurrentGameData() != null)
         {
@@ -29,6 +32,11 @@ public class PlayerManager : MonoBehaviour, ISaveManager
             StartCoroutine(RegisterWhenReady());
         }
     }
+
+    private void Update()
+    {
+        Debug.Log("playerManager currency " + currency);
+    }    
 
     private IEnumerator RegisterWhenReady()
     {   
@@ -60,12 +68,18 @@ public class PlayerManager : MonoBehaviour, ISaveManager
 
     public void LoadData(GameData _data)
     {
-        this.currency = _data.currency;  // 加载游戏数据中的货币
+        if (_data != null)
+        {
+            this.currency = _data.currency;  // 加载游戏数据中的货币
+            Debug.Log("Loaded currency: " + this.currency);  // 添加日志确认加载过程
+        }
     }
 
-    public void SaveData(ref GameData _data)
+
+        public void SaveData(ref GameData _data)
     {
         _data.currency = this.currency;  // 保存当前货币数据
+        Debug.Log("Saved currency: " + this.currency);  // 添加日志确认保存过程
     }
 
     public void SaveFinaled()
@@ -73,13 +87,14 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         scores.AddScore(currency);
     }
 
-    public int currentCurrencyAmount() => currency;
-
-        public void AddCurrency()
+    public void AddCurrency()
     {
         currency++;
-        SaveManager.instance.SaveGame();  // 确保每次金币增加时都保存数据
+        SaveManager.instance.SaveGame();  // 确保数据被保存
     }
+
+
+
 
 }
 

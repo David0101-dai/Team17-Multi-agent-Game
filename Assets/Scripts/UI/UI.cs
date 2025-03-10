@@ -74,6 +74,7 @@ public class UI : MonoBehaviour
         }else{
             Debug.Log("dashUnlockedButton has been initialized.");
         }
+        
     }
     private void Start()
     {
@@ -102,23 +103,23 @@ public class UI : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SwitchWithKeyTo(craftUI);
-            return;
-        }
+        // if (Input.GetKeyDown(KeyCode.B))
+        // {
+        //     SwitchWithKeyTo(craftUI);
+        //     return;
+        // }
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SwitchWithKeyTo(skillTreeUI);
-            return;
-        }
+        // if (Input.GetKeyDown(KeyCode.K))
+        // {
+        //     SwitchWithKeyTo(skillTreeUI);
+        //     return;
+        // }
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SwitchWithKeyTo(optionsUI);
-            return;
-        }
+        // if (Input.GetKeyDown(KeyCode.O))
+        // {
+        //     SwitchWithKeyTo(optionsUI);
+        //     return;
+        // }
     }
 
     public void SwitchTo(GameObject menu)
@@ -130,7 +131,7 @@ public class UI : MonoBehaviour
             bool isInGameUI = child.GetComponent<INGAMEUI>() != null;
             
             // 仅非FadeScreen且非InGameUI的对象会被禁用
-            if (!isFadeScreen && !isInGameUI)
+            if (!isFadeScreen && !isInGameUI && child != pauseManager.gameObject)
             {
                 child.SetActive(false);
             }

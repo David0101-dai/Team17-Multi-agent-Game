@@ -8,6 +8,21 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenuUI;
     public static bool isPaused = false; 
 
+        void Awake()
+    {
+
+        if (pauseMenuUI != null)
+    {
+        pauseMenuUI.SetActive(isPaused);
+    }
+    else
+    {
+        Debug.LogWarning("pauseMenuUI is missing!");
+    }
+
+    }
+
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -20,7 +35,6 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = !isPaused;
 
-        // «–ªª ±º‰Àı∑≈
         Time.timeScale = isPaused ? 0 : 1;
 
         pauseMenuUI.SetActive(isPaused);

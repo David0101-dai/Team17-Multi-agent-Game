@@ -30,7 +30,6 @@ public class INGAMEUI : MonoBehaviour
     {
         souls.text = PlayerManager.Instance.currentCurrencyAmount().ToString("#,#");
 
-
         if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.Instance.Dash.dashUnlocked)
         {
             SetCoolDownOf(dashImage);

@@ -52,7 +52,9 @@ public class GameData
             skillTreeValues.Add(pair.Value);
         }
 
-//        Debug.Log("OnBeforeSerialize: SkillTree keys and values serialized.");
+        // 序列化 currencyDic
+        currencyDic.Clear();
+        currencyDic.Add(currency);  // 将当前的 currency 添加到 currencyDic
     }
 
     // 在反序列化后调用，将列表中的键和值填充到字典中
@@ -88,6 +90,10 @@ public class GameData
             }
         }
 
-//        Debug.Log("OnAfterDeserialize: SkillTree keys and values deserialized.");
+        // 反序列化 currencyDic（确保 currencyDic 与 currency 的一致性）
+        if (currencyDic.Count > 0)
+        {
+            currency = currencyDic[currencyDic.Count - 1]; // 取 currencyDic 中最后一个值作为当前货币
+        }
     }
 }

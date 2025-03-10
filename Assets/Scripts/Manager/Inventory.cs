@@ -220,9 +220,9 @@ public class Inventory : MonoBehaviour, ISaveManager
                 UpdateSlotUI(inventoryItemSlots, inventoryItems);
                 break;
             case ItemType.Coin:
-                PlayerManager.Instance.AddCurrency();
-                //Debug.Log("Coin:"+ PlayerManager.Instance.currentCurrencyAmount());
-                break;
+            PlayerManager.Instance.AddCurrency();
+            SaveManager.instance.SaveGame();  // 在增加金币后，保存数据
+            break;
             default:
                 break;
         }
@@ -453,7 +453,7 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
 
     public void SaveData(ref GameData _data)
     {
-        Debug.Log("Saving Inventory Data");
+        //Debug.Log("Saving Inventory Data");
         _data.inventory.Clear();
         _data.equipmentId.Clear(); // 清空装备 ID 列表
 

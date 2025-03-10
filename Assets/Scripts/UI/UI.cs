@@ -7,6 +7,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI endText;    
     public UI_FadeScreen fadeScreen;
     public GameObject ReStartButton;
+    public GameObject ReturnHomeButton;
     public INGAMEUI inGameUI; 
     public Transform Equipment;
     public Transform Inventory;
@@ -133,11 +134,13 @@ public class UI : MonoBehaviour
         endText.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         ReStartButton.SetActive(true);
+        ReturnHomeButton.SetActive(true);
     }
 
     public UI_FadeScreen getFadeScreen(){
         return fadeScreen;
     }
 
-    public void ReStartGameButton() => GameManager.Instance.ReStartGame();   
+    public void ReStartGameButton() => GameManager.Instance.ReStartGame(); 
+    public void ReturnHome() => GameManager.Instance.ReturnHome();  
 }

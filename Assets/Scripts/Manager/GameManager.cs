@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(scene.name);
     }
 
+    public void ReturnHome(){
+        SaveManager.instance.SaveGame();
+        SceneManager.LoadScene("MainMenu");
+    }
+
     void Start()
     {
         AudioManager.instance.PlayBGM(0);

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class IdleState : GroundState
 {
     public IdleState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)

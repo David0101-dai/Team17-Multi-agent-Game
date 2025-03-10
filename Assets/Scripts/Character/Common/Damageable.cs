@@ -113,6 +113,7 @@ public abstract class Damageable : MonoBehaviour
     public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, bool isFromSwordSkill = false)
     {
         
+        if (isDead) return;
 
         if (currentHp <= 0)
         {
@@ -121,7 +122,6 @@ public abstract class Damageable : MonoBehaviour
             currentHp = 0;  // Ensure the HP doesn't go below 0
         }
 
-        if (isDead) return;
 
         // 如果当前对象是玩家，并且处于无敌状态，则忽略伤害
         var playerComponent = GetComponent<Player>();

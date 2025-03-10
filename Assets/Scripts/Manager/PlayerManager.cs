@@ -6,6 +6,9 @@ public class PlayerManager : MonoBehaviour, ISaveManager
 {
     public static PlayerManager Instance { get; private set; }
     public GameObject player;
+    public GameObject fx;
+    public GameObject item;
+    [SerializeField] private Scores scores;
     public int currency; 
     private void Awake()
     {
@@ -41,6 +44,10 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     public void SaveData(ref GameData _data)
     {
         _data.currency = this.currency;
+    }
+    public void SaveFinaled()
+    {
+        scores.AddScore(currency);
     }
 
     public int currentCurrencyAmount() => currency;

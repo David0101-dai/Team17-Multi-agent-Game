@@ -20,6 +20,8 @@ public class UI : MonoBehaviour
     [SerializeField] public Tooltip tooltip;
     [SerializeField] public UI_SkillToolTip skillToolTip;
 
+    [SerializeField] private PauseManager pauseManager;
+
     [Header("SKILL")]
     public SkillTreeSlot dashUnlockedButton;
     public SkillTreeSlot cloneOnDashUnlockedButton;
@@ -91,6 +93,11 @@ public class UI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
+            pauseManager.closeUI();
+            if (!PauseManager.isPaused)
+            {
+                pauseManager.TogglePauseUI();
+            }
             SwitchWithKeyTo(characterUI);
             return;
         }
@@ -136,6 +143,7 @@ public class UI : MonoBehaviour
     {
         if (menu && menu.activeSelf)
         {
+            pauseManager.TogglePauseUI();
             menu.SetActive(false);
             return;
         }

@@ -15,7 +15,9 @@ MonoBehaviour:
   itemType: 1
   itemName: DraculaSword
   icon: {fileID: -1944902997, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemId: f2095b8b2e9f29149ab4bbda34a32622
   dropChance: 0
+  ItemCooldown: 0
   equipmentType: 0
   itemEffects:
   - {fileID: 11400000, guid: 21156d3db2d323746a2c2969895ca96a, type: 2}
@@ -33,3 +35,4 @@ MonoBehaviour:
   fireDamage: 0
   iceDamege: 0
   lightingDamage: 0
+  craftingmaterials: []

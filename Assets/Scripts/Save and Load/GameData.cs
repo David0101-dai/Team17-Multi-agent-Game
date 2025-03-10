@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameData
 {
     public int currency;
-
+    public List<int> currencyDic=new List<int>();
     // 用于存储字典的键和值
     public List<string> inventoryKeys = new List<string>();
     public List<int> inventoryValues = new List<int>();

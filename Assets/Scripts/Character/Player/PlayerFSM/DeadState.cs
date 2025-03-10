@@ -16,8 +16,11 @@ public class DeadState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-        Debug.Log("1");
-        PlayerManager.Instance.SaveFinaled();
+        Debug.Log("2");
+        if (deadCount>0) {
+            deadCount--;
+            PlayerManager.Instance.SaveFinaled();
+        }
         AudioManager.instance.PlaySFX(14, null);
 
         // 启动溶解效果协程

@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
   skillPrice: 0
@@ -1868,7 +1868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 5196204745558917102}
   - {fileID: 6393202675868450598}
@@ -3154,7 +3154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 8882518047329220159}
   shouldBeLocked:
@@ -3298,7 +3298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
   skillPrice: 0
@@ -4495,7 +4495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 1273594111462791475}
   - {fileID: 5196204745558917102}
@@ -4639,7 +4639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
   skillPrice: 100
@@ -4912,7 +4912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 8946369741764582011}
   - {fileID: 8882518047329220159}
@@ -8238,7 +8238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 4819716227426206230}
   shouldBeLocked: []
@@ -9218,7 +9218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 8882518047329220159}
   shouldBeLocked:
@@ -13936,7 +13936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 2585718465704887280}
   shouldBeLocked: []
@@ -14575,7 +14575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 8882518047329220159}
   shouldBeLocked:
@@ -14890,7 +14890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 4819716227426206230}
   shouldBeLocked: []
@@ -16127,7 +16127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 8882518047329220159}
   shouldBeLocked: []
@@ -17300,7 +17300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
   skillPrice: 0
@@ -24065,7 +24065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 1460735358973074510}
   shouldBeLocked: []
@@ -24912,7 +24912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 6393202675868450598}
   shouldBeLocked:
@@ -26613,7 +26613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 3030783566049080659}
   - {fileID: 2585718465704887280}
@@ -26831,7 +26831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked:
   - {fileID: 6393202675868450598}
   shouldBeLocked:
@@ -29344,7 +29344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8773fbe44643a424c95d944fe728e498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
+  _unlocked: 0
   shouldBeUnlocked: []
   shouldBeLocked: []
   skillPrice: 0

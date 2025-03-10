@@ -46,10 +46,12 @@ public class INGAMEUI : MonoBehaviour
     {
         player_currency = PlayerManager.Instance.currency;
 
-        Debug.Log("player currency " + player_currency);
+        //Debug.Log("player currency " + player_currency);
 
         if(currency < player_currency){
             currency++;
+        }else if(currency > player_currency){
+            currency--;
         }
         
         souls.text = currency.ToString("#,#");  // 获取并显示当前金币数量

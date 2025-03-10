@@ -59,6 +59,7 @@ public class PauseManager : MonoBehaviour
         AudioManager.instance.StopAllBGM();
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
+        pauseMenuUI.SetActive(false);
     }
     public void closeUI()
     {

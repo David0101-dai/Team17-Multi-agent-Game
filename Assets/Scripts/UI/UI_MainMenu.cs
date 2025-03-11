@@ -98,18 +98,19 @@ private IEnumerator Start()
 }
 
 
-public void ContinueGame()
-{
-    if (saveManager.CurrentGameData() != null)
+    public void ContinueGame()
     {
-        StartCoroutine(LoadSceneWithFadeEffect(1.5f));  // 游戏场景名称
+        All.IsNewGame = false;  // 标记：不是新游戏
+        if (saveManager.CurrentGameData() != null)
+        {
+            StartCoroutine(LoadSceneWithFadeEffect(1.5f));  // 游戏场景名称
+        }
+        else
+        {
+            Debug.LogError("Failed to load game data, cannot continue.");
+        }
+        PauseManager.isPaused = false;
     }
-    else
-    {
-        Debug.LogError("Failed to load game data, cannot continue.");
-    }
-    PauseManager.isPaused = false;
-}
     // 点击新游戏按钮后显示输入玩家名称的面板
     public void ShowPlayerNamePanel()
     {
@@ -143,6 +144,7 @@ public void ContinueGame()
 
     public void StartNewGame()
     {
+        All.IsNewGame = true;  // 标记：是新游戏
         scores.printfScores();
         saveManager.DeleteSaveData();
         saveManager.NewGame();

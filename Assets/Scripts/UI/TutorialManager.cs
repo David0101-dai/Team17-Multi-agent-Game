@@ -96,10 +96,11 @@ public class TutorialManager : MonoBehaviour
         yield return ShowMessage("Press \"C\" open Equipment Bar", 0f);
         yield return WaitForPlayerInput(KeyCode.C);
         yield return WaitForPlayerInput(KeyCode.C);
+        yield return ShowMessage("Great!!!", 1f);
 
-        
 
-        yield return ShowMessage("Now, kill all the enemys.", 1f);
+
+        yield return ShowMessage("Now, Kill all the enemys.", 1f);
 
         yield return FadeOut(); // 最后完全隐藏文本
     }
@@ -115,9 +116,16 @@ public class TutorialManager : MonoBehaviour
         tutorialText.text = message; // 更改文字内容
 
         // 如果是 "Good Job!!!"，改变颜色、字体大小和样式
-        tutorialText.color = (message == "Good Job!!!") ? Color.green : Color.white;
-        tutorialText.fontSize = (message == "Good Job!!!") ? 40 : 30;
-        tutorialText.fontStyle = (message == "Good Job!!!") ? FontStyles.Bold | FontStyles.Italic : FontStyles.Normal;
+        tutorialText.color = (message == "Good Job!!!" || message == "Great!!!") ? Color.green : new Color(1.0f, 0.5f, 0.0f);
+        tutorialText.fontSize = (message == "Good Job!!!" || message == "Great!!!") ? 40 : 30;
+        tutorialText.fontStyle = (message == "Good Job!!!" || message == "Great!!!") ? FontStyles.Bold | FontStyles.Italic : FontStyles.Normal;
+
+        if (message == "Now, Kill all the enemys.")
+        {
+            tutorialText.fontSize = 50;
+            tutorialText.color = Color.red;
+        }
+
 
         yield return FadeIn(); // 淡入新文本
 
@@ -155,7 +163,7 @@ public class TutorialManager : MonoBehaviour
         characterUIText.text = message;
 
         // 如果是 "Good Job!!!"，改变颜色、字体大小和样式
-        characterUIText.color = (message == "Good Job!!!") ? Color.green : Color.white;
+        characterUIText.color = (message == "Good Job!!!") ? Color.green : new Color(0f, 1f, 0.8156863f);
         characterUIText.fontSize = (message == "Good Job!!!") ? 40 : 20;
         characterUIText.fontStyle = (message == "Good Job!!!") ? FontStyles.Bold | FontStyles.Italic : FontStyles.Normal;
 

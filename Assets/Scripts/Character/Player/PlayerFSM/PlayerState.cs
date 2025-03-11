@@ -10,7 +10,7 @@ public class PlayerState : CharacterState<Player>
     protected int deadCount = 1;
     protected InputController Input { get; private set; }
 
-    private float spikeDamageTimer = 0f; // **µØ´ÌÉËº¦¼ÆÊ±Æ÷**
+    private float spikeDamageTimer = 0f; // **ï¿½Ø´ï¿½ï¿½Ëºï¿½ï¿½ï¿½Ê±ï¿½ï¿½**
 
     public PlayerState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
     {
@@ -48,28 +48,28 @@ public class PlayerState : CharacterState<Player>
             Character.dashUsageTimer = Character.dashCooldown;
         }
 
-        // **¸üÐÂµØ´ÌÉËº¦¼ÆÊ±Æ÷**
+        // **ï¿½ï¿½ï¿½ÂµØ´ï¿½ï¿½Ëºï¿½ï¿½ï¿½Ê±ï¿½ï¿½**
         if (spikeDamageTimer > 0)
         {
             spikeDamageTimer -= Time.deltaTime;
         }
 
-        // **¼ì²âÊÇ·ñÅöµ½µØ´Ì£¬²¢ÏÞÖÆÉËº¦ÆµÂÊ**
+        // **ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´Ì£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Æµï¿½ï¿½**
         if (spikeDamageTimer <= 0 && Physics2D.OverlapCircle(Character.transform.position, 0.2f, LayerMask.GetMask("Spikes")))
         {
             PlayerDamageable damageable = Character.GetComponent<PlayerDamageable>();
             if (damageable != null)
             {
-                damageable.currentHp -= 10; // **Ã¿´ÎÊÜÉË¼õÉÙ 10 µãÑªÁ¿**
-                spikeDamageTimer = 1.0f; // **ÉèÖÃ 1 ÃëµÄÀäÈ´Ê±¼ä**
+                damageable.currentHp -= 10; // **Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ 10 ï¿½ï¿½Ñªï¿½ï¿½**
+                spikeDamageTimer = 1.0f; // **ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½È´Ê±ï¿½ï¿½**
 
-                // **ÇÐ»»µ½ HitState**
+                // **ï¿½Ð»ï¿½ï¿½ï¿½ HitState**
                 Fsm.SwitchState(Character.HitState);
                 return;
             }
         }
 
-        // **¼ì²âÍæ¼ÒÑªÁ¿ÊÇ·ñ¹éÁã£¬ÇÐ»»µ½ DeadState**
+        // **ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ã£¬ï¿½Ð»ï¿½ï¿½ï¿½ DeadState**
         if (Character.GetComponent<PlayerDamageable>().currentHp <= 0)
         {
             Fsm.SwitchState(Character.DeadState);

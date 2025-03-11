@@ -149,6 +149,7 @@ public class SwordSKillController : MonoBehaviour
     {
         if (isBouncing && enemyTargets.Count > 0)
         {
+            anim.SetBool("Rotation", true);
             var enemyPos = enemyTargets[targetIndex].position + new Vector3(0, 1, 0);
             transform.position = Vector2.MoveTowards(pos, enemyPos, bounceSpeed * Time.deltaTime);
             if (Vector2.Distance(pos, enemyPos) < 0.1f)

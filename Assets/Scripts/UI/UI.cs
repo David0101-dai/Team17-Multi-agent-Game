@@ -23,6 +23,7 @@ public class UI : MonoBehaviour
     [SerializeField] public UI_SkillToolTip skillToolTip;
     [SerializeField] private PauseManager pauseManager;
 
+
     [Header("SKILL")]
     public SkillTreeSlot dashUnlockedButton;
     public SkillTreeSlot cloneOnDashUnlockedButton;

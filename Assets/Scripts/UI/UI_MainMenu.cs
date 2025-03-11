@@ -19,6 +19,8 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private TMP_InputField playerNameInputField;  // 输入框组件
     [SerializeField] private Button submitNameButton;              // 提交名称按钮
 
+
+
     private SaveManager saveManager;
 
     private void Awake()

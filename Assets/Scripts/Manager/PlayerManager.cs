@@ -7,10 +7,12 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     public static PlayerManager Instance { get; private set; }
     public GameObject player;
     public  Scores scores;
+    public  static string playerName;
     public int currency; 
 
     private void Awake()
     {
+        //playerName=PlayerPrefs.GetString()
             if (Instance != null)
         {
             Debug.LogWarning("PlayerManager instance already exists!");
@@ -87,9 +89,9 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         currency++;
         SaveManager.instance.SaveGame();  // 确保数据被保存
     }
-
-
-
-
+    public void initialCurrency()
+    {
+        currency = 0;
+    }
 }
 

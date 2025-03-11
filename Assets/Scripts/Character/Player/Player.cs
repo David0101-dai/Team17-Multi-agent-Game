@@ -82,10 +82,10 @@ public class Player : Character
         
         //更方便获得技能
         Skill = SkillManager.Instance;
-
         InputController = GetComponent<InputController>();
         Damageable = GetComponent<Damageable>();
         FlashFX = GetComponent<FlashFX>();
+
         Damageable.OnTakeDamage += (from, to) =>
         {
             damageFrom = from;
@@ -131,7 +131,12 @@ public class Player : Character
 
     public override void Die()
     {
+        if (PlayerManager.Instance.isDead)
+        {
+            return;
+        }
         Debug.Log("dead");
+        PlayerManager.Instance.isDead = true;
         Fsm.SwitchState(DeadState);
     }
 

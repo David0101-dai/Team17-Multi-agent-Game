@@ -12,7 +12,7 @@ public class SkeletonGroundState : SkeletonState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(12, Character.transform); //���ý���Ч
+        AudioManager.instance.PlaySFX(12, Character.transform); //���ý���Ч
     }
 
     public override void Update()
@@ -32,7 +32,7 @@ public class SkeletonGroundState : SkeletonState
         }
 
         // 检查是否需要切换到追击状态
-        if (Fsm.CurrentState != Character.ChaseState && ColDetect.DetectedPlayer)
+        if (Fsm.CurrentState != Character.ChaseState && ColDetect.DetectedPlayer && !PlayerManager.Instance.isDead)
         {
             Fsm.SwitchState(Character.ChaseState);
         }

@@ -83,16 +83,65 @@ public class UI : MonoBehaviour
         SwitchTo(null);
     }
 
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C)||(characterUI.activeSelf&&Input.GetKeyDown(KeyCode.Escape)))
+        // 1) 处理按下 C 键 -> 打开/关闭角色面板
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            pauseManager.closeUI();
-            if (!PauseManager.isPaused)
+            // 如果角色面板是关的，则打开并暂停游戏
+            // 如果角色面板是开的，则关闭并恢复游戏
+            if (!characterUI.activeSelf)
             {
-                pauseManager.TogglePauseUI();
+                // 先保证其他UI都关掉
+                SwitchTo(null);
+                // 如果游戏没暂停就暂停
+                if (!PauseManager.isPaused) pauseManager.TogglePauseUI();
+                characterUI.SetActive(true);
             }
-            SwitchWithKeyTo(characterUI);
+            else
+            {
+                // 关闭角色UI并恢复游戏
+                characterUI.SetActive(false);
+                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
+            }
+            return;
+        }
+
+        // 2) 处理按下 ESC 键 -> 关闭当前打开的 UI
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // 如果角色面板是开着的
+            if (characterUI.activeSelf)
+            {
+                characterUI.SetActive(false);
+                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
+            }
+            // 如果合成面板是开着的
+            else if (craftUI.activeSelf)
+            {
+                craftUI.SetActive(false);
+                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
+            }
+            // 如果技能树是开着的
+            else if (skillTreeUI.activeSelf)
+            {
+                skillTreeUI.SetActive(false);
+                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
+            }
+            // 如果选项面板是开着的
+            else if (optionsUI.activeSelf)
+            {
+                optionsUI.SetActive(false);
+                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
+            }
+            // 如果都没开，则可根据需求来决定做什么
+            // 比如：打开或关闭暂停菜单 pauseManager.TogglePause();
+            // 或者什么也不做。
+            else
+            {
+                // 可以在此写：pauseManager.TogglePause();
+            }
             return;
         }
     }

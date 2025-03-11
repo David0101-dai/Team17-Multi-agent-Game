@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameData
 {
     public int currency;
+    public string closetCheckPointId;
     // 用于存储字典的键和值
     public List<string> inventoryKeys = new List<string>();
     public List<int> inventoryValues = new List<int>();
@@ -33,6 +34,7 @@ public class GameData
         this.equipmentId = new List<string>();
         this.skillTree = new SerializableDictionary<string, bool>();
         this.checkpoint = new SerializableDictionary<string, bool>();
+        this.closetCheckPointId = string.Empty;
     }
 
     // 在序列化前调用，将字典的键和值填充到列表中

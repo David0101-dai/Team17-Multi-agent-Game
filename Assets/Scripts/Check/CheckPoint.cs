@@ -20,7 +20,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(collision.GetComponent<Player>()!= null)
         {
-            ActivateCheckPoint();
+            ActivateCheckPointWhenCollision();
         }
     }
     void LateUpdate()
@@ -44,7 +44,6 @@ public void ActivateCheckPoint()
         Debug.LogWarning($"Animator not found on CheckPoint {checkPointId}. Activation skipped.");
         return;  // 如果找不到 Animator，就跳过激活
     }
-
     anim.SetBool("Active", true);  // 激活动画
     activated = true;
 
@@ -64,6 +63,36 @@ public void ActivateCheckPoint()
     }
 }
 
+public void ActivateCheckPointWhenCollision()
+{
+    // 检查 Animator 是否初始化
+    if (anim == null)
+    {
+        Debug.LogWarning($"Animator not found on CheckPoint {checkPointId}. Activation skipped.");
+        return;  // 如果找不到 Animator，就跳过激活
+    }
 
+    Debug.Log("激活存档点" + checkPointId);
+
+    anim.SetBool("Active", true);  // 激活动画
+    activated = true;
+
+    // 确保立即更新存档数据
+    GameData gameData = SaveManager.instance.CurrentGameData();
+    if (gameData != null)
+    {
+        if (!gameData.checkpoint.ContainsKey(checkPointId))
+        {
+            gameData.checkpoint.Add(checkPointId, activated);
+        }
+        else
+        {
+            gameData.checkpoint[checkPointId] = activated;
+        }
+        gameData.closetCheckPointId =  checkPointId;
+        SaveManager.instance.SaveGame();
+    }
+
+}
 
 }

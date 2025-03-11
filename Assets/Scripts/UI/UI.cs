@@ -75,7 +75,7 @@ public class UI : MonoBehaviour
         }else{
             Debug.Log("dashUnlockedButton has been initialized.");
         }
-        
+        fadeScreen.gameObject.SetActive(true);
     }
     private void Start()
     {

@@ -10,7 +10,11 @@ public class SkeletonAttackState : SkeletonState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(12, Character.transform); //÷¼÷Ã½ÐÒôÐ§
+        if(PlayerManager.Instance.isDead){
+            Fsm.SwitchState(Character.IdleState);
+        }
+
+        AudioManager.instance.PlaySFX(12, Character.transform);
     }
 
     public override void Update()

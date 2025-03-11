@@ -9,8 +9,9 @@ public class HitState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
+//        Debug.Log("Enter hit State");
 
-        AudioManager.instance.PlaySFX(6,null); //ÊÜ»÷ÒôĞ§
+        AudioManager.instance.PlaySFX(6,null); 
 
         if (Character.damageFrom)
         {

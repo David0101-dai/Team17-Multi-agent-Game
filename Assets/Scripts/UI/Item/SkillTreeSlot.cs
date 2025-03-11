@@ -252,6 +252,23 @@ public void OnPointerExit(PointerEventData eventData)
             CancelSkill();
         }
 
+        // 如果技能已解锁，及时更新技能图标的颜色
+        if (unlocked && skillImage.color != Color.white)
+        {
+            skillImage.color = Color.white; // 更新颜色为解锁状态
+        }
+        // 如果技能没有解锁，及时更新技能图标的颜色
+        else if (!unlocked && skillImage.color != lockedColor)
+        {
+            skillImage.color = lockedColor; // 更新为锁定状态的颜色
+        }
+
+        // 如果技能状态发生变化，确保数据保存
+        if (isSaved == false)
+        {
+            SaveDataImmediately();
+        }
+
         //Debug.Log(skillName +" "+ unlocked);
         //Debug.Log(skillName + "saved "+ isSaved);
     }

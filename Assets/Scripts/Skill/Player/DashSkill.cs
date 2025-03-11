@@ -21,8 +21,8 @@ public class DashSkill: Skill
     {
         // 等待直到 UI 初始化完成
         while (UI.Instance == null ||
-         UI.Instance.dashUnlockedButton == null ||
-          UI.Instance.cloneOnDashUnlockedButton == null)
+               UI.Instance.dashUnlockedButton == null ||
+               UI.Instance.cloneOnDashUnlockedButton == null)
         {
             yield return null;  // 每一帧检查一次
         }
@@ -52,7 +52,7 @@ public class DashSkill: Skill
         }
 
         // 在初始化按钮后，调用 WaitAndCheckUnlock 来加载技能数据
-    yield return StartCoroutine(WaitAndCheckUnlock());
+        yield return StartCoroutine(WaitAndCheckUnlock());
     }
 
     protected override void OnEnable()

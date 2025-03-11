@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     public  Scores scores;
     public  static string playerName;
     public int currency; 
+    public bool isDead;
 
     private void Awake()
     {
@@ -33,6 +34,8 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         {
             StartCoroutine(RegisterWhenReady());
         }
+
+        isDead = false;
     }
    
     private IEnumerator RegisterWhenReady()

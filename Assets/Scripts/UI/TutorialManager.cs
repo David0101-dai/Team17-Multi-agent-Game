@@ -21,6 +21,13 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
+        // 如果不是新游戏，直接跳过教程
+        if (!All.IsNewGame)
+        {
+            // 可以选择把教程文本隐藏、或直接Destroy(TutorialManager)
+            return;
+        }
+
         dashSkill = FindObjectOfType<DashSkill>();
         counterSkill = FindObjectOfType<CounterSkill>();
         StartCoroutine(RunTutorial()); // 启动教程流程

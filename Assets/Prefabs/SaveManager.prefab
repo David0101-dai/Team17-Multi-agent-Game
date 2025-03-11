@@ -21212,6 +21212,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endText: {fileID: 0}
   fadeScreen: {fileID: 0}
+  ReStartButton: {fileID: 0}
+  ReturnHomeButton: {fileID: 0}
   inGameUI: {fileID: 0}
   Equipment: {fileID: 0}
   Inventory: {fileID: 0}

@@ -2237,7 +2237,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7248\u672C2.2.2\n\u6E38\u620F\u4E3A\u6D4B\u8BD5\u7248\u672C\uFF0C\u4E0D\u4EE3\u8868\u6700\u7EC8\u54C1\u8D28"
+  m_text: "\u7248\u672C2.2.49\n\u6E38\u620F\u4E3A\u6D4B\u8BD5\u7248\u672C\uFF0C\u4E0D\u4EE3\u8868\u6700\u7EC8\u54C1\u8D28"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
   m_sharedMaterial: {fileID: -7622291990727463673, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}

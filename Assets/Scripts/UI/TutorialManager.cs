@@ -68,7 +68,7 @@ public class TutorialManager : MonoBehaviour
         
         
 
-        while (dashSkill != null && !dashSkill.dashUnlocked && counterSkill != null && !counterSkill.counterUnlocked)
+        while (!dashSkill.dashUnlocked || !counterSkill.counterUnlocked)
         {
             yield return ShowMessageOnCharacterUI("Click \"Dash\" & \"Counter\" to unlock them", 0.5f);
         }

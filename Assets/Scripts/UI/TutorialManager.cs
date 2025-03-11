@@ -43,6 +43,19 @@ public class TutorialManager : MonoBehaviour
         yield return WaitForPlayerInput(KeyCode.Mouse1);
 
         yield return ShowMessage("Good Job!!!", 2f);
+        yield return ShowMessage("Press Space while in the air to double jump", 2f);
+
+        yield return ShowMessage("Press Esc to pause", 2f);
+        yield return WaitForPlayerInput(KeyCode.Escape);
+        yield return WaitForPlayerInput(KeyCode.Escape);
+
+        yield return ShowMessage("Good Job!!!", 2f);
+        yield return ShowMessage("Press \"C\" open Equipment Bar", 2f);
+        yield return WaitForPlayerInput(KeyCode.C);
+        yield return WaitForPlayerInput(KeyCode.C);
+
+        yield return ShowMessage("Now, kill all the enemys.", 2f);
+
         yield return FadeOut(); // 最后完全隐藏文本
     }
 

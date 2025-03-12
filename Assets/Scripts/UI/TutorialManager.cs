@@ -93,7 +93,7 @@ public class TutorialManager : MonoBehaviour
         
         yield return ShowMessage("Good Job!!!", 1f);
         yield return ShowMessage("Now let's install some equipments", 1f);
-        yield return ShowMessage("Press \"C\" open Equipment Bar", 0f);
+        yield return ShowMessage("Press C open Equipment Bar", 0f);
         yield return WaitForPlayerInput(KeyCode.C);
         yield return WaitForPlayerInput(KeyCode.C);
         yield return ShowMessage("Great!!!", 1f);

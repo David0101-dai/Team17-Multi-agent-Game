@@ -182,7 +182,7 @@ public class UI : MonoBehaviour
     IEnumerator EndScreenCorutione(){
         yield return new WaitForSeconds(1);
         endText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         ReStartButton.SetActive(true);
         ReturnHomeButton.SetActive(true);
     }
@@ -191,6 +191,14 @@ public class UI : MonoBehaviour
         return fadeScreen;
     }
 
-    public void ReStartGameButton() => GameManager.Instance.ReStartGame(); 
+    public void ReStartGameButton()
+    {
+        // 标记为 false，表示这不是一次需要教程的新游戏
+        All.IsNewGame = false;
+
+        // 然后调用你的重开游戏逻辑
+        GameManager.Instance.ReStartGame();
+    }
+
     public void ReturnHome() => GameManager.Instance.ReturnHome();  
 }

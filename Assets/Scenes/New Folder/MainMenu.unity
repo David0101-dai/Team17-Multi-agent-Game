@@ -2237,10 +2237,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7248\u672C2.2.49\n\u6E38\u620F\u4E3A\u6D4B\u8BD5\u7248\u672C\uFF0C\u4E0D\u4EE3\u8868\u6700\u7EC8\u54C1\u8D28"
+  m_text: "\u7248\u672C2.2.79\n\u6E38\u620F\u4E3A\u6D4B\u8BD5\u7248\u672C\uFF0C\u4E0D\u4EE3\u8868\u6700\u7EC8\u54C1\u8D28"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
-  m_sharedMaterial: {fileID: -7312501066460248665, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
+  m_sharedMaterial: {fileID: 8835569802119058117, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2829,8 +2829,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
-  m_sharedMaterial: {fileID: -7312501066460248665, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4004,8 +4004,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: What is Your Name?
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
-  m_sharedMaterial: {fileID: -7312501066460248665, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4349,7 +4349,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
+  m_GlobalFontAsset: {fileID: 0}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1

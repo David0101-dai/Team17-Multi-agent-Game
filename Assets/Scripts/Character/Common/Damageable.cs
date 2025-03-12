@@ -112,7 +112,6 @@ public abstract class Damageable : MonoBehaviour
 
     public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, bool isFromSwordSkill = false)
     {
-        
         if (isDead) return;
 
         if (currentHp <= 0)
@@ -121,7 +120,6 @@ public abstract class Damageable : MonoBehaviour
             Die();
             currentHp = 0;  // Ensure the HP doesn't go below 0
         }
-
 
         // 如果当前对象是玩家，并且处于无敌状态，则忽略伤害
         var playerComponent = GetComponent<Player>();
@@ -139,8 +137,6 @@ public abstract class Damageable : MonoBehaviour
         {
             damage = Mathf.RoundToInt(damage * 0.3f);
         }
-
-
 
         if (isVulnerable)
         {
@@ -204,9 +200,9 @@ public abstract class Damageable : MonoBehaviour
             if (damage != 0)
             {
                // Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
-                OnTakeDamage?.Invoke(from, gameObject);
-                AttackSense.Instance.HitPause(0.1f);
+                OnTakeDamage?.Invoke(from, gameObject);     
                 if(triggerCriticalStrike){
+                    //AttackSense.Instance.HitPause(0.1f);
                     AttackSense.Instance.GetComponent<CinemachineImpulseSource>().GenerateImpulse(); 
                     triggerCriticalStrike = false;
                 }
@@ -351,6 +347,8 @@ public abstract class Damageable : MonoBehaviour
     }
 
     protected abstract void Die();
+
+    public void KillEntity() => Die();
 
     public virtual void CloneTakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, float _multiplier = 1f)
     {

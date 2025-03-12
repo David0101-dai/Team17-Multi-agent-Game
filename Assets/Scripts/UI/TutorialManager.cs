@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI; // 引入UI命名空间
 using TMPro;
 
 public class TutorialManager : MonoBehaviour
@@ -16,7 +17,12 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI characterUIText;         // 第二个文本框
     public CanvasGroup characterTextCanvasGroup;    // 第二个 CanvasGroup
 
+    [Header("跳过按钮")]
+    public GameObject skipButton; // 直接引用按钮 GameObject
+
+
     private bool waitingForInput = false;
+    private bool isTutorialSkipped = false; // 跳过标识
     public float fadeDuration = 1f;  // 控制渐隐渐显的时间，值越小动画越快，值越大动画越慢
 
     void Start()
@@ -25,81 +31,132 @@ public class TutorialManager : MonoBehaviour
         if (!All.IsNewGame)
         {
             // 可以选择把教程文本隐藏、或直接Destroy(TutorialManager)
+            skipButton.SetActive(false);
             return;
         }
 
         dashSkill = FindObjectOfType<DashSkill>();
         counterSkill = FindObjectOfType<CounterSkill>();
+
+        // 确保跳过按钮显示，并绑定按钮点击事件
+        skipButton.SetActive(true);
+        skipButton.GetComponent<Button>().onClick.AddListener(SkipTutorial);
+
         StartCoroutine(RunTutorial()); // 启动教程流程
     }
+
+    
+
+
+
+    /// <summary>
+    /// 跳过教程
+    /// </summary>
+    public void SkipTutorial()
+    {
+        isTutorialSkipped = true;
+        // 隐藏按钮
+        skipButton.SetActive(false);
+        textCanvasGroup.alpha = 0;
+        characterTextCanvasGroup.alpha = 0;
+    }
+
+
 
     /// <summary>
     /// 主教程流程控制
     /// </summary>
     IEnumerator RunTutorial()
     {
-        yield return new WaitForSeconds(1f);  // 初始等待 1 秒
-        
-        
+        //yield return new WaitForSeconds(1f);  // 初始等待 1 秒
 
+
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Welcome to the tutorial!", 1f); // 显示欢迎信息 2 秒
-
        
 
+
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Press A or D to move", 0f);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.A, KeyCode.D);
 
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Good Job!!!", 1f);
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Left Click to attack", 0f);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.Mouse0);
 
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Good Job!!!", 1f);
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Press the space bar", 0f); // 提示按空格
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.Space); // 等待玩家按下空格
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Good Job!!!", 1f); // 显示 "Good Job!!!" 并等待 2 秒
 
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Press Space while in the air to double jump", 0f);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.Space);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.Space);
 
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Good Job!!!", 1f);
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Now let's learn some skills", 1f);
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Press \"C\" and open \"Skill Tree\"", 1f);
-        
-        
 
+
+        if (isTutorialSkipped) yield break;
         while (!dashSkill.dashUnlocked || !counterSkill.counterUnlocked)
         {
             yield return ShowMessageOnCharacterUI("Click \"Dash\" & \"Counter\" to unlock them", 0.5f);
         }
-
+        if (isTutorialSkipped) yield break;
         yield return ShowMessageOnCharacterUI("Good Job!!!", 1f);
 
         //yield return WaitForPlayerInput(KeyCode.Escape);
 
-
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Press Shift to dash", 0f);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.LeftShift);
 
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Good Job!!!", 1f);
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Right Click to counter", 0f);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.Mouse1);
 
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Good Job!!!", 1f);
-       
 
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Press Esc to pause", 0f);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.Escape);
-        
+
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Good Job!!!", 1f);
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Now let's install some equipments", 1f);
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Press C open Equipment Bar", 0f);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.C);
+        if (isTutorialSkipped) yield break;
         yield return WaitForPlayerInput(KeyCode.C);
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Great!!!", 1f);
 
 
-
+        if (isTutorialSkipped) yield break;
         yield return ShowMessage("Now, Kill all the enemys.", 1f);
 
         yield return FadeOut(); // 最后完全隐藏文本
@@ -140,6 +197,12 @@ public class TutorialManager : MonoBehaviour
         waitingForInput = true;
         while (waitingForInput)
         {
+            // 如果教程被跳过，退出协程
+            if (isTutorialSkipped)
+            {
+                waitingForInput = false;
+                yield break;
+            }
             foreach (KeyCode key in keys)
             {
                 if (Input.GetKeyDown(key)) // 监听玩家输入

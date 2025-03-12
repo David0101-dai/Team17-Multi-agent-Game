@@ -1,10 +1,12 @@
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(InputController))]
 [RequireComponent(typeof(PlayerDamageable))]
 public class Player : Character
 {
+    public CinemachineVirtualCamera counterCamera;
     //public static Player instance;
     #region Value
     [Header("Move Value")]
@@ -102,7 +104,7 @@ public class Player : Character
         AttackState = new AttackState(Fsm, this, "Attack");
         HitState = new HitState(Fsm, this, "Hit");
         DeadState = new DeadState(Fsm, this, "Dead");
-        CounterState = new CounterState(Fsm, this, "Counter");
+        CounterState = new CounterState(Fsm, this, "Counter", counterCamera);
         AimSwordState = new AimSwordState(Fsm, this, "AimSword");
         CatchSwordState = new CatchSwordState(Fsm, this, "CatchSword");
         BlackholeState = new BlackholeState(Fsm, this, "Jump");

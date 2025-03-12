@@ -7,7 +7,6 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     public static PlayerManager Instance { get; private set; }
     public GameObject player;
     public  Scores scores;
-    public  static string playerName;
     public int currency; 
     public bool isDead;
 

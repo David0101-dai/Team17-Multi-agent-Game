@@ -16,6 +16,9 @@ public class PlayerDamageable : Damageable
     // 重写 TakeDamage 方法
     public override void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, bool isFromSwordSkill = false)
     {
+         if(isInvincible){
+            return;
+        }
         // 调用父类的 TakeDamage 方法
         base.TakeDamage(from, isMagic, canEffect);
         Vector3 effectPosition = transform.position + new Vector3(0, offset, 0);

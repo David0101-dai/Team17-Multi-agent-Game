@@ -49,9 +49,9 @@ public abstract class Damageable : MonoBehaviour
     public GameObject thunderStrikePrefab;
     public float shockDuration;
     private float shockedTimer;
-
     private bool isDead;
     private bool isVulnerable;
+    public bool isInvincible = false;
 
     public event Action<GameObject, GameObject> OnTakeDamage;
     private FlashFX flashFX;
@@ -99,8 +99,8 @@ public abstract class Damageable : MonoBehaviour
     }
 
     public void MakeVulnerableFor(float _duration) => StartCoroutine(VulnerableCorutine(_duration));
+    public void MakeInvincible(bool _invincible) => isInvincible = _invincible;
     
-
     private IEnumerator VulnerableCorutine(float _duration)
     {
         isVulnerable = true;
@@ -123,7 +123,7 @@ public abstract class Damageable : MonoBehaviour
 
         // 如果当前对象是玩家，并且处于无敌状态，则忽略伤害
         var playerComponent = GetComponent<Player>();
-        if (playerComponent != null && playerComponent.isInvincible)
+        if (isInvincible)
         {
             Debug.Log($"{gameObject.name}处于无敌状态，忽略伤害");
             return;
@@ -352,47 +352,35 @@ public abstract class Damageable : MonoBehaviour
 
     public virtual void CloneTakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, float _multiplier = 1f)
     {
-
         if (isDead) return;
-
         if (currentHp <= 0)
         {
             isDead = true;
             Die();
             currentHp = 0;  // Ensure the HP doesn't go below 0
         }
-
-
         // 如果当前对象是玩家，并且处于无敌状态，则忽略伤害
         var playerComponent = GetComponent<Player>();
-        if (playerComponent != null && playerComponent.isInvincible)
+        if (isInvincible)
         {
             Debug.Log($"{gameObject.name}处于无敌状态，忽略伤害");
             return;
         }
-
         var damageFrom = from.GetComponent<Damageable>();
-
         var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
-
         if (_multiplier > 0 )
         {
             damage = Mathf.RoundToInt(damage * _multiplier);
         }
-
         currentHp -= damage;
-
         if (from.CompareTag("Player") && canEffect)
         {
             Inventory.Instance.GetEquipmentByType(EquipmentType.Weapon)?.ExecuteItemEffect(from, gameObject);
         }
-
         if (CompareTag("Player") && ((float)currentHp / MaxHp.GetValue()) < 0.3)
         {
             Inventory.Instance.GetEquipmentByType(EquipmentType.Armor)?.ExecuteItemEffect(from, gameObject);
         }
-
-
         if (isMagic)
         {
             var fireDamage = damageFrom.FireDamage.GetValue();
@@ -456,8 +444,6 @@ public abstract class Damageable : MonoBehaviour
             Die();
         }
     }
-
-
     public Stats StatsOfType(StatType type) => type switch
     {
         StatType.Strength => Str,
@@ -476,4 +462,5 @@ public abstract class Damageable : MonoBehaviour
         StatType.LightingDamage => LightingDamage,
         _ => null
     };
+    
 }

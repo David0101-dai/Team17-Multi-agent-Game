@@ -39,7 +39,7 @@ public class CounterState : PlayerState
         base.Update();
         SetVelocity(0, 0);
        // 在防御期间设置角色无敌
-        Character.isInvincible = true;
+        Character.Damageable.MakeInvincible(true);
         if (hasDefenseBuff){
         Collider2D[] colliders = Physics2D.OverlapCircleAll(Character.attackCheck.position, Character.attackCheckRadius);
          // 记录当前的镜头大小
@@ -86,7 +86,7 @@ public class CounterState : PlayerState
     public override void Exit(IState newState)
     {
         base.Exit(newState);
-        Character.isInvincible = false;
+        Character.Damageable.MakeInvincible(false);
         Time.timeScale = 1;
         counterCamera.Priority = 10; // 恢复默认镜头
         counterCamera.m_Lens.OrthographicSize = 7.73f;

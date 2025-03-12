@@ -37,6 +37,9 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Update()
     {
+        if(Time.timeScale == 0){
+            return;
+        }
         Fsm.CurrentState?.Update();
 
         if (attackCheck == null)

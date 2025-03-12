@@ -15,6 +15,8 @@ public abstract class Enemy : Character
     [Header("Attack Value")]
     public float attackDistance = 2f;
     public float attackCooldown = 0.4f;
+    public float minAttackCooldown;
+    public float maxAttackCooldown;
     public float lostPlayerTime = 7f;
     private float lastHitTime = 0f;
     public float hitCooldown = 0.5f; // 设置冷却时间为 0.5 秒

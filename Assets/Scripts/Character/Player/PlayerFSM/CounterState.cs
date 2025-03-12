@@ -86,6 +86,8 @@ public class CounterState : PlayerState
     {
         base.Update();
         SetVelocity(0, 0);
+       // 在防御期间设置角色无敌
+        Character.isInvincible = true;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(Character.attackCheck.position, Character.attackCheckRadius);
         foreach (var hit in colliders)
         {
@@ -96,19 +98,20 @@ public class CounterState : PlayerState
                     StateTimer = 10;
                     counterCamera.m_Lens.OrthographicSize = 5;
                     // ✅ 激活特写镜头
+                     Anim.SetBool("CounterSuccess", true);
                     counterCamera.Priority = 50;
                     Time.timeScale = 0.2f;
-                    Anim.SetBool("CounterSuccess", true);
+                   
                     if (canCreateClone)
                     {
                         Character.Skill.Clone.CreateCloneOnCounterAttack(hit.transform);
                         canCreateClone = false;
                     }
-                    //if (hit.TryGetComponent(out Damageable to))
-                    //{
 
-                    //    to.TakeDamage(Character.gameObject);
-                    //}
+                    if (hit.TryGetComponent(out Damageable to))
+                    {
+                       to.TakeDamage(Character.gameObject);
+                    }
                 }
             }
         }

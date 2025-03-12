@@ -1,4 +1,5 @@
-using System.Numerics;
+using System;
+using UnityEngine;  // 引入 Unity 引擎中的 Random 类
 
 public class SkeletonAttackState : SkeletonState
 {
@@ -24,7 +25,8 @@ public class SkeletonAttackState : SkeletonState
         if (IsAnimationFinished || !ColDetect.DetectedPlayer)
         {
             Fsm.SwitchState(Character.ChaseState);
-            attackCooldownTimer = Character.attackCooldown;
+            // 使用 UnityEngine.Random.Range 来随机设置攻击冷却时间
+            attackCooldownTimer = UnityEngine.Random.Range(Character.minAttackCooldown, Character.maxAttackCooldown);
         }
     }
 

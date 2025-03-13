@@ -55,10 +55,14 @@ public class TutorialManager : MonoBehaviour
     public void SkipTutorial()
     {
         isTutorialSkipped = true;
-        // 隐藏按钮
         skipButton.SetActive(false);
+        // 立即停止所有教程相关的协程
+        StopAllCoroutines();
+        // 直接隐藏所有文本
         textCanvasGroup.alpha = 0;
         characterTextCanvasGroup.alpha = 0;
+        // 关闭整个教程组件（也可根据需求选择 Destroy(gameObject)）
+        gameObject.SetActive(false);
     }
 
 

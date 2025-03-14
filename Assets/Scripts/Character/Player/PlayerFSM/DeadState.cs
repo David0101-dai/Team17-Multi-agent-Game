@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;  // 如果不需要UniTask可以删掉这个using
 using UnityEngine;
 
 public class DeadState : PlayerState
 {
-
     private float dissolveRate = 0.0125f;
     private float refreshRate = 0.025f;
+
     public DeadState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
     {
     }
@@ -16,30 +15,24 @@ public class DeadState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-        
-        if (deadCount>0) {
+
+        // 死亡次数检查，保存进度
+        if (deadCount > 0)
+        {
             deadCount--;
             PlayerManager.Instance.SaveFinaled();
         }
+
+        // 播放死亡音效
         AudioManager.instance.PlaySFX(14, null);
 
-        // 启动溶解效果协程
+        // 启动溶解效果协程（主线程，不会触发线程安全问题）
         Character.StartCoroutine(Dissolve());
 
-        // 使用异步任务进行 dissolve 计时器更新
-        Task.Run(async () =>
-        {
-            float counter = 1;
-            while (Character.Sr.material.GetFloat("_DissoiveAmount") > 0)
-            {
-                counter -= dissolveRate;
-                Character.Sr.material.SetFloat("_DissoiveAmount", counter);
-                await Task.Delay((int)(refreshRate * 1000));
-            }
-        });
-
-        // 使用协程等待 UI 初始化完成
+        // 确保 UI 已经初始化并启用
         EnsureUIInitialized();
+
+        // 等待 UI 初始化完成后，弹出死亡界面
         Character.StartCoroutine(InitializeUI());
     }
 
@@ -47,7 +40,6 @@ public class DeadState : PlayerState
     {
         if (UI.Instance != null)
         {
-           // Debug.Log("UI 确保启用");
             var ui = UI.Instance;  // 使用单例 UI
             if (ui != null)
             {
@@ -59,18 +51,19 @@ public class DeadState : PlayerState
 
     private IEnumerator InitializeUI()
     {
-       // Debug.Log("进入 InitializeUI 协程");
-        // 等待 UI 单例初始化
+        // 等待 UI 单例真正初始化
         yield return new WaitUntil(() => UI.Instance != null);
         var ui = UI.Instance;  // 使用 UI 单例
         float waitTime = 0f;
 
-        // 确保 UI 和 fadeScreen 正确初始化
-        while (ui.getFadeScreen() == null && waitTime < 3f) // 等待 3 秒
+        // 等待 UI 的 fadeScreen 准备好（最多等 3 秒）
+        while (ui.getFadeScreen() == null && waitTime < 3f)
         {
             yield return new WaitForSeconds(0.1f);
             waitTime += 0.1f;
         }
+
+        // 如果 fadeScreen 已经初始化完毕，就显示死亡界面
         if (ui.getFadeScreen() != null)
         {
             ui.SwitchOnEndScreen();
@@ -80,6 +73,7 @@ public class DeadState : PlayerState
     public override void Update()
     {
         base.Update();
+        // 确保角色死亡后速度为 0
         Rb.velocity = Vector2.zero;
     }
 
@@ -88,9 +82,12 @@ public class DeadState : PlayerState
         base.Exit(newState);
     }
 
+    /// <summary>
+    /// 在主线程用协程播放溶解效果。
+    /// </summary>
     IEnumerator Dissolve()
     {
-        float counter = 1;
+        float counter = 1f;
         while (Character.Sr.material.GetFloat("_DissoiveAmount") > 0)
         {
             counter -= dissolveRate;

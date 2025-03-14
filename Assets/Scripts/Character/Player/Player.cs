@@ -115,9 +115,12 @@ public class Player : Character
         //
         if (Input.GetKeyDown(KeyCode.Q) && Skill.Crystal.crystalUnlocked)
             Skill.Crystal.CanUseSkill();
-        
+
         //
         if (Input.GetKeyDown(KeyCode.Alpha1))
+
+            AudioManager.instance.PlaySFX(16, null); //喝水音效
+
             Inventory.Instance.UsedFlask();
     }
 

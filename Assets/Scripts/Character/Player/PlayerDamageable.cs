@@ -14,10 +14,19 @@ public class PlayerDamageable : Damageable
     }
 
     // 重写 TakeDamage 方法
-    public override void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, bool isFromSwordSkill = false)
+    public override void TakeDamage(GameObject from, 
+    bool isMagic = false, 
+    bool canEffect = true, 
+    bool isFromSwordSkill = false,
+    bool isFireDamage = false,
+    bool isIceDamage = false,
+    bool isShockDamage = false)
     {
+         if(isInvincible){
+            return;
+        }
         // 调用父类的 TakeDamage 方法
-        base.TakeDamage(from, isMagic, canEffect);
+        base.TakeDamage(from, isMagic, canEffect,isFromSwordSkill,isFireDamage,isIceDamage,isShockDamage);
         Vector3 effectPosition = transform.position + new Vector3(0, offset, 0);
         // 在角色的偏移位置生成流血特效
         Instantiate(bloodEffect, effectPosition, Quaternion.identity);

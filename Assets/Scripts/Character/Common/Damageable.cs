@@ -332,7 +332,11 @@ public abstract class Damageable : MonoBehaviour
 
     public void KillEntity() => Die();
 
-    public virtual void CloneTakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, float _multiplier = 1f)
+    public virtual void CloneTakeDamage(GameObject from, bool isMagic = false, 
+    bool canEffect = true, float _multiplier = 1f,
+    bool isFireDamage = false,
+    bool isIceDamage = false,
+    bool isShockDamage = false)
     {
         if (isDead) return;
         if (currentHp <= 0)
@@ -355,6 +359,7 @@ public abstract class Damageable : MonoBehaviour
             damage = Mathf.RoundToInt(damage * _multiplier);
         }
         currentHp -= damage;
+
         if (from.CompareTag("Player") && canEffect)
         {
             Inventory.Instance.GetEquipmentByType(EquipmentType.Weapon)?.ExecuteItemEffect(from, gameObject);
@@ -363,43 +368,25 @@ public abstract class Damageable : MonoBehaviour
         {
             Inventory.Instance.GetEquipmentByType(EquipmentType.Armor)?.ExecuteItemEffect(from, gameObject);
         }
+        
         if (isMagic)
         {
-            var fireDamage = damageFrom.FireDamage.GetValue();
-            var iceDamage = damageFrom.IceDamage.GetValue();
-            var lightingDamage = damageFrom.LightingDamage.GetValue();
+        var fireDamage = damageFrom.FireDamage.GetValue();
+        var iceDamage = damageFrom.IceDamage.GetValue();
+        var lightingDamage = damageFrom.LightingDamage.GetValue();
 
-            if (Mathf.Max(fireDamage, iceDamage, lightingDamage) <= 0) return;
+        if (Mathf.Max(fireDamage, iceDamage, lightingDamage) <= 0) return;
 
-            bool canApplyIgnite = fireDamage > iceDamage && fireDamage > lightingDamage;
-            bool canApplyChill = iceDamage > lightingDamage && iceDamage > fireDamage;
-            bool canApplyShock = lightingDamage > fireDamage && lightingDamage > iceDamage;
+        bool canApplyIgnite = isFireDamage && fireDamage > 0;
+        bool canApplyChill = isIceDamage && iceDamage > 0;
+        bool canApplyShock = isShockDamage && lightingDamage > 0;
 
-            while (!canApplyIgnite && !canApplyChill && !canApplyShock)
-            {
-                if (UnityEngine.Random.value < 0.3f && fireDamage > 0)
-                {
-                    canApplyIgnite = true;
-                    break;
-                }
-                if (UnityEngine.Random.value < 0.45f && iceDamage > 0)
-                {
-                    canApplyChill = true;
-                    break;
-                }
-                if (UnityEngine.Random.value < 0.7f && lightingDamage > 0)
-                {
-                    canApplyShock = true;
-                    break;
-                }
-            }
+        if (canApplyIgnite)
+        {
+            SetupIgniteDamage(Mathf.RoundToInt(fireDamage * 0.2f));
+        }
 
-            if (canApplyIgnite)
-            {
-                SetupIgniteDamage(Mathf.RoundToInt(fireDamage * 0.2f));
-            }
-
-            ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+        ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
         }
 
         if (currentHp > 0)
@@ -407,13 +394,17 @@ public abstract class Damageable : MonoBehaviour
             if (damage != 0)
             {
                 // Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
+                
                 OnTakeDamage?.Invoke(from, gameObject);
-                AttackSense.Instance.HitPause(0.1f);
+                
+                //AttackSense.Instance.HitPause(0.1f);
+                
                 if (triggerCriticalStrike)
                 {
                     AttackSense.Instance.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
                     triggerCriticalStrike = false;
                 }
+
             }
             else
             {

@@ -100,7 +100,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+<<<<<<< HEAD
+  checkPointId: CheckPoint_4
+=======
   checkPointId: CheckPoint_0
+>>>>>>> 52cd8d698c3d1bd35035836e41f33c5abffc7993
   activated: 0
 --- !u!61 &2585569891424444117
 BoxCollider2D:

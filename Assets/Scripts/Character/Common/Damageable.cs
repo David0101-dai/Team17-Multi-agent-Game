@@ -110,114 +110,98 @@ public abstract class Damageable : MonoBehaviour
         isVulnerable = false;
     }
 
-    public virtual void TakeDamage(GameObject from, bool isMagic = false, bool canEffect = true, bool isFromSwordSkill = false)
+    public virtual void TakeDamage(
+    GameObject from, 
+    bool isMagic = false, 
+    bool canEffect = true, 
+    bool isFromSwordSkill = false,
+    bool isFireDamage = false,
+    bool isIceDamage = false,
+    bool isShockDamage = false)
+{
+    if (isDead) return;
+
+    if (currentHp <= 0)
     {
-        if (isDead) return;
+        isDead = true;
+        Die();
+        currentHp = 0;  // Ensure the HP doesn't go below 0
+        return;
+    }
 
-        if (currentHp <= 0)
+    if (isInvincible)
+    {
+        Debug.Log($"{gameObject.name}处于无敌状态，忽略伤害");
+        return;
+    }
+
+    var damageFrom = from.GetComponent<Damageable>();
+    var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
+
+    if (isFromSwordSkill)
+    {
+        damage = Mathf.RoundToInt(damage * 0.3f);
+    }
+
+    if (isVulnerable)
+    {
+        damage = Mathf.RoundToInt(damage * 2.0f);
+    }
+
+    currentHp -= damage;
+
+    if (from.CompareTag("Player") && canEffect)
+    {
+        Inventory.Instance.GetEquipmentByType(EquipmentType.Weapon)?.ExecuteItemEffect(from, gameObject);
+    }
+
+    if (CompareTag("Player") && ((float)currentHp / MaxHp.GetValue()) < 0.3)
+    {
+        Inventory.Instance.GetEquipmentByType(EquipmentType.Armor)?.ExecuteItemEffect(from, gameObject);
+    }
+
+    if (isMagic)
+    {
+        var fireDamage = damageFrom.FireDamage.GetValue();
+        var iceDamage = damageFrom.IceDamage.GetValue();
+        var lightingDamage = damageFrom.LightingDamage.GetValue();
+
+        if (Mathf.Max(fireDamage, iceDamage, lightingDamage) <= 0) return;
+
+        bool canApplyIgnite = isFireDamage && fireDamage > 0;
+        bool canApplyChill = isIceDamage && iceDamage > 0;
+        bool canApplyShock = isShockDamage && lightingDamage > 0;
+
+        if (canApplyIgnite)
         {
-            isDead = true;
-            Die();
-            currentHp = 0;  // Ensure the HP doesn't go below 0
+            SetupIgniteDamage(Mathf.RoundToInt(fireDamage * 0.2f));
         }
 
-        // 如果当前对象是玩家，并且处于无敌状态，则忽略伤害
-        var playerComponent = GetComponent<Player>();
-        if (isInvincible)
+        ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+    }
+
+    if (currentHp > 0)
+    {
+        if (damage != 0)
         {
-            Debug.Log($"{gameObject.name}处于无敌状态，忽略伤害");
-            return;
-        }
-
-        var damageFrom = from.GetComponent<Damageable>();
-
-        var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
-
-        if (isFromSwordSkill)
-        {
-            damage = Mathf.RoundToInt(damage * 0.3f);
-        }
-
-        if (isVulnerable)
-        {
-            damage = Mathf.RoundToInt(damage * 2.0f);
-        }
-
-        currentHp -= damage;
-
-        if (from.CompareTag("Player") && canEffect)
-        {
-            Inventory.Instance.GetEquipmentByType(EquipmentType.Weapon)?.ExecuteItemEffect(from, gameObject);
-        }
-
-        if (CompareTag("Player") && ((float)currentHp / MaxHp.GetValue()) < 0.3)
-        {
-            Inventory.Instance.GetEquipmentByType(EquipmentType.Armor)?.ExecuteItemEffect(from, gameObject);
-        }
-
-
-        if (isMagic)
-        {
-            var fireDamage = damageFrom.FireDamage.GetValue();
-            var iceDamage = damageFrom.IceDamage.GetValue();
-            var lightingDamage = damageFrom.LightingDamage.GetValue();
-
-            if (Mathf.Max(fireDamage, iceDamage, lightingDamage) <= 0) return;
-
-            bool canApplyIgnite = fireDamage > iceDamage && fireDamage > lightingDamage;
-            bool canApplyChill = iceDamage > lightingDamage && iceDamage > fireDamage;
-            bool canApplyShock = lightingDamage > fireDamage && lightingDamage > iceDamage;
-
-            while (!canApplyIgnite && !canApplyChill && !canApplyShock)
-            {
-                if (UnityEngine.Random.value < 0.3f && fireDamage > 0)
-                {
-                    canApplyIgnite = true;
-                    break;
-                }
-                if (UnityEngine.Random.value < 0.45f && iceDamage > 0)
-                {
-                    canApplyChill = true;
-                    break;
-                }
-                if (UnityEngine.Random.value < 0.7f && lightingDamage > 0)
-                {
-                    canApplyShock = true;
-                    break;
-                }
-            }
-
-            if (canApplyIgnite)
-            {
-                SetupIgniteDamage(Mathf.RoundToInt(fireDamage * 0.2f));
-            }
-
-            ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
-        }
-
-        if (currentHp > 0)
-        {
-            if (damage != 0)
-            {
-               // Debug.Log($"{gameObject.name} 受到了来自 {from.name} 的 {damage} 点伤害");
-                OnTakeDamage?.Invoke(from, gameObject);     
-                if(triggerCriticalStrike){
-                    //AttackSense.Instance.HitPause(0.1f);
-                    AttackSense.Instance.GetComponent<CinemachineImpulseSource>().GenerateImpulse(); 
-                    triggerCriticalStrike = false;
-                }
-            }
-            else
-            {
-                 Debug.Log($"{gameObject.name} 回避了来自 {from.name} 的攻击");
+            OnTakeDamage?.Invoke(from, gameObject);     
+            if(triggerCriticalStrike){
+                AttackSense.Instance.GetComponent<CinemachineImpulseSource>().GenerateImpulse(); 
+                triggerCriticalStrike = false;
             }
         }
         else
         {
-            isDead = true;
-            Die();
+            Debug.Log($"{gameObject.name} 回避了来自 {from.name} 的攻击");
         }
     }
+    else
+    {
+        isDead = true;
+        Die();
+    }
+}
+
 
     private int CalculateDamage(Damageable from, Damageable to)
     {
@@ -259,11 +243,9 @@ public abstract class Damageable : MonoBehaviour
 
         var finalMagicalDamage = fireDamage + iceDamage + lightingDamage + from.Int.GetValue();
 
-
         finalMagicalDamage -= to.MagicResistance.GetValue() + (to.Int.GetValue() * 3);
-
         finalMagicalDamage = Mathf.Clamp(finalMagicalDamage, 1, int.MaxValue);
-
+        
         return finalMagicalDamage;
     }
 

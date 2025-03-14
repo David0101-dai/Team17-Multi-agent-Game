@@ -8,6 +8,7 @@ public class SwordSKillController : MonoBehaviour
 
     [Header("Bounce Info")]
     private bool isBouncing;
+    private bool fireAttached;
     private float bounceSpeed;
     private int bounceAmount;
     private List<Transform> enemyTargets;
@@ -47,6 +48,7 @@ public class SwordSKillController : MonoBehaviour
         cd = GetComponent<CircleCollider2D>();
 
         canRotate = true;
+        fireAttached = true;
         enemyTargets = new List<Transform>();
     }
 
@@ -244,9 +246,13 @@ public class SwordSKillController : MonoBehaviour
         if (!other.TryGetComponent(out Enemy enemy)) return;
 
         EnemyDamageable enemyDamageable = enemy.GetComponent<EnemyDamageable>();
-
-
-        damageable.TakeDamage(player.gameObject, false, true, true);
+        
+        if(!fireAttached){
+            damageable.TakeDamage(player.gameObject, false, true, true);
+        }else{
+           damageable.TakeDamage(player.gameObject,true,true,false,true,false,false);
+        }
+        
         if (!needFreeze) return;
         
         if (player.Skill.Sword.timeStopUnlocked)

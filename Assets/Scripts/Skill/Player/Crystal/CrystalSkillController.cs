@@ -39,7 +39,7 @@ public class CrystalSkillController : MonoBehaviour
         Func<Transform, float, Transform> findClosestEnemy)
     {
 
-        AudioManager.instance.PlaySFX(8,null); //�ͷ�ˮ����Ч
+        AudioManager.instance.PlaySFX(8,null);
 
         if (player == null)
         {
@@ -139,7 +139,7 @@ public class CrystalSkillController : MonoBehaviour
             
             if (equipedAmulet != null)
                 equipedAmulet.ExecuteItemEffect(player.gameObject, hit.gameObject);
-            damageable.TakeDamage(player.gameObject, true);
+            damageable.TakeDamage(player.gameObject,true,true,false,false,false,true);
         }
     }
 

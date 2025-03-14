@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1c1f2520cd7104d893d3b7b325a3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  checkPointId: CheckPoint_0
+  activated: 0
 --- !u!61 &2585569891424444117
 BoxCollider2D:
   m_ObjectHideFlags: 0

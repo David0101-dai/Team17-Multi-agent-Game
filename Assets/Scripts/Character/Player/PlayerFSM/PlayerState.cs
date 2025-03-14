@@ -60,10 +60,11 @@ public class PlayerState : CharacterState<Player>
             PlayerDamageable damageable = Character.GetComponent<PlayerDamageable>();
             if (damageable != null)
             {
-                damageable.currentHp -= 10; // **ÿ�����˼��� 10 ��Ѫ��**
-                spikeDamageTimer = 1.0f; // **���� 1 �����ȴʱ��**
-
-                // **�л��� HitState**
+                if(PlayerManager.Instance.isDead){
+                     return;
+                }
+                damageable.currentHp -= 10;
+                spikeDamageTimer = 1.0f;
                 Fsm.SwitchState(Character.HitState);
                 return;
             }

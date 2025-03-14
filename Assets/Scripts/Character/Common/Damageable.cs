@@ -260,6 +260,7 @@ public abstract class Damageable : MonoBehaviour
             IsIgnited = ignite;
             ignitedTimer = igniteDuration;
             flashFX.AlimentsFxFor(flashFX.igniteColor, igniteDuration);
+            flashFX.igniteFx.Play();
             Debug.Log("结算为燃烧状态");
         }
         if (chill && canApplyChill)
@@ -268,6 +269,7 @@ public abstract class Damageable : MonoBehaviour
             chilledTimer = chillDuration;
             flashFX.AlimentsFxFor(flashFX.chillColor, chillDuration);
             character.SlowBy(0.5f, chillDuration);
+            flashFX.chillFx.Play();
             Debug.Log("结算为冻结状态");
         }
         if (shock && canApplyShock)
@@ -277,6 +279,7 @@ public abstract class Damageable : MonoBehaviour
                 IsShocked = shock;
                 shockedTimer = shockDuration;
                 flashFX.AlimentsFxFor(flashFX.shockColor, shockDuration);
+                flashFX.shockFx.Play();
                 Debug.Log("结算为感电状态");
             }
             else

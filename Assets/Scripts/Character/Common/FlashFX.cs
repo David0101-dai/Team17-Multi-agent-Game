@@ -10,10 +10,11 @@ public class FlashFX : MonoBehaviour
     public List<Color> igniteColor;
     public List<Color> chillColor;
     public List<Color> shockColor;
-
     private SpriteRenderer sr;
     private Damageable damageable;
-
+    public ParticleSystem igniteFx;
+    public ParticleSystem chillFx;
+    public ParticleSystem shockFx;
     [Header("Flash FX")]
     [SerializeField] private float flashTime = 0.1f;
 
@@ -52,6 +53,9 @@ public class FlashFX : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         StopCoroutine(coroutine);
         sr.color = Color.white;
+        igniteFx.Stop();
+        chillFx.Stop();
+        shockFx.Stop();
     }
 
     private IEnumerator RepeatingColorFx(List<Color> colors)

@@ -181,10 +181,12 @@ MonoBehaviour:
   shockColor:
   - {r: 0.972549, g: 1, b: 0.29803923, a: 1}
   - {r: 1, g: 0.8117647, b: 0.29803923, a: 1}
+  flashTime: 0.1
   igniteFx: {fileID: 8861622546710846927}
   chillFx: {fileID: 1804216203813926739}
   shockFx: {fileID: 8523513484640423625}
-  flashTime: 0.1
+  HitEffect: {fileID: 1816960831561789492, guid: 020f580b6e832ba49a60a8ab86c0d0d2, type: 3}
+  yOffset: 1
 --- !u!114 &5749342868065597504
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -52,6 +52,7 @@ public abstract class Damageable : MonoBehaviour
     private bool isDead;
     private bool isVulnerable;
     public bool isInvincible = false;
+    public bool Miss = false;
 
     public event Action<GameObject, GameObject> OnTakeDamage;
     private FlashFX flashFX;
@@ -207,9 +208,13 @@ public abstract class Damageable : MonoBehaviour
     {
         var finalEvasion = to.Evasion.GetValue() + to.Agi.GetValue();
 
-        if (from.IsShocked) finalEvasion += 20; //如果被雷劈可以减少地方的闪避率
+        if (from.IsShocked) finalEvasion -= 20; //如果被雷劈可以减少地方的闪避率
 
-        if (UnityEngine.Random.Range(0, 100) <= finalEvasion) return 0;
+        if (UnityEngine.Random.Range(0, 100) <= finalEvasion) 
+        {
+          to.Miss = true;
+          return 0;  
+        }
 
         var finalDamage = from.Damage.GetValue() + from.Str.GetValue() - to.Vit.GetValue();
 
@@ -223,6 +228,7 @@ public abstract class Damageable : MonoBehaviour
         }
 
         var finalCritical = from.CritChance.GetValue() + from.Agi.GetValue();
+
         if (UnityEngine.Random.Range(0, 100) <= finalCritical)
         {
             var finalCritPower = (CritPower.GetValue() + Str.GetValue()) * 0.01f;
@@ -232,6 +238,7 @@ public abstract class Damageable : MonoBehaviour
         }
 
         finalDamage = Mathf.Clamp(finalDamage, 1, int.MaxValue);
+        flashFX.CreatHitFX(to.transform); //打击特效
         return finalDamage;
     }
 
@@ -245,6 +252,7 @@ public abstract class Damageable : MonoBehaviour
 
         finalMagicalDamage -= to.MagicResistance.GetValue() + (to.Int.GetValue() * 3);
         finalMagicalDamage = Mathf.Clamp(finalMagicalDamage, 1, int.MaxValue);
+        flashFX.CreatHitFX(to.transform); //打击特效
         
         return finalMagicalDamage;
     }

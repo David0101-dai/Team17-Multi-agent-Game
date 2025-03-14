@@ -22,12 +22,13 @@ public class PlayerDamageable : Damageable
     bool isIceDamage = false,
     bool isShockDamage = false)
     {
-         if(isInvincible){
+         if(isInvincible || Miss){
+            Miss = false;
             return;
         }
         // 调用父类的 TakeDamage 方法
         base.TakeDamage(from, isMagic, canEffect,isFromSwordSkill,isFireDamage,isIceDamage,isShockDamage);
-        
+        if(Miss) return;
         Vector3 effectPosition = transform.position + new Vector3(0, offset, 0);
         // 在角色的偏移位置生成流血特效
         Instantiate(bloodEffect, effectPosition, Quaternion.identity);

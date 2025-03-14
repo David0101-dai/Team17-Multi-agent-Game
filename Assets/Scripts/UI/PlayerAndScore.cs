@@ -7,9 +7,9 @@ using UnityEngine;
 public class PlayerAndScore
 {
     public string playerName;
-    public int score;
+    public float score;
 
-    public PlayerAndScore(string playerName, int score)
+    public PlayerAndScore(string playerName, float score)
     {
         this.playerName = playerName;
         this.score = score;

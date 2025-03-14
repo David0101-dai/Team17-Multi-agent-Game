@@ -55,13 +55,14 @@ public class CounterState : PlayerState
                 {
 
                     StateTimer = 10;
+                    PlayerManager.Instance.AddScore(3);
                     // 使用 Lerp 来平滑过渡镜头的 OrthographicSize
-                counterCamera.m_Lens.OrthographicSize = Mathf.Lerp(initialOrthographicSize, targetOrthographicSize, lerpSpeed * Time.deltaTime);
+                    counterCamera.m_Lens.OrthographicSize = Mathf.Lerp(initialOrthographicSize, targetOrthographicSize, lerpSpeed * Time.deltaTime);
                 
-                // 激活特写镜头
-                Anim.SetBool("CounterSuccess", true);
-                counterCamera.Priority = 50;
-                Time.timeScale = 0.2f;
+                    // 激活特写镜头
+                    Anim.SetBool("CounterSuccess", true);
+                    counterCamera.Priority = 50;
+                    Time.timeScale = 0.2f;
                    
                     if (canCreateClone)
                     {

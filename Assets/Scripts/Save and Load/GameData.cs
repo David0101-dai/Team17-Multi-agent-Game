@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameData
 {
     public int currency;
+    public int finalScore;
     public string closetCheckPointId;
     // 用于存储字典的键和值
     public List<string> inventoryKeys = new List<string>();
@@ -30,6 +31,7 @@ public class GameData
     public GameData()
     {
         this.currency = 0;
+        this.finalScore = 0;
         this.inventory = new SerializableDictionary<string, int>();
         this.equipmentId = new List<string>();
         this.skillTree = new SerializableDictionary<string, bool>();

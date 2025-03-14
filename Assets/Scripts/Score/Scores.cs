@@ -7,7 +7,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Scores : ScriptableObject
 {
     public List<PlayerAndScore> scores = new List<PlayerAndScore>();
-    public void AddScore(int score)
+    public void AddScore(float score)
     {
         PlayerAndScore playerAndScore = new PlayerAndScore(PlayerPrefs.GetString("PlayerName","no name"),score);
         var existingPlayer = scores.Find(p => p.playerName == playerAndScore.playerName);

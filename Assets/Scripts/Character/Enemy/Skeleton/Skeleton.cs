@@ -50,6 +50,15 @@ public class Skeleton : Enemy
 
     public override void Die()
     {
+        if (this.gameObject.name == "BigSkeleton")
+        {
+            PlayerManager.Instance.AddScore(4);
+        }
+        else
+        {
+            PlayerManager.Instance.AddScore(2);
+        }
+        Debug.Log(PlayerManager.finalscore);
         Fsm.SwitchState(DeadState);
     }
 

@@ -145,7 +145,7 @@ private IEnumerator Start()
     public void StartNewGame()
     {
         All.IsNewGame = true;  // 标记：是新游戏
-        scores.printfScores();
+        Debug.Log("Final" + PlayerManager.finalscore);
         saveManager.DeleteSaveData();
         saveManager.NewGame();
         StartCoroutine(LoadSceneWithFadeEffect(1.5f));

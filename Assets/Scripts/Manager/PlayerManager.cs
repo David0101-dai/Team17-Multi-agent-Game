@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class PlayerManager : MonoBehaviour, ISaveManager
 {
+    [SerializeField] private EnemyLevel level;
     public static PlayerManager Instance { get; private set; }
     public GameObject player;
     public  Scores scores;
     public int currency; 
     public bool isDead;
-
+    public static int finalscore;
     private void Awake()
     {
         //playerName=PlayerPrefs.GetString()
@@ -70,6 +72,7 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         if (_data != null)
         {
             this.currency = _data.currency;  // 加载游戏数据中的货币
+            finalscore = _data.finalScore;
            // Debug.Log("Loaded currency: " + this.currency);  // 添加日志确认加载过程
         }
     }
@@ -78,12 +81,17 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         public void SaveData(ref GameData _data)
     {
         _data.currency = this.currency;  // 保存当前货币数据
+        _data.finalScore = finalscore;
         //Debug.Log("Saved currency: " + this.currency);  // 添加日志确认保存过程
     }
 
     public void SaveFinaled()
     {
-        scores.AddScore(currency);
+        scores.AddScore(calculateScore());
+    }
+    public float calculateScore()
+    {
+        return finalscore + currency * 0.5f - TimeManager.Instance.getTime() * 0.03f;
     }
 
     public void AddCurrency()
@@ -91,9 +99,14 @@ public class PlayerManager : MonoBehaviour, ISaveManager
         currency++;
         SaveManager.instance.SaveGame();  // 确保数据被保存
     }
-    public void initialCurrency()
+    public void AddScore(int add)
     {
-        currency = 0;
+        finalscore = finalscore + level.GetLevel() * add;
     }
+    //public void initialScore()
+    //{
+    //    currency = 0;
+    //    finalscore = 0;
+    //}
 }
 

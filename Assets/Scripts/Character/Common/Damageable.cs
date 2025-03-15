@@ -137,7 +137,7 @@ public abstract class Damageable : MonoBehaviour
     }
 
     var damageFrom = from.GetComponent<Damageable>();
-    var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
+    var damage = isMagic ? CalculateMagicDamage(damageFrom, this,isFireDamage,isIceDamage,isShockDamage) : CalculateDamage(damageFrom, this);
 
     if (isFromSwordSkill)
     {
@@ -238,11 +238,19 @@ public abstract class Damageable : MonoBehaviour
         }
 
         finalDamage = Mathf.Clamp(finalDamage, 1, int.MaxValue);
-        flashFX.CreatHitFX(to.transform); //打击特效
+
+
+        if (triggerCriticalStrike)
+        {
+            flashFX.CreatHitFX(to.transform,1); // 生成基本的打击特效
+        }else{
+            flashFX.CreatHitFX(to.transform,0); //打击特效
+        }
+        
         return finalDamage;
     }
 
-    private int CalculateMagicDamage(Damageable from, Damageable to)
+    private int CalculateMagicDamage(Damageable from, Damageable to,bool isFireDamage, bool isIceDamage, bool isShockDamage)
     {
         var fireDamage = from.FireDamage.GetValue();
         var iceDamage = from.IceDamage.GetValue();
@@ -252,7 +260,22 @@ public abstract class Damageable : MonoBehaviour
 
         finalMagicalDamage -= to.MagicResistance.GetValue() + (to.Int.GetValue() * 3);
         finalMagicalDamage = Mathf.Clamp(finalMagicalDamage, 1, int.MaxValue);
-        flashFX.CreatHitFX(to.transform); //打击特效
+                // 在伤害计算后触发不同的打击特效动画
+        if (isFireDamage)
+        {
+            flashFX.CreatHitFX(to.transform, 2); // 生成基本的打击特效
+        }
+        else if (isIceDamage)
+        {
+            flashFX.CreatHitFX(to.transform, 3); // 生成基本的打击特效
+        }
+        else if (isShockDamage)
+        {
+            flashFX.CreatHitFX(to.transform, 4); // 生成基本的打击特效
+        }else{
+            flashFX.CreatHitFX(to.transform, 0); //打击特效
+        }
+        
         
         return finalMagicalDamage;
     }
@@ -364,7 +387,7 @@ public abstract class Damageable : MonoBehaviour
             return;
         }
         var damageFrom = from.GetComponent<Damageable>();
-        var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
+        var damage = isMagic ? CalculateMagicDamage(damageFrom, this,isFireDamage,isIceDamage,isShockDamage) : CalculateDamage(damageFrom, this);
         if (_multiplier > 0 )
         {
             damage = Mathf.RoundToInt(damage * _multiplier);

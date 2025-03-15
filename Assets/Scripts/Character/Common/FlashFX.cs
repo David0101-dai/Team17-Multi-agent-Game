@@ -21,10 +21,15 @@ public class FlashFX : MonoBehaviour
 
     [Header("Hit Fix")]
     [SerializeField] private GameObject HitEffect;
+    [SerializeField] private GameObject CriticalEffect;
+    [SerializeField] private GameObject FireEffect;
+    [SerializeField] private GameObject IceEffect;
+    [SerializeField] private GameObject ShockEffect;
     public float yOffset = 1f;  // 偏移量（增加y轴上的高度）
 
+    private Coroutine repeatingColorCoroutine;
 
-    private void Start()
+      private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         damageable = transform.GetComponent<Damageable>();
@@ -77,16 +82,38 @@ public class FlashFX : MonoBehaviour
         }
     }
 
-    public void CreatHitFX(Transform _target){
-       float zRotation = UnityEngine.Random.Range(-90,90);
-       float xPosition = UnityEngine.Random.Range(-.5f, .5f);    
-       float yPosition = UnityEngine.Random.Range(-.5f,  .5f);
+    public void CreatHitFX(Transform _target, int HitEffect_id)
+    {
+        float zRotation = UnityEngine.Random.Range(-90, 90);
+        float xPosition = UnityEngine.Random.Range(-.5f, .5f);    
+        float yPosition = UnityEngine.Random.Range(-.5f,  .5f);
+        GameObject newHitFx;
 
-        // 修改 yPosition，增加一个固定的偏移量，比如 1f
         yPosition += yOffset; // 将 yPosition 向上偏移 1f
 
-       GameObject newHitFx = Instantiate(HitEffect, _target.position + new Vector3(xPosition,yPosition),Quaternion.identity);
+        // 使用 switch 来简化条件判断
+        switch (HitEffect_id)
+        {
+            case 0:
+                newHitFx = Instantiate(HitEffect, _target.position + new Vector3(xPosition, yPosition), Quaternion.identity);
+                break;
+            case 1:
+                newHitFx = Instantiate(CriticalEffect, _target.position + new Vector3(xPosition, yPosition), Quaternion.identity);
+                break;
+            case 2:
+                newHitFx = Instantiate(FireEffect, _target.position + new Vector3(xPosition, yPosition), Quaternion.identity);
+                break;
+            case 3:
+                newHitFx = Instantiate(IceEffect, _target.position + new Vector3(xPosition, yPosition), Quaternion.identity);
+                break;
+            case 4:
+                newHitFx = Instantiate(ShockEffect, _target.position + new Vector3(xPosition, yPosition), Quaternion.identity);
+                break;
+            default:
+                Debug.LogWarning("Unknown HitEffect_id");
+                return;
+        }
 
-       newHitFx.transform.Rotate(new Vector3(0,0,zRotation));       
+        newHitFx.transform.Rotate(new Vector3(0, 0, zRotation));       
     }
 }

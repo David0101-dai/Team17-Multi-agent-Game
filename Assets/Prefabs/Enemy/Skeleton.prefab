@@ -726,6 +726,10 @@ MonoBehaviour:
   chillFx: {fileID: 4312027163265360292}
   shockFx: {fileID: 720751500820880708}
   HitEffect: {fileID: 1816960831561789492, guid: 020f580b6e832ba49a60a8ab86c0d0d2, type: 3}
+  CriticalEffect: {fileID: 8848158666034802305, guid: c1dc5811bbe371a4aa92651762e1948e, type: 3}
+  FireEffect: {fileID: 1048534142964658926, guid: 0a7db5607cddcbf4dac17461d20be3c5, type: 3}
+  IceEffect: {fileID: 2593558672561651338, guid: 87c41339e67be01458a0c67ae973e695, type: 3}
+  ShockEffect: {fileID: 4248622235448053354, guid: 0ad5a8031955c4547bcdb31f5bbe2e5d, type: 3}
   yOffset: 1
 --- !u!114 &2804243171117335249
 MonoBehaviour:
@@ -819,6 +823,7 @@ MonoBehaviour:
   thunderStrikePrefab: {fileID: 4050344180660983985, guid: 197d6a6330fb1a047aa8e053e9df76bb, type: 3}
   shockDuration: 2
   isInvincible: 0
+  Miss: 0
   level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
 --- !u!114 &2880547275683043672
 MonoBehaviour:

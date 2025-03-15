@@ -11,7 +11,9 @@ public class CatchSwordState : PlayerState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
+        
+        Character.FlashFX.playDust();
+        
         sword = Character.UsedSword.transform;
 
         if (Character.transform.position.x > sword.position.x && Flip.facingDir == 1)

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,10 @@ using UnityEngine.UI;
 
 public class UI_MainMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject leaderboardPanel;  // 排行榜面板
+    [SerializeField] private Transform leaderboardContent; // 排行榜内容容器
+    [SerializeField] private TMP_Text leaderboardEntryPrefab;
+
     [SerializeField] private EnemyLevel levelstage;
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private string sceneName = "Prototype";
@@ -174,5 +179,41 @@ private IEnumerator Start()
         fadeScreen.FadeOut();
         yield return new WaitForSeconds(_delay);
         SceneManager.LoadScene(sceneName);
+    }
+    public void ShowLeaderboard()
+    {
+        leaderboardPanel.SetActive(true);
+        UpdateLeaderboard();
+    }
+
+    public void HideLeaderboard()
+    {
+        leaderboardPanel.SetActive(false);
+    }
+
+    private void UpdateLeaderboard()
+    {
+        //// 清空旧的排行榜数据
+        //foreach (Transform child in leaderboardContent)
+        //{
+        //    Destroy(child.gameObject);
+        //}
+
+        // 获取玩家分数并按分数降序排序
+        List<PlayerAndScore> sortedScores = scores.getScore();
+        sortedScores.Sort((a, b) => b.score.CompareTo(a.score));
+
+        int maxEntries = Mathf.Min(5, sortedScores.Count);
+        // 遍历排名数据并创建 UI 显示
+        for (int i = 0; i < maxEntries; i++)
+        {
+            TMP_Text entry = Instantiate(leaderboardEntryPrefab, leaderboardContent);
+            entry.text = $"{i + 1}.{sortedScores[i].playerName}:{sortedScores[i].score:F2}";
+            RectTransform rectTransform = entry.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = new Vector2(500f, 50f);
+            Debug.Log("克隆对象状态1：" + entry.gameObject.activeSelf);
+            entry.gameObject.SetActive(true);
+            Debug.Log("克隆对象状态2：" + entry.gameObject.activeSelf);
+        }
     }
 }

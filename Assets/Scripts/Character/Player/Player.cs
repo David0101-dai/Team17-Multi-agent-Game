@@ -118,10 +118,10 @@ public class Player : Character
 
         //
         if (Input.GetKeyDown(KeyCode.Alpha1))
-
+        {
             AudioManager.instance.PlaySFX(16, null); //喝水音效
-
             Inventory.Instance.UsedFlask();
+        }
     }
 
     public void CatchSword()

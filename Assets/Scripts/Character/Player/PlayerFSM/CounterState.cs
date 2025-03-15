@@ -74,6 +74,8 @@ public class CounterState : PlayerState
                     {
                        to.TakeDamage(Character.gameObject);
                     }
+
+                        AudioManager.instance.PlaySFX(17, null); //防反音效
                 }
             }
         }

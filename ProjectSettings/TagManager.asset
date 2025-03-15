@@ -68,3 +68,6 @@ TagManager:
   - name: Sword
     uniqueID: 2827235703
     locked: 0
+  - name: FX
+    uniqueID: 290546369
+    locked: 0

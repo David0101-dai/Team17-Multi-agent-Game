@@ -18,7 +18,7 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private Scores scores;
     public Button continueButton; // 继续游戏按钮
     public Button newGameButton;  // 新游戏按钮
-
+    private bool hasOpenedBefore = false;
     // 新增部分：玩家名称输入界面组件
     [SerializeField] private GameObject playerNamePanel;         // 玩家名称输入面板
     [SerializeField] private TMP_InputField playerNameInputField;  // 输入框组件
@@ -193,11 +193,13 @@ private IEnumerator Start()
 
     private void UpdateLeaderboard()
     {
-        //// 清空旧的排行榜数据
-        //foreach (Transform child in leaderboardContent)
-        //{
-        //    Destroy(child.gameObject);
-        //}
+        foreach (Transform child in leaderboardContent)
+        {
+            if (child.gameObject.name != "Score") // 只删除非 "score" 的对象
+            {
+                Destroy(child.gameObject);
+            }
+        }
 
         // 获取玩家分数并按分数降序排序
         List<PlayerAndScore> sortedScores = scores.getScore();
@@ -216,4 +218,13 @@ private IEnumerator Start()
             Debug.Log("克隆对象状态2：" + entry.gameObject.activeSelf);
         }
     }
+    //public void cleanHistory()
+    //{
+    //    // 清空旧的排行榜数据
+    //    foreach (Transform child in leaderboardContent)
+    //    {
+    //        //Destroy(child.gameObject);
+            
+    //    }
+    //}
 }

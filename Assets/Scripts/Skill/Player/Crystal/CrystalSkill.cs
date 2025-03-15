@@ -236,6 +236,73 @@ public class CrystalSkill : Skill
     }
     #endregion
 
+    [SerializeField] private float fireInterval = 0.1f; // 每次发射间隔的秒数
+
+    protected override void SkillFunction()
+    {
+        if (canUseMultiStacks)
+        {
+            // 启动协程，依次发射多个水晶
+            StartCoroutine(FireMultipleCrystals());
+            cooldown = multiStackCooldown;
+            return;
+        }
+
+        // 单个水晶的逻辑...
+        if (currentCrystal == null)
+        {
+            currentCrystal = CreateCrystal(crystalPrefab);
+        }
+        else
+        {
+            if (canMove)
+            {
+                cooldown = multiStackCooldown;
+                return;
+            }
+
+            var playerPos = player.transform.position + new Vector3(0, 1);
+            var crystalPos = currentCrystal.transform.position + new Vector3(0, -1);
+
+            player.transform.position = crystalPos;
+            currentCrystal.transform.position = playerPos;
+
+            if (cloneInsteadOfCrystal)
+            {
+                var pos = currentCrystal.transform.position + new Vector3(0, -1);
+                SkillManager.Instance.Clone.CreateClone(pos, player.transform.rotation, Vector3.zero);
+                Destroy(currentCrystal);
+            }
+            else
+            {
+                if (currentCrystal.TryGetComponent(out CrystalSkillController sc))
+                {
+                    sc.FinishCrystal();
+                }
+            }
+        }
+    }
+
+    private IEnumerator FireMultipleCrystals()
+    {
+        // 使用循环依次生成水晶，并在每次发射后等待 fireInterval 秒
+        for (int i = 0; i < amountOfStacks; i++)
+        {
+            // 根据玩家位置稍微偏移，避免重叠（可以根据需要调整偏移量）
+            Vector3 spawnPos = player.transform.position + new Vector3(0, 1, 0);
+            spawnPos.x += (i - (amountOfStacks - 1) / 2f) * 0.5f;
+            CreateCrystal(crystalPrefab);
+            yield return new WaitForSeconds(fireInterval);
+        }
+
+        // 发射完毕后，若需要重置或者补充水晶可以在这里调用对应方法
+        RefilCrystal();
+    }
+
+
+
+
+    /*
     protected override void SkillFunction()
     {
         if (CanUseMultiCrystal()) return;
@@ -275,7 +342,7 @@ public class CrystalSkill : Skill
                 }
             }
         }
-    }
+    }*/
 
     private bool CanUseMultiCrystal()
     {

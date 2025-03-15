@@ -18,6 +18,7 @@ public class FlashFX : MonoBehaviour
     public ParticleSystem igniteFx;
     public ParticleSystem chillFx;
     public ParticleSystem shockFx;
+    public ParticleSystem dustFx;
 
     [Header("Hit Fix")]
     [SerializeField] private GameObject HitEffect;
@@ -115,5 +116,11 @@ public class FlashFX : MonoBehaviour
         }
 
         newHitFx.transform.Rotate(new Vector3(0, 0, zRotation));       
+    }
+
+    public void playDust(){
+        if(dustFx != null){
+            dustFx.Play();
+        }
     }
 }

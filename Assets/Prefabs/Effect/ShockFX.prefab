@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 97482633260456156}
   - component: {fileID: 7792324842226839600}
   - component: {fileID: 4681479167955357701}
-  - component: {fileID: 2342443258371912599}
   m_Layer: 0
   m_Name: ShockFX
   m_TagString: Untagged
@@ -4831,16 +4830,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2342443258371912599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444364425622218410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5da6dc394205014b8ac0dfc301f6e04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 1

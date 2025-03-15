@@ -14,7 +14,7 @@ public class DashState : PlayerState
             return;
         }
 
-        AudioManager.instance.PlaySFX(4,null); //≥Â¥Ã“Ù–ß
+        AudioManager.instance.PlaySFX(4,null);
 
         StateTimer = Character.dashDuration;
 
@@ -22,13 +22,11 @@ public class DashState : PlayerState
         {
             Character.Skill.Clone.CreateCloneOnDashStart(Character.transform);
         }
-
-        //Character.Skill.Clone.CreateCloneOnDashStart(Character.transform);
     }
     public override void Update()
     {
         base.Update();
-
+        Character.FlashFX.CreatAfterImage();
         if (!ColDetect.IsGrounded && ColDetect.IsWallDetected)
         {
             Fsm.SwitchState(Character.WallSlideState);

@@ -28,13 +28,34 @@ public class FlashFX : MonoBehaviour
     [SerializeField] private GameObject ShockEffect;
     public float yOffset = 1f;  // 偏移量（增加y轴上的高度）
 
-    private Coroutine repeatingColorCoroutine;
+    [Header("After image fx")]
+    [SerializeField] private GameObject afterImagePerfab;
+    [SerializeField] private float colorLooseRate;
+    [SerializeField] private float afterImageCooldown;
+    private float afterImageCooldownTimer;
 
       private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         damageable = transform.GetComponent<Damageable>();
     }
+
+public void CreatAfterImage()
+{
+    if (afterImageCooldownTimer < 0)
+    {
+        afterImageCooldownTimer = afterImageCooldown;
+
+        // 定义分身相对于角色的偏移量
+        Vector3 offset = new Vector3(0, 1.5f, 0);  // 1f 是向上的偏移量，可以根据需求调整
+
+        // 创建分身并设置它的位置
+        GameObject newAfterImage = Instantiate(afterImagePerfab, transform.position + offset, transform.rotation);
+        newAfterImage.GetComponent<AfterImageFx>().SetupAfterImage(colorLooseRate, sr.sprite);
+    }
+}
+
+
 
     private void Update()
     {
@@ -44,6 +65,8 @@ public class FlashFX : MonoBehaviour
            await UniTask.WaitForSeconds(flashTime);
            sr.material.SetInt("_Flash", Convert.ToInt32(false));
        });
+
+       afterImageCooldownTimer -= Time.deltaTime;
     }
 
     public void RedBlink(bool isOn)

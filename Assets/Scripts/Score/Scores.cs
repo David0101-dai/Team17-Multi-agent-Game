@@ -23,8 +23,8 @@ public class Scores : ScriptableObject
             }
         }
     }
-    public void printfScores()
+    public List<PlayerAndScore> getScore()
     {
-        Debug.Log("List:"+scores.Count);
+        return scores;
     }
 }

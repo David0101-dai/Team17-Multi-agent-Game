@@ -52,6 +52,7 @@ public abstract class Damageable : MonoBehaviour
     private bool isDead;
     private bool isVulnerable;
     public bool isInvincible = false;
+    public bool Miss = false;
 
     public event Action<GameObject, GameObject> OnTakeDamage;
     private FlashFX flashFX;
@@ -136,7 +137,7 @@ public abstract class Damageable : MonoBehaviour
     }
 
     var damageFrom = from.GetComponent<Damageable>();
-    var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
+    var damage = isMagic ? CalculateMagicDamage(damageFrom, this,isFireDamage,isIceDamage,isShockDamage) : CalculateDamage(damageFrom, this);
 
     if (isFromSwordSkill)
     {
@@ -207,9 +208,13 @@ public abstract class Damageable : MonoBehaviour
     {
         var finalEvasion = to.Evasion.GetValue() + to.Agi.GetValue();
 
-        if (from.IsShocked) finalEvasion += 20; //如果被雷劈可以减少地方的闪避率
+        if (from.IsShocked) finalEvasion -= 20; //如果被雷劈可以减少地方的闪避率
 
-        if (UnityEngine.Random.Range(0, 100) <= finalEvasion) return 0;
+        if (UnityEngine.Random.Range(0, 100) <= finalEvasion) 
+        {
+          to.Miss = true;
+          return 0;  
+        }
 
         var finalDamage = from.Damage.GetValue() + from.Str.GetValue() - to.Vit.GetValue();
 
@@ -223,6 +228,7 @@ public abstract class Damageable : MonoBehaviour
         }
 
         var finalCritical = from.CritChance.GetValue() + from.Agi.GetValue();
+
         if (UnityEngine.Random.Range(0, 100) <= finalCritical)
         {
             var finalCritPower = (CritPower.GetValue() + Str.GetValue()) * 0.01f;
@@ -232,10 +238,19 @@ public abstract class Damageable : MonoBehaviour
         }
 
         finalDamage = Mathf.Clamp(finalDamage, 1, int.MaxValue);
+
+
+        if (triggerCriticalStrike)
+        {
+            flashFX.CreatHitFX(to.transform,1); // 生成基本的打击特效
+        }else{
+            flashFX.CreatHitFX(to.transform,0); //打击特效
+        }
+        
         return finalDamage;
     }
 
-    private int CalculateMagicDamage(Damageable from, Damageable to)
+    private int CalculateMagicDamage(Damageable from, Damageable to,bool isFireDamage, bool isIceDamage, bool isShockDamage)
     {
         var fireDamage = from.FireDamage.GetValue();
         var iceDamage = from.IceDamage.GetValue();
@@ -245,6 +260,22 @@ public abstract class Damageable : MonoBehaviour
 
         finalMagicalDamage -= to.MagicResistance.GetValue() + (to.Int.GetValue() * 3);
         finalMagicalDamage = Mathf.Clamp(finalMagicalDamage, 1, int.MaxValue);
+                // 在伤害计算后触发不同的打击特效动画
+        if (isFireDamage)
+        {
+            flashFX.CreatHitFX(to.transform, 2); // 生成基本的打击特效
+        }
+        else if (isIceDamage)
+        {
+            flashFX.CreatHitFX(to.transform, 3); // 生成基本的打击特效
+        }
+        else if (isShockDamage)
+        {
+            flashFX.CreatHitFX(to.transform, 4); // 生成基本的打击特效
+        }else{
+            flashFX.CreatHitFX(to.transform, 0); //打击特效
+        }
+        
         
         return finalMagicalDamage;
     }
@@ -356,7 +387,7 @@ public abstract class Damageable : MonoBehaviour
             return;
         }
         var damageFrom = from.GetComponent<Damageable>();
-        var damage = isMagic ? CalculateMagicDamage(damageFrom, this) : CalculateDamage(damageFrom, this);
+        var damage = isMagic ? CalculateMagicDamage(damageFrom, this,isFireDamage,isIceDamage,isShockDamage) : CalculateDamage(damageFrom, this);
         if (_multiplier > 0 )
         {
             damage = Mathf.RoundToInt(damage * _multiplier);

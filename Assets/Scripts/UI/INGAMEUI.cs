@@ -56,24 +56,36 @@ public class INGAMEUI : MonoBehaviour
         
         souls.text = currency.ToString("#,#");  // 获取并显示当前金币数量
         
-        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.Instance.Dash.dashUnlocked)
+        if (SkillManager.Instance.Dash.dashUnlocked)
         {
-            SetCoolDownOf(dashImage);
+            float dashCooldown = SkillManager.Instance.Dash.cooldown;
+            float dashCurrent = SkillManager.Instance.Dash.cooldownTimer;
+            dashImage.fillAmount = dashCurrent / dashCooldown;
+            //SetCoolDownOf(dashImage);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && SkillManager.Instance.Crystal.canMove)
+        if (SkillManager.Instance.Crystal.canMove)
         {
-            SetCoolDownOf(crystalImage);
+            float crystalCooldown = SkillManager.Instance.Crystal.cooldown;
+            float crystalCurrent = SkillManager.Instance.Crystal.cooldownTimer;
+            crystalImage.fillAmount = crystalCurrent / crystalCooldown;
+            //SetCoolDownOf(crystalImage);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && SkillManager.Instance.Sword.swordUnlocked)
+        if (SkillManager.Instance.Sword.swordUnlocked)
         {
-            SetCoolDownOf(swordImage);
+            float swordCooldown = SkillManager.Instance.Sword.cooldown;
+            float swordCurrent = SkillManager.Instance.Sword.cooldownTimer;
+            swordImage.fillAmount = swordCurrent / swordCooldown;
+            //SetCoolDownOf(swordImage);
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && SkillManager.Instance.Blackhole.blackHole)
+        if (SkillManager.Instance.Blackhole.blackHole)
         {
-            SetCoolDownOf(blackholeImage);
+            float blackholeCooldown = SkillManager.Instance.Blackhole.cooldown;
+            float blackholeCurrent = SkillManager.Instance.Blackhole.cooldownTimer;
+            blackholeImage.fillAmount = blackholeCurrent / blackholeCooldown;
+            //SetCoolDownOf(blackholeImage);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && Inventory.Instance.GetEquipmentByType(EquipmentType.Flask) != null)

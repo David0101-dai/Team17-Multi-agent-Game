@@ -7,7 +7,7 @@ public class IceAndFireController : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             var player = PlayerManager.Instance.player;
-            other.GetComponent<Damageable>().TakeDamage(player, false, false);
+            other.GetComponent<Damageable>().TakeDamage(player,true,true,false,true,false,false);
             Invoke(nameof(DestroyMe), 10f);
             GetComponent<CircleCollider2D>().enabled = false;
         }

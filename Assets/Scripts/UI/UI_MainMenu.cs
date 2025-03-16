@@ -18,7 +18,7 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private Scores scores;
     public Button continueButton; // 继续游戏按钮
     public Button newGameButton;  // 新游戏按钮
-    private bool hasOpenedBefore = false;
+
     // 新增部分：玩家名称输入界面组件
     [SerializeField] private GameObject playerNamePanel;         // 玩家名称输入面板
     [SerializeField] private TMP_InputField playerNameInputField;  // 输入框组件

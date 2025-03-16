@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject confirmUI;
     public static bool isPaused = false; 
 
         void Awake()
@@ -38,6 +39,10 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = isPaused ? 0 : 1;
 
         pauseMenuUI.SetActive(isPaused);
+        if (confirmUI.activeSelf)
+        {
+            confirmUI.SetActive(false);
+        }
 
         //Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
         //Cursor.visible = isPaused;
@@ -53,13 +58,25 @@ public class PauseManager : MonoBehaviour
     {
         TogglePause();
     }
+    public void back()
+    {
+        isPaused = !isPaused;
 
+        Time.timeScale = isPaused ? 0 : 1;
+
+        confirmUI.SetActive(isPaused);
+    }
+    public void confirmQuit()
+    {
+        pauseMenuUI.SetActive(false);
+        confirmUI.SetActive(true);
+    }
     public void QuitGame()
     {
         AudioManager.instance.StopAllBGM();
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
-        pauseMenuUI.SetActive(false);
+        confirmUI.SetActive(false);
     }
     public void closeUI()
     {

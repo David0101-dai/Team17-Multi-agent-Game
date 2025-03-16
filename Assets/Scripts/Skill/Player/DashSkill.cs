@@ -9,7 +9,12 @@ public class DashSkill: Skill
     [Header("CloneOnDash")]
     public bool cloneOnDashUnlocked;
     private SkillTreeSlot cloneOnDashUnlockedButton;
-    protected override void SkillFunction(){}
+
+    
+    
+
+    // 如果 Skill 类中的 SkillFunction 是必须重写的，可以保留空实现
+    protected override void SkillFunction() { }
 
     protected override void Start()
     {
@@ -33,6 +38,7 @@ public class DashSkill: Skill
 
         if (dashUnlockedButton != null)
         {
+            
             dashUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockDash);
             dashUnlockedButton.OnSkillCancelled += OnDashSkillCancelled;
         } 
@@ -43,6 +49,7 @@ public class DashSkill: Skill
 
         if (cloneOnDashUnlockedButton != null)
         {
+            
             cloneOnDashUnlockedButton.GetComponent<Button>().onClick.AddListener(UnlockCloneOnDash);
             cloneOnDashUnlockedButton.OnSkillCancelled += OnCloneOnDashSkillCancelled;
         } 

@@ -5,6 +5,7 @@ public class BlackholeState : PlayerState
 {
     private float flyTime = 0.3f;
     private bool skillUsed;
+    public float blackholeCost = 50f;
 
     public BlackholeState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
     {
@@ -14,6 +15,15 @@ public class BlackholeState : PlayerState
     {
         base.Enter(lastState);
 
+        if (SkillManager.Instance.Blackhole.blackHole)
+        {
+            if (!MagicManager.Instance.ConsumeMagic(blackholeCost))
+            {
+                Debug.Log("魔法不足，无法释放冲刺技能！");
+                Fsm.SwitchState(Character.IdleState);
+                return;
+            }
+        }
 
         if (!SkillManager.Instance.Blackhole.blackHole)
         {

@@ -6,7 +6,7 @@ public class MagicManager : MonoBehaviour
 
     public float maxMagic = 100f;
     public float currentMagic;
-    public float regenRate = 3f; // Ã¿Ãë»Ø¸´µÄÄ§·¨Öµ
+    public float regenRate = 3f; // Ã¿ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½Ä§ï¿½ï¿½Öµ
 
     private void Awake()
     {
@@ -26,11 +26,11 @@ public class MagicManager : MonoBehaviour
 
     private void RegenerateMagic()
     {
-        // Ê¹ÓÃ Time.deltaTime È·±£»Ø¸´Ð§¹ûÓëÖ¡ÂÊÎÞ¹Ø
+        // Ê¹ï¿½ï¿½ Time.deltaTime È·ï¿½ï¿½ï¿½Ø¸ï¿½Ð§ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Þ¹ï¿½
         currentMagic = Mathf.Clamp(currentMagic + regenRate * Time.deltaTime, 0, maxMagic);
     }
 
-    // ³¢ÊÔÏûºÄÒ»¶¨Á¿µÄÄ§·¨£¬Èç¹û×ã¹»Ôò¿Û³ý²¢·µ»Øtrue£¬·ñÔò·µ»Øfalse
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã¹»ï¿½ï¿½Û³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½trueï¿½ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½false
     public bool ConsumeMagic(float amount)
     {
         if (currentMagic >= amount)

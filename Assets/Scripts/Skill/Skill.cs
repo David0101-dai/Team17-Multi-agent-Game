@@ -35,7 +35,8 @@ public abstract class Skill : MonoBehaviour
     {
         if (cooldownTimer >= 0) return false;
         SkillFunction();
-        cooldownTimer = cooldown;
+        // 使用玩家的冷却倍率来计算技能冷却
+        cooldownTimer = cooldown * player.cooldownMultiplier;
         return true;
     }
     public bool DelayCanUseSkill()

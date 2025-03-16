@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9547df79536c66449aac10da62df6b6, type: 3}
+  m_Name: MagicEffect
+  m_EditorClassIdentifier: 
+  effectDuration: 10
+  boostedMagic: 9999
+  cooldownMultiplier: 0.2
+  potionEffectPrefab: {fileID: 0}

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Cysharp.Threading.Tasks;  // 如果不需要UniTask可以删掉这个using
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class DeadState : PlayerState
 {
@@ -22,6 +23,8 @@ public class DeadState : PlayerState
             deadCount--;
             Debug.Log("Deadfinal:" +PlayerManager.finalscore);
             PlayerManager.Instance.SaveFinaled();
+        }else{
+            return;
         }
 
         // 播放死亡音效

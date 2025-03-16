@@ -19,7 +19,6 @@ public class CollisionDetection : MonoBehaviour
     public float playerCheckDistance = 0.0005f;
     public float playerCheckBackDistance = 0.00005f;
     public bool isNeedPlayerCheck = false;
-
     private BoxCollider2D col;
     private FlipSprite flip;
 
@@ -66,7 +65,6 @@ public class CollisionDetection : MonoBehaviour
         var middleWallChecked = Physics2D.Raycast(middlePos, rayDirection, wallCheckDistance, platformLayer);
         
         Debug.DrawRay(middlePos, rayDirection * wallCheckDistance, Color.red);
-
 
         IsWallDetected = !isFullDetected ? middleWallChecked : middleWallChecked || FullDetected();
 

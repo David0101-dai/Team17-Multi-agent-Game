@@ -231,7 +231,7 @@ public abstract class Damageable : MonoBehaviour
 
         if (UnityEngine.Random.Range(0, 100) <= finalCritical)
         {
-            var finalCritPower = (CritPower.GetValue() + Str.GetValue()) * 0.01f;
+            var finalCritPower = (CritPower.GetValue() + 100) * 0.01f;
             finalDamage = Mathf.RoundToInt(finalDamage * finalCritPower);
             //Debug.Log("触发了暴击");
             triggerCriticalStrike = true;

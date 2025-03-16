@@ -30,6 +30,7 @@ public class CrystalSkillController : MonoBehaviour
 
     public void Setup(
         Player player,
+        float durationNonMoving,  // 当未解锁 canMove 时的持续时间
         float duration,
         bool canExplode,
         bool canMove,
@@ -47,7 +48,8 @@ public class CrystalSkillController : MonoBehaviour
         }
 
         this.player = player;
-        crystalExistTimer = duration;
+        crystalExistTimer = canMove ? duration : durationNonMoving;
+        //crystalExistTimer = duration;
         this.canExplode = canExplode;
         this.canMove = canMove;
         this.moveSpeed = moveSpeed;

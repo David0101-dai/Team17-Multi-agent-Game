@@ -7,6 +7,7 @@ public class CrystalSkill : Skill
 {
     [SerializeField] private GameObject crystalPrefab;
     [SerializeField] private float duration;
+    [SerializeField] private float durationNonMoving;
 
     [Header("Crystal Mirage")]
     private SkillTreeSlot unlockCloneInsteadbutton;
@@ -238,6 +239,9 @@ public class CrystalSkill : Skill
 
     [SerializeField] private float fireInterval = 0.1f; // 每次发射间隔的秒数
 
+    
+    
+
     protected override void SkillFunction()
     {
         if (canUseMultiStacks)
@@ -386,6 +390,7 @@ public class CrystalSkill : Skill
         {
             sc.Setup(
                 player,
+                durationNonMoving,
                 duration,
                 canExplode,
                 canMove,

@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(InputController))]
 [RequireComponent(typeof(PlayerDamageable))]
+
 public class Player : Character
 {
     public CinemachineVirtualCamera counterCamera;
@@ -105,16 +106,43 @@ public class Player : Character
         CatchSwordState = new CatchSwordState(Fsm, this, "CatchSword");
         BlackholeState = new BlackholeState(Fsm, this, "Jump");
         Fsm.SwitchState(IdleState);
+
     }
+
 
     protected override void Update()
     {
         base.Update();
         dashUsageTimer -= Time.deltaTime;
 
-        //
+
         if (Input.GetKeyDown(KeyCode.Q) && Skill.Crystal.crystalUnlocked)
+        {
+            // 先检查技能是否冷却完毕
+            if (!Skill.Crystal.DelayCanUseSkill())
+            {
+                Debug.Log("技能正在冷却，无法使用！");
+            }
+            else if (MagicManager.Instance.ConsumeMagic(10f))
+            {
+                Skill.Crystal.CanUseSkill();
+            }
+            else
+            {
+                Debug.Log("能量不足，无法使用技能！");
+            }
+        }
+
+
+
+
+        /*
+        if (Input.GetKeyDown(KeyCode.Q) && Skill.Crystal.crystalUnlocked)
+        {
             Skill.Crystal.CanUseSkill();
+           
+        }*/
+            
 
         //
         if (Input.GetKeyDown(KeyCode.Alpha1))

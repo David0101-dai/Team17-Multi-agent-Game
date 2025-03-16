@@ -152,6 +152,15 @@ public class Player : Character
         }
     }
 
+    // 默认冷却倍率为 1，药效期间会修改为 0.2
+    public float cooldownMultiplier = 1f;
+
+    // 此方法可供外部调用修改冷却倍率
+    public void SetCooldownMultiplier(float multiplier)
+    {
+        cooldownMultiplier = multiplier;
+    }
+
     public void CatchSword()
     {
         Fsm.SwitchState(CatchSwordState);

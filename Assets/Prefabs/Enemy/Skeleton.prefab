@@ -305,7 +305,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -929207647
   m_SortingLayer: 6
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -85727878, guid: 687df074731fbf744b668d2275dbb675, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -725,12 +725,16 @@ MonoBehaviour:
   igniteFx: {fileID: 7827615909148260016}
   chillFx: {fileID: 4312027163265360292}
   shockFx: {fileID: 720751500820880708}
+  dustFx: {fileID: 0}
   HitEffect: {fileID: 1816960831561789492, guid: 020f580b6e832ba49a60a8ab86c0d0d2, type: 3}
   CriticalEffect: {fileID: 8848158666034802305, guid: c1dc5811bbe371a4aa92651762e1948e, type: 3}
   FireEffect: {fileID: 1048534142964658926, guid: 0a7db5607cddcbf4dac17461d20be3c5, type: 3}
   IceEffect: {fileID: 2593558672561651338, guid: 87c41339e67be01458a0c67ae973e695, type: 3}
   ShockEffect: {fileID: 4248622235448053354, guid: 0ad5a8031955c4547bcdb31f5bbe2e5d, type: 3}
   yOffset: 1
+  afterImagePerfab: {fileID: 0}
+  colorLooseRate: 0
+  afterImageCooldown: 0
 --- !u!114 &2804243171117335249
 MonoBehaviour:
   m_ObjectHideFlags: 0

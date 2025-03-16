@@ -27,8 +27,6 @@ public class SkeletonGroundState : SkeletonState
         {
             Flip.Flip();
             flipCooldownTimer = flipCooldown;  // 重置冷却计时器
-            //SetVelocity(0, 0);
-            //Fsm.SwitchState(Character.IdleState);
         }
 
         // 检查是否需要切换到追击状态

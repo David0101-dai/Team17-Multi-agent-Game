@@ -23,7 +23,7 @@ public class SkeletonChaseState : SkeletonState
             return;
         }
 
-        if(ColDetect.IsWallDetected || ColDetect.ShouldFlip){
+        if(ColDetect.IsWallDetected && !Character.CanAttack() ){
             Flip.Flip();
         }
 

@@ -25,6 +25,10 @@ public class NightBorneChaseState : NightBorneState
             return;
         }
 
+        if(ColDetect.IsWallDetected && !Character.CanAttack() ){
+            Flip.Flip();
+        }
+        
         var isRight = ColDetect.DetectedPlayer.position.x > Character.transform.position.x;
         var isLeft = ColDetect.DetectedPlayer.position.x < Character.transform.position.x;
         var moveDir = isRight ? 1 : isLeft ? -1 : 0;

@@ -23,11 +23,7 @@ public class SlimeChaseState : SlimeState
             return;
         }
 
-        // if(ColDetect.IsWallDetected || ColDetect.ShouldFlip){
-        //     Flip.Flip();
-        // }
-
-        if(ColDetect.IsWallDetected){
+        if(ColDetect.IsWallDetected && !Character.CanAttack()){
             Flip.Flip();
         }
 

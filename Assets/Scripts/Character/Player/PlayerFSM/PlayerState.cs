@@ -9,8 +9,7 @@ public class PlayerState : CharacterState<Player>
     protected float dashDir;
     protected int deadCount = 1;
     protected InputController Input { get; private set; }
-
-    private float spikeDamageTimer = 0f; // **�ش��˺���ʱ��**
+    private float spikeDamageTimer = 0f;
 
     public PlayerState(FSM fsm, Player character, string animBoolName) : base(fsm, character, animBoolName)
     {
@@ -20,7 +19,6 @@ public class PlayerState : CharacterState<Player>
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-        //Debug.Log("I enter " + AnimBoolName);
         SetDashDir();
     }
 
@@ -48,13 +46,11 @@ public class PlayerState : CharacterState<Player>
             Character.dashUsageTimer = Character.dashCooldown;
         }
 
-        // **���µش��˺���ʱ��**
         if (spikeDamageTimer > 0)
         {
             spikeDamageTimer -= Time.deltaTime;
         }
 
-        // **����Ƿ������ش̣��������˺�Ƶ��**
         if (spikeDamageTimer <= 0 && Physics2D.OverlapCircle(Character.transform.position, 0.2f, LayerMask.GetMask("Spikes")))
         {
             PlayerDamageable damageable = Character.GetComponent<PlayerDamageable>();
@@ -70,7 +66,6 @@ public class PlayerState : CharacterState<Player>
             }
         }
 
-        // **������Ѫ���Ƿ���㣬�л��� DeadState**
         if (Character.GetComponent<PlayerDamageable>().currentHp <= 0)
         {
             Fsm.SwitchState(Character.DeadState);
@@ -82,7 +77,6 @@ public class PlayerState : CharacterState<Player>
     public override void Exit(IState newState)
     {
         base.Exit(newState);
-        //Debug.Log("I exit "+ AnimBoolName);
     }
 
     private void SetDashDir()
@@ -93,12 +87,7 @@ public class PlayerState : CharacterState<Player>
     public IEnumerator BusyFor(float seconds)
     {
         isBusy = true;
-        //Debug.Log("IS BUSY");
-
-        //await Task.Delay((int)(seconds * 1000));
         yield return new WaitForSeconds(seconds);
-
-        //Debug.Log("NOT BUSY");
         isBusy = false;
     }
 }

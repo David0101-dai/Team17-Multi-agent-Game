@@ -30,7 +30,13 @@ public class Skeleton : Enemy
     protected override void Update()
     {
         base.Update();
-       // Debug.Log("骷髅的Current State: " + Fsm.CurrentState.ToString());
+
+        Damageable.OnTakeDamage += (from, to) =>
+        {
+            damageFrom = from;
+            Fsm.SwitchState(HitState);
+        };
+
     }
 
     protected override void SwitchHitState()

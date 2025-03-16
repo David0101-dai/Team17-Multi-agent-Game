@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329076005942106333}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.15, y: 0.11, z: 11.328709}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5842361967077084847}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &6146845322346831684
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -106,7 +106,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -169,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -2025,7 +2025,7 @@ ParticleSystem:
     speedModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 1.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5109,6 +5109,9 @@ MonoBehaviour:
   IceEffect: {fileID: 2593558672561651338, guid: 87c41339e67be01458a0c67ae973e695, type: 3}
   ShockEffect: {fileID: 4248622235448053354, guid: 0ad5a8031955c4547bcdb31f5bbe2e5d, type: 3}
   yOffset: 1
+  afterImagePerfab: {fileID: 7976870878733958608, guid: 3f2227cebb28b114c990d5588f5cc3f2, type: 3}
+  colorLooseRate: 1
+  afterImageCooldown: 0.05
 --- !u!114 &7544170655703080908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5124,8 +5127,8 @@ MonoBehaviour:
   attackCheck: {fileID: 6759337365906021423}
   attackCheckRadius: 1
   canAttack: 0
-  knockbackXSpeed: 5
-  knockbackYSpeed: 3
+  knockbackXSpeed: 8
+  knockbackYSpeed: 8
   damageFrom: {fileID: 0}
   counterCamera: {fileID: 0}
   moveSpeed: 7
@@ -5151,6 +5154,7 @@ MonoBehaviour:
   - {x: 2, y: 0}
   - {x: 5, y: 0}
   counterDuration: 0.3
+  cooldownMultiplier: 1
 --- !u!114 &6288281096110144933
 MonoBehaviour:
   m_ObjectHideFlags: 0

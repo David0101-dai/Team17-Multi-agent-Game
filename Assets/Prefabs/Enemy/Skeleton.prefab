@@ -750,8 +750,8 @@ MonoBehaviour:
   attackCheck: {fileID: 2081581036915769871}
   attackCheckRadius: 1
   canAttack: 0
-  knockbackXSpeed: 5
-  knockbackYSpeed: 0
+  knockbackXSpeed: 10
+  knockbackYSpeed: 10
   damageFrom: {fileID: 0}
   defaultMoveSpeed: 1.5
   moveSpeed: 1.5

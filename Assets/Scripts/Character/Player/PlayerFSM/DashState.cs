@@ -17,7 +17,7 @@ public class DashState : PlayerState
         {
             if (!MagicManager.Instance.ConsumeMagic(dashCost))
             {
-                Debug.Log("Ä§·¨²»×ã£¬ÎÞ·¨ÊÍ·Å³å´Ì¼¼ÄÜ£¡");
+                Debug.Log("Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½Þ·ï¿½ï¿½Í·Å³ï¿½Ì¼ï¿½ï¿½Ü£ï¿½");
                 Fsm.SwitchState(Character.IdleState);
                 return;
             }
@@ -25,7 +25,7 @@ public class DashState : PlayerState
 
         if (!SkillManager.Instance.Dash.dashUnlocked)
         {
-            Debug.Log("Dash ¼¼ÄÜÎ´½âËø£¬ÎÞ·¨³å´Ì£¡");
+            Debug.Log("Dash ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½Ì£ï¿½");
             Fsm.SwitchState(Character.IdleState);
             return;
         }
@@ -44,12 +44,12 @@ public class DashState : PlayerState
 
 
     /// <summary>
-    /// ¾ßÌå¼¼ÄÜÂß¼­£¬´Ë·½·¨Ö»ÓÐÔÚÄ§·¨×ã¹»Ê±²Å»á±»µ÷ÓÃ
+    /// ï¿½ï¿½ï¿½å¼¼ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ã¹»Ê±ï¿½Å»á±»ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     private void ExecuteDashEffect()
     {
-        Debug.Log("³å´Ì¼¼ÄÜ¼¤»î£¡");
-        // ÔÚÕâÀïÌí¼Ó¾ßÌåµÄ³å´ÌÐ§¹û´úÂë
+        Debug.Log("ï¿½ï¿½Ì¼ï¿½ï¿½Ü¼ï¿½ï¿½î£¡");
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¾ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
 

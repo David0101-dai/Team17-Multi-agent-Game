@@ -8,7 +8,7 @@ public class SkeletonHitState : SkeletonState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(6, Character.transform); //ÊÜ»÷ÒôÐ§
+        AudioManager.instance.PlaySFX(6, Character.transform); //ï¿½Ü»ï¿½ï¿½ï¿½Ð§
 
         Character.CloseCounterAttackWindow();
 

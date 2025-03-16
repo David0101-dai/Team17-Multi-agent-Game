@@ -14,7 +14,7 @@ public class SkeletonDeadState : SkeletonState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(15, Character.transform); //÷¼÷ÃËÀÍöÒôĞ§
+        AudioManager.instance.PlaySFX(15, Character.transform); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§
 
         Character.StartCoroutine(Dissolve());
     }

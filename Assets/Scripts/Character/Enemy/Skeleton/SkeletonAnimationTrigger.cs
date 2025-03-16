@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using UnityEngine;
 
-public class SkeletonAnimationTrigger : AnimationTrigger<Skeleton>
+public class SkeletonAnimationTrigger : AnimationTrigger<Slime>
 {
     private void OpenCounterWindow()
     {

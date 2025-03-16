@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 342, y: -179}
+  m_AnchoredPosition: {x: 342, y: -198}
   m_SizeDelta: {x: 160, y: 35.04001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5942402359643470647
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.97727823, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 7460143426696648102}
   - component: {fileID: 4371597046503786880}
   - component: {fileID: 8887948095967754843}
-  - component: {fileID: 6670205260136657295}
+  - component: {fileID: 1834840916130020577}
   m_Layer: 5
   m_Name: Player_UI
   m_TagString: Untagged
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6670205260136657295
+--- !u!114 &1834840916130020577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,9 +276,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1407453385783963749}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c4ede60cbaf12e4eacdd9d5f8a189da, type: 3}
+  m_Script: {fileID: 11500000, guid: b57ee61afaefc6a41a02e85487a28fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  magicSlider: {fileID: 5942402359643470647}
 --- !u!1 &5138595754545183290
 GameObject:
   m_ObjectHideFlags: 0

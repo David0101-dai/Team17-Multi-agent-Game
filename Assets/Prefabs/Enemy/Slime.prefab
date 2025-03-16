@@ -10249,7 +10249,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.78, y: 0.85}
+  m_Size: {x: 1.38, y: 0.85}
   m_EdgeRadius: 0
 --- !u!114 &4411104730208984743
 MonoBehaviour:
@@ -10380,19 +10380,19 @@ MonoBehaviour:
     value: 0
     modifiers: 
   Vit:
-    value: 0
+    value: 10
     modifiers: 
   Damage:
     value: 0
     modifiers: 
   CritChance:
-    value: 0
+    value: 5
     modifiers: 
   CritPower:
-    value: 0
+    value: 20
     modifiers: 
   MaxHp:
-    value: 100
+    value: 800
     modifiers: 
   Armor:
     value: 0

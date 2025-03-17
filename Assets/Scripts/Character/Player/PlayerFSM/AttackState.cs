@@ -20,8 +20,8 @@ public class AttackState : PlayerState
         {
             comboCounter = 0;
         }
-
         Anim.SetInteger("ComboCounter", comboCounter);
+
         Anim.speed = Character.attackSpeed;
 
         var attackDir = Input.xAxis == 0 ? Flip.facingDir : Input.xAxis;

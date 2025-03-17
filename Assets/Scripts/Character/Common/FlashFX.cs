@@ -113,7 +113,7 @@ public class FlashFX : MonoBehaviour
 
             // 创建分身并设置它的位置
             Vector3 afterImagePosition = transform.position + offset;
-            Debug.Log("AfterImage Position: " + afterImagePosition);  // 调试位置
+            //Debug.Log("AfterImage Position: " + afterImagePosition);  // 调试位置
             GameObject newAfterImage = Instantiate(afterImagePerfab, afterImagePosition, transform.rotation);
             newAfterImage.GetComponent<AfterImageFx>().SetupAfterImage(colorLooseRate, sr.sprite);
         }

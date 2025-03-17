@@ -17,7 +17,7 @@ public class DashState : PlayerState
         {
             if (!MagicManager.Instance.ConsumeMagic(dashCost))
             {
-                Debug.Log("ħ�����㣬�޷��ͷų�̼��ܣ�");
+               // Debug.Log("ħ�����㣬�޷��ͷų�̼��ܣ�");
                 Fsm.SwitchState(Character.IdleState);
                 return;
             }
@@ -33,8 +33,8 @@ public class DashState : PlayerState
         AudioManager.instance.PlaySFX(4,null);
 
         StateTimer = Character.dashDuration;
-
-        ExecuteDashEffect();
+        Character.FlashFX.CreatAfterImage();
+        //ExecuteDashEffect();
 
         if (SkillManager.Instance.Dash.cloneOnDashUnlocked)
         {
@@ -57,6 +57,7 @@ public class DashState : PlayerState
     {
         base.Update();
         Character.FlashFX.CreatAfterImage();
+        Debug.Log("特效");
         if (!ColDetect.IsGrounded && ColDetect.IsWallDetected)
         {
             Fsm.SwitchState(Character.WallSlideState);

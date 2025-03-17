@@ -5,9 +5,9 @@ public class ThunderStrikeController : MonoBehaviour
     [SerializeField] private Damageable damageable;
     [SerializeField] private float speed;
     [SerializeField] private float existTimer;
-
     private bool triggered;
     private Animator anim;
+
 
     private void Start()
     {

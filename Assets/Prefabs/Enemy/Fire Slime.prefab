@@ -10176,8 +10176,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.865111, y: 2.057762, z: 0}
-  m_LocalScale: {x: 3.2118473, y: 3.2118473, z: 3.2118473}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1574798473480038151}
   - {fileID: 8130786897481219506}
@@ -10366,6 +10366,11 @@ MonoBehaviour:
   stunTime: 2
   canBeStun: 0
   counterImage: {fileID: 784387753909775873}
+  SlimeType: 0
+  amountOfSlimeToCreat: 2
+  SlimePrefab: {fileID: 2050907489645928541, guid: e0ed6a482db0a5348822cecc0d0f857d, type: 3}
+  minCreationVelocity: {x: 10, y: 10}
+  maxCreationVelocity: {x: 30, y: 30}
 --- !u!114 &884049701848240146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10380,13 +10385,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   Str:
-    value: 30
+    value: 10
     modifiers: 
   Agi:
     value: 0
     modifiers: 
   Int:
-    value: 20
+    value: 15
     modifiers: 
   Vit:
     value: 10
@@ -10424,7 +10429,7 @@ MonoBehaviour:
   IsIgnited: 0
   IsChilled: 0
   IsShocked: 0
-  igniteDuration: 4
+  igniteDuration: 0
   chillDuration: 4
   thunderStrikePrefab: {fileID: 4050344180660983985, guid: 197d6a6330fb1a047aa8e053e9df76bb, type: 3}
   shockDuration: 2

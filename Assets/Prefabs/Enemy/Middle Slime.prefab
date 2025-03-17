@@ -9845,8 +9845,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.75, y: 0.51, z: 0}
-  m_LocalScale: {x: 2.0075285, y: 2.0075285, z: 2.0075285}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2421480013751329127}
   - {fileID: 2396403732643599314}
@@ -10038,8 +10038,8 @@ MonoBehaviour:
   SlimeType: 1
   amountOfSlimeToCreat: 4
   SlimePrefab: {fileID: 8973981057241721344, guid: a4580775f6abaca4d8b26ab8d6dd9c72, type: 3}
-  minCreationVelocity: {x: 10, y: 10}
-  maxCreationVelocity: {x: 20, y: 20}
+  minCreationVelocity: {x: 5, y: 2}
+  maxCreationVelocity: {x: 20, y: 40}
 --- !u!114 &760277532837834249
 MonoBehaviour:
   m_ObjectHideFlags: 0

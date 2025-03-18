@@ -5,10 +5,14 @@ using UnityEngine;
 public enum RedHoodType {level1, level2, level3,level4}
 public class RedHood : Enemy
 {
+    [Header("RedHood Specific Info")]
     [SerializeField] private RedHoodType RedHoodType;
+    [SerializeField] private Vector2 jumpDirection;
+    [SerializeField] private GameObject arrow;
     public float jumpForce;
     public float dashSpeed = 25f;
     public float dashDuration = 0.25f;
+
     #region State
     public IState IdleState { get; private set; }
     public IState PatrolState { get; private set; }

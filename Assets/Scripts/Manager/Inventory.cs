@@ -343,6 +343,7 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
     public void UsedFlask()
     {
         var currentFlask = GetEquipmentByType(EquipmentType.Flask);
+        lastTimeUsedFlask = -10f;
         if (!currentFlask) return;
 
         // 使用 Inventory 中独立的 flaskCooldown

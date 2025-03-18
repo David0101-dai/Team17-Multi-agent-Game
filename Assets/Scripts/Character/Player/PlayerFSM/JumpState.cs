@@ -12,7 +12,7 @@ public class JumpState : AirState
     {
         base.Enter(lastState);
 
-        AudioManager.instance.PlaySFX(0,null); //ÆðÌøÒôÐ§
+        AudioManager.instance.PlaySFX(0,null);
 
         if (!ColDetect.IsGrounded)
         {
@@ -23,12 +23,10 @@ public class JumpState : AirState
 
         if (airJumpCounter >= Character.airJumpCount+1)
         {
-            //UnityEngine.Debug.Log("return");
             return;
         }
 
         SetVelocity(Rb.velocity.x, Character.jumpForce);
-        //UnityEngine.Debug.Log("Jump");
 
     }
 

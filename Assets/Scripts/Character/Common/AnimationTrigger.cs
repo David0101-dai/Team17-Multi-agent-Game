@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimationTrigger<T> : MonoBehaviour where T : Character
@@ -18,10 +19,12 @@ public class AnimationTrigger<T> : MonoBehaviour where T : Character
     private void AttackTrigger()
     {
         var colliders = Physics2D.OverlapCircleAll(character.attackCheck.position, character.attackCheckRadius);
-
         foreach (var hit in colliders)
-        {
+        {   
             if (hit.transform == transform.parent) continue;
+            if (transform.parent.CompareTag("Player") && hit.GetComponent<EnergyBall_Controller>() != null){
+                hit.GetComponent<EnergyBall_Controller>().FlipArrow();
+            }
             if (transform.parent.CompareTag("Enemy") && hit.CompareTag("Enemy")) continue;
             hit.GetComponent<Damageable>()?.TakeDamage(transform.parent.gameObject);
         }
@@ -38,7 +41,6 @@ public class AnimationTrigger<T> : MonoBehaviour where T : Character
             hit.GetComponent<Damageable>()?.TakeDamage(transform.parent.gameObject,true,false,false,true,false,false);
         }
     }
-
     private void IceAttackTrigger()
     {
         var colliders = Physics2D.OverlapCircleAll(character.attackCheck.position, character.attackCheckRadius);
@@ -50,8 +52,6 @@ public class AnimationTrigger<T> : MonoBehaviour where T : Character
             hit.GetComponent<Damageable>()?.TakeDamage(transform.parent.gameObject,true,false,false,false,true,false);
         }
     }
-
-
     private void ShockAttackTrigger()
     {
         var colliders = Physics2D.OverlapCircleAll(character.attackCheck.position, character.attackCheckRadius);
@@ -62,6 +62,5 @@ public class AnimationTrigger<T> : MonoBehaviour where T : Character
             if (transform.parent.CompareTag("Enemy") && hit.CompareTag("Enemy")) continue;
             hit.GetComponent<Damageable>()?.TakeDamage(transform.parent.gameObject,true,false,false,false,false,true);
         }
-    }
-    
+    }    
 }

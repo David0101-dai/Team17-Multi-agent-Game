@@ -35,7 +35,7 @@ public class FlashFX : MonoBehaviour
     [SerializeField] private float afterImageCooldown;
     private float afterImageCooldownTimer;
 
-     private void Start()
+    private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         damageable = transform.GetComponent<Damageable>();
@@ -52,6 +52,12 @@ public class FlashFX : MonoBehaviour
             await UniTask.WaitForSeconds(flashTime);
             sr.material.SetInt("_Flash", Convert.ToInt32(false));
         });
+
+        // 更新冷却计时器
+        if (afterImageCooldownTimer > 0)
+        {
+            afterImageCooldownTimer -= Time.deltaTime;
+        }
     }
 
     // 用于状态效果的颜色闪烁
@@ -92,13 +98,13 @@ public class FlashFX : MonoBehaviour
     }
 
     public void RedBlink(bool isOn)
-        {
-            sr.material.SetInt("_Blink", Convert.ToInt32(isOn));
-        }
+    {
+        sr.material.SetInt("_Blink", Convert.ToInt32(isOn));
+    }
 
     public void CreatAfterImage()
     {
-        if (afterImageCooldownTimer < 0)
+        if (afterImageCooldownTimer <= 0)  // 改为小于等于 0
         {
             afterImageCooldownTimer = afterImageCooldown;
 
@@ -106,10 +112,13 @@ public class FlashFX : MonoBehaviour
             Vector3 offset = new Vector3(0, 1.5f, 0);  // 1f 是向上的偏移量，可以根据需求调整
 
             // 创建分身并设置它的位置
-            GameObject newAfterImage = Instantiate(afterImagePerfab, transform.position + offset, transform.rotation);
+            Vector3 afterImagePosition = transform.position + offset;
+            //Debug.Log("AfterImage Position: " + afterImagePosition);  // 调试位置
+            GameObject newAfterImage = Instantiate(afterImagePerfab, afterImagePosition, transform.rotation);
             newAfterImage.GetComponent<AfterImageFx>().SetupAfterImage(colorLooseRate, sr.sprite);
         }
     }
+
     public void CreatHitFX(Transform _target, int HitEffect_id)
     {
         float zRotation = UnityEngine.Random.Range(-90, 90);
@@ -145,8 +154,10 @@ public class FlashFX : MonoBehaviour
         newHitFx.transform.Rotate(new Vector3(0, 0, zRotation));       
     }
 
-    public void playDust(){
-        if(dustFx != null){
+    public void playDust()
+    {
+        if(dustFx != null)
+        {
             dustFx.Play();
         }
     }

@@ -45,13 +45,9 @@ public abstract class Enemy : Character
         Damageable.OnTakeDamage += (from, to) =>
         {
             damageFrom = from;
-
-            // 检查是否符合冷却时间
             if (Time.time - lastHitTime >= hitCooldown)
             {
-                // 更新时间戳
                 lastHitTime = Time.time;
-
                 if (damageFrom.CompareTag("Player") && IsInStunState())
                 {
                     var isRight = damageFrom.transform.position.x > transform.position.x;
@@ -61,8 +57,6 @@ public abstract class Enemy : Character
                     if (faceDir != 0 && faceDir != Flip.facingDir) Flip.Flip();
                     return;
                 }
-
-                // 只有在冷却时间过去后才触发 SwitchHitState
                 SwitchHitState();
             }
         };
@@ -130,4 +124,21 @@ public abstract class Enemy : Character
     protected abstract void SwitchHitState();
 
     protected abstract void SwitchStunState();
+
+    public float GetDistanceToPlayer()
+    {
+        // 如果玩家已被检测到，计算敌人和玩家的直线距离
+        if (ColDetect.DetectedPlayer != null)
+        {
+            Vector2 enemyPosition = transform.position;  // 获取敌人的位置
+            Vector2 playerPosition = ColDetect.DetectedPlayer.position;  // 获取玩家的位置
+            return Vector2.Distance(enemyPosition, playerPosition);
+        }
+        else
+        {
+            return float.MaxValue;
+        }
+    }
+
+    public virtual void AnimationSpecialAttackTrigger(){}
 }

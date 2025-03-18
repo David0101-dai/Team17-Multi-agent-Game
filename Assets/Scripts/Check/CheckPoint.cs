@@ -23,6 +23,7 @@ public class CheckPoint : MonoBehaviour
             ActivateCheckPointWhenCollision();
         }
     }
+    
     void LateUpdate()
 {
     if (anim == null)

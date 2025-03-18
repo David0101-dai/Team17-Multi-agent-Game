@@ -53,6 +53,21 @@ public class AttackState : PlayerState
    public override void Exit(IState newState)
 {
     base.Exit(newState);
+        // 如果玩家处于狂战士状态，则调用其 OnAttack 方法实现回血
+        // 定义一个攻击检测的半径和敌人所在的 LayerMask
+    float attackRadius = 1f; // 根据实际需求调整
+    LayerMask enemyLayer = LayerMask.GetMask("Enemy"); // 确保敌人放在 "Enemy" 层
+     // 在玩家当前位置做一个圆形检测
+    Collider2D hitCollider = Physics2D.OverlapCircle(Character.transform.position, attackRadius, enemyLayer);
+    if (hitCollider != null)
+    {
+        // 如果检测到了敌人，则说明攻击命中，调用狂战士buff的回血方法
+        BerserkerBuff buff = Character.GetComponent<BerserkerBuff>();
+            if (buff != null)
+            {
+                buff.OnAttack();
+            }
+    }
 
     Character.StartCoroutine(BusyFor(0.15f));
 

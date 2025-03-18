@@ -68,8 +68,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.51, y: 0.09}
-  m_Size: {x: 5.44, y: 2.41}
+  m_Offset: {x: 0.08, y: 0.09}
+  m_Size: {x: 3.52, y: 2.41}
   m_Direction: 1
 --- !u!50 &7526577404391774343
 Rigidbody2D:
@@ -162,13 +162,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d029e63f595298409af43d00a662ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
   targetLayerName: Player
-  damageable: {fileID: 0}
   xSpeed: 15
   rb: {fileID: 0}
   worked: 0
   flipped: 0
+  direction: 0
   existTimer: 8
   Attacker: {fileID: 0}
 --- !u!95 &6576870204486492370

@@ -15,6 +15,11 @@ public class RedHoodBattleState : RedHoodThinkState
     {
         base.Update();
 
+        if(ColDetect.DetectedPlayer == null){
+            Fsm.SwitchState(Character.IdleState);
+            return;
+        }
+
         if(ColDetect.DetectedPlayer != null){
         var isRight = ColDetect.DetectedPlayer.position.x > Character.transform.position.x;
         var isLeft = ColDetect.DetectedPlayer.position.x < Character.transform.position.x;

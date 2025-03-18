@@ -15,7 +15,7 @@ public class RedHoodFallState : RedHoodAirState
 
         if (ColDetect.IsGrounded)
         {
-            Fsm.SwitchState(Character.LandState);
+            Fsm.SwitchState(Character.AimState);
         }
     }
 

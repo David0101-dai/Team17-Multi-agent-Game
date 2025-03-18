@@ -668,6 +668,7 @@ Transform:
   - {fileID: 8772754604611035156}
   - {fileID: 5835756089793742898}
   - {fileID: 3352856260772636713}
+  - {fileID: 671640481976783425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &227760734167867189
@@ -781,8 +782,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   DetectedPlayer: {fileID: 0}
-  playerCheckDistance: 6.35
-  playerCheckBackDistance: 1.93
+  playerCheckDistance: 10
+  playerCheckBackDistance: 5
   isNeedPlayerCheck: 1
 --- !u!114 &5389898084641221957
 MonoBehaviour:
@@ -935,11 +936,16 @@ MonoBehaviour:
   canBeStun: 0
   counterImage: {fileID: 7061287504026579744}
   RedHoodType: 0
-  jumpDirection: {x: 0, y: 0}
-  arrow: {fileID: 0}
-  jumpForce: 0
+  jumpForce: {x: 10, y: 20}
+  jumpCooldown: 10
+  jumpCooldownTimer: 0
+  safeDistance: 5
+  arrow: {fileID: 2380975526966730361, guid: eca292f1a77c521479d4600d4f348761, type: 3}
   dashSpeed: 25
   dashDuration: 0.25
+  arrowSpeed: 15
+  groundCheck: {fileID: 671640481976783425}
+  groundCheckSize: {x: 2, y: 2}
   comboCount: 6
   comboWindow: 0.25
   attackSpeed: 1
@@ -950,6 +956,37 @@ MonoBehaviour:
   - {x: 3, y: 0}
   - {x: 4, y: 0}
   - {x: 5, y: 0}
+--- !u!1 &8304024722932838917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 671640481976783425}
+  m_Layer: 7
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &671640481976783425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8304024722932838917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.99, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3624441246379659521}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5999442857328362720
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,7 +3,6 @@ using UnityEngine.TextCore.Text;
 
 public class RedHoodAttackState : RedHoodBattleState
 {
-    private float lastAttackTime;
     public int comboCounter;
 
     public RedHoodAttackState(FSM fsm, RedHood character, string animBoolName) : base(fsm, character, animBoolName)
@@ -18,12 +17,6 @@ public class RedHoodAttackState : RedHoodBattleState
         {
             comboCounter = 0;  // 或者重置为某个合理的值
         }
-
-        //Debug.Log(" Character.attackMovement.Length: " +  Character.attackMovement.Length);
-        // if (comboCounter >= Character.comboCount || Time.time >= lastAttackTime + Character.comboWindow)
-        // {
-        //     comboCounter = 0;
-        // }
 
         if (comboCounter >= Character.comboCount)
         {
@@ -68,12 +61,9 @@ public class RedHoodAttackState : RedHoodBattleState
     public override void Exit(IState newState)
     {
         base.Exit(newState);
-    //    Character.StartCoroutine(BusyFor(0.15f));
         Anim.speed = 1;
         comboCounter = Mathf.Min(comboCounter, Character.comboCount-1);  // 这样comboCounter最大为5
         comboCounter++;
-        //Debug.Log("comboCounter: " + comboCounter); 
-        lastAttackTime = Time.time;
     }
 
 }

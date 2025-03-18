@@ -7,11 +7,19 @@ public class RedHood : Enemy
 {
     [Header("RedHood Specific Info")]
     [SerializeField] private RedHoodType RedHoodType;
-    [SerializeField] private Vector2 jumpDirection;
+    public Vector2 jumpForce = new Vector2(10, 10);
+    public float jumpCooldown;
+    [HideInInspector] public float jumpCooldownTimer;
+    public float safeDistance = 5f;
     [SerializeField] private GameObject arrow;
-    public float jumpForce;
     public float dashSpeed = 25f;
     public float dashDuration = 0.25f;
+    [SerializeField] private float arrowSpeed = 10f;
+
+    [Header("RedHood Check Info")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Vector2 groundCheckSize;
+
 
     #region State
     public IState IdleState { get; private set; }
@@ -44,7 +52,7 @@ public class RedHood : Enemy
         protected override void Start()
     {
         base.Start();
-
+        jumpCooldownTimer = 0;
         IdleState = new RedHoodIdleState(Fsm, this, "Idle");
         PatrolState = new RedHoodPatrolState(Fsm, this, "Move");
         ChaseState = new RedHoodChaseState(Fsm, this, "Move");
@@ -55,7 +63,6 @@ public class RedHood : Enemy
         AimState = new RedHoodAimState(Fsm, this, "Aim");
         JumpState = new RedHoodJumpState(Fsm, this, "Jump");
         FallState = new RedHoodFallState(Fsm, this, "Fall");
-        LandState = new RedHoodLandState(Fsm, this, "Land");
         DashSTate = new RedHoodDashState(Fsm, this, "Dash");
         Fsm.SwitchState(IdleState);
     }
@@ -63,6 +70,24 @@ public class RedHood : Enemy
     protected override void Update()
     {
         base.Update();
+        jumpCooldownTimer -= Time.deltaTime;
+    }
+    public bool GroundBhindCheck() => Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Platform"));
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        // 确保这里绘制的是你想要的地面检测盒子的大小和位置
+        Gizmos.color = Color.red;  // 设置 Gizmo 颜色为红色
+        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+    }
+
+    public override void AnimationSpecialAttackTrigger()
+    {
+        base.AnimationSpecialAttackTrigger();
+        Debug.Log("Special Attack Triggered");
+        GameObject newArrow = Instantiate(arrow,attackCheck.position, Quaternion.identity);
+        newArrow.GetComponent<EnergyBall_Controller>().Setup(gameObject, Flip.facingDir*arrowSpeed);
     }
 
     protected override void SwitchHitState()

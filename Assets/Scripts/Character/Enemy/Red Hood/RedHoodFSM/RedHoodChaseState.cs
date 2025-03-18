@@ -3,14 +3,11 @@ using UnityEngine;
 public class RedHoodChaseState : RedHoodBattleState
 {
     public RedHoodChaseState(FSM fsm, RedHood character, string animBoolName) : base(fsm, character, animBoolName)
-    {
-
-    }
+    {}
 
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
         StateTimer = Character.lostPlayerTime;
     }
 
@@ -30,13 +27,17 @@ public class RedHoodChaseState : RedHoodBattleState
 
         var distance = Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);
        
-        if(!Character.canAttack){
-            SetVelocity(moveDir * Character.moveSpeed * 2, Rb.velocity.y);
-        }else{
+        if(!Character.canAttack&& Character.GetDistanceToPlayer() > 4*Character.safeDistance){
+            SetVelocity(moveDir * Character.moveSpeed, Rb.velocity.y);
+        }else if(ColDetect.DetectedPlayer && canJump() && Character.GetDistanceToPlayer() < Character.safeDistance){
+            Fsm.SwitchState(Character.JumpState);
+        }else if(ColDetect.DetectedPlayer && Character.GetDistanceToPlayer() > 2*Character.safeDistance){
+            Fsm.SwitchState(Character.AimState);
+        }else if(Character.canAttack){
             SetVelocity(0, Rb.velocity.y);
-            if(attackCooldownTimer <= 0){
-               Fsm.SwitchState(Character.AttackState);
-            }
+            Fsm.SwitchState(Character.AttackState);
+        }else{
+            SetVelocity(moveDir * Character.moveSpeed, Rb.velocity.y);
         }
 
         if (StateTimer < 0 || distance - 1 > ColDetect.playerCheckDistance)
@@ -50,4 +51,10 @@ public class RedHoodChaseState : RedHoodBattleState
     {
         base.Exit(newState);
     }
+
+    private bool canJump()
+    {
+        return Character.jumpCooldownTimer <= 0 && Character.GroundBhindCheck();
+    }
+
 }

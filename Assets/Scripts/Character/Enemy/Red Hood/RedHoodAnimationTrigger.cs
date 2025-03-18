@@ -14,4 +14,8 @@ public class RedHoodAnimationTrigger : AnimationTrigger<RedHood>
         //UnityEngine.Debug.Log("触发CloseCounterWindow");
         character.CloseCounterAttackWindow();
     }
+
+    private void SpecialAttackTrigger(){
+       character.AnimationSpecialAttackTrigger();   
+    }
 }

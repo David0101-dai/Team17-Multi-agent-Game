@@ -16,10 +16,6 @@ public class RedHoodAirState : RedHoodBattleState
     public override void Update()
     {
         base.Update();
-
-        if(Rb.velocity.y == 0){
-            Fsm.SwitchState(Character.IdleState);
-        }
     }
 
     public override void Exit(IState newState)

@@ -165,7 +165,7 @@ MonoBehaviour:
   damage: 10
   targetLayerName: Player
   damageable: {fileID: 0}
-  xSpeed: 5
+  xSpeed: 15
   rb: {fileID: 0}
   worked: 0
   flipped: 0

@@ -15,10 +15,7 @@ public class RedHoodPatrolState : RedHoodGroundState
     public override void Update()
     {
         base.Update();
-
         SetVelocity(Flip.facingDir * Character.moveSpeed, Rb.velocity.y);
-        //Debug.Log(" | IsGrounded: " + ColDetect.IsGrounded);
-
     }
 
     public override void Exit(IState newState)

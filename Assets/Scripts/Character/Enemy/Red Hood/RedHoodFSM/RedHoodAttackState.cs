@@ -4,6 +4,7 @@ using UnityEngine.TextCore.Text;
 public class RedHoodAttackState : RedHoodBattleState
 {
     public int comboCounter;
+     private bool hasAimed = false;  
 
     public RedHoodAttackState(FSM fsm, RedHood character, string animBoolName) : base(fsm, character, animBoolName)
     {
@@ -36,24 +37,32 @@ public class RedHoodAttackState : RedHoodBattleState
         SetVelocity(Character.attackMovement[comboCounter].x * attackDir, Character.attackMovement[comboCounter].y);
 
         StateTimer = 0.1f;
+        hasAimed = false;
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (StateTimer < 0)
+         // 更新状态计时器
+        StateTimer -= Time.deltaTime;
+
+        // 如果状态计时器结束，但动画还没有播放完成，继续待在 AimState
+        if (StateTimer <= 0 && !hasAimed)
         {
+            // 停止敌人的移动
             SetVelocity(0, 0);
         }
 
-        if (IsAnimationFinished)
-        {
-            Fsm.SwitchState(Character.IdleState);
+        if (IsAnimationFinished && !hasAimed)
+        {   
+             hasAimed = true;  // 确保动画完成后才会切换到 IdleState
+            Fsm.SwitchState(Character.ChaseState);
         }
 
-        if (!ColDetect.IsGrounded)
+        if (!ColDetect.IsGrounded && !hasAimed)
         {
+             hasAimed = true;  // 确保动画完成后才会切换到 IdleState
             Fsm.SwitchState(Character.FallState);
         }
     }

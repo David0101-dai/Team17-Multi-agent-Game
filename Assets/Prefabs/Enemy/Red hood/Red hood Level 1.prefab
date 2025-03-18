@@ -921,8 +921,8 @@ MonoBehaviour:
   attackCheck: {fileID: 215986613427621807}
   attackCheckRadius: 1.5
   canAttack: 0
-  knockbackXSpeed: 3
-  knockbackYSpeed: 3
+  knockbackXSpeed: 4
+  knockbackYSpeed: 8
   damageFrom: {fileID: 0}
   defaultMoveSpeed: 3.5
   moveSpeed: 0

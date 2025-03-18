@@ -6,7 +6,7 @@ public enum RedHoodType {level1, level2, level3,level4}
 public class RedHood : Enemy
 {
     [Header("RedHood Specific Info")]
-    [SerializeField] private RedHoodType RedHoodType;
+    [SerializeField] public RedHoodType RedHoodType;
     public Vector2 jumpForce = new Vector2(10, 10);
     public float jumpCooldown;
     [HideInInspector] public float jumpCooldownTimer;
@@ -32,7 +32,7 @@ public class RedHood : Enemy
     public IState JumpState {get; private set; }
     public IState FallState {get; private set; }
     public IState LandState {get; private set; }
-    public IState DashSTate {get; private set; }
+    public IState DashState {get; private set; }
     public IState AimState {get; private set; }
     #endregion
     
@@ -63,7 +63,7 @@ public class RedHood : Enemy
         AimState = new RedHoodAimState(Fsm, this, "Aim");
         JumpState = new RedHoodJumpState(Fsm, this, "Jump");
         FallState = new RedHoodFallState(Fsm, this, "Fall");
-        DashSTate = new RedHoodDashState(Fsm, this, "Dash");
+        DashState = new RedHoodDashState(Fsm, this, "Dash");
         Fsm.SwitchState(IdleState);
     }
 

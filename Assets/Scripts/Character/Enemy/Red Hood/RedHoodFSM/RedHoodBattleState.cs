@@ -14,6 +14,12 @@ public class RedHoodBattleState : RedHoodThinkState
     public override void Update()
     {
         base.Update();
+        
+        var isRight = ColDetect.DetectedPlayer.position.x > Character.transform.position.x;
+        var isLeft = ColDetect.DetectedPlayer.position.x < Character.transform.position.x;
+        var moveDir = isRight ? 1 : isLeft ? -1 : 0;
+        
+        dashDir = moveDir;
     }
 
     public override void Exit(IState newState)

@@ -3,6 +3,7 @@ using UnityEngine;
 public class RedHoodState : CharacterState<RedHood>, IState
 {
     protected static float attackCooldownTimer;
+    protected float dashDir;
 
     public RedHoodState(FSM fsm, RedHood character, string animBoolName) : base(fsm, character, animBoolName)
     {
@@ -16,7 +17,6 @@ public class RedHoodState : CharacterState<RedHood>, IState
     public override void Update()
     {
         base.Update();
-
         attackCooldownTimer -= Time.deltaTime;
     }
 

@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum RedHoodType {level1, level2, level3,level4}
 public class RedHood : Enemy
 {
+    [SerializeField] private RedHoodType RedHoodType;
+    public float jumpForce;
+    public float dashSpeed = 25f;
+    public float dashDuration = 0.25f;
     #region State
     public IState IdleState { get; private set; }
     public IState PatrolState { get; private set; }
@@ -43,7 +48,11 @@ public class RedHood : Enemy
         HitState = new RedHoodHitState(Fsm, this, "Hit");
         DeadState = new RedHoodDeadState(Fsm, this, "Dead");
         StunState = new RedHoodStunState(Fsm, this, "Stun");
-
+        AimState = new RedHoodAimState(Fsm, this, "Aim");
+        JumpState = new RedHoodJumpState(Fsm, this, "Jump");
+        FallState = new RedHoodFallState(Fsm, this, "Fall");
+        LandState = new RedHoodLandState(Fsm, this, "Land");
+        DashSTate = new RedHoodDashState(Fsm, this, "Dash");
         Fsm.SwitchState(IdleState);
     }
 

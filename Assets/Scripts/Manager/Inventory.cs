@@ -154,7 +154,12 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         var newEquipment = item as ItemDataEquipment;
         var newItem = new InventoryItem(newEquipment);
-
+        if (item.itemType == ItemType.Equipment && newEquipment.name == "Shield")
+        {
+            // 触发护盾特效
+            Inventory.Instance.GetEquipmentByType(EquipmentType.Armor)?.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
+            Debug.Log("护盾已触发！");
+        }
         var old = equipmentDic.FirstOrDefault(x => x.Key.equipmentType == newEquipment.equipmentType).Key;
 
         if (old)

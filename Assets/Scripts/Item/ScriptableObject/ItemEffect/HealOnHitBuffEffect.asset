@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5816a74c4d1b8448ad93bdd7f59899, type: 3}
   m_Name: HealOnHitBuffEffect
   m_EditorClassIdentifier: 
-  healPercent: 0.05
+  healPercent: 0.203

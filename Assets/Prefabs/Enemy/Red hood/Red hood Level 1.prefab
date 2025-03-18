@@ -836,13 +836,13 @@ MonoBehaviour:
     value: 15
     modifiers: 
   Agi:
-    value: 0
+    value: 10
     modifiers: 
   Int:
     value: 0
     modifiers: 
   Vit:
-    value: 0
+    value: 10
     modifiers: 
   Damage:
     value: 0
@@ -854,7 +854,7 @@ MonoBehaviour:
     value: 0
     modifiers: 
   MaxHp:
-    value: 200
+    value: 1000
     modifiers: 
   Armor:
     value: 0
@@ -923,7 +923,7 @@ MonoBehaviour:
   knockbackXSpeed: 3
   knockbackYSpeed: 3
   damageFrom: {fileID: 0}
-  defaultMoveSpeed: 7
+  defaultMoveSpeed: 3.5
   moveSpeed: 0
   attackDistance: 2
   attackCooldown: 0.4
@@ -934,6 +934,12 @@ MonoBehaviour:
   stunTime: 1
   canBeStun: 0
   counterImage: {fileID: 7061287504026579744}
+  RedHoodType: 0
+  jumpDirection: {x: 0, y: 0}
+  arrow: {fileID: 0}
+  jumpForce: 0
+  dashSpeed: 25
+  dashDuration: 0.25
   comboCount: 6
   comboWindow: 0.25
   attackSpeed: 1

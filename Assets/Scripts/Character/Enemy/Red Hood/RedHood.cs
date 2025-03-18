@@ -63,13 +63,6 @@ public class RedHood : Enemy
     protected override void Update()
     {
         base.Update();
-
-        Damageable.OnTakeDamage += (from, to) =>
-        {
-            damageFrom = from;
-            Fsm.SwitchState(HitState);
-        };
-
     }
 
     protected override void SwitchHitState()

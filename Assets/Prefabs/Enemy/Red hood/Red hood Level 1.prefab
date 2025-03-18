@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 1009199178241014857}
   - component: {fileID: 6714921453751836407}
   - component: {fileID: 3182115967098539492}
-  - component: {fileID: 1253899454206405268}
+  - component: {fileID: 5899693363534017771}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -297,7 +297,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1253899454206405268
+--- !u!114 &5899693363534017771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1652437138693535690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7879f54f236d24e4bab858e0d99bdd49, type: 3}
+  m_Script: {fileID: 11500000, guid: 54512884b11707c478ad719ed032f86e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4075258255575671708
@@ -638,9 +638,9 @@ GameObject:
   - component: {fileID: 5801095298934287970}
   - component: {fileID: 5849217814373300834}
   - component: {fileID: 5389898084641221957}
-  - component: {fileID: 8305963115070134546}
   - component: {fileID: 1422732834535275470}
   - component: {fileID: 5367061510177176149}
+  - component: {fileID: 3523646393545641556}
   m_Layer: 7
   m_Name: Red hood Level 1
   m_TagString: Enemy
@@ -819,35 +819,6 @@ MonoBehaviour:
   afterImagePerfab: {fileID: 0}
   colorLooseRate: 0
   afterImageCooldown: 0
---- !u!114 &8305963115070134546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7959343219263893758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15fc738e1e69244585f312eeb37d2fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCheck: {fileID: 215986613427621807}
-  attackCheckRadius: 1
-  canAttack: 0
-  knockbackXSpeed: 5
-  knockbackYSpeed: 0
-  damageFrom: {fileID: 0}
-  defaultMoveSpeed: 3
-  moveSpeed: 1.5
-  attackDistance: 2
-  attackCooldown: 0.1
-  minAttackCooldown: 0
-  maxAttackCooldown: 0
-  lostPlayerTime: 7
-  hitCooldown: 1
-  stunTime: 0.5
-  canBeStun: 0
-  counterImage: {fileID: 7061287504026579744}
 --- !u!114 &1422732834535275470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,6 +905,45 @@ MonoBehaviour:
   - {fileID: 11400000, guid: feb828e4c31f99b48ad48d9bc5d5ded9, type: 2}
   - {fileID: 11400000, guid: d1975db937e48994d867fe87ef88feee, type: 2}
   dropList: []
+--- !u!114 &3523646393545641556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7959343219263893758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1821c756c49824ab8432e751d8cf18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCheck: {fileID: 215986613427621807}
+  attackCheckRadius: 1.5
+  canAttack: 0
+  knockbackXSpeed: 3
+  knockbackYSpeed: 3
+  damageFrom: {fileID: 0}
+  defaultMoveSpeed: 7
+  moveSpeed: 0
+  attackDistance: 2
+  attackCooldown: 0.4
+  minAttackCooldown: 0.1
+  maxAttackCooldown: 0.5
+  lostPlayerTime: 10
+  hitCooldown: 3
+  stunTime: 1
+  canBeStun: 0
+  counterImage: {fileID: 7061287504026579744}
+  comboCount: 6
+  comboWindow: 0.25
+  attackSpeed: 1
+  attackMovement:
+  - {x: 3, y: 0}
+  - {x: 2, y: 0}
+  - {x: 2, y: 0}
+  - {x: 3, y: 0}
+  - {x: 4, y: 0}
+  - {x: 5, y: 0}
 --- !u!1001 &5999442857328362720
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -25,6 +25,9 @@ public class TutorialManager : MonoBehaviour
     private bool isTutorialSkipped = false; // 跳过标识
     public float fadeDuration = 1f;  // 控制渐隐渐显的时间，值越小动画越快，值越大动画越慢
 
+
+    public GameObject portal1; // 在 Inspector 面板中拖入“传送门1”预制体
+
     void Start()
     {
         // 如果不是新游戏，直接跳过教程
@@ -63,6 +66,9 @@ public class TutorialManager : MonoBehaviour
         characterTextCanvasGroup.alpha = 0;
         // 关闭整个教程组件（也可根据需求选择 Destroy(gameObject)）
         gameObject.SetActive(false);
+
+        // **激活传送门**
+        if (portal1 != null) portal1.SetActive(true);
     }
 
 
@@ -162,6 +168,9 @@ public class TutorialManager : MonoBehaviour
 
         if (isTutorialSkipped) yield break;
         yield return ShowMessage("Now, Kill all the enemys.", 1f);
+
+        // **激活传送门**
+        if (portal1 != null) portal1.SetActive(true);
 
         yield return FadeOut(); // 最后完全隐藏文本
     }

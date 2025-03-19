@@ -154,7 +154,6 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         var newEquipment = item as ItemDataEquipment;
         var newItem = new InventoryItem(newEquipment);
-
         var old = equipmentDic.FirstOrDefault(x => x.Key.equipmentType == newEquipment.equipmentType).Key;
 
         if (old)
@@ -345,8 +344,17 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
         var canUseFlask = Time.time > lastTimeUsedFlask + flaskCooldown;
         if (canUseFlask)
         {
-            currentFlask.ExecuteItemEffect(null, null);
-            lastTimeUsedFlask = Time.time;
+            if (currentFlask.name == "Shield")
+            {
+                currentFlask.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
+            }
+            else
+            {
+                currentFlask.ExecuteItemEffect(null, null);
+                lastTimeUsedFlask = Time.time;
+            }
+            UnEquipItem(currentFlask);
+            RemoveItem(currentFlask);
         }
     }
     public bool CanAddItem(ItemData item)

@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - NPC
   - Spike
+  - IceNecklace
   layers:
   - Default
   - TransparentFX

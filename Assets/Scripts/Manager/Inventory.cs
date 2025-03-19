@@ -111,6 +111,15 @@ public class Inventory : MonoBehaviour, ISaveManager
         // statSlots = statSlotParent.GetComponentsInChildren<StatsSlot>();
         AddStartingItems();
     }
+    private void Update()
+    {
+        ExcuteEffect();
+    }
+    public bool HasEquippedItem(EquipmentType equipmentType)
+    {
+        return equipmentDic.Any(x => x.Key.equipmentType == equipmentType);
+    }
+
     private void AddInitialItem()
     {
        Debug.Log($"Starting Equipment Count: {startingEquipment.Count}");
@@ -167,6 +176,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
+        GetEquipmentByType(EquipmentType.Amulet)?.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
     }
 
     public void UnEquipItem(ItemData item)
@@ -179,6 +189,20 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
+    }
+    public void DestroyEffectWithTag(string tagName)
+    {
+        GameObject effect = GameObject.FindWithTag(tagName);
+        if (effect != null)
+        {
+            Destroy(effect);
+            effect.GetComponent<CircleCollider2D>().enabled = false;
+            Debug.Log($"Tag 为 {tagName} 的特效已成功销毁。");
+        }
+        else
+        {
+            Debug.LogWarning($"未找到 Tag 为 {tagName} 的特效。");
+        }
     }
 
     private void EquipMethod(ItemDataEquipment newEquipment, InventoryItem newItem)
@@ -196,6 +220,7 @@ public class Inventory : MonoBehaviour, ISaveManager
             equipmentDic.Remove(old);
             old.RemoveModifiers();
         }
+        DestroyEffectWithTag("IceNecklace");
     }
 
         public void AddItem(ItemData item)
@@ -401,7 +426,7 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
 
         // 确保 inventoryDic 已经初始化
         if (inventoryDic == null) inventoryDic = new Dictionary<ItemData, InventoryItem>();
-        if (stashDic == null) stashDic = new  Dictionary<ItemData, InventoryItem>();
+        if (stashDic == null) stashDic = new Dictionary<ItemData, InventoryItem>();
         if (equipmentDic == null) equipmentDic = new Dictionary<ItemDataEquipment, InventoryItem>();
         // 清空当前数据
         inventoryItems.Clear();
@@ -459,6 +484,24 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
         UpdateSlotUI(equipmentSlots, equipmentItems);
     }
 
+    private void ExcuteEffect()
+    {
+        if (HasEquippedItem(EquipmentType.Amulet))
+        {
+            GameObject effect = GameObject.FindWithTag("IceNecklace");
+            if (effect != null)
+            {
+                //Debug.Log("Destroy!!!");
+                //DestroyEffectWithTag("IceNecklace");
+                return;
+            }
+            var amulet = GetEquipmentByType(EquipmentType.Amulet);
+            if (amulet != null&&amulet.name=="IceNecklace") {
+
+                amulet.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
+            }
+        }
+    }
 
     public void SaveData(ref GameData _data)
     {

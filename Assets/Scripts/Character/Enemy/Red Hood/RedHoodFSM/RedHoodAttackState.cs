@@ -24,8 +24,6 @@ public class RedHoodAttackState : RedHoodBattleState
             comboCounter = 0;
         }
 
-        Debug.Log("Character.comboCount: " + Character.comboCount);
-
         Anim.SetInteger("AttackCounter", comboCounter);
 
         Anim.speed = Character.attackSpeed;

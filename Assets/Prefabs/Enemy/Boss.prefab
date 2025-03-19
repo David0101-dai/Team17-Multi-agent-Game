@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4541074612894521650}
   - component: {fileID: 9173383155505331687}
   - component: {fileID: 214830759332488395}
-  - component: {fileID: 8407703557527367649}
+  - component: {fileID: 639189259433311132}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -182,7 +182,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8407703557527367649
+--- !u!114 &639189259433311132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2300240181405590188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7879f54f236d24e4bab858e0d99bdd49, type: 3}
+  m_Script: {fileID: 11500000, guid: 1101625f5c5b7ca4991b111f9e14e497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2940730346603223557
@@ -638,8 +638,8 @@ GameObject:
   - component: {fileID: 7040199945677121280}
   - component: {fileID: 8742476978925399626}
   - component: {fileID: 6784793005014099624}
-  - component: {fileID: 1152551998525706980}
   - component: {fileID: 3789208139316610662}
+  - component: {fileID: 6446482331517970664}
   - component: {fileID: 8720956939563397207}
   m_Layer: 7
   m_Name: Boss
@@ -809,41 +809,16 @@ MonoBehaviour:
   igniteFx: {fileID: 892936550432900812}
   chillFx: {fileID: 804852796542081790}
   shockFx: {fileID: 9048129579177688823}
+  dustFx: {fileID: 0}
   HitEffect: {fileID: 1816960831561789492, guid: 020f580b6e832ba49a60a8ab86c0d0d2, type: 3}
   CriticalEffect: {fileID: 8848158666034802305, guid: c1dc5811bbe371a4aa92651762e1948e, type: 3}
   FireEffect: {fileID: 1048534142964658926, guid: 0a7db5607cddcbf4dac17461d20be3c5, type: 3}
   IceEffect: {fileID: 2593558672561651338, guid: 87c41339e67be01458a0c67ae973e695, type: 3}
   ShockEffect: {fileID: 4248622235448053354, guid: 0ad5a8031955c4547bcdb31f5bbe2e5d, type: 3}
   yOffset: 2
---- !u!114 &1152551998525706980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8281320021191277464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15fc738e1e69244585f312eeb37d2fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCheck: {fileID: 7789659888648839136}
-  attackCheckRadius: 3.81
-  canAttack: 0
-  knockbackXSpeed: 0
-  knockbackYSpeed: 0
-  damageFrom: {fileID: 0}
-  defaultMoveSpeed: 2
-  moveSpeed: 1.5
-  attackDistance: 4
-  attackCooldown: 0.1
-  minAttackCooldown: 0
-  maxAttackCooldown: 0
-  lostPlayerTime: 7
-  hitCooldown: 1
-  stunTime: 0.5
-  canBeStun: 0
-  counterImage: {fileID: 7785413694014740535}
+  afterImagePerfab: {fileID: 0}
+  colorLooseRate: 0
+  afterImageCooldown: 0
 --- !u!114 &3789208139316610662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -909,6 +884,35 @@ MonoBehaviour:
   isInvincible: 0
   Miss: 0
   level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
+--- !u!114 &6446482331517970664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281320021191277464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49dbb1612037e8e47b236a46276c2d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCheck: {fileID: 0}
+  attackCheckRadius: 0
+  canAttack: 0
+  knockbackXSpeed: 3
+  knockbackYSpeed: 3
+  damageFrom: {fileID: 0}
+  defaultMoveSpeed: 7
+  moveSpeed: 0
+  attackDistance: 2
+  attackCooldown: 0.4
+  minAttackCooldown: 0
+  maxAttackCooldown: 0
+  lostPlayerTime: 7
+  hitCooldown: 0.5
+  stunTime: 2
+  canBeStun: 1
+  counterImage: {fileID: 0}
 --- !u!114 &8720956939563397207
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,8 +9,9 @@ public class ShieldEffect : ItemEffect
     public override void ExecuteEffect(GameObject from, GameObject to)
     {
         var newShield = Instantiate(ShieldPrefab);
+        var stats = PlayerManager.Instance.player.GetComponent<Damageable>();
         newShield.transform.SetParent(to.transform, false); // false 保证相对位置不变
         newShield.transform.localPosition = new Vector3(0, 1, 0);  // 微调位置
-
+        stats.MakeInvincible(true);
     }
 }

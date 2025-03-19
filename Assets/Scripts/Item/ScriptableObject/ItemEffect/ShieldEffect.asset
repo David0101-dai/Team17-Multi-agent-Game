@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ShieldEffect
   m_EditorClassIdentifier: 
   ShieldPrefab: {fileID: 699090901368792314, guid: 3a04fa6e020c4cf40aa061d3b32a6ecc, type: 3}
+  gameObject: {fileID: 3829164425737164124, guid: 687cdd70a2f7cf546b3598f3c45cb436, type: 3}

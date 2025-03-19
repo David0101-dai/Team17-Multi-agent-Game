@@ -154,12 +154,6 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         var newEquipment = item as ItemDataEquipment;
         var newItem = new InventoryItem(newEquipment);
-        if (item.itemType == ItemType.Equipment && newEquipment.name == "Shield")
-        {
-            // 触发护盾特效
-            Inventory.Instance.GetEquipmentByType(EquipmentType.Armor)?.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
-            Debug.Log("护盾已触发！");
-        }
         var old = equipmentDic.FirstOrDefault(x => x.Key.equipmentType == newEquipment.equipmentType).Key;
 
         if (old)
@@ -350,8 +344,17 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
         var canUseFlask = Time.time > lastTimeUsedFlask + flaskCooldown;
         if (canUseFlask)
         {
-            currentFlask.ExecuteItemEffect(null, null);
-            lastTimeUsedFlask = Time.time;
+            if (currentFlask.name == "Shield")
+            {
+                currentFlask.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
+            }
+            else
+            {
+                currentFlask.ExecuteItemEffect(null, null);
+                lastTimeUsedFlask = Time.time;
+            }
+            UnEquipItem(currentFlask);
+            RemoveItem(currentFlask);
         }
     }
     public bool CanAddItem(ItemData item)

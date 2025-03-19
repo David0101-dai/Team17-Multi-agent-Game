@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Platform
   - NPC
+  - Spike
   layers:
   - Default
   - TransparentFX

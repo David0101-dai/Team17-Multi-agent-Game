@@ -33,6 +33,9 @@ public class TutorialManager : MonoBehaviour
         // 如果不是新游戏，直接跳过教程
         if (!All.IsNewGame)
         {
+            // **激活传送门**
+            if (portal1 != null) portal1.SetActive(true);
+
             // 可以选择把教程文本隐藏、或直接Destroy(TutorialManager)
             skipButton.SetActive(false);
             return;

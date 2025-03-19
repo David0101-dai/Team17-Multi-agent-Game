@@ -426,6 +426,8 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
                 Debug.Log("Cannot add item: inventory is full.");
                 return false;
             }
+            //Debug.Log("Can Add:" + inventoryItemSlots.Length);
+            //Debug.Log("Now we have:" + inventoryItems.Count);
 
             return inventoryItems.Count < inventoryItemSlots.Length;
         }

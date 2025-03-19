@@ -8,7 +8,7 @@ public class GodFireEffect : ItemEffect
     public override void ExecuteEffect(GameObject from, GameObject to)
     {
         var parent = FxManager.Instance.fx.transform;
-        Instantiate(GodFirePrefab, to.transform.position + new Vector3(0, 1, 0), Quaternion.identity, parent);
+        Instantiate(GodFirePrefab, to.transform.position + new Vector3(0, 2.3f, 0), Quaternion.identity, parent);
 
     }
 }

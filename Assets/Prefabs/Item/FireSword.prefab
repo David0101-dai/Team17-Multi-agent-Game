@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 630177431877483971}
   - component: {fileID: 1132505663094590259}
   - component: {fileID: 335410412112089292}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Itemtrriger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

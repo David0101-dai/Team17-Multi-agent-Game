@@ -176,7 +176,17 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
-        GetEquipmentByType(EquipmentType.Amulet)?.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
+        ExcuteSpecialEffect("IceNecklace");
+    }
+    public void ExcuteSpecialEffect(String tagName)
+    {
+        var amulet = GetEquipmentByType(EquipmentType.Amulet);
+        if (amulet != null && amulet.name == tagName)
+        {
+
+            amulet.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
+        }
+
     }
 
     public void UnEquipItem(ItemData item)

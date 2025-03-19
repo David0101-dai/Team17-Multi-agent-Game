@@ -919,10 +919,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 215986613427621807}
-  attackCheckRadius: 1.5
+  attackCheckRadius: 1
   canAttack: 0
-  knockbackXSpeed: 3
-  knockbackYSpeed: 3
+  knockbackXSpeed: 10
+  knockbackYSpeed: 20
   damageFrom: {fileID: 0}
   defaultMoveSpeed: 3.5
   moveSpeed: 0
@@ -931,7 +931,7 @@ MonoBehaviour:
   minAttackCooldown: 0.1
   maxAttackCooldown: 0.5
   lostPlayerTime: 10
-  hitCooldown: 3
+  hitCooldown: 2
   stunTime: 1
   canBeStun: 0
   counterImage: {fileID: 7061287504026579744}
@@ -941,6 +941,7 @@ MonoBehaviour:
   jumpCooldownTimer: 0
   safeDistance: 5
   arrow: {fileID: 2380975526966730361, guid: eca292f1a77c521479d4600d4f348761, type: 3}
+  arrow_2: {fileID: 467759254502598141, guid: 62dfe468a5defed44ac1c131cbe8cf69, type: 3}
   dashSpeed: 25
   dashDuration: 0.25
   arrowSpeed: 15

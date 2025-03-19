@@ -27,6 +27,8 @@ public class RedHoodChaseState : RedHoodBattleState
 
         var distance = Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);
        
+        if (Character.RedHoodType == RedHoodType.level2 || Character.RedHoodType == RedHoodType.level1){
+
         if(!Character.canAttack&& Character.GetDistanceToPlayer() > 4*Character.safeDistance){
             SetVelocity(moveDir * Character.moveSpeed, Rb.velocity.y);
         }else if(ColDetect.DetectedPlayer && canJump() && Character.GetDistanceToPlayer() < Character.safeDistance){
@@ -40,10 +42,64 @@ public class RedHoodChaseState : RedHoodBattleState
             SetVelocity(moveDir * Character.moveSpeed, Rb.velocity.y);
         }
 
-        if (StateTimer < 0 || distance - 1 > ColDetect.playerCheckDistance)
+        }
+
+        if (Character.RedHoodType == RedHoodType.level3){
+        
+        if(ColDetect.DetectedPlayer && canJump() && Character.GetDistanceToPlayer() < Character.safeDistance){
+            Fsm.SwitchState(Character.JumpState);
+        }else if(ColDetect.DetectedPlayer && Character.GetDistanceToPlayer() > 2*Character.safeDistance && Character.GetDistanceToPlayer() < 4*Character.safeDistance){
+            // 50% 概率决定进入 AimState（射击状态）或 AttackState（攻击状态）
+                if (Random.value < 0.5f)
+                {
+                    Fsm.SwitchState(Character.AimState);  // 50% 概率进入射击状态
+                }
+                else
+                {
+                    Fsm.SwitchState(Character.DashState);  // 50% 概率进入冲刺状态
+                }
+
+        }else if(Character.canAttack){
+            
+            SetVelocity(0, Rb.velocity.y);
+            
+            Fsm.SwitchState(Character.AttackState);
+        }else{
+            SetVelocity(moveDir * Character.moveSpeed, Rb.velocity.y);
+        }
+        
+        }
+
+        if (Character.RedHoodType == RedHoodType.level4){
+        
+        if(ColDetect.DetectedPlayer && canJump() && Character.GetDistanceToPlayer() < Character.safeDistance){
+            Fsm.SwitchState(Character.JumpState);
+        }else if(ColDetect.DetectedPlayer && Character.GetDistanceToPlayer() > 2*Character.safeDistance && Character.GetDistanceToPlayer() < 4*Character.safeDistance){
+            // 50% 概率决定进入 AimState（射击状态）或 AttackState（攻击状态）
+                if (Random.value < 0.6f)
+                {
+                    Fsm.SwitchState(Character.AimState);  // 60% 概率进入射击状态
+                }
+                else
+                {
+                    Fsm.SwitchState(Character.DashState);  // 40% 概率进入冲刺状态
+                }
+
+        }else if(Character.canAttack){
+            
+            SetVelocity(0, Rb.velocity.y);
+            
+            Fsm.SwitchState(Character.AttackState);
+        }else{
+            SetVelocity(moveDir * Character.moveSpeed, Rb.velocity.y);
+        }
+        
+        }
+        
+
+        if (ColDetect.DetectedPlayer = null)
         {
-            ColDetect.DetectedPlayer = null;
-            Fsm.SwitchState(Character.IdleState);
+            Fsm.SwitchState(Character.PatrolState);
         }
     }
 
@@ -51,10 +107,4 @@ public class RedHoodChaseState : RedHoodBattleState
     {
         base.Exit(newState);
     }
-
-    private bool canJump()
-    {
-        return Character.jumpCooldownTimer <= 0 && Character.GroundBhindCheck();
-    }
-
 }

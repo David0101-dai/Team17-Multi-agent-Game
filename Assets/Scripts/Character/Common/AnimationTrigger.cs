@@ -22,8 +22,12 @@ public class AnimationTrigger<T> : MonoBehaviour where T : Character
         foreach (var hit in colliders)
         {   
             if (hit.transform == transform.parent) continue;
-            if (transform.parent.CompareTag("Player") && hit.GetComponent<EnergyBall_Controller>() != null){
-                hit.GetComponent<EnergyBall_Controller>().FlipArrow();
+            if(transform.parent.CompareTag("Player")){
+                if (hit.GetComponent<EnergyBall_Controller>() != null){
+                    hit.GetComponent<EnergyBall_Controller>().FlipArrow();                
+                }else if(hit.GetComponent<EnergyBall_Controller_2>() != null){
+                    hit.GetComponent<EnergyBall_Controller_2>().FlipArrow();
+                }
             }
             if (transform.parent.CompareTag("Enemy") && hit.CompareTag("Enemy")) continue;
             hit.GetComponent<Damageable>()?.TakeDamage(transform.parent.gameObject);

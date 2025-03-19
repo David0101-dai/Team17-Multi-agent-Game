@@ -25,9 +25,21 @@ public class RedHoodHitState : RedHoodState
     public override void Update()
     {
         base.Update();
-
-        if (IsAnimationFinished)
+        
+       
+        if (IsAnimationFinished){
+        if(Character.RedHoodType == RedHoodType.level1)
             Fsm.SwitchState(Character.ChaseState);
+        else if(Character.RedHoodType == RedHoodType.level2)
+            Fsm.SwitchState(Character.ChaseState);
+        else if(Character.RedHoodType == RedHoodType.level3)
+            Fsm.SwitchState(Character.DashState);
+        }else if(Character.RedHoodType == RedHoodType.level4){
+            Fsm.SwitchState(Character.DashState);
+        }else{
+            Fsm.SwitchState(Character.ChaseState);
+        }
+            
     }
 
     public override void Exit(IState newState)

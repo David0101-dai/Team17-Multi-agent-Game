@@ -6,12 +6,14 @@ public enum RedHoodType {level1, level2, level3,level4}
 public class RedHood : Enemy
 {
     [Header("RedHood Specific Info")]
-    [SerializeField] private RedHoodType RedHoodType;
+    [SerializeField] public RedHoodType RedHoodType;
     public Vector2 jumpForce = new Vector2(10, 10);
     public float jumpCooldown;
     [HideInInspector] public float jumpCooldownTimer;
     public float safeDistance = 5f;
     [SerializeField] private GameObject arrow;
+    [SerializeField] private GameObject arrow_2;
+    [SerializeField] private GameObject arrow_3;
     public float dashSpeed = 25f;
     public float dashDuration = 0.25f;
     [SerializeField] private float arrowSpeed = 10f;
@@ -32,7 +34,7 @@ public class RedHood : Enemy
     public IState JumpState {get; private set; }
     public IState FallState {get; private set; }
     public IState LandState {get; private set; }
-    public IState DashSTate {get; private set; }
+    public IState DashState {get; private set; }
     public IState AimState {get; private set; }
     #endregion
     
@@ -63,7 +65,7 @@ public class RedHood : Enemy
         AimState = new RedHoodAimState(Fsm, this, "Aim");
         JumpState = new RedHoodJumpState(Fsm, this, "Jump");
         FallState = new RedHoodFallState(Fsm, this, "Fall");
-        DashSTate = new RedHoodDashState(Fsm, this, "Dash");
+        DashState = new RedHoodDashState(Fsm, this, "Dash");
         Fsm.SwitchState(IdleState);
     }
 
@@ -86,8 +88,40 @@ public class RedHood : Enemy
     {
         base.AnimationSpecialAttackTrigger();
         Debug.Log("Special Attack Triggered");
-        GameObject newArrow = Instantiate(arrow,attackCheck.position, Quaternion.identity);
-        newArrow.GetComponent<EnergyBall_Controller>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+        if(RedHoodType == RedHoodType.level1 || RedHoodType == RedHoodType.level2)
+        {
+            GameObject newArrow = Instantiate(arrow,attackCheck.position, Quaternion.identity);
+            newArrow.GetComponent<EnergyBall_Controller>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+        }else if(RedHoodType == RedHoodType.level3)
+        {
+            if (Random.value < 0.5f)
+                {
+                    GameObject newArrow = Instantiate(arrow,attackCheck.position, Quaternion.identity);
+                    newArrow.GetComponent<EnergyBall_Controller>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+                }
+                else
+                {
+                    GameObject newArrow = Instantiate(arrow_2,attackCheck.position, Quaternion.identity);
+                    newArrow.GetComponent<EnergyBall_Controller_2>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+                }
+            
+        }else if(RedHoodType == RedHoodType.level4)
+        {
+            if (Random.value < 0.3f)
+                {
+                    GameObject newArrow = Instantiate(arrow,attackCheck.position, Quaternion.identity);
+                    newArrow.GetComponent<EnergyBall_Controller>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+                }
+                else if(Random.value < 0.6f)
+                {
+                    GameObject newArrow = Instantiate(arrow_2,attackCheck.position, Quaternion.identity);
+                    newArrow.GetComponent<EnergyBall_Controller_2>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+                }else{
+                    GameObject newArrow = Instantiate(arrow_3,attackCheck.position, Quaternion.identity);
+                    newArrow.GetComponent<EnergyBall_Controller_3>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+                }
+            
+        }
     }
 
     protected override void SwitchHitState()

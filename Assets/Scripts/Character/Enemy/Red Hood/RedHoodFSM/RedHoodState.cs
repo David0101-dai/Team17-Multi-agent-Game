@@ -12,6 +12,7 @@ public class RedHoodState : CharacterState<RedHood>, IState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
+        //Debug.Log("RedHoodState Enteer"+ Fsm.CurrentState.GetType().Name);
     }
 
     public override void Update()

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 276b031c095ffeb45a59c8af1e5458f7
+guid: 9974e6acf9e2b12419cc1cd25a226467
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,69 +93,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Burst of ice_0
+      name: Magic_Lightning01_Akira 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 768
-        width: 128
-        height: 128
+        y: 0
+        width: 90.6
+        height: 233
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e9aa228030835743b64b55293240d19
-      internalID: -674298955
+      spriteID: 933b1081f98a0cb48a9b500cec0c624d
+      internalID: -325164132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Burst of ice_1
+      name: Magic_Lightning01_Akira 1_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 640
-        width: 128
-        height: 128
+        x: 90
+        y: 0
+        width: 90.6
+        height: 233
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d47fb79a3974a1348b0a347aa7d4cd21
-      internalID: 145633016
+      spriteID: f040c58f1103c6d45a5370fce40acd6a
+      internalID: -118010739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Burst of ice_2
+      name: Magic_Lightning01_Akira 1_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 128
-        height: 128
+        x: 180
+        y: 0
+        width: 90.6
+        height: 233
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4717b82ee7a6a8e4fa52db45fd7c18cb
-      internalID: 599270662
+      spriteID: a43bed435f5cdb548993d9b4b2462502
+      internalID: 1353337628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Burst of ice_3
+      name: Magic_Lightning01_Akira 1_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 384
-        width: 128
-        height: 128
+        x: 270
+        y: 0
+        width: 90.6
+        height: 233
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b31e5ab7b408a2e459e2df3eba70a686
-      internalID: -1907708330
+      spriteID: 6256123614f1cc24da559af3388b3291
+      internalID: 965092853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Burst of ice_4
+      name: Magic_Lightning01_Akira 1_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
-        width: 128
-        height: 128
+        x: 360
+        y: 0
+        width: 90.6
+        height: 233
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,29 +195,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b52d80f790254684c8a9fdcd88e5e361
-      internalID: -1926645278
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Burst of ice_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4411598654b3b20478d60b45ff831e1d
-      internalID: -638498099
+      spriteID: 33001bcb5e9e3f541ac7ec9e5aae0107
+      internalID: -8627254
       vertices: []
       indices: 
       edges: []
@@ -285,12 +212,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Burst of ice_0: -674298955
-      Burst of ice_1: 145633016
-      Burst of ice_2: 599270662
-      Burst of ice_3: -1907708330
-      Burst of ice_4: -1926645278
-      Burst of ice_5: -638498099
+      Magic_Lightning01_Akira 1_0: -325164132
+      Magic_Lightning01_Akira 1_1: -118010739
+      Magic_Lightning01_Akira 1_2: 1353337628
+      Magic_Lightning01_Akira 1_3: 965092853
+      Magic_Lightning01_Akira 1_4: -8627254
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

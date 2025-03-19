@@ -31,22 +31,15 @@ public class EnergyBall_Controller : MonoBehaviour
        // 这个方法会根据敌人（Attacker）和玩家的位置来决定能量球的朝向
     private void AdjustDirection()
     {
-        // 获取敌人和玩家的相对位置
         if (Attacker != null)
         {
-            Vector3 directionToPlayer = (PlayerManager.Instance.player.transform.position - Attacker.transform.position).normalized;
-
-            // 如果玩家在敌人的右边，能量球向右
-            if (directionToPlayer.x > 0)
+            if (xSpeed > 0)
             {
-                xSpeed = Mathf.Abs(xSpeed);  // 保证速度是正数
-                transform.localRotation = Quaternion.identity;  // 不旋转
+                transform.localRotation = Quaternion.identity; 
             }
-            // 如果玩家在敌人的左边，能量球向左
             else
             {
-                xSpeed = -Mathf.Abs(xSpeed);  // 保证速度是负数
-                transform.localRotation = Quaternion.Euler(0, 180, 0);  // 旋转180度
+                transform.localRotation = Quaternion.Euler(0, 180, 0);
             }
         }
     }

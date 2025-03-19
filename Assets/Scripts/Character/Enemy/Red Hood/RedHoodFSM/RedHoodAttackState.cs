@@ -56,14 +56,41 @@ public class RedHoodAttackState : RedHoodBattleState
 
         if (IsAnimationFinished && !hasAimed)
         {   
-             hasAimed = true;  // 确保动画完成后才会切换到 IdleState
-            Fsm.SwitchState(Character.ChaseState);
+            hasAimed = true;  // 确保动画完成后才会切换到 IdleState
+            if(Character.RedHoodType == RedHoodType.level1)
+                Fsm.SwitchState(Character.IdleState);
+            if(Character.RedHoodType == RedHoodType.level2) 
+                Fsm.SwitchState(Character.ChaseState);
+            if (Character.RedHoodType == RedHoodType.level3)
+            {
+                float randomValue = Random.value;
+
+                // 70% 概率进入追击状态
+                if (randomValue < 0.7f)
+                {
+                    Fsm.SwitchState(Character.ChaseState);
+                }
+                // 20% 概率进入冲刺状态
+                else if (randomValue < 0.9f)
+                {
+                    Fsm.SwitchState(Character.DashState);
+                }
+                // 10% 概率进入射击状态
+                else
+                {
+                    Fsm.SwitchState(Character.AimState);
+                }
+            } 
         }
 
         if (!ColDetect.IsGrounded && !hasAimed)
         {
              hasAimed = true;  // 确保动画完成后才会切换到 IdleState
             Fsm.SwitchState(Character.FallState);
+        }
+
+        if(hasAimed){
+            Exit(Character.DashState);
         }
     }
 

@@ -941,6 +941,7 @@ MonoBehaviour:
   jumpCooldownTimer: 0
   safeDistance: 5
   arrow: {fileID: 2380975526966730361, guid: eca292f1a77c521479d4600d4f348761, type: 3}
+  arrow_2: {fileID: 467759254502598141, guid: 62dfe468a5defed44ac1c131cbe8cf69, type: 3}
   dashSpeed: 25
   dashDuration: 0.25
   arrowSpeed: 15

@@ -430,7 +430,7 @@ SpriteRenderer:
   m_SortingLayerID: -929207647
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: -117101206, guid: 7eb81348dc564e844a4ecbc74050b300, type: 3}
+  m_Sprite: {fileID: -117101206, guid: c6886b3f41a872c48973787adce49121, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -451,7 +451,7 @@ Animator:
   m_GameObject: {fileID: 4688678953105704851}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9a8998ae93864864b9580f4333e4e46b, type: 2}
+  m_Controller: {fileID: 9100000, guid: d2fb115ecc083e343a7fc1b90d96e651, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -968,12 +968,13 @@ MonoBehaviour:
   counterImage: {fileID: 1981412886555455142}
   RedHoodType: 1
   jumpForce: {x: 10, y: 20}
-  jumpCooldown: 10
+  jumpCooldown: 8
   jumpCooldownTimer: 0
   safeDistance: 5
   arrow: {fileID: 2380975526966730361, guid: eca292f1a77c521479d4600d4f348761, type: 3}
+  arrow_2: {fileID: 467759254502598141, guid: 62dfe468a5defed44ac1c131cbe8cf69, type: 3}
   dashSpeed: 25
-  dashDuration: 0.25
+  dashDuration: 0.35
   arrowSpeed: 15
   groundCheck: {fileID: 2925068930962045214}
   groundCheckSize: {x: 2, y: 2}

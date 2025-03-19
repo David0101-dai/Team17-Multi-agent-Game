@@ -6,12 +6,18 @@ public class NightBorneChaseState : NightBorneState
     public NightBorneChaseState(FSM fsm, NightBorne character, string animBoolName) : base(fsm, character, animBoolName)
     {
     }
-
+    
+    private int direction;
 
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
+        if (ColDetect.DetectedPlayer){
+            var isRight = ColDetect.DetectedPlayer.position.x > Character.transform.position.x;
+            var isLeft = ColDetect.DetectedPlayer.position.x < Character.transform.position.x;
+            var moveDir = isRight ? 1 : isLeft ? -1 : 0;
+            direction = moveDir;
+        }
         StateTimer = Character.lostPlayerTime;
     }
 
@@ -29,14 +35,10 @@ public class NightBorneChaseState : NightBorneState
             Flip.Flip();
         }
         
-        var isRight = ColDetect.DetectedPlayer.position.x > Character.transform.position.x;
-        var isLeft = ColDetect.DetectedPlayer.position.x < Character.transform.position.x;
-        var moveDir = isRight ? 1 : isLeft ? -1 : 0;
-
         var distance = Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);
        
         if(!Character.canAttack){
-            SetVelocity(moveDir * Character.moveSpeed * 2, Rb.velocity.y);
+            SetVelocity(direction * Character.moveSpeed * 2, Rb.velocity.y);
         }else{
             SetVelocity(0, Rb.velocity.y);
             if(attackCooldownTimer <= 0){

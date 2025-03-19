@@ -55,6 +55,21 @@ public class RedHoodAimState : RedHoodBattleState
             Fsm.SwitchState(Character.DashState);
         }
 
+         if (IsAnimationFinished && !hasAimed && Character.RedHoodType == RedHoodType.level4)
+        {
+            hasAimed = true;  // 确保动画完成后才会切换到 IdleState
+            Fsm.SwitchState(Character.DashState);
+            // 50% 概率决定进入 AimState（射击状态）或 AttackState（攻击状态）
+                if (Random.value < 0.8f)
+                {
+                    Fsm.SwitchState(Character.DashState); // 50% 概率进入射击状态
+                }
+                else
+                {
+                    Fsm.SwitchState(Character.JumpState);  // 50% 概率进入攻击状态
+                }
+        }
+
         if(hasAimed){
             Exit(Character.DashState);
         }

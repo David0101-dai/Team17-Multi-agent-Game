@@ -69,11 +69,37 @@ public class RedHoodChaseState : RedHoodBattleState
         }
         
         }
+
+        if (Character.RedHoodType == RedHoodType.level4){
+        
+        if(ColDetect.DetectedPlayer && canJump() && Character.GetDistanceToPlayer() < Character.safeDistance){
+            Fsm.SwitchState(Character.JumpState);
+        }else if(ColDetect.DetectedPlayer && Character.GetDistanceToPlayer() > 2*Character.safeDistance && Character.GetDistanceToPlayer() < 4*Character.safeDistance){
+            // 50% 概率决定进入 AimState（射击状态）或 AttackState（攻击状态）
+                if (Random.value < 0.6f)
+                {
+                    Fsm.SwitchState(Character.AimState);  // 60% 概率进入射击状态
+                }
+                else
+                {
+                    Fsm.SwitchState(Character.DashState);  // 40% 概率进入冲刺状态
+                }
+
+        }else if(Character.canAttack){
+            
+            SetVelocity(0, Rb.velocity.y);
+            
+            Fsm.SwitchState(Character.AttackState);
+        }else{
+            SetVelocity(moveDir * Character.moveSpeed, Rb.velocity.y);
+        }
+        
+        }
         
 
         if (ColDetect.DetectedPlayer = null)
         {
-            Fsm.SwitchState(Character.IdleState);
+            Fsm.SwitchState(Character.PatrolState);
         }
     }
 

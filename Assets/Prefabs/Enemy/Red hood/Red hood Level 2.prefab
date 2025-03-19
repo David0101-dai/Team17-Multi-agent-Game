@@ -950,10 +950,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCheck: {fileID: 6825071518709001959}
-  attackCheckRadius: 1.5
+  attackCheckRadius: 1
   canAttack: 0
-  knockbackXSpeed: 4
-  knockbackYSpeed: 8
+  knockbackXSpeed: 10
+  knockbackYSpeed: 20
   damageFrom: {fileID: 0}
   defaultMoveSpeed: 3.5
   moveSpeed: 0
@@ -962,7 +962,7 @@ MonoBehaviour:
   minAttackCooldown: 0.1
   maxAttackCooldown: 0.5
   lostPlayerTime: 10
-  hitCooldown: 3
+  hitCooldown: 2
   stunTime: 1
   canBeStun: 0
   counterImage: {fileID: 1981412886555455142}

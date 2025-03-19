@@ -80,6 +80,25 @@ public class RedHoodAttackState : RedHoodBattleState
                 {
                     Fsm.SwitchState(Character.AimState);
                 }
+            }
+            if(Character.RedHoodType == RedHoodType.level4){
+                float randomValue = Random.value;
+
+                // 70% 概率进入追击状态
+                if (randomValue < 0.5f)
+                {
+                    Fsm.SwitchState(Character.ChaseState);
+                }
+                // 20% 概率进入冲刺状态
+                else if (randomValue < 0.8f)
+                {
+                    Fsm.SwitchState(Character.DashState);
+                }
+                // 10% 概率进入射击状态
+                else
+                {
+                    Fsm.SwitchState(Character.AimState);
+                }
             } 
         }
 

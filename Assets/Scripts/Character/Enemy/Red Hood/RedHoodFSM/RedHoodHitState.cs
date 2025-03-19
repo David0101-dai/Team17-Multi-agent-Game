@@ -30,9 +30,11 @@ public class RedHoodHitState : RedHoodState
         if (IsAnimationFinished){
         if(Character.RedHoodType == RedHoodType.level1)
             Fsm.SwitchState(Character.ChaseState);
-        if(Character.RedHoodType == RedHoodType.level2)
+        else if(Character.RedHoodType == RedHoodType.level2)
             Fsm.SwitchState(Character.ChaseState);
-        if(Character.RedHoodType == RedHoodType.level3)
+        else if(Character.RedHoodType == RedHoodType.level3)
+            Fsm.SwitchState(Character.DashState);
+        }else if(Character.RedHoodType == RedHoodType.level4){
             Fsm.SwitchState(Character.DashState);
         }else{
             Fsm.SwitchState(Character.ChaseState);

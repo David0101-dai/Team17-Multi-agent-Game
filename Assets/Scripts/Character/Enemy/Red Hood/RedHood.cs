@@ -13,6 +13,7 @@ public class RedHood : Enemy
     public float safeDistance = 5f;
     [SerializeField] private GameObject arrow;
     [SerializeField] private GameObject arrow_2;
+    [SerializeField] private GameObject arrow_3;
     public float dashSpeed = 25f;
     public float dashDuration = 0.25f;
     [SerializeField] private float arrowSpeed = 10f;
@@ -102,6 +103,22 @@ public class RedHood : Enemy
                 {
                     GameObject newArrow = Instantiate(arrow_2,attackCheck.position, Quaternion.identity);
                     newArrow.GetComponent<EnergyBall_Controller_2>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+                }
+            
+        }else if(RedHoodType == RedHoodType.level4)
+        {
+            if (Random.value < 0.3f)
+                {
+                    GameObject newArrow = Instantiate(arrow,attackCheck.position, Quaternion.identity);
+                    newArrow.GetComponent<EnergyBall_Controller>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+                }
+                else if(Random.value < 0.6f)
+                {
+                    GameObject newArrow = Instantiate(arrow_2,attackCheck.position, Quaternion.identity);
+                    newArrow.GetComponent<EnergyBall_Controller_2>().Setup(gameObject, Flip.facingDir*arrowSpeed);
+                }else{
+                    GameObject newArrow = Instantiate(arrow_3,attackCheck.position, Quaternion.identity);
+                    newArrow.GetComponent<EnergyBall_Controller_3>().Setup(gameObject, Flip.facingDir*arrowSpeed);
                 }
             
         }

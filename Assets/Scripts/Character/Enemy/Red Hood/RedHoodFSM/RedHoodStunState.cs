@@ -9,8 +9,12 @@ public class RedHoodStunState : RedHoodState
     public override void Enter(IState lastState)
     {
         base.Enter(lastState);
-
-        StateTimer = Character.stunTime;
+        
+        if(Character.RedHoodType == RedHoodType.level4){
+            StateTimer = Character.stunTime*0.5f;
+        }else{
+            StateTimer = Character.stunTime;
+        }       
 
         Character.FlashFX.RedBlink(true);
 
@@ -27,9 +31,13 @@ public class RedHoodStunState : RedHoodState
     public override void Update()
     {
         base.Update();
-
-        if (StateTimer < 0)
+        if (StateTimer < 0){
+        if(Character.RedHoodType == RedHoodType.level4){
             Fsm.SwitchState(Character.ChaseState);
+        }            
+        Fsm.SwitchState(Character.ChaseState);
+        }
+            
     }
 
     public override void Exit(IState newState)

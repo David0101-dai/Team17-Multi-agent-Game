@@ -19,6 +19,12 @@ public class RedHoodDashState :  RedHoodBattleState
             // 50% 概率决定冲刺的方向
             dashDir = Random.value < 0.5f ? 1 : -1; // 50% 概率向前（1）或者向后（-1）
         }
+
+        if (Character.RedHoodType == RedHoodType.level4)
+        {
+            // 50% 概率决定冲刺的方向
+            dashDir = Random.value < 0.7f ? 1 : -1; // 50% 概率向前（1）或者向后（-1）
+        }
     }
     
     public override void Update()
@@ -35,9 +41,9 @@ public class RedHoodDashState :  RedHoodBattleState
             }
         }
         
-        if (Character.RedHoodType == RedHoodType.level3)
+        if (Character.RedHoodType == RedHoodType.level3 || Character.RedHoodType == RedHoodType.level4)
         {
-            // 如果是 level3 类型，根据 dashDir 决定冲刺方向
+            //根据 dashDir 决定冲刺方向
             if (dashDir == 1)
             {
                 // 向前冲刺

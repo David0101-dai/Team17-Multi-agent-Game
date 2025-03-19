@@ -103,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 2300240181405590188}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33, y: 2.13, z: 0}
+  m_LocalPosition: {x: 0.01, y: 2.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -219,7 +219,7 @@ Transform:
   m_GameObject: {fileID: 2940730346603223557}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.17, y: 3.6, z: 0}
+  m_LocalPosition: {x: -2.49, y: 2.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -451,7 +451,7 @@ Transform:
   m_GameObject: {fileID: 7785413694014740535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18300171, y: 3.9059994, z: 0}
+  m_LocalPosition: {x: -0.13699822, y: 3.9059994, z: 0}
   m_LocalScale: {x: 0.54, y: 0.54, z: 0.54}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -546,7 +546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.18300171, y: 3.684}
+  m_AnchoredPosition: {x: -0.13699822, y: 3.684}
   m_SizeDelta: {x: 167.5865, y: 43.9722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1530150893173859726
@@ -848,13 +848,13 @@ MonoBehaviour:
     value: 0
     modifiers: 
   CritChance:
-    value: 0
+    value: 10
     modifiers: 
   CritPower:
-    value: 0
+    value: 50
     modifiers: 
   MaxHp:
-    value: 500
+    value: 3000
     modifiers: 
   Armor:
     value: 0
@@ -877,8 +877,8 @@ MonoBehaviour:
   IsIgnited: 0
   IsChilled: 0
   IsShocked: 0
-  igniteDuration: 2
-  chillDuration: 2
+  igniteDuration: 1
+  chillDuration: 1
   thunderStrikePrefab: {fileID: 4050344180660983985, guid: 197d6a6330fb1a047aa8e053e9df76bb, type: 3}
   shockDuration: 1
   isInvincible: 0
@@ -896,23 +896,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49dbb1612037e8e47b236a46276c2d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCheck: {fileID: 0}
-  attackCheckRadius: 0
+  attackCheck: {fileID: 7789659888648839136}
+  attackCheckRadius: 4
   canAttack: 0
   knockbackXSpeed: 3
   knockbackYSpeed: 3
   damageFrom: {fileID: 0}
-  defaultMoveSpeed: 7
+  defaultMoveSpeed: 5
   moveSpeed: 0
   attackDistance: 2
   attackCooldown: 0.4
   minAttackCooldown: 0
   maxAttackCooldown: 0
-  lostPlayerTime: 7
-  hitCooldown: 0.5
+  lostPlayerTime: 3
+  hitCooldown: 10
   stunTime: 2
   canBeStun: 1
-  counterImage: {fileID: 0}
+  counterImage: {fileID: 7785413694014740535}
 --- !u!114 &8720956939563397207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,7 +960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8488936218187346802, guid: 9884737102ebefa49b06e20ade550599, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.42275962
+      value: 0.10275969
       objectReference: {fileID: 0}
     - target: {fileID: 8488936218187346802, guid: 9884737102ebefa49b06e20ade550599, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1035,7 +1035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 97482633260456156, guid: b139751518aeb7840853a97ca4871eca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.304
+      value: -0.015999943
       objectReference: {fileID: 0}
     - target: {fileID: 97482633260456156, guid: b139751518aeb7840853a97ca4871eca, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1114,7 +1114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 269802838810774738, guid: 906c7f4fdde27c346a7bc25dad65a12e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.35400924
+      value: 0.034009308
       objectReference: {fileID: 0}
     - target: {fileID: 269802838810774738, guid: 906c7f4fdde27c346a7bc25dad65a12e, type: 3}
       propertyPath: m_LocalPosition.y

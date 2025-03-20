@@ -6,27 +6,27 @@ public class Speed2 : Skill
 {
     [Header("Attack Speed Boost")]
     // 是否解锁此技能
-    public bool attackSpeedBoostUnlocked;
+    public bool attackSpeedBoost2Unlocked;
 
     // 技能树中的槽位（UI）
     private SkillTreeSlot attackSpeedSlot;
 
-    // 是否已经应用过加成，防止重复加
-    private bool boostApplied = false;
+    
 
     protected override void SkillFunction()
     {
         // 如果技能未解锁或已经应用过加成，则不再执行
-        if (!attackSpeedBoostUnlocked || boostApplied) return;
+        if (!attackSpeedBoost2Unlocked) return;
 
         // 获取 Player 脚本（你的玩家身上挂的脚本）
         Player p = player.GetComponent<Player>();
         if (p != null)
         {
-            // 将攻速从 1.0 提高到 1.5（可根据需求改为别的数值）
-            p.attackSpeed = 2f;
-            Debug.Log("Attack Speed Boost: x1.5");
-            boostApplied = true;
+            if (p.attackSpeed < 2f)
+            {
+                p.attackSpeed = 2f;
+                Debug.Log("Attack Speed Boost: x2");
+            }
         }
 
     }
@@ -75,7 +75,7 @@ public class Speed2 : Skill
     protected override void Update()
     {
         // 如果技能已解锁，则尝试执行技能逻辑
-        if (attackSpeedBoostUnlocked)
+        if (attackSpeedBoost2Unlocked)
         {
             SkillFunction();
         }
@@ -84,18 +84,9 @@ public class Speed2 : Skill
     // 当技能被取消时，移除加成
     private void OnAttackSpeedSkillCancelled()
     {
-        attackSpeedBoostUnlocked = false;
-        if (boostApplied)
-        {
-            Player p = player.GetComponent<Player>();
-            if (p != null)
-            {
-                // 恢复攻速
-                p.attackSpeed = 1.5f;
-                Debug.Log("Attack Speed Boost Cancelled: revert to normal");
-            }
-            boostApplied = false;
-        }
+        attackSpeedBoost2Unlocked = false;
+        Player p = player.GetComponent<Player>();
+        p.attackSpeed = 1.5f;
     }
 
     // 检查当前槽位是否已解锁
@@ -103,7 +94,7 @@ public class Speed2 : Skill
     {
         if (attackSpeedSlot != null)
         {
-            attackSpeedBoostUnlocked = attackSpeedSlot.unlocked;
+            attackSpeedBoost2Unlocked = attackSpeedSlot.unlocked;
         }
 
     }
@@ -113,7 +104,7 @@ public class Speed2 : Skill
     {
         if (attackSpeedSlot.unlocked)
         {
-            attackSpeedBoostUnlocked = true;
+            attackSpeedBoost2Unlocked = true;
         }
     }
 }

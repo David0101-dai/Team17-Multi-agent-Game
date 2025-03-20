@@ -226,27 +226,27 @@ public class Inventory : MonoBehaviour, ISaveManager
         //DestroyEffect(item);
     }
 
-    private void DestroyEffect(ItemData item)
-    {
-        if (item.name == "IceNecklace")
-        {
-            Debug.Log("DeatroyFX!!!!");
-            DestroyEffectWithTag("IceNecklace");
-        }
-    }
+    //private void DestroyEffect(ItemData item)
+    //{
+    //    if (item.name == "IceNecklace")
+    //    {
+    //        Debug.Log("DeatroyFX!!!!");
+    //        DestroyEffectWithTag("IceNecklace");
+    //    }
+    //}
 
-    public void DestroyEffectWithTag(string tagName)
+    public bool ExistEffect(string tagName)
     {
         GameObject effect = GameObject.FindWithTag(tagName);
         if (effect != null)
         {
-            Destroy(effect);
-            effect.GetComponent<CircleCollider2D>().enabled = false;
-            Debug.Log($"Tag 为 {tagName} 的特效已成功销毁。");
+            return true;
+            //Debug.Log($"Tag 为 {tagName} 的特效已成功销毁。");
         }
         else
         {
             Debug.Log($"未找到 Tag 为 {tagName} 的特效。");
+            return false;
         }
     }
 
@@ -532,21 +532,21 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
 
     private void ExcuteEffect()
     {
-        if (HasEquippedItem(EquipmentType.Amulet))
+        if (HasEquippedItem(EquipmentType.Amulet)&&!ExistEffect("IceNecklace"))
         {
-            //GameObject effect = GameObject.FindWithTag("IceNecklace");
-            //if (effect != null)
-            //{
-            //    //Debug.Log("Destroy!!!");
-            //    //DestroyEffectWithTag("IceNecklace");
-            //    return;
-            //}
             if (canExcuteEquipment())
             {
                 ExcuteSpecialEffect("IceNecklace");
                 setEuipmentTimer();
+                DestroyByTime("IceNecklace");
             }
         }
+    }
+
+    private static void DestroyByTime(String tagName)
+    {
+        GameObject effect = GameObject.FindWithTag(tagName);
+        Destroy(effect, 1f);
     }
 
     public void SaveData(ref GameData _data)

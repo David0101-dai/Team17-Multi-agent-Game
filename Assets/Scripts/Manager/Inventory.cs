@@ -211,7 +211,7 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
         else
         {
-            Debug.LogWarning($"未找到 Tag 为 {tagName} 的特效。");
+            Debug.Log($"未找到 Tag 为 {tagName} 的特效。");
         }
     }
 

@@ -58,6 +58,10 @@ public abstract class Damageable : MonoBehaviour
     private FlashFX flashFX;
     private Character character;
 
+    //[Header("Multiplier")]
+    public float attackMultiplier = 1f;
+   
+
     protected virtual void Start()
     {
         currentHp = MaxHp.GetValue();
@@ -139,6 +143,7 @@ public abstract class Damageable : MonoBehaviour
     var damageFrom = from.GetComponent<Damageable>();
     var damage = isMagic ? CalculateMagicDamage(damageFrom, this,isFireDamage,isIceDamage,isShockDamage) : CalculateDamage(damageFrom, this);
 
+
     if (isFromSwordSkill)
     {
         damage = Mathf.RoundToInt(damage * 0.3f);
@@ -201,7 +206,8 @@ public abstract class Damageable : MonoBehaviour
         isDead = true;
         Die();
     }
-}
+        
+    }
 
 
     private int CalculateDamage(Damageable from, Damageable to)
@@ -216,7 +222,15 @@ public abstract class Damageable : MonoBehaviour
           return 0;  
         }
 
-        var finalDamage = from.Damage.GetValue() + from.Str.GetValue() - to.Vit.GetValue();
+        //var finalDamage = from.Damage.GetValue() + from.Str.GetValue() - to.Vit.GetValue();
+        var finalDamage = Mathf.RoundToInt((from.Damage.GetValue() + from.Str.GetValue()) * from.attackMultiplier - to.Vit.GetValue());
+        //var finalDamage = Mathf.RoundToInt(from.Damage.GetValue() * from.attackMultiplier);
+        //Debug.Log("TakeDamage called, from = " + from.Damage.GetValue());
+
+
+
+
+
 
         if (from.IsChilled)
         {
@@ -239,6 +253,8 @@ public abstract class Damageable : MonoBehaviour
 
         finalDamage = Mathf.Clamp(finalDamage, 1, int.MaxValue);
 
+        
+
 
         if (triggerCriticalStrike)
         {
@@ -246,6 +262,8 @@ public abstract class Damageable : MonoBehaviour
         }else{
             flashFX.CreatHitFX(to.transform,0); //打击特效
         }
+
+
         
         return finalDamage;
     }
@@ -257,6 +275,7 @@ public abstract class Damageable : MonoBehaviour
         var lightingDamage = from.LightingDamage.GetValue();
 
         var finalMagicalDamage = fireDamage + iceDamage + lightingDamage + from.Int.GetValue();
+        
 
         finalMagicalDamage -= to.MagicResistance.GetValue() + (to.Int.GetValue() * 3);
         finalMagicalDamage = Mathf.Clamp(finalMagicalDamage, 1, int.MaxValue);

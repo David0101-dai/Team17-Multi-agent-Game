@@ -865,13 +865,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   Str:
-    value: 15
+    value: 30
     modifiers: 
   Agi:
-    value: 10
+    value: 20
     modifiers: 
   Int:
-    value: 0
+    value: 50
     modifiers: 
   Vit:
     value: 10
@@ -886,7 +886,7 @@ MonoBehaviour:
     value: 50
     modifiers: 
   MaxHp:
-    value: 1000
+    value: 1500
     modifiers: 
   Armor:
     value: 0
@@ -915,6 +915,7 @@ MonoBehaviour:
   shockDuration: 1
   isInvincible: 0
   Miss: 0
+  attackMultiplier: 1
   level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
 --- !u!114 &5521068415278371921
 MonoBehaviour:

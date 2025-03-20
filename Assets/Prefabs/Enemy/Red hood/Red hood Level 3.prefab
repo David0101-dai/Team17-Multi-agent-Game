@@ -485,7 +485,7 @@ MonoBehaviour:
     value: 10
     modifiers: 
   Int:
-    value: 0
+    value: 50
     modifiers: 
   Vit:
     value: 10
@@ -500,7 +500,7 @@ MonoBehaviour:
     value: 0
     modifiers: 
   MaxHp:
-    value: 1000
+    value: 1500
     modifiers: 
   Armor:
     value: 0
@@ -529,6 +529,7 @@ MonoBehaviour:
   shockDuration: 1
   isInvincible: 0
   Miss: 0
+  attackMultiplier: 1
   level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
 --- !u!114 &6377806868763215678
 MonoBehaviour:
@@ -587,6 +588,7 @@ MonoBehaviour:
   safeDistance: 7
   arrow: {fileID: 2380975526966730361, guid: eca292f1a77c521479d4600d4f348761, type: 3}
   arrow_2: {fileID: 467759254502598141, guid: 62dfe468a5defed44ac1c131cbe8cf69, type: 3}
+  arrow_3: {fileID: 0}
   dashSpeed: 25
   dashDuration: 0.35
   arrowSpeed: 20

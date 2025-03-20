@@ -14,4 +14,9 @@ public class BossAnimationTrigger : AnimationTrigger<Boss>
         //UnityEngine.Debug.Log("触发CloseCounterWindow");
         character.CloseCounterAttackWindow();
     }
+
+    private void Teleport() => character.FindPosition();
+    private void MakeInvisible() => character.FlashFX.MakeTransparent(true);
+    private void MakeVisable() => character.FlashFX.MakeTransparent(false);
+
 }

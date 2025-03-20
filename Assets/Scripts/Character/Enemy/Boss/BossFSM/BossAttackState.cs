@@ -15,6 +15,7 @@ public class BossAttackState : BossState
             Fsm.SwitchState(Character.IdleState);
         }
 
+        Character.AddChanceToTeleport(5f);
         AudioManager.instance.PlaySFX(12, Character.transform);
     }
 
@@ -24,9 +25,13 @@ public class BossAttackState : BossState
 
         if (IsAnimationFinished || !ColDetect.DetectedPlayer)
         {
-            Fsm.SwitchState(Character.ChaseState);
-            // 使用 UnityEngine.Random.Range 来随机设置攻击冷却时间
             attackCooldownTimer = UnityEngine.Random.Range(Character.minAttackCooldown, Character.maxAttackCooldown);
+            if(Character.CanTeleport()){
+                Character.ResetChanceToTeleport();
+                Fsm.SwitchState(Character.TeleportState);
+            }else{
+                Fsm.SwitchState(Character.ChaseState);
+            }
         }
     }
 

@@ -71,18 +71,16 @@ public class PlayerManager : MonoBehaviour, ISaveManager
     {
         if (_data != null)
         {
-            this.currency = _data.currency;  // 加载游戏数据中的货币
+            this.currency = _data.currency; 
             finalscore = _data.finalScore;
-           // Debug.Log("Loaded currency: " + this.currency);  // 添加日志确认加载过程
         }
     }
 
 
         public void SaveData(ref GameData _data)
     {
-        _data.currency = this.currency;  // 保存当前货币数据
+        _data.currency = this.currency;
         _data.finalScore = finalscore;
-        //Debug.Log("Saved currency: " + this.currency);  // 添加日志确认保存过程
     }
 
     public void SaveFinaled()

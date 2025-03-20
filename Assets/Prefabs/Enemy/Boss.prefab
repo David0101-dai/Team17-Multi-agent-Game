@@ -685,7 +685,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -695,7 +695,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &7348249881449795216
 BoxCollider2D:
@@ -729,7 +729,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.33, y: 1.69}
+  m_Offset: {x: -0.03, y: 1.69}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -740,7 +740,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.43, y: 3.48}
+  m_Size: {x: 2.43, y: 3.31}
   m_EdgeRadius: 0
 --- !u!114 &7040199945677121280
 MonoBehaviour:
@@ -781,8 +781,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   DetectedPlayer: {fileID: 0}
-  playerCheckDistance: 6.35
-  playerCheckBackDistance: 1.93
+  playerCheckDistance: 12
+  playerCheckBackDistance: 6
   isNeedPlayerCheck: 1
 --- !u!114 &6784793005014099624
 MonoBehaviour:
@@ -854,7 +854,7 @@ MonoBehaviour:
     value: 50
     modifiers: 
   MaxHp:
-    value: 3000
+    value: 6000
     modifiers: 
   Armor:
     value: 0
@@ -913,6 +913,17 @@ MonoBehaviour:
   stunTime: 2
   canBeStun: 1
   counterImage: {fileID: 7785413694014740535}
+  BossStage: 0
+  teleportArea: {fileID: 0}
+  surroundingCheckSize: {x: 0, y: 0}
+  cd: {fileID: 0}
+  chanceToTeleport: 0
+  defaultChanceToTeleport: 25
+  spellPrefab: {fileID: 8216753276299922325, guid: 4028f55c5a6ac2e41804ff2064a5fd24, type: 3}
+  spellCastCoolDown: 10
+  spellCastCoolDownTimer: 0
+  amountOfSpells: 5
+  spellCoolDown: 0.5
 --- !u!114 &8720956939563397207
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BossIdleState :BossGroundState
 {
     public BossIdleState(FSM fsm, Boss character, string animBoolName) : base(fsm, character, animBoolName)
@@ -18,7 +20,6 @@ public class BossIdleState :BossGroundState
     public override void Update()
     {
         base.Update();
-
         if (StateTimer < 0)
             Fsm.SwitchState(Character.PatrolState);
     }

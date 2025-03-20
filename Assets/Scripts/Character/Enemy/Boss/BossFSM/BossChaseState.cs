@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BossChaseState : BossState
 {
+
     public BossChaseState(FSM fsm, Boss character, string animBoolName) : base(fsm, character, animBoolName)
     {
     }
@@ -35,20 +36,26 @@ public class BossChaseState : BossState
         }
 
         var distance = Vector2.Distance(ColDetect.DetectedPlayer.position, Character.transform.position);       
+        
         if(!Character.canAttack){
-            SetVelocity(direction * Character.moveSpeed * 2, Rb.velocity.y);
+            SetVelocity(direction * Character.moveSpeed * 1.4f, Rb.velocity.y);
         }else{
-            SetVelocity(0, Rb.velocity.y);
             if(attackCooldownTimer <= 0){
+                SetVelocity(0, Rb.velocity.y);
+                attackCooldownTimer = attackCooldown;
                Fsm.SwitchState(Character.AttackState);
+            }else{
+                Fsm.SwitchState(Character.IdleState);
             }
         }
 
-        if (StateTimer < 0 || distance - 1 > ColDetect.playerCheckDistance)
+        if ((StateTimer < 0 || distance - 1 > ColDetect.playerCheckDistance) && Character.BossStage != BossStage.stage4)
         {
-            ColDetect.DetectedPlayer = null;
-            //Flip.Flip();
             Fsm.SwitchState(Character.IdleState);
+        }else{
+            if(Character.BossStage == BossStage.stage4){
+                Fsm.SwitchState(Character.TeleportState);
+            }
         }
     }
 

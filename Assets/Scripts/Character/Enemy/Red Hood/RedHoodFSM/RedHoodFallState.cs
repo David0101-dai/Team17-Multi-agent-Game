@@ -17,7 +17,7 @@ public class RedHoodFallState : RedHoodAirState
         if (ColDetect.IsGrounded)
         {   
             if(Character.RedHoodType == RedHoodType.level1){ 
-                Fsm.SwitchState(Character.ChaseState);
+                Fsm.SwitchState(Character.AimState);
             }else if(Character.RedHoodType == RedHoodType.level2){
                 if (Random.value < 0.5f)
                 {

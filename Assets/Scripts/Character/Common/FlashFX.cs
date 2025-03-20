@@ -35,12 +35,11 @@ public class FlashFX : MonoBehaviour
     [SerializeField] private float afterImageCooldown;
     private float afterImageCooldownTimer;
 
+
     private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         damageable = transform.GetComponent<Damageable>();
-
-        // 保存原始颜色
         originalColor = sr.color;
     }
 
@@ -159,6 +158,15 @@ public class FlashFX : MonoBehaviour
         if(dustFx != null)
         {
             dustFx.Play();
+        }
+    }
+
+    public void MakeTransparent(bool _transparent)
+    {
+        if(_transparent){
+            sr.color = Color.clear;
+        }else{
+            sr.color = originalColor;
         }
     }
 }

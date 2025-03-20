@@ -38,6 +38,10 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     [Header("ItemsCooldown")]
     private float lastTimeUsedFlask;
+    private float lastTimeExcute;
+
+    [Header("EquipmentCooldown")]
+    [SerializeField] private float equipmentCooldown = 5f;
 
     [Header("Flask Settings")]
     [SerializeField] public float flaskCooldown = 10f;
@@ -177,7 +181,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
-        Effect(item);
+        //Effect(item);
     }
 
     private void Effect(ItemData item)
@@ -199,6 +203,16 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     }
 
+    public void setEuipmentTimer()
+    {
+        lastTimeExcute = Time.time;
+    }
+
+    public bool canExcuteEquipment()
+    {
+        return Time.time > lastTimeExcute + equipmentCooldown;
+    }
+
     public void UnEquipItem(ItemData item)
     {
         var unequipData = item as ItemDataEquipment;
@@ -209,7 +223,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
-        DestroyEffect(item);
+        //DestroyEffect(item);
     }
 
     private void DestroyEffect(ItemData item)
@@ -520,17 +534,17 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
     {
         if (HasEquippedItem(EquipmentType.Amulet))
         {
-            GameObject effect = GameObject.FindWithTag("IceNecklace");
-            if (effect != null)
+            //GameObject effect = GameObject.FindWithTag("IceNecklace");
+            //if (effect != null)
+            //{
+            //    //Debug.Log("Destroy!!!");
+            //    //DestroyEffectWithTag("IceNecklace");
+            //    return;
+            //}
+            if (canExcuteEquipment())
             {
-                //Debug.Log("Destroy!!!");
-                //DestroyEffectWithTag("IceNecklace");
-                return;
-            }
-            var amulet = GetEquipmentByType(EquipmentType.Amulet);
-            if (amulet != null&&amulet.name=="IceNecklace") {
-
-                amulet.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
+                ExcuteSpecialEffect("IceNecklace");
+                setEuipmentTimer();
             }
         }
     }

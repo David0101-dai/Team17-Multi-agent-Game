@@ -16,7 +16,7 @@ public class SaveManager : MonoBehaviour
     private bool isSaving;
 
     [ContextMenu("Delete Save Data")]
-    public void DeleteSaveData()
+        public void DeleteSaveData()
     {
         // 确保 fileDataHandler 已经初始化
         if (fileDataHandler == null)
@@ -24,10 +24,13 @@ public class SaveManager : MonoBehaviour
             fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName, encryptData);
         }
 
-        fileDataHandler.DeleteData();
-        gameData = null;
-        Debug.Log("Game data deleted.");
+        fileDataHandler.DeleteData();  // 删除存档文件
+
+        // 重置内存中的 gameData 对象，确保所有数据被清空
+        gameData = new GameData();  
+        Debug.Log("游戏数据已删除并重置。");
     }
+
 private void Awake()
 {
     // 确保 SaveManager 只有一个实例，并且不会在场景切换时销毁
@@ -60,10 +63,9 @@ private IEnumerator Start()
     LoadGame();
     
 }
-    public void NewGame()
+        public void NewGame()
     {
-        gameData = new GameData();
-        SaveGame();
+        gameData = new GameData();  // 创建一个新的游戏数据对象
     }
 
     public void LoadGame()

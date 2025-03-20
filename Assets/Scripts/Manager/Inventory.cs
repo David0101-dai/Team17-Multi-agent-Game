@@ -177,11 +177,17 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
+        Effect(item);
+    }
+
+    private void Effect(ItemData item)
+    {
         if (item.name == "IceNecklace")
         {
             ExcuteSpecialEffect("IceNecklace");
         }
     }
+
     public void ExcuteSpecialEffect(String tagName)
     {
         var amulet = GetEquipmentByType(EquipmentType.Amulet);
@@ -203,12 +209,18 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
+        DestroyEffect(item);
+    }
+
+    private void DestroyEffect(ItemData item)
+    {
         if (item.name == "IceNecklace")
         {
             Debug.Log("DeatroyFX!!!!");
             DestroyEffectWithTag("IceNecklace");
         }
     }
+
     public void DestroyEffectWithTag(string tagName)
     {
         GameObject effect = GameObject.FindWithTag(tagName);

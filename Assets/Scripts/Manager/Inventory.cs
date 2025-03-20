@@ -48,6 +48,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
 
     [Header("Data Base")]
+    public List<ItemData> itemDataBase;
     public List<InventoryItem> loadedItems;
     public List<ItemDataEquipment> loadedEquipment;
 
@@ -487,7 +488,7 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
         // 加载 inventory 和 stash
         foreach (KeyValuePair<string, int> pair in _data.inventory)
         {
-            foreach (var item in GetItemDataBase())
+            foreach (var item in itemDataBase)
             {
                 if (item.itemId != pair.Key) continue;
                 var newItem = new InventoryItem(item);
@@ -511,7 +512,7 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
         // 加载装备
         foreach (string loadedItemId in _data.equipmentId)
         {
-            foreach (var item in GetItemDataBase())
+            foreach (var item in itemDataBase)
             {
                 if (item.itemId != loadedItemId) continue;
                 var newItem = new InventoryItem(item);
@@ -577,25 +578,33 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
         }
     }
 
-    private List<ItemData> GetItemDataBase()
-    {
-        List<ItemData> itemDataBase = new List<ItemData>();
+    
+// #if UNITY_EDITOR
+//     [ContextMenu("Get ItemDataBase")]
+//     private void GetItemDataBaseContextMenu()
+//     {
+//         itemDataBase = new List<ItemData>(GetItemDataBase()) ;
+//     }
+//     private List<ItemData> GetItemDataBase()
+//     {
+//         List<ItemData> itemDataBase = new List<ItemData>();
 
-#if UNITY_EDITOR
-        string[] assetNames = AssetDatabase.FindAssets("", new[] { "Assets/Scripts/Item/ScriptableObject" });
-        foreach (var SOName in assetNames)
-        {
-            var SOpath = AssetDatabase.GUIDToAssetPath(SOName); // 修正：将 GUID 转换为路径
-            var itemData = AssetDatabase.LoadAssetAtPath<ItemData>(SOpath); // 确保 SOpath 是 string 类型
-            if (itemData != null)
-            {
-                itemDataBase.Add(itemData); // 添加 ItemData 对象
-            }
-        }
-#endif
 
-        return itemDataBase;
-    }
+//         string[] assetNames = AssetDatabase.FindAssets("", new[] { "Assets/Scripts/Item/ScriptableObject" });
+//         foreach (var SOName in assetNames)
+//         {
+//             var SOpath = AssetDatabase.GUIDToAssetPath(SOName); // 修正：将 GUID 转换为路径
+//             var itemData = AssetDatabase.LoadAssetAtPath<ItemData>(SOpath); // 确保 SOpath 是 string 类型
+//             if (itemData != null)
+//             {
+//                 itemDataBase.Add(itemData); // 添加 ItemData 对象
+//             }
+//         }
+
+
+//         return itemDataBase;
+//     }
+// #endif
 
     public bool CanCraft(ItemDataEquipment itemToCraft, List<InventoryItem> requiredMaterials)
     {

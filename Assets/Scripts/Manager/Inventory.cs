@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Security.Cryptography;
 
 
 public class Inventory : MonoBehaviour, ISaveManager
@@ -37,6 +38,10 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     [Header("ItemsCooldown")]
     private float lastTimeUsedFlask;
+    private float lastTimeExcute;
+
+    [Header("EquipmentCooldown")]
+    [SerializeField] private float equipmentCooldown = 5f;
 
     [Header("Flask Settings")]
     [SerializeField] public float flaskCooldown = 10f;
@@ -176,17 +181,36 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
-        ExcuteSpecialEffect("IceNecklace");
+        //Effect(item);
     }
+
+    private void Effect(ItemData item)
+    {
+        if (item.name == "IceNecklace")
+        {
+            ExcuteSpecialEffect("IceNecklace");
+        }
+    }
+
     public void ExcuteSpecialEffect(String tagName)
     {
         var amulet = GetEquipmentByType(EquipmentType.Amulet);
         if (amulet != null && amulet.name == tagName)
         {
-
+            Debug.Log("CreatFX!!!");
             amulet.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
         }
 
+    }
+
+    public void setEuipmentTimer()
+    {
+        lastTimeExcute = Time.time;
+    }
+
+    public bool canExcuteEquipment()
+    {
+        return Time.time > lastTimeExcute + equipmentCooldown;
     }
 
     public void UnEquipItem(ItemData item)
@@ -199,19 +223,30 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
+        //DestroyEffect(item);
     }
-    public void DestroyEffectWithTag(string tagName)
+
+    //private void DestroyEffect(ItemData item)
+    //{
+    //    if (item.name == "IceNecklace")
+    //    {
+    //        Debug.Log("DeatroyFX!!!!");
+    //        DestroyEffectWithTag("IceNecklace");
+    //    }
+    //}
+
+    public bool ExistEffect(string tagName)
     {
         GameObject effect = GameObject.FindWithTag(tagName);
         if (effect != null)
         {
-            Destroy(effect);
-            effect.GetComponent<CircleCollider2D>().enabled = false;
-            Debug.Log($"Tag 为 {tagName} 的特效已成功销毁。");
+            return true;
+            //Debug.Log($"Tag 为 {tagName} 的特效已成功销毁。");
         }
         else
         {
             Debug.Log($"未找到 Tag 为 {tagName} 的特效。");
+            return false;
         }
     }
 
@@ -230,7 +265,6 @@ public class Inventory : MonoBehaviour, ISaveManager
             equipmentDic.Remove(old);
             old.RemoveModifiers();
         }
-        DestroyEffectWithTag("IceNecklace");
     }
 
         public void AddItem(ItemData item)
@@ -498,21 +532,21 @@ public void UpdateSlotUI(ItemSlot[] slots, List<InventoryItem> items)
 
     private void ExcuteEffect()
     {
-        if (HasEquippedItem(EquipmentType.Amulet))
+        if (HasEquippedItem(EquipmentType.Amulet)&&!ExistEffect("IceNecklace"))
         {
-            GameObject effect = GameObject.FindWithTag("IceNecklace");
-            if (effect != null)
+            if (canExcuteEquipment())
             {
-                //Debug.Log("Destroy!!!");
-                //DestroyEffectWithTag("IceNecklace");
-                return;
-            }
-            var amulet = GetEquipmentByType(EquipmentType.Amulet);
-            if (amulet != null&&amulet.name=="IceNecklace") {
-
-                amulet.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
+                ExcuteSpecialEffect("IceNecklace");
+                setEuipmentTimer();
+                DestroyByTime("IceNecklace");
             }
         }
+    }
+
+    private static void DestroyByTime(String tagName)
+    {
+        GameObject effect = GameObject.FindWithTag(tagName);
+        Destroy(effect, 1f);
     }
 
     public void SaveData(ref GameData _data)

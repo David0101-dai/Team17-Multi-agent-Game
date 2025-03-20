@@ -270,11 +270,11 @@ public abstract class Damageable : MonoBehaviour
 
     private int CalculateMagicDamage(Damageable from, Damageable to,bool isFireDamage, bool isIceDamage, bool isShockDamage)
     {
-        var fireDamage = from.FireDamage.GetValue() * from.attackMultiplier;
-        var iceDamage = from.IceDamage.GetValue() * from.attackMultiplier;
-        var lightingDamage = from.LightingDamage.GetValue() * from.attackMultiplier;
+        var fireDamage = Mathf.RoundToInt(from.FireDamage.GetValue() * from.attackMultiplier);
+        var iceDamage = Mathf.RoundToInt(from.IceDamage.GetValue() * from.attackMultiplier);
+        var lightingDamage = Mathf.RoundToInt(from.LightingDamage.GetValue() * from.attackMultiplier);
 
-        var finalMagicalDamage = fireDamage + iceDamage + lightingDamage + from.Int.GetValue() * from.attackMultiplier;
+        var finalMagicalDamage = fireDamage + iceDamage + lightingDamage + from.Int.GetValue() * Mathf.RoundToInt(from.attackMultiplier);
         
 
         finalMagicalDamage -= to.MagicResistance.GetValue() + (to.Int.GetValue() * 3);

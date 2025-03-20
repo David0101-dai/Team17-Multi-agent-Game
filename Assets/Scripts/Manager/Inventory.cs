@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Security.Cryptography;
 
 
 public class Inventory : MonoBehaviour, ISaveManager
@@ -176,14 +177,17 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
-        ExcuteSpecialEffect("IceNecklace");
+        if (item.name == "IceNecklace")
+        {
+            ExcuteSpecialEffect("IceNecklace");
+        }
     }
     public void ExcuteSpecialEffect(String tagName)
     {
         var amulet = GetEquipmentByType(EquipmentType.Amulet);
         if (amulet != null && amulet.name == tagName)
         {
-
+            Debug.Log("CreatFX!!!");
             amulet.ExecuteItemEffect(PlayerManager.Instance.player, PlayerManager.Instance.player);
         }
 
@@ -199,6 +203,11 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateSlotUI(inventoryItemSlots, inventoryItems);
         UpdateSlotUI(equipmentSlots, equipmentItems);
+        if (item.name == "IceNecklace")
+        {
+            Debug.Log("DeatroyFX!!!!");
+            DestroyEffectWithTag("IceNecklace");
+        }
     }
     public void DestroyEffectWithTag(string tagName)
     {
@@ -230,7 +239,6 @@ public class Inventory : MonoBehaviour, ISaveManager
             equipmentDic.Remove(old);
             old.RemoveModifiers();
         }
-        DestroyEffectWithTag("IceNecklace");
     }
 
         public void AddItem(ItemData item)

@@ -10,13 +10,12 @@ public class StatsSlot : MonoBehaviour
 
     private void OnValidate()
     {
+        // 在编辑器中自动给物体改名，方便查看
         gameObject.name = "Stat - " + statName;
-        if (statNameText) statNameText.text = statName;
-    }
-
-    private void Start()
-    {
-        UpdateStatValue();
+        if (statNameText)
+        {
+            statNameText.text = statName;
+        }
     }
 
     private void Update()
@@ -27,9 +26,36 @@ public class StatsSlot : MonoBehaviour
     public void UpdateStatValue()
     {
         var playerStat = PlayerManager.Instance.player.GetComponent<Damageable>();
-        if (playerStat)
+        if (playerStat == null) return;
+
+        // 根据 statType 不同，选择不同的取值方式
+        switch (statType)
         {
-            statValueText.text = playerStat.StatsOfType(statType).GetValue().ToString();
+            case StatType.Damage:
+                // 物理伤害显示最终值
+                statValueText.text = playerStat.GetFinalDamageValue().ToString();
+                break;
+
+            case StatType.FireDamage:
+                // 火焰伤害
+                statValueText.text = playerStat.GetFinalFireDamageValue().ToString();
+                break;
+
+            case StatType.IceDamage:
+                // 冰霜伤害
+                statValueText.text = playerStat.GetFinalIceDamageValue().ToString();
+                break;
+
+            case StatType.LightingDamage:
+                // 雷电伤害
+                statValueText.text = playerStat.GetFinalLightningDamageValue().ToString();
+                break;
+
+            default:
+                // 其余属性，直接显示 StatsOfType(...).GetValue()
+                var value = playerStat.StatsOfType(statType).GetValue();
+                statValueText.text = value.ToString();
+                break;
         }
     }
 }

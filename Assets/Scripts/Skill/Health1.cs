@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class HealthBoostSkill : Skill
+public class Health1 : Skill
 {
     [Header("Health Boost")]
    

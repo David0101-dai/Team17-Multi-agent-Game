@@ -18,6 +18,7 @@ public class PlayerHpSlider : MonoBehaviour
     }
     
      private void Update(){
+        slider.maxValue = damageable.MaxHp.GetValue();
         slider.value = damageable.currentHp;
      }
      

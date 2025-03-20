@@ -19,6 +19,11 @@ public class StatsSlot : MonoBehaviour
         UpdateStatValue();
     }
 
+    private void Update()
+    {
+        UpdateStatValue();
+    }
+
     public void UpdateStatValue()
     {
         var playerStat = PlayerManager.Instance.player.GetComponent<Damageable>();

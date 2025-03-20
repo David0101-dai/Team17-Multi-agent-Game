@@ -60,7 +60,6 @@ public abstract class Damageable : MonoBehaviour
 
     //[Header("Multiplier")]
     public float attackMultiplier = 1f;
-   
 
     protected virtual void Start()
     {

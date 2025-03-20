@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class PlayerDamageable : Damageable
 {   
@@ -32,5 +34,9 @@ public class PlayerDamageable : Damageable
         Vector3 effectPosition = transform.position + new Vector3(0, offset, 0);
         // 在角色的偏移位置生成流血特效
         Instantiate(bloodEffect, effectPosition, Quaternion.identity);
+
+        
     }
+    
+
 }

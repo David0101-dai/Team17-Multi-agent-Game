@@ -21244,6 +21244,9 @@ MonoBehaviour:
   unlockCloneAttackbutton: {fileID: 0}
   unlockMultipleClonebutton: {fileID: 0}
   unlockBlackHolebutton: {fileID: 0}
+  attack1: {fileID: 0}
+  attack2: {fileID: 0}
+  attack3: {fileID: 0}
 --- !u!1 &7047747994454889626
 GameObject:
   m_ObjectHideFlags: 0

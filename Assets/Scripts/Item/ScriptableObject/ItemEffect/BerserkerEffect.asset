@@ -16,4 +16,4 @@ MonoBehaviour:
   attackMultiplier: 10
   damagePerSecond: 10
   healPerAttack: 4
-  potionEffectPrefab: {fileID: 0}
+  potionEffectPrefab: {fileID: 8479165719520934381, guid: bc47c0db06e787f46b9477c14051502b, type: 3}

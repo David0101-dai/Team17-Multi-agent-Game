@@ -23,6 +23,7 @@ public class BerserkerBuff : MonoBehaviour
 
     // 新增：保存原始攻击速度
     private float originalAttackSpeed;
+    [SerializeField] Vector3 effectOffset = new Vector3(0, 1f, 0);
 
     public void Initialize(float effectDuration, float attackMultiplier, float damagePerSecond, float healPerAttack, GameObject potionEffectPrefab)
     {
@@ -50,7 +51,11 @@ public class BerserkerBuff : MonoBehaviour
         // 在玩家身上生成药效特效（如果有）
         if (potionEffectPrefab != null)
         {
-            effectInstance = Instantiate(potionEffectPrefab, player.transform.position, Quaternion.identity, player.transform);
+            effectInstance = Instantiate(
+                potionEffectPrefab,
+                player.transform.position + effectOffset,
+                Quaternion.identity,
+                player.transform);
         }
     }
 

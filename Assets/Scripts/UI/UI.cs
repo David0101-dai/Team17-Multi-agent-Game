@@ -44,6 +44,11 @@ public class UI : MonoBehaviour
     public SkillTreeSlot unlockCloneAttackbutton;
     public SkillTreeSlot unlockMultipleClonebutton;
     public SkillTreeSlot unlockBlackHolebutton;
+
+    public SkillTreeSlot attack1;
+    public SkillTreeSlot attack2;
+    public SkillTreeSlot attack3;
+
     public static UI Instance { get; private set; }
     
     private void Awake()

@@ -58,5 +58,6 @@ public class EnemyDamageable : Damageable
         drop = GetComponent<ItemDrop>();
         drop.GenerateDrop();
         enemy.Die();
+        PlayerManager.Instance.SaveFinaled();
     }
 }

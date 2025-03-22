@@ -5,6 +5,7 @@ using UnityEngine;
 public class UI : MonoBehaviour
 {
     public TextMeshProUGUI endText;    
+    public TextMeshProUGUI SuccessText; 
     public UI_FadeScreen fadeScreen;
     public GameObject ReStartButton;
     public GameObject ReturnHomeButton;
@@ -192,10 +193,24 @@ public class UI : MonoBehaviour
         StartCoroutine(EndScreenCorutione());
     }
 
+    public void SwitchOnVictoryScreen(){
+        fadeScreen.FadeOut();
+        StartCoroutine(VictoryScreenCorutione());
+    }
+
     IEnumerator EndScreenCorutione(){
         yield return new WaitForSeconds(1);
         endText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
+        ReStartButton.SetActive(true);
+        ReturnHomeButton.SetActive(true);
+    }
+
+    IEnumerator VictoryScreenCorutione(){
+        yield return new WaitForSeconds(1);
+        SuccessText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(30);
+        PlayerManager.Instance.player.GetComponent<Damageable>().MakeInvincible(true);
         ReStartButton.SetActive(true);
         ReturnHomeButton.SetActive(true);
     }

@@ -9,7 +9,7 @@ public enum BossStage {stage1, stage2, stage3, stage4}
 public class Boss : Enemy
 {
    [SerializeField] public BossStage BossStage;
-   
+   public GameObject Door;  
    [Header("Teleport detail")]
    [SerializeField] private BoxCollider2D teleportArea;
    [SerializeField] private Vector2 surroundingCheckSize;
@@ -173,6 +173,7 @@ public class Boss : Enemy
     public override void Die()
     {
         PlayerManager.Instance.AddScore(1000);
+        Door.SetActive(true);
         Debug.Log(PlayerManager.finalscore);
         Fsm.SwitchState(DeadState);
     }

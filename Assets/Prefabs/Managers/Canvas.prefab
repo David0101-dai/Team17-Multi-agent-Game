@@ -12836,6 +12836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endText: {fileID: 8134751034318801954}
+  SuccessText: {fileID: 0}
   fadeScreen: {fileID: 7917751474871846430}
   ReStartButton: {fileID: 4331298565381679756}
   ReturnHomeButton: {fileID: 4590937667953498454}

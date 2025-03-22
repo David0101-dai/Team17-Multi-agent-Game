@@ -22,10 +22,10 @@ public class Speed2 : Skill
         Player p = player.GetComponent<Player>();
         if (p != null)
         {
-            if (p.attackSpeed < 2f)
+            if (p.attackSpeed < 1.5f)
             {
-                p.attackSpeed = 2f;
-                Debug.Log("Attack Speed Boost: x2");
+                p.attackSpeed = 1.5f;
+                Debug.Log("Attack Speed Boost: x1.5");
             }
         }
 
@@ -86,7 +86,7 @@ public class Speed2 : Skill
     {
         attackSpeedBoost2Unlocked = false;
         Player p = player.GetComponent<Player>();
-        p.attackSpeed = 1.5f;
+        p.attackSpeed = 1.25f;
     }
 
     // 检查当前槽位是否已解锁

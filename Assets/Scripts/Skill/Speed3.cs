@@ -22,9 +22,9 @@ public class Speed3 : Skill
         Player p = player.GetComponent<Player>();
         if (p != null)
         {
-            if (p.attackSpeed < 3f) { 
-                p.attackSpeed = 3f;
-                Debug.Log("Attack Speed Boost: x3");
+            if (p.attackSpeed < 2f) { 
+                p.attackSpeed = 2f;
+                Debug.Log("Attack Speed Boost: x2");
             }
         }
 
@@ -85,7 +85,7 @@ public class Speed3 : Skill
     {
         attackSpeedBoost3Unlocked = false;
         Player p = player.GetComponent<Player>();
-        p.attackSpeed = 2f;
+        p.attackSpeed = 1.5f;
    
     }
 

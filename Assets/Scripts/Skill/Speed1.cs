@@ -22,10 +22,10 @@ public class Speed1 : Skill
         Player p = player.GetComponent<Player>();
         if (p != null)
         {
-            if (p.attackSpeed < 1.5f)
+            if (p.attackSpeed < 1.25f)
             {
-                p.attackSpeed = 1.5f;
-                Debug.Log("Attack Speed Boost: x1.5");
+                p.attackSpeed = 1.25f;
+                Debug.Log("Attack Speed Boost: x1.25");
             }
         }
        

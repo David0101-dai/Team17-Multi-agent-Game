@@ -174,7 +174,7 @@ public class SwordSKillController : MonoBehaviour
 
     private void SpinLogic()
     {
-        if (Vector2.Distance(playerPos, pos) > maxTravelDistance && !wasStopped)
+        if (Vector2.Distance(playerPos, pos) > maxTravelDistance && !wasStopped && !isReturning)
         {
             StopWhenSpinning();
         }

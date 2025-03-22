@@ -91,8 +91,6 @@ private IEnumerator Start()
     newGameButton.onClick.RemoveAllListeners();
     //newGameButton.onClick.AddListener(ShowPlayerNamePanel);
     //newGameButton.onClick.AddListener(StartNewGame);
-
-
     // 为提交名称按钮添加监听
     if (submitNameButton != null)
     {
@@ -135,23 +133,20 @@ private IEnumerator Start()
             // 可在此处增加 UI 提示，比如显示错误信息
             return;
         }
-
         // 保存玩家名称（这里使用 PlayerPrefs，你也可以结合 SaveManager 存储）
         PlayerPrefs.SetString("PlayerName", playerName);
         Debug.Log("玩家名称已保存：" + playerName);
-
         // 隐藏名称输入面板
         playerNamePanel.SetActive(false);
-
         // 开始新游戏流程
         StartNewGame();
     }
 
     public void StartNewGame()
     {
+        saveManager.DeleteSaveData();
         All.IsNewGame = true;  // 标记：是新游戏
         Debug.Log("Final" + PlayerManager.finalscore);
-        saveManager.DeleteSaveData();
         saveManager.NewGame();
         StartCoroutine(LoadSceneWithFadeEffect(1.5f));
         PauseManager.isPaused = false;

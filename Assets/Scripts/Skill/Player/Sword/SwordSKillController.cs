@@ -242,24 +242,49 @@ public class SwordSKillController : MonoBehaviour
 
     private void TakeDamage(Collider2D other, bool needFreeze)
     {
+        // 先判定是否是有效敌人
         if (!other.TryGetComponent(out Damageable damageable)) return;
         if (!other.TryGetComponent(out Enemy enemy)) return;
 
         EnemyDamageable enemyDamageable = enemy.GetComponent<EnemyDamageable>();
-        
-        if(!fireAttached){
-            damageable.TakeDamage(player.gameObject, false, true, true);
-        }else{
-           damageable.TakeDamage(player.gameObject,true,true,false,true,false,false);
+
+        // 根据不同剑类型，决定伤害类型
+        switch (swordType)
+        {
+            case SwordType.Regular:
+                // 纯物理伤害 + “剑技”衰减 30%
+                // 参数含义：isMagic=false, canEffect=true, isFromSwordSkill=true, isFire=false, isIce=false, isShock=false
+                damageable.TakeDamage(player.gameObject, false, true, true, false, false, false);
+                break;
+
+            case SwordType.Spin:
+                // 火焰魔法伤害
+                // 参数含义：isMagic=true, canEffect=true, isFromSwordSkill=false, isFire=true, isIce=false, isShock=false
+                damageable.TakeDamage(player.gameObject, true, true, false, true, false, false);
+                break;
+
+            case SwordType.Pierce:
+                // 冰霜魔法伤害
+                damageable.TakeDamage(player.gameObject, true, true, false, false, true, false);
+                break;
+
+            case SwordType.Bounce:
+                // 雷电魔法伤害
+                damageable.TakeDamage(player.gameObject, true, true, false, false, false, true);
+                break;
         }
-        
-        if (!needFreeze) return;
-        
-        if (player.Skill.Sword.timeStopUnlocked)
-            enemy.FreezeTimeForSeconds(freezeTime);
-        if (player.Skill.Sword.volnurableUnlocked)
-            enemyDamageable.MakeVulnerableFor(freezeTime);
+
+        // 如果需要冰冻敌人（timeStop）或易伤（vulnerable），则执行
+        if (needFreeze)
+        {
+            if (player.Skill.Sword.timeStopUnlocked)
+                enemy.FreezeTimeForSeconds(freezeTime);
+
+            if (player.Skill.Sword.volnurableUnlocked)
+                enemyDamageable.MakeVulnerableFor(freezeTime);
+        }
     }
+
 
     private void GetBounceEnemy()
     {

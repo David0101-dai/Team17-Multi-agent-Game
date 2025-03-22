@@ -34,8 +34,8 @@ public class UI : MonoBehaviour
     public SkillTreeSlot counterUnlockedButton;
     public SkillTreeSlot counterBuffUnlockedButton;
     public SkillTreeSlot counterMiragelUnlockedButton;
-    public SkillTreeSlot timeStopUnlockButton;
-    public SkillTreeSlot volnurableUnlockButton;
+    //public SkillTreeSlot timeStopUnlockButton;
+    //public SkillTreeSlot volnurableUnlockButton;
     public SkillTreeSlot swordUnlockButton;
     public SkillTreeSlot bounceUnlockButton;
     public SkillTreeSlot pierceUnlockButton;

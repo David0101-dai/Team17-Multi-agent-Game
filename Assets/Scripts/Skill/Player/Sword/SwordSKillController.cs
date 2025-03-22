@@ -8,7 +8,7 @@ public class SwordSKillController : MonoBehaviour
 
     [Header("Bounce Info")]
     private bool isBouncing;
-    private bool fireAttached;
+    //private bool fireAttached;
     private float bounceSpeed;
     private int bounceAmount;
     private List<Transform> enemyTargets;
@@ -48,7 +48,7 @@ public class SwordSKillController : MonoBehaviour
         cd = GetComponent<CircleCollider2D>();
 
         canRotate = true;
-        fireAttached = true;
+        //fireAttached = true;
         enemyTargets = new List<Transform>();
     }
 
@@ -156,7 +156,7 @@ public class SwordSKillController : MonoBehaviour
             transform.position = Vector2.MoveTowards(pos, enemyPos, bounceSpeed * Time.deltaTime);
             if (Vector2.Distance(pos, enemyPos) < 0.1f)
             {
-                TakeDamage(enemyTargets[targetIndex].GetComponent<Collider2D>(), true);
+                TakeDamage(enemyTargets[targetIndex].GetComponent<Collider2D>());
                 targetIndex = (targetIndex + 1) % enemyTargets.Count;
                 bounceAmount--;
 
@@ -211,7 +211,7 @@ public class SwordSKillController : MonoBehaviour
             // 跳过Player标签的碰撞体
             if (hit.CompareTag("Player")) continue;
 
-            TakeDamage(hit, false);
+            TakeDamage(hit);
         }
 
         AudioManager.instance.PlaySFX(10,null); //回旋镖音效
@@ -229,7 +229,7 @@ public class SwordSKillController : MonoBehaviour
         {
             if (other.CompareTag("Player") || !other.CompareTag("Enemy")) return;
 
-            if (!isSpinning && !isBouncing) TakeDamage(other, true);
+            if (!isSpinning && !isBouncing) TakeDamage(other);
 
             GetBounceEnemy();
 
@@ -240,48 +240,73 @@ public class SwordSKillController : MonoBehaviour
     }
 
 
-    private void TakeDamage(Collider2D other, bool needFreeze)
+    private void TakeDamage(Collider2D other)
     {
-        // 先判定是否是有效敌人
+        // 先确认命中的是敌人
         if (!other.TryGetComponent(out Damageable damageable)) return;
         if (!other.TryGetComponent(out Enemy enemy)) return;
 
+        // 如果你的敌人脚本里对“脆弱”或“冻结”有单独实现，也可以拿出来
         EnemyDamageable enemyDamageable = enemy.GetComponent<EnemyDamageable>();
 
-        // 根据不同剑类型，决定伤害类型
+        // 根据当前剑类型，决定伤害类型 & 是否附加特殊效果
         switch (swordType)
         {
             case SwordType.Regular:
-                // 纯物理伤害 + “剑技”衰减 30%
-                // 参数含义：isMagic=false, canEffect=true, isFromSwordSkill=true, isFire=false, isIce=false, isShock=false
-                damageable.TakeDamage(player.gameObject, false, true, true, false, false, false);
+                // Regular: 纯物理伤害 + 30%衰减（isFromSwordSkill=true）
+                damageable.TakeDamage(
+                    player.gameObject,
+                    isMagic: false,      // 物理
+                    canEffect: true,
+                    isFromSwordSkill: true,  // 表示剑技衰减
+                    isFireDamage: false,
+                    isIceDamage: false,
+                    isShockDamage: false
+                );
                 break;
 
             case SwordType.Spin:
-                // 火焰魔法伤害
-                // 参数含义：isMagic=true, canEffect=true, isFromSwordSkill=false, isFire=true, isIce=false, isShock=false
-                damageable.TakeDamage(player.gameObject, true, true, false, true, false, false);
+                // Spin: 火焰魔法伤害
+                damageable.TakeDamage(
+                    player.gameObject,
+                    isMagic: true,   // 魔法伤害
+                    canEffect: true,
+                    isFromSwordSkill: false,
+                    isFireDamage: true,
+                    isIceDamage: false,
+                    isShockDamage: false
+                );
                 break;
 
             case SwordType.Pierce:
-                // 冰霜魔法伤害
-                damageable.TakeDamage(player.gameObject, true, true, false, false, true, false);
+                // Pierce: 冰霜魔法伤害 + 冻结敌人 (时间停止效果)
+                damageable.TakeDamage(
+                    player.gameObject,
+                    isMagic: true,
+                    canEffect: true,
+                    isFromSwordSkill: false,
+                    isFireDamage: false,
+                    isIceDamage: true,
+                    isShockDamage: false
+                );
+                // 在这里直接冻结敌人
+                enemy.FreezeTimeForSeconds(freezeTime);
                 break;
 
             case SwordType.Bounce:
-                // 雷电魔法伤害
-                damageable.TakeDamage(player.gameObject, true, true, false, false, false, true);
-                break;
-        }
-
-        // 如果需要冰冻敌人（timeStop）或易伤（vulnerable），则执行
-        if (needFreeze)
-        {
-            if (player.Skill.Sword.timeStopUnlocked)
-                enemy.FreezeTimeForSeconds(freezeTime);
-
-            if (player.Skill.Sword.volnurableUnlocked)
+                // Bounce: 雷电魔法伤害 + 使敌人脆弱
+                damageable.TakeDamage(
+                    player.gameObject,
+                    isMagic: true,
+                    canEffect: true,
+                    isFromSwordSkill: false,
+                    isFireDamage: false,
+                    isIceDamage: false,
+                    isShockDamage: true
+                );
+                // 让敌人进入脆弱状态
                 enemyDamageable.MakeVulnerableFor(freezeTime);
+                break;
         }
     }
 

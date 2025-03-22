@@ -8,8 +8,10 @@ public class IceNecklaceEffect : ItemEffect
     
     public override void ExecuteEffect(GameObject from, GameObject to)
     {
+        GameObject effect = GameObject.FindWithTag("IceNecklace");
+        if (effect != null) return;
         var newIceNecklace = Instantiate(IceNecklacePrefab);
-        newIceNecklace.transform.SetParent(to.transform, false); // false 保证相对位置不变
+        newIceNecklace.transform.SetParent(from.transform, false); // false 保证相对位置不变
         newIceNecklace.transform.localPosition = new Vector3(0, 1, 0);
     }
 }

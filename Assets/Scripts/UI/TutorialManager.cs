@@ -132,6 +132,9 @@ public class TutorialManager : MonoBehaviour
         }
         if (isTutorialSkipped) yield break;
         yield return ShowMessageOnCharacterUI("Good Job!!!", 1f);
+        yield return FadeOut(characterTextCanvasGroup);
+        
+
 
         //yield return WaitForPlayerInput(KeyCode.Escape);
 
@@ -170,6 +173,7 @@ public class TutorialManager : MonoBehaviour
 
 
         if (isTutorialSkipped) yield break;
+        skipButton.SetActive(false);
         yield return ShowMessage("Now, Kill all the enemys.", 1f);
 
         // **¼¤»î´«ËÍÃÅ**

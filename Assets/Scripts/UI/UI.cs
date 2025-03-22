@@ -13,6 +13,9 @@ public class UI : MonoBehaviour
     public Transform Inventory;
     public Transform Stash;
     public Transform Stat;
+    //public static UI Instance { get; private set; }
+
+    public ConfirmPopup confirmPopup; // 在 Inspector 里拖拽绑定
     [Space]
     [SerializeField] private GameObject characterUI;
     [SerializeField] private GameObject skillTreeUI;

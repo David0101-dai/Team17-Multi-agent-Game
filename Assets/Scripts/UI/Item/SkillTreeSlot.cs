@@ -99,7 +99,7 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         isRegistered = true;
 
-         if (ui == null)
+        if (ui == null)
         {
             ui = UI.Instance;
             if (ui == null)
@@ -130,16 +130,16 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         if (SaveManager.instance != null && SaveManager.instance.CurrentGameData() != null)
         {
-        SaveManager.instance.RegisterSaveManager(this);
+            SaveManager.instance.RegisterSaveManager(this);
 
-        // Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");
+            // Debug.Log("SkillTreeSlot registered in SaveManager (Awake)");
         }
         else
         {
-        // 如果 SaveManager 还未准备好，使用协程等待
-        StartCoroutine(RegisterWhenReady());
+            // 如果 SaveManager 还未准备好，使用协程等待
+            StartCoroutine(RegisterWhenReady());
         }
-        }
+    }
 
 
     private void Start()
@@ -150,27 +150,27 @@ public class SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     /// <summary>
     /// 左键点击时解锁技能
     /// </summary>
-public void UnlockSkill()
-{
-    if (unlocked)
-        return;
-
-    // 检查先决条件：先决技能必须都解锁，依赖该技能的子技能不能解锁
-    foreach (var item in shouldBeUnlocked)
+    public void UnlockSkill()
     {
-        if (!item.unlocked) return;
-    }
-    foreach (var item in shouldBeLocked)
-    {
-        if (item.unlocked) return;
-    }
+        if (unlocked)
+            return;
 
-    if (!PlayerManager.Instance.HaveEnoughMoney(skillPrice))
-        return;
+        // 检查先决条件：先决技能必须都解锁，依赖该技能的子技能不能解锁
+        foreach (var item in shouldBeUnlocked)
+        {
+            if (!item.unlocked) return;
+        }
+        foreach (var item in shouldBeLocked)
+        {
+            if (item.unlocked) return;
+        }
 
-    unlocked = true;
-    skillImage.color = Color.white;
-}
+        if (!PlayerManager.Instance.HaveEnoughMoney(skillPrice))
+            return;
+
+        unlocked = true;
+        skillImage.color = Color.white;
+    }
     /// <summary>
     /// 取消技能，要求先取消依赖该技能的子技能，然后返还花费
     /// </summary>
@@ -209,41 +209,55 @@ public void UnlockSkill()
             return;
         }
 
+
+        UI.Instance.confirmPopup.Show(
+       "Want to cancel\n" + skillName + " ?",
+       () => {                   // 当点击“确认”按钮时执行的回调
+                                 // 真正的取消逻辑
+           unlocked = false;
+           skillImage.color = lockedColor;
+           PlayerManager.Instance.RefundMoney(skillPrice);
+
+           // 通知其他系统技能已取消
+           OnSkillCancelled?.Invoke();
+       }
+   );
+        /*
         unlocked = false;
         skillImage.color = lockedColor;
         PlayerManager.Instance.RefundMoney(skillPrice);
         // 通知其他系统技能已取消
         if (OnSkillCancelled != null)
-            OnSkillCancelled.Invoke();
+            OnSkillCancelled.Invoke();*/
     }
 
-public void OnPointerEnter(PointerEventData eventData)
-{
-    // 确保 ui.skillToolTip 不为 null
-    if (ui.skillToolTip != null)
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        ui.skillToolTip.ShowToolTip(skillDescription, skillName);
-        isHovered = true;
+        // 确保 ui.skillToolTip 不为 null
+        if (ui.skillToolTip != null)
+        {
+            ui.skillToolTip.ShowToolTip(skillDescription, skillName);
+            isHovered = true;
+        }
+        else
+        {
+            Debug.LogError("skillToolTip is not assigned in UI.");
+        }
     }
-    else
-    {
-        Debug.LogError("skillToolTip is not assigned in UI.");
-    }
-}
 
-public void OnPointerExit(PointerEventData eventData)
-{
-    // 确保 ui.skillToolTip 不为 null
-    if (ui.skillToolTip != null)
+    public void OnPointerExit(PointerEventData eventData)
     {
-        ui.skillToolTip.HideToolTip();
-        isHovered = false;
+        // 确保 ui.skillToolTip 不为 null
+        if (ui.skillToolTip != null)
+        {
+            ui.skillToolTip.HideToolTip();
+            isHovered = false;
+        }
+        else
+        {
+            Debug.LogError("skillToolTip is not assigned in UI.");
+        }
     }
-    else
-    {
-        Debug.LogError("skillToolTip is not assigned in UI.");
-    }
-}
     private void Update()
     {
         // 当鼠标悬停在该技能图标上且该技能已解锁时，按下鼠标右键取消技能
@@ -272,6 +286,7 @@ public void OnPointerExit(PointerEventData eventData)
         //Debug.Log(skillName +" "+ unlocked);
         //Debug.Log(skillName + "saved "+ isSaved);
     }
-    
+
 
 }
+

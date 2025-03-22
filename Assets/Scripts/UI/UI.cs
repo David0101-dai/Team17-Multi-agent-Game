@@ -61,6 +61,10 @@ public class UI : MonoBehaviour
     public SkillTreeSlot speed2;
     public SkillTreeSlot speed3;
 
+    public SkillTreeSlot defence1;
+    public SkillTreeSlot defence2;
+    public SkillTreeSlot defence3;
+
     public static UI Instance { get; private set; }
     
     private void Awake()

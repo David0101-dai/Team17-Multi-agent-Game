@@ -6,7 +6,7 @@ public class MagicManager : MonoBehaviour
 
     public float maxMagic = 100f;
     public float currentMagic;
-    public float regenRate = 3f; // ÿ��ظ���ħ��ֵ
+    public float regenRate = 4f; // ÿ��ظ���ħ��ֵ
 
     private void Awake()
     {

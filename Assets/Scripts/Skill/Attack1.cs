@@ -18,9 +18,9 @@ public class Attack1 : Skill
         if (dmg != null)
         {
         
-            if (dmg.attackMultiplier < 1.5f)
+            if (dmg.attackMultiplier < 1.25f)
             {
-                dmg.attackMultiplier = 1.5f;
+                dmg.attackMultiplier = 1.25f;
                 Debug.Log("AttackBoostSkill111");
             }
         }

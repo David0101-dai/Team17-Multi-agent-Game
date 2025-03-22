@@ -18,9 +18,9 @@ public class Attack3 : Skill
         if (dmg != null)
         {
 
-            if (dmg.attackMultiplier < 5f)
+            if (dmg.attackMultiplier < 2f)
             {
-                dmg.attackMultiplier = 5f;
+                dmg.attackMultiplier = 2f;
                 Debug.Log("AttackBoostSkill111");
             }
         }
@@ -97,7 +97,7 @@ public class Attack3 : Skill
     {
         attackBoostUnlocked = false;
         Damageable dmg = player.GetComponent<Damageable>();
-        dmg.attackMultiplier = 3f;
+        dmg.attackMultiplier = 1.5f;
 
     }
 

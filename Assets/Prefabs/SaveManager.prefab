@@ -21218,6 +21218,7 @@ MonoBehaviour:
   Inventory: {fileID: 0}
   Stash: {fileID: 0}
   Stat: {fileID: 0}
+  confirmPopup: {fileID: 0}
   characterUI: {fileID: 9163268547328032237}
   skillTreeUI: {fileID: 1275832621132194328}
   craftUI: {fileID: 2716684890507244028}

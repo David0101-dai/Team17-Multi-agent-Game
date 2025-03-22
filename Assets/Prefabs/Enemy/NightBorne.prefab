@@ -346,7 +346,7 @@ MonoBehaviour:
     value: 150
     modifiers: 
   MaxHp:
-    value: 200
+    value: 900
     modifiers: 
   Armor:
     value: 0
@@ -375,6 +375,7 @@ MonoBehaviour:
   shockDuration: 1
   isInvincible: 0
   Miss: 0
+  attackMultiplier: 1
   level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
 --- !u!114 &129597537502425150
 MonoBehaviour:

@@ -21210,6 +21210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endText: {fileID: 0}
+  SuccessText: {fileID: 0}
   fadeScreen: {fileID: 0}
   ReStartButton: {fileID: 0}
   ReturnHomeButton: {fileID: 0}

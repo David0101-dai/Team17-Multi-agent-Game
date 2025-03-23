@@ -11,6 +11,8 @@ public class Door : MonoBehaviour
 
     public GameObject BOSS;  // 这里是我们分配的BOSS物体
 
+    public GameObject myPrefabInstance;  // 在 Inspector 里拖入已存在的预制体实例
+
     private void Start()
     {
         initialPosition = transform.position;  // 记录门的初始位置
@@ -57,6 +59,8 @@ public class Door : MonoBehaviour
             DestroyEnemiesAndSpikes();
 
             AudioManager.instance.PlayBGM(2); //播放赛博朋克BGM
+
+            EnablePrefab(); //打开片尾动画
         }
     }
 
@@ -115,6 +119,14 @@ public class Door : MonoBehaviour
         else
         {
             Debug.LogWarning("FadeScreen is not initialized properly.");
+        }
+    }
+
+    void EnablePrefab()
+    {
+        if (myPrefabInstance != null)
+        {
+            myPrefabInstance.SetActive(true);
         }
     }
 }

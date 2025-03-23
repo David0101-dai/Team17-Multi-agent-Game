@@ -3094,6 +3094,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1326375352}
   - {fileID: 1268139402}
   m_Father: {fileID: 1387697804}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3709,7 +3710,7 @@ MonoBehaviour:
   sfx:
   - {fileID: 651415957}
   bgm:
-  - {fileID: 1130716586}
+  - {fileID: 1950356380}
   playBgm: 1
 --- !u!1 &1212072133
 GameObject:
@@ -4011,6 +4012,124 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameInputField: {fileID: 1646443175}
   submitButton: {fileID: 453847605}
+--- !u!1001 &1324007178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1011464177}
+    m_Modifications:
+    - target: {fileID: 1688280860742537511, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_Name
+      value: "\u4E3B\u89D2\u52A8\u753BImage"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.0369375
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.0369375
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.0369375
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 101.958595
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 101.29654
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7965812454808769718, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c8bea30fe2dd8404dbdf0dac03c84fe7, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+--- !u!224 &1326375352 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6701235914246312008, guid: fb23d9215669716489e75b242d5e89be, type: 3}
+  m_PrefabInstance: {fileID: 1324007178}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1383847042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5373,7 +5492,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1e3d109dede469b4eafcdb91d4bda1f0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.31
+  m_Volume: 0.688
   m_Pitch: 1
   Loop: 0
   Mute: 0

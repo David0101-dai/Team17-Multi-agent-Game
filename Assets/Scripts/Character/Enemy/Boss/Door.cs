@@ -55,6 +55,8 @@ public class Door : MonoBehaviour
             
             // 触碰时生成碰撞盒销毁敌人和Spike
             DestroyEnemiesAndSpikes();
+
+            AudioManager.instance.PlayBGM(2); //播放赛博朋克BGM
         }
     }
 

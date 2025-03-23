@@ -12,6 +12,8 @@ public class MagicEffect : ItemEffect
     [Header("药效特效")]
     public GameObject potionEffectPrefab;    // 药效特效预制体
 
+    [SerializeField] Vector3 effectOffset = new Vector3(0, 1f, 0);
+
     /// <summary>
     /// 仿照 HealEffect：直接在此处获取玩家并执行效果
     /// </summary>
@@ -52,7 +54,7 @@ public class MagicEffect : ItemEffect
         {
             effectInstance = Instantiate(
                 potionEffectPrefab,
-                player.transform.position,
+                player.transform.position + effectOffset,
                 Quaternion.identity,
                 player.transform
             );

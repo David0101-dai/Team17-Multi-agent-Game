@@ -21232,8 +21232,6 @@ MonoBehaviour:
   counterUnlockedButton: {fileID: 0}
   counterBuffUnlockedButton: {fileID: 0}
   counterMiragelUnlockedButton: {fileID: 0}
-  timeStopUnlockButton: {fileID: 0}
-  volnurableUnlockButton: {fileID: 0}
   swordUnlockButton: {fileID: 0}
   bounceUnlockButton: {fileID: 0}
   pierceUnlockButton: {fileID: 0}
@@ -21255,6 +21253,9 @@ MonoBehaviour:
   speed1: {fileID: 0}
   speed2: {fileID: 0}
   speed3: {fileID: 0}
+  defence1: {fileID: 0}
+  defence2: {fileID: 0}
+  defence3: {fileID: 0}
 --- !u!1 &7047747994454889626
 GameObject:
   m_ObjectHideFlags: 0

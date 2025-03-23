@@ -15,4 +15,4 @@ MonoBehaviour:
   effectDuration: 10
   boostedMagic: 9999
   cooldownMultiplier: 0.2
-  potionEffectPrefab: {fileID: 0}
+  potionEffectPrefab: {fileID: 1609403305618261144, guid: fc6e393f90022624b8188a25a94d231a, type: 3}

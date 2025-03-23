@@ -116,7 +116,7 @@ public class Player : Character
         dashUsageTimer -= Time.deltaTime;
 
 
-        if (Input.GetMouseButtonDown(2) && Skill.Crystal.crystalUnlocked)
+        if (Input.GetKeyDown(KeyCode.Q) && Skill.Crystal.crystalUnlocked)
         {
             // 先检查技能是否冷却完毕
             if (!Skill.Crystal.DelayCanUseSkill())

@@ -25,7 +25,7 @@ public class CrystalSkill : Skill
 
     [Header("Explosive Crystal")]
      private SkillTreeSlot unlockExplosiveButton;
-    [SerializeField] private bool canExplode;
+     private bool canExplode;
 
     [Header("Moving Crystal")]
     private SkillTreeSlot unlockMovingButton;
@@ -194,6 +194,7 @@ public class CrystalSkill : Skill
     private void OnMovingCrystalSkillCancelled()
     {
         canMove = false;
+        canExplode = false;
     }
 
     private void OnExplosiveCrystalSkillCancelled()
@@ -204,6 +205,7 @@ public class CrystalSkill : Skill
     private void OnMulitStackSkillCancelled()
     {
         canUseMultiStacks = false;
+        
     }
 
     private void UnlockCrystal()
@@ -221,7 +223,10 @@ public class CrystalSkill : Skill
     private void UnlockMovingCrystal()
     {
         if (unlockMovingButton.unlocked)
+        {
+            canExplode = true;
             canMove = true;
+        }
     }
 
     private void UnlockExplosiveCrystal()
@@ -233,7 +238,10 @@ public class CrystalSkill : Skill
     private void UnlockMulitStack()
     {
         if (unlockMultiStackButton.unlocked)
+        {
+            canExplode = true;
             canUseMultiStacks = true;
+        }
     }
     #endregion
 
@@ -244,6 +252,7 @@ public class CrystalSkill : Skill
 
     protected override void SkillFunction()
     {
+        cooldown = 0.5f;
         if (canUseMultiStacks)
         {
             // 启动协程，依次发射多个水晶

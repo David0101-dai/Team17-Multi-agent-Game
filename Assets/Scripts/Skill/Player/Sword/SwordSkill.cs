@@ -42,10 +42,10 @@ public class SwordSkill : Skill
 
 
     [Header("Passive Skills")]
-    private SkillTreeSlot timeStopUnlockButton;
-    public bool timeStopUnlocked { get; private set; }
+    //private SkillTreeSlot timeStopUnlockButton;
+    //public bool timeStopUnlocked { get; private set; }
     private SkillTreeSlot volnurableUnlockButton;
-    public bool volnurableUnlocked { get; private set; }
+    //public bool volnurableUnlocked { get; private set; }
 
     private float swordGravity;
 
@@ -62,8 +62,8 @@ public class SwordSkill : Skill
     {
         // 等待直到 UI 初始化完成，确保所有按钮组件已经被正确绑定
         while (UI.Instance == null || 
-            UI.Instance.timeStopUnlockButton == null || 
-            UI.Instance.volnurableUnlockButton == null || 
+            //UI.Instance.timeStopUnlockButton == null || 
+            //UI.Instance.volnurableUnlockButton == null || 
             UI.Instance.swordUnlockButton == null || 
             UI.Instance.bounceUnlockButton == null || 
             UI.Instance.pierceUnlockButton == null || 
@@ -73,14 +73,15 @@ public class SwordSkill : Skill
         }
 
         // 赋值并进行空值检查
-        timeStopUnlockButton = UI.Instance.timeStopUnlockButton;
-        volnurableUnlockButton = UI.Instance.volnurableUnlockButton;
+        //timeStopUnlockButton = UI.Instance.timeStopUnlockButton;
+        //volnurableUnlockButton = UI.Instance.volnurableUnlockButton;
         swordUnlockButton = UI.Instance.swordUnlockButton;
         bounceUnlockButton = UI.Instance.bounceUnlockButton;
         pierceUnlockButton = UI.Instance.pierceUnlockButton;
         spinUnlockButton = UI.Instance.spinUnlockButton;
 
         // 添加按钮事件监听和空值检查
+        /*
         if (timeStopUnlockButton != null)
         {
             timeStopUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockTimeStop);
@@ -89,8 +90,8 @@ public class SwordSkill : Skill
         else
         {
             Debug.LogError("timeStopUnlockButton is not assigned.");
-        }
-
+        }*/
+        /*
         if (volnurableUnlockButton != null)
         {
             volnurableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVolnurable);
@@ -99,7 +100,7 @@ public class SwordSkill : Skill
         else
         {
             Debug.LogError("volnurableUnlockButton is not assigned.");
-        }
+        }*/
 
         if (swordUnlockButton != null)
         {
@@ -154,15 +155,16 @@ public class SwordSkill : Skill
         }
 
         // 主动刷新技能槽数据，先进行空值检查
+        /*
         if (timeStopUnlockButton != null)
         {
             timeStopUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
-        }
-
+        }*/
+        /*
         if (volnurableUnlockButton != null)
         {
             volnurableUnlockButton.LoadData(SaveManager.instance.CurrentGameData());
-        }
+        }*/
 
         if (swordUnlockButton != null)
         {
@@ -266,17 +268,17 @@ public class SwordSkill : Skill
         }
     }
 
-    private void OnTimeStopSkillCancelled()
+    /*private void OnTimeStopSkillCancelled()
     {
         timeStopUnlocked = false;
         // 此处可以加入关闭技能效果的逻辑
-    }
-
+    }*/
+    /*
     private void OnVolnurableSkillCancelled()
     {
         volnurableUnlocked = false;
         // 此处可以加入关闭技能效果的逻辑
-    }
+    }*/
 
     private void OnSwordUnlockSkillCancelled()
     {
@@ -305,24 +307,25 @@ public class SwordSkill : Skill
     #region Unlock Skill Region
     protected override void CheckUnlock()
     {
-        UnlockTimeStop();
-        UnlockVolnurable();
+        //UnlockTimeStop();
+        //UnlockVolnurable();
         UnlockSwordUnlock();
         UnlockBounce();
         UnlockPierce();
         UnlockSpin();
     }
-    private void UnlockTimeStop()
+    /*private void UnlockTimeStop()
     {
         if (timeStopUnlockButton.unlocked)
             timeStopUnlocked = true;
-    }
+    }*/
 
+    /*
     private void UnlockVolnurable()
     {
         if (volnurableUnlockButton.unlocked)
             volnurableUnlocked = true;
-    }
+    }*/
     private void UnlockSwordUnlock()
     {
         if (swordUnlockButton.unlocked){

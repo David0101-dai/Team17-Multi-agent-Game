@@ -13346,8 +13346,6 @@ MonoBehaviour:
   counterUnlockedButton: {fileID: 371135009865657819}
   counterBuffUnlockedButton: {fileID: 6991936575459831834}
   counterMiragelUnlockedButton: {fileID: 4510869789512067993}
-  timeStopUnlockButton: {fileID: 2096478882134875221}
-  volnurableUnlockButton: {fileID: 4915244255902039044}
   swordUnlockButton: {fileID: 4633715417302776383}
   bounceUnlockButton: {fileID: 8952490855162209363}
   pierceUnlockButton: {fileID: 8263073685591257305}
@@ -13369,6 +13367,9 @@ MonoBehaviour:
   speed1: {fileID: 7213874461923956831}
   speed2: {fileID: 7194964795074653506}
   speed3: {fileID: 8342560706069689286}
+  defence1: {fileID: 0}
+  defence2: {fileID: 0}
+  defence3: {fileID: 0}
 --- !u!1 &3590411691041578936
 GameObject:
   m_ObjectHideFlags: 0

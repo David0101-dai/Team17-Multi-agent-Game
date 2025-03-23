@@ -34,8 +34,8 @@ public class UI : MonoBehaviour
     public SkillTreeSlot counterUnlockedButton;
     public SkillTreeSlot counterBuffUnlockedButton;
     public SkillTreeSlot counterMiragelUnlockedButton;
-    public SkillTreeSlot timeStopUnlockButton;
-    public SkillTreeSlot volnurableUnlockButton;
+    //public SkillTreeSlot timeStopUnlockButton;
+    //public SkillTreeSlot volnurableUnlockButton;
     public SkillTreeSlot swordUnlockButton;
     public SkillTreeSlot bounceUnlockButton;
     public SkillTreeSlot pierceUnlockButton;
@@ -60,6 +60,10 @@ public class UI : MonoBehaviour
     public SkillTreeSlot speed1;
     public SkillTreeSlot speed2;
     public SkillTreeSlot speed3;
+
+    public SkillTreeSlot defence1;
+    public SkillTreeSlot defence2;
+    public SkillTreeSlot defence3;
 
     public static UI Instance { get; private set; }
     

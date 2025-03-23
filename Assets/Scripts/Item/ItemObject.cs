@@ -11,6 +11,7 @@ public class ItemObject : MonoBehaviour
         gameObject.name = itemData.name;
     }
 
+    //aaass
     private Rigidbody2D rb;
 
     private void Awake()

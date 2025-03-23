@@ -26,6 +26,15 @@ public class Dog : Enemy
         DeadState = new DogDeadState(Fsm, this, "Dead");
         StunState = new DogStunState(Fsm, this, "Stun");
         Fsm.SwitchState(IdleState);
+
+        // 重写 Damageable.OnTakeDamage 事件
+        Damageable.OnTakeDamage += (from, to) =>
+        {
+            // 你可以在这里加入一些Boss特定的处理逻辑
+
+            // 调用 AudioManager 播放音效
+            AudioManager.instance.PlaySFX(6, null); // 替换为你想播放的音效名称
+        };
     }
 
     protected override void Update()

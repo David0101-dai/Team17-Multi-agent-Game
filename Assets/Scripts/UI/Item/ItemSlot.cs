@@ -27,6 +27,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
         if (item.data.itemType != ItemType.Equipment) return;
         Inventory.Instance.EquipItem(item.data);
+        ui.tooltip.HideTooltip();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

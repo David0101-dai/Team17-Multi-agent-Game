@@ -21,7 +21,7 @@ public class DeadState : PlayerState
         if (deadCount > 0)
         {
             deadCount--;
-            Debug.Log("Deadfinal:" +PlayerManager.finalscore);
+            //Debug.Log("Deadfinal:" +PlayerManager.finalscore);
             PlayerManager.Instance.SaveFinaled();
         }else{
             return;

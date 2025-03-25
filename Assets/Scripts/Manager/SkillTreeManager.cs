@@ -5,37 +5,28 @@ public class SkillTreeManager : MonoBehaviour
 {
     public static SkillTreeManager Instance;
 
-    // ´æ´¢ËùÓĞ¼¼ÄÜ
+
     private List<SkillTreeSlot> allSkills = new List<SkillTreeSlot>();
 
 
 
     private void Awake()
     {
-        // ¼òÒ×µ¥Àı
+
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
-
-        // °Ñ³¡¾°ÖĞËùÓĞ SkillTreeSlot ¶¼¼ÓÈëÁĞ±í
-        // £¨»òÕßÄã¿ÉÒÔÔÚ SkillTreeSlot µÄ Awake ÀïÊÖ¶¯ÏòÕâÀï×¢²á£©
         allSkills.AddRange(FindObjectsOfType<SkillTreeSlot>());
     }
 
-    /// <summary>
-    /// ÅĞ¶ÏÄ³¸ö¼¼ÄÜÊÇ·ñÓĞ¡°ÒÑ½âËøµÄºóĞø¼¼ÄÜ¡±ÒÀÀµËü£¨°üÀ¨¶à¼¶ºóĞø£©¡£
-    /// Èç¹ûÕÒµ½ÈÎºÎ×ÓËï¼¼ÄÜ´¦ÓÚ unlocked ×´Ì¬£¬¾Í·µ»Ø true¡£
-    /// </summary>
     public bool HasUnlockedDescendants(SkillTreeSlot skill)
     {
         foreach (var candidate in allSkills)
         {
-            // Èç¹û candidate µÄÇ°ÖÃÁĞ±íÀï°üº¬µ±Ç° skill
-            // ÄÇÃ´ candidate ¾ÍÊÇµ±Ç° skill µÄÖ±½Ó¡°×Ó¼¼ÄÜ¡±
             if (candidate.shouldBeUnlocked != null && candidate.shouldBeUnlocked.Length > 0)
             {
-                // candidate.shouldBeUnlocked ÊÇÒ»¸ö SkillTreeSlot[]£¬ÅĞ¶ÏÀïÍ·ÊÇ·ñ°üº¬ skill
+                // candidate.shouldBeUnlocked ï¿½ï¿½Ò»ï¿½ï¿½ SkillTreeSlot[]ï¿½ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½Í·ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ skill
                 bool isChild = false;
                 foreach (var prerequisite in candidate.shouldBeUnlocked)
                 {
@@ -46,16 +37,13 @@ public class SkillTreeManager : MonoBehaviour
                     }
                 }
 
-                // Èç¹û candidate ÊÇµ±Ç° skill µÄÖ±½Ó×Ó¼¼ÄÜ
+                // ï¿½ï¿½ï¿½ candidate ï¿½Çµï¿½Ç° skill ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½
                 if (isChild)
                 {
-                    // Èç¹ûÕâ¸ö×Ó¼¼ÄÜÒÑ¾­½âËø£¬¾ÍËµÃ÷µ±Ç° skill ÓĞ¡°ÒÑ½âËøµÄºóĞø¼¼ÄÜ¡±
                     if (candidate.unlocked)
                     {
                         return true;
                     }
-                    // Èç¹ûÕâ¸ö×Ó¼¼ÄÜÃ»½âËø£¬µ«ËüÏÂÃæ¿ÉÄÜ»¹ÓĞºóĞø¼¼ÄÜ
-                    // µİ¹é¼ì²â candidate µÄºóĞø¼¼ÄÜÊÇ·ñÓĞ½âËøµÄ
                     if (HasUnlockedDescendants(candidate))
                     {
                         return true;
@@ -63,7 +51,7 @@ public class SkillTreeManager : MonoBehaviour
                 }
             }
         }
-        // Ã»ÕÒµ½ÈÎºÎÒÑ½âËøµÄºóĞø¼¼ÄÜ
+        // Ã»ï¿½Òµï¿½ï¿½Îºï¿½ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         return false;
     }
 }

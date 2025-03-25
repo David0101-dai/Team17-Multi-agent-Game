@@ -3710,7 +3710,7 @@ MonoBehaviour:
   sfx:
   - {fileID: 651415957}
   bgm:
-  - {fileID: 1950356380}
+  - {fileID: 1130716586}
   playBgm: 1
 --- !u!1 &1212072133
 GameObject:

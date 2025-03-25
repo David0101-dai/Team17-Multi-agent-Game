@@ -9,7 +9,10 @@ public enum BossStage {stage1, stage2, stage3, stage4}
 public class Boss : Enemy
 {
    [SerializeField] public BossStage BossStage;
-   public GameObject Door;  
+   public GameObject Door;
+   private bool firstEnterStage2 = true;
+   private bool firstEnterStage3 = true;
+   private bool firstEnterStage4 = true;  
    [Header("Teleport detail")]
    [SerializeField] private BoxCollider2D teleportArea;
    [SerializeField] private Vector2 surroundingCheckSize;
@@ -134,31 +137,46 @@ public class Boss : Enemy
     {
         base.Update();
         spellCastCoolDownTimer -= Time.deltaTime;
-        if(Damageable.currentHp <= Damageable.MaxHp.GetValue()*0.67 && BossStage == BossStage.stage1)
+        if(Damageable.currentHp <= Damageable.MaxHp.GetValue()*0.67 && BossStage == BossStage.stage1 && firstEnterStage2)
         {
             BossStage = BossStage.stage2;
+            Damageable.MakeInvincible(true);
+            spellCastCoolDownTimer = 0;
+            Fsm.SwitchState(TeleportState);
             AddDefaultChanceToTeleport(10);
             DecreaseSpellCoolDown(1f);
             AddSpellAmount(2);
+            firstEnterStage2 = false;
+            Damageable.MakeInvincible(false);
         } 
 
-        if(Damageable.currentHp <= Damageable.MaxHp.GetValue()*0.33 && BossStage == BossStage.stage2)
+        if(Damageable.currentHp <= Damageable.MaxHp.GetValue()*0.33 && BossStage == BossStage.stage2 && firstEnterStage3)
         {
             BossStage = BossStage.stage3;
+            spellCastCoolDownTimer = 0;
+            Damageable.MakeInvincible(true);
+            Fsm.SwitchState(TeleportState);
             AddDefaultChanceToTeleport(5);
             Anim.speed = 1.25f;
             DecreaseSpellCoolDown(1f);
             AddSpellAmount(3);
+            firstEnterStage3 = false;
+            Damageable.MakeInvincible(false);
         }
 
-        if(Damageable.currentHp <= Damageable.MaxHp.GetValue()*0.1 && BossStage == BossStage.stage3)
+        if(Damageable.currentHp <= Damageable.MaxHp.GetValue()*0.1 && BossStage == BossStage.stage3 && firstEnterStage4)
         {
             BossStage = BossStage.stage4;
+            spellCastCoolDownTimer = 0;
+            Damageable.MakeInvincible(true);
+            Fsm.SwitchState(TeleportState);
             FlashFX.RedBlink(true);
             AddDefaultChanceToTeleport(5);
             Anim.speed = 1.5f;
             DecreaseSpellCoolDown(3f);
             AddSpellAmount(5);
+            firstEnterStage4 = false;
+            Damageable.MakeInvincible(false);
         }
     }
 

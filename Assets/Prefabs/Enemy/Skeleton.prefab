@@ -828,6 +828,7 @@ MonoBehaviour:
   shockDuration: 2
   isInvincible: 0
   Miss: 0
+  attackMultiplier: 1
   level: {fileID: 11400000, guid: 948b351a94bb24843b2550cf877c982b, type: 2}
 --- !u!114 &2880547275683043672
 MonoBehaviour:
@@ -844,8 +845,12 @@ MonoBehaviour:
   amountOfItems: 3
   dropPrefab: {fileID: 5029221047962218234, guid: 3329f40dff0d6844184b886786b9e603, type: 3}
   possibleDrop:
+  - {fileID: 11400000, guid: 5a983d406ef5a4041acd3e7e913f2a6f, type: 2}
+  - {fileID: 11400000, guid: ca2a5a11e24959f47b7df717f747cd48, type: 2}
+  - {fileID: 11400000, guid: 2ced2d64d3865b441998d0457d504020, type: 2}
+  mustDrop:
   - {fileID: 11400000, guid: 14d1fe8595ec89b429f99a1c53e63fe4, type: 2}
-  - {fileID: 11400000, guid: 0215117b3fd4b1447aa8f6929e8cb68d, type: 2}
+  - {fileID: 11400000, guid: 92ee5a79d2e1e7047b92a22b53889208, type: 2}
   dropList: []
 --- !u!1 &9166753232305936480
 GameObject:

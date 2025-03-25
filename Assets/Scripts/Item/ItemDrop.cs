@@ -6,6 +6,7 @@ public class ItemDrop : MonoBehaviour
     [SerializeField] private int amountOfItems;
     [SerializeField] private GameObject dropPrefab;
     [SerializeField] private List<ItemData> possibleDrop;
+    [SerializeField] private List<ItemData> mustDrop;
     [SerializeField] private List<ItemData> dropList;
 
     private void Awake()
@@ -15,6 +16,7 @@ public class ItemDrop : MonoBehaviour
 
     public void GenerateDrop()
     {
+        mustDropItem();
         foreach (var drop in possibleDrop)
         {
             if (Random.Range(0, 100) <= drop.dropChance)
@@ -31,6 +33,14 @@ public class ItemDrop : MonoBehaviour
             if (index < 0) return;
             var randomItem = dropList[index];
             DropItem(randomItem);
+        }
+    }
+    private void mustDropItem()
+    {
+        for (int i = 0; i < mustDrop.Count; i++)
+        {
+            var item = mustDrop[i];
+            DropItem(item);
         }
     }
 

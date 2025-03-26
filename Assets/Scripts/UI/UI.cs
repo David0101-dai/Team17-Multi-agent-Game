@@ -72,6 +72,7 @@ public class UI : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            //skillTreeUI.SetActive(true);
             //DontDestroyOnLoad(gameObject);
             Debug.Log("UI Initialized.");
         }

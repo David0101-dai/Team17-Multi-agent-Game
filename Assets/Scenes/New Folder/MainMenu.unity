@@ -3091,8 +3091,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
-  m_sharedMaterial: {fileID: 6283507646818221384, guid: 80da7a40483b63148ae43b256d11c1ed, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4cb16847a74f136439dd642f715ed428, type: 2}
+  m_sharedMaterial: {fileID: 8689989304372656395, guid: 4cb16847a74f136439dd642f715ed428, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4719,8 +4719,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Input Your Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4cb16847a74f136439dd642f715ed428, type: 2}
-  m_sharedMaterial: {fileID: -80538539466234047, guid: 4cb16847a74f136439dd642f715ed428, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5143,7 +5143,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Score
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4cb16847a74f136439dd642f715ed428, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

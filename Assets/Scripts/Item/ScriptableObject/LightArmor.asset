@@ -17,7 +17,7 @@ MonoBehaviour:
   icon: {fileID: -1871269579, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: bd1cd3a46522c024dba6b9bea7453e4b
   dropChance: 0
-  itemIntroduce: 
+  itemIntroduce: Protection
   ItemCooldown: 0
   equipmentType: 1
   itemEffects: []
@@ -31,7 +31,7 @@ MonoBehaviour:
   health: 0
   armor: 15
   evasion: 5
-  magicResistance: 10
+  magicResistance: 20
   fireDamage: 0
   iceDamege: 0
   lightingDamage: 0

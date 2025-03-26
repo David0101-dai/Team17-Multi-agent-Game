@@ -15,7 +15,9 @@ MonoBehaviour:
   itemType: 1
   itemName: HealingFlask
   icon: {fileID: -410334530, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemId: 6efac793704678041965bf2d69ce86ad
   dropChance: 0
+  itemIntroduce: Restore health
   ItemCooldown: 5
   equipmentType: 3
   itemEffects:
@@ -34,3 +36,4 @@ MonoBehaviour:
   fireDamage: 0
   iceDamege: 0
   lightingDamage: 0
+  craftingmaterials: []

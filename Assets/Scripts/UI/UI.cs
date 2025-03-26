@@ -72,31 +72,11 @@ public class UI : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            //skillTreeUI.SetActive(true);
-            //DontDestroyOnLoad(gameObject);
-            Debug.Log("UI Initialized.");
         }
         else
         {
-            Destroy(gameObject);  // 如果实例已存在，则销毁当前对象
-            Debug.Log("UI instance already exists, destroying this duplicate.");
+            Destroy(gameObject);
             return;
-        }
-
-        // 确保 skillToolTip 已初始化
-        if (skillToolTip == null)
-        {
-            Debug.LogError("skillToolTip is not assigned in UI.");
-        }
-        else
-        {
-            Debug.Log("skillToolTip has been initialized.");
-        }
-
-        if(dashUnlockedButton == null){
-            Debug.Log("dashUnlockedButton is not assigned in UI.");
-        }else{
-            Debug.Log("dashUnlockedButton has been initialized.");
         }
         fadeScreen.gameObject.SetActive(true);
     }
@@ -108,7 +88,8 @@ public class UI : MonoBehaviour
 
     private void Update()
     {
-        // 1) 处理按下 C 键 -> 打开/关闭角色面板
+         if (IsFading()) return; // 如果处于 FadeOut 动画中，则不做任何操作
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             // 如果角色面板是关的，则打开并暂停游戏
@@ -231,10 +212,17 @@ public class UI : MonoBehaviour
     {
         // 标记为 false，表示这不是一次需要教程的新游戏
         All.IsNewGame = false;
-
         // 然后调用你的重开游戏逻辑
         GameManager.Instance.ReStartGame();
+        
     }
 
     public void ReturnHome() => GameManager.Instance.ReturnHome();  
+
+    private bool IsFading()
+{
+    // 检查动画是否在执行 fadeOut 动画
+    return fadeScreen.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("fadeOut");
+}
+
 }

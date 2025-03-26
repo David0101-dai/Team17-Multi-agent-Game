@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour,ISaveManager
         SaveManager.instance.SaveGame();
         Scene  scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+        UI.Instance.fadeScreen.FadeIn();
     }
 
     public void ReturnHome(){

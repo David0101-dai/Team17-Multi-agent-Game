@@ -38,7 +38,7 @@ public void PickupItem()
 {
     if (itemData == null)
     {
-        Debug.LogError("Item data is null. Cannot add item.");
+        Debug.Log("Item data is null. Cannot add item.");
         return;
     }
 

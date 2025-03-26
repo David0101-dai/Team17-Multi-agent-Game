@@ -17,6 +17,7 @@ MonoBehaviour:
   icon: {fileID: -1743815016, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: d1351767eebe41d449aa9c1529da43a6
   dropChance: 80.4
+  itemIntroduce: 
   ItemCooldown: 0
   equipmentType: 0
   itemEffects: []
@@ -24,9 +25,9 @@ MonoBehaviour:
   agility: 0
   intelligence: 0
   vitality: 0
-  damage: 0
-  critChance: 0
-  critPower: 0
+  damage: 20
+  critChance: 30
+  critPower: 45
   health: 0
   armor: 0
   evasion: 0

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27be0d93a3d5f1344a18c65312813aa2, type: 3}
+  m_Name: HeavyArmor
+  m_EditorClassIdentifier: 
+  itemType: 1
+  itemName: HeavyArmor
+  icon: {fileID: -1547736094, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemId: 280e8e960b4686a47b7874b9836e266a
+  dropChance: 0
+  itemIntroduce: High protection
+  ItemCooldown: 0
+  equipmentType: 1
+  itemEffects: []
+  strength: 0
+  agility: 0
+  intelligence: 0
+  vitality: 25
+  damage: 0
+  critChance: 0
+  critPower: 0
+  health: 35
+  armor: 30
+  evasion: -5
+  magicResistance: 50
+  fireDamage: 0
+  iceDamege: 0
+  lightingDamage: 0
+  craftingmaterials: []

@@ -17,6 +17,7 @@ MonoBehaviour:
   icon: {fileID: 1342801878, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: ca2a5a11e24959f47b7df717f747cd48
   dropChance: 0
+  itemIntroduce: Infinite magic
   ItemCooldown: 40
   equipmentType: 3
   itemEffects:

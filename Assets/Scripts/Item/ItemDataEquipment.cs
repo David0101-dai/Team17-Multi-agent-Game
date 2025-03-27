@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewItemData", menuName = "Data/Equipment")]
 public class ItemDataEquipment : ItemData
 {
+    public string itemIntroduce;
     public float ItemCooldown;
 
     public EquipmentType equipmentType;
@@ -90,7 +91,6 @@ public class ItemDataEquipment : ItemData
     public override string GetDescription()
     {
         sb.Length = 0;
-
         AddItemDescription(strength, "Strength");
         AddItemDescription(agility, "Agility");
         AddItemDescription(intelligence, "Intelligence");
@@ -117,7 +117,6 @@ public class ItemDataEquipment : ItemData
         if (value != 0)
         {
             if (sb.Length > 0) sb.AppendLine();
-
             if (value > 0) sb.Append(name + ": " + value);
         }
     }

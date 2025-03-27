@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: FireSword
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: 
+  itemName: Fire Sword
   icon: {fileID: 1071341138, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: 208f9e4851ccdc04d84cc9d19fb7f4db
   dropChance: 0
+  itemIntroduce: Provides fire attack
   ItemCooldown: 0
   equipmentType: 0
   itemEffects:

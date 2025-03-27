@@ -94,6 +94,17 @@
                 },
                 {
                     "name": "",
+                    "id": "7a8a0a34-c4ba-46b6-884d-1240834ce50c",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c09d6b6d-9ced-4b7b-853e-ea7f8f2eb9d4",
                     "path": "<Keyboard>/shift",
                     "interactions": "",

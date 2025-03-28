@@ -23452,6 +23452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemNameText: {fileID: 3299471195919220674}
   itemTypeText: {fileID: 3170137532011968081}
+  itemIntroduceText: {fileID: 0}
   itemDescriptionText: {fileID: 1865460880228637944}
 --- !u!114 &4480304446580978064
 MonoBehaviour:

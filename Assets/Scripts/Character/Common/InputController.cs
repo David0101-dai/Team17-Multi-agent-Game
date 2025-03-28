@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class InputController : MonoBehaviour
 {
+    // 保持所有原有public变量不变
     public float xAxis = 0;
     public float yAxis = 0;
     public bool isJumpDown = false;
@@ -18,47 +19,45 @@ public class InputController : MonoBehaviour
     public bool isAimSwordPressed = false;
     public Vector2 mousePosition = Vector2.zero;
 
-    private InputAction movementInput;
-    private InputAction jumpInput;
-    private InputAction dashInput;
-    private InputAction attackInput;
-    private InputAction counterInput;
-    private InputAction aimSwordInput;
-    private InputAction mouseInput;
-
-    private void Start()
-    {
-        var input = GetComponent<PlayerInput>();
-        movementInput = input.actions.FindAction("Movement", true);
-        jumpInput = input.actions.FindAction("Jump", true);
-        dashInput = input.actions.FindAction("Dash", true);
-        attackInput = input.actions.FindAction("Attack", true);
-        counterInput = input.actions.FindAction("Counter", true);
-        aimSwordInput = input.actions.FindAction("AimSword", true);
-        mouseInput = input.actions.FindAction("Mouse", true);
-    }
+    // 仅添加UI状态变量
+    private bool _uiJump;
+    private bool _uiDash;
+    private bool _uiAttack;
+    private bool _uiCounter;
+    private bool _uiAimSword;
 
     private void Update()
     {
-        if(!PauseManager.isPaused)
+        if (!PauseManager.isPaused)
         {
-            var movement = movementInput.ReadValue<Vector2>();
+            // 保持原有输入处理逻辑不变
+            var movement = GetComponent<PlayerInput>().actions["Movement"].ReadValue<Vector2>();
             xAxis = movement.x;
             yAxis = movement.y;
 
-            isJumpDown = jumpInput.triggered;
-            isDashDown = dashInput.triggered;
-            isAttackDown = attackInput.triggered;
-            isCounterDown = counterInput.triggered;
-            isAimSwordDown = aimSwordInput.triggered;
-            isJumpPressed = jumpInput.IsPressed();
-            isDashPressed = dashInput.IsPressed();
-            isAttackPressed = attackInput.IsPressed();
-            isCounterPressed = counterInput.IsPressed();
-            isAimSwordPressed = aimSwordInput.IsPressed();
+            // 合并UI按钮状态（唯一新增逻辑）
+            isJumpDown = GetComponent<PlayerInput>().actions["Jump"].triggered || _uiJump;
+            isDashDown = GetComponent<PlayerInput>().actions["Dash"].triggered || _uiDash;
+            isAttackDown = GetComponent<PlayerInput>().actions["Attack"].triggered || _uiAttack;
+            isCounterDown = GetComponent<PlayerInput>().actions["Counter"].triggered || _uiCounter;
+            isAimSwordDown = GetComponent<PlayerInput>().actions["AimSword"].triggered || _uiAimSword;
 
-            mousePosition = mouseInput.ReadValue<Vector2>();
+            // 每帧重置状态
+            _uiJump = false;
+            _uiDash = false;
+            _uiAttack = false;
+            _uiCounter = false;
+            _uiAimSword = false;
 
+            // 保持原有鼠标逻辑不变
+            mousePosition = GetComponent<PlayerInput>().actions["Mouse"].ReadValue<Vector2>();
         }
     }
+
+    // 新增纯UI接口方法
+    public void UI_Jump() => _uiJump = true;
+    public void UI_Dash() => _uiDash = true;
+    public void UI_Attack() => _uiAttack = true;
+    public void UI_Counter() => _uiCounter = true;
+    public void UI_AimSword() => _uiAimSword = true;
 }

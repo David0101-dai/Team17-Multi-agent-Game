@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewItemData", menuName = "Data/Equipment")]
 public class ItemDataEquipment : ItemData
 {
+    [TextArea]
     public string itemIntroduce;
     public float ItemCooldown;
 

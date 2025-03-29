@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: AmuletOfGod
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: AmuletOfGod
+  itemName: Amulet Of God
   icon: {fileID: -245851270, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemId: e3b821be12fc02e49b8126348428bacb
   dropChance: 0
+  itemIntroduce: 'Improve Health, Magic Resistance
+
+    and Lightning Damage
+
+
+    "Little
+    power of god"'
+  ItemCooldown: 0
   equipmentType: 2
   itemEffects:
   - {fileID: 11400000, guid: 73a02aba099ce224c8c759ab8ec9e96e, type: 2}
@@ -33,3 +42,4 @@ MonoBehaviour:
   fireDamage: 0
   iceDamege: 0
   lightingDamage: 10
+  craftingmaterials: []

@@ -13,10 +13,19 @@ MonoBehaviour:
   m_Name: BerserkerFlask
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: BerserkerFlask
+  itemName: Berserker Flask
   icon: {fileID: 1282215044, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: a2e5f121cf1c1b94fa61dc60ade0af59
   dropChance: 0
+  itemIntroduce: 'Imrove damge, attack speed
+
+    but will receive damage
+
+    (Duration:
+    10s)
+
+
+    "Fight like berserker"'
   ItemCooldown: 0
   equipmentType: 3
   itemEffects:

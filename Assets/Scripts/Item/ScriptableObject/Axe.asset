@@ -17,7 +17,10 @@ MonoBehaviour:
   icon: {fileID: -1743815016, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: d1351767eebe41d449aa9c1529da43a6
   dropChance: 80.4
-  itemIntroduce: 
+  itemIntroduce: 'Improve damage
+
+
+    "Just an Axe"'
   ItemCooldown: 0
   equipmentType: 0
   itemEffects: []

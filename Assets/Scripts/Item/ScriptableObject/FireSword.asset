@@ -17,7 +17,10 @@ MonoBehaviour:
   icon: {fileID: 1071341138, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: 208f9e4851ccdc04d84cc9d19fb7f4db
   dropChance: 0
-  itemIntroduce: Provides fire attack
+  itemIntroduce: 'Cause fire damage
+
+
+    "Surtr made it"'
   ItemCooldown: 0
   equipmentType: 0
   itemEffects:

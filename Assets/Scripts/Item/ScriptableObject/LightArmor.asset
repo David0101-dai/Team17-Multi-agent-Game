@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: LightArmor
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: LightArmor
+  itemName: Light Armor
   icon: {fileID: -1871269579, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: bd1cd3a46522c024dba6b9bea7453e4b
   dropChance: 0
-  itemIntroduce: Protection
+  itemIntroduce: 'Protection
+
+
+    "No More Hurt"'
   ItemCooldown: 0
   equipmentType: 1
   itemEffects: []

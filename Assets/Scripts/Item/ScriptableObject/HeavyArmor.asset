@@ -17,7 +17,10 @@ MonoBehaviour:
   icon: {fileID: -1547736094, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: 280e8e960b4686a47b7874b9836e266a
   dropChance: 0
-  itemIntroduce: High protection
+  itemIntroduce: 'The most protection
+
+
+    "invincible"'
   ItemCooldown: 0
   equipmentType: 1
   itemEffects: []
@@ -30,7 +33,7 @@ MonoBehaviour:
   critPower: 0
   health: 35
   armor: 30
-  evasion: -5
+  evasion: 0
   magicResistance: 50
   fireDamage: 0
   iceDamege: 0

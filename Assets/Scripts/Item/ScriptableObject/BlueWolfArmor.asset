@@ -17,7 +17,10 @@ MonoBehaviour:
   icon: {fileID: 288293509, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: 8553666703c0e0246b700515c0f2684c
   dropChance: 0
-  itemIntroduce: 
+  itemIntroduce: 'Normal armor
+
+
+    "Better than naked"'
   ItemCooldown: 0
   equipmentType: 1
   itemEffects:

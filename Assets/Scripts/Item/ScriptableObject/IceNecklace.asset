@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: IceNecklace
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: IceNecklace
+  itemName: Ice Necklace
   icon: {fileID: -1342722037, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: d6258c56e6028314fbf84084efb44667
   dropChance: 0
-  itemIntroduce: Provides ice attribute bonus
+  itemIntroduce: 'Provides ice attribute bonus
+
+
+    "Winter is coming"'
   ItemCooldown: 0
   equipmentType: 2
   itemEffects:

@@ -17,7 +17,8 @@ MonoBehaviour:
   icon: {fileID: 524749736, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: a99265f218f71e547ae1c48ff718ef4d
   dropChance: 0
-  itemIntroduce: Resist all magic damage
+  itemIntroduce: "Resist all magic damage\n\n[Click \"1\" to use it]\n\n\"But will
+    be damaged by\n physical damage\""
   ItemCooldown: 0
   equipmentType: 3
   itemEffects:

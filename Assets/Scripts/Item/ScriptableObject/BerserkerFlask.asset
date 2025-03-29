@@ -19,10 +19,18 @@ MonoBehaviour:
   dropChance: 0
   itemIntroduce: 'Imrove damge, attack speed
 
-    but will receive damage
+    Restore a large amount of health
 
-    (Duration:
-    10s)
+    during 
+    attacking
+
+    But will receive damage
+
+    (Duration: 10s)
+
+
+    [Click "1"
+    to use it]
 
 
     "Fight like berserker"'

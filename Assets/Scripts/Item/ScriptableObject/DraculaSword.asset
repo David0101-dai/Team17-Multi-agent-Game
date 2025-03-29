@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: DraculaSword
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: DraculaSword
+  itemName: Dracula Sword
   icon: {fileID: -1944902997, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: f2095b8b2e9f29149ab4bbda34a32622
   dropChance: 0
+  itemIntroduce: 'Restoring health while causing harm
+
+
+    "Taste nice ?"'
   ItemCooldown: 0
   equipmentType: 0
   itemEffects:

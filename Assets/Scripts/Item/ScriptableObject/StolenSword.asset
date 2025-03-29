@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: StolenSword
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: StolenSword
+  itemName: Stolen Sword
   icon: {fileID: 1526008332, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   itemId: feb828e4c31f99b48ad48d9bc5d5ded9
   dropChance: 20
+  itemIntroduce: 'Common Weapon
+
+
+    "Wait what ?l"'
   ItemCooldown: 0
   equipmentType: 0
   itemEffects: []

@@ -13,10 +13,17 @@ MonoBehaviour:
   m_Name: WoodenSword
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: WoodenSword
+  itemName: Wooden Sword
   icon: {fileID: 1025091068, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemId: d1975db937e48994d867fe87ef88feee
   dropChance: 50
+  itemIntroduce: 'Common Weapon
+
+
+    "Nothing special"'
+  ItemCooldown: 0
   equipmentType: 0
+  itemEffects: []
   strength: 0
   agility: 0
   intelligence: 0
@@ -31,3 +38,4 @@ MonoBehaviour:
   fireDamage: 0
   iceDamege: 0
   lightingDamage: 0
+  craftingmaterials: []

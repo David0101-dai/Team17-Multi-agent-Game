@@ -88,63 +88,17 @@ public class UI : MonoBehaviour
 
     private void Update()
     {
-         if (IsFading()) return; // 如果处于 FadeOut 动画中，则不做任何操作
+        if (IsFading()) return;
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            // 如果角色面板是关的，则打开并暂停游戏
-            // 如果角色面板是开的，则关闭并恢复游戏
-            if (!characterUI.activeSelf)
-            {
-                // 先保证其他UI都关掉
-                SwitchTo(null);
-                // 如果游戏没暂停就暂停
-                if (!PauseManager.isPaused) pauseManager.TogglePauseUI();
-                characterUI.SetActive(true);
-            }
-            else
-            {
-                // 关闭角色UI并恢复游戏
-                characterUI.SetActive(false);
-                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
-            }
+            SimulateCKey(); // 调用统一方法
             return;
         }
 
-        // 2) 处理按下 ESC 键 -> 关闭当前打开的 UI
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // 如果角色面板是开着的
-            if (characterUI.activeSelf)
-            {
-                characterUI.SetActive(false);
-                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
-            }
-            // 如果合成面板是开着的
-            else if (craftUI.activeSelf)
-            {
-                craftUI.SetActive(false);
-                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
-            }
-            // 如果技能树是开着的
-            else if (skillTreeUI.activeSelf)
-            {
-                skillTreeUI.SetActive(false);
-                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
-            }
-            // 如果选项面板是开着的
-            else if (optionsUI.activeSelf)
-            {
-                optionsUI.SetActive(false);
-                if (PauseManager.isPaused) pauseManager.TogglePauseUI();
-            }
-            // 如果都没开，则可根据需求来决定做什么
-            // 比如：打开或关闭暂停菜单 pauseManager.TogglePause();
-            // 或者什么也不做。
-            else
-            {
-                // 可以在此写：pauseManager.TogglePause();
-            }
+            SimulateEscapeKey(); // 调用统一方法
             return;
         }
     }
@@ -224,5 +178,65 @@ public class UI : MonoBehaviour
     // 检查动画是否在执行 fadeOut 动画
     return fadeScreen.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("fadeOut");
 }
+
+    public void SimulateEscapeKey()
+    {
+        Debug.Log("=== ESC 按钮触发 ===");
+
+        // 定义需要检查的所有面板
+        GameObject[] uiPanels = new GameObject[] {
+        characterUI,
+        craftUI,
+        skillTreeUI,
+        optionsUI,
+        Stat.gameObject,
+        Inventory.gameObject,
+        Stash.gameObject
+    };
+
+        bool anyPanelActive = false;
+
+        // 检查是否有面板处于激活状态
+        foreach (var panel in uiPanels)
+        {
+            if (panel != null && panel.activeSelf)
+            {
+                Debug.Log($"关闭面板: {panel.name}");
+                panel.SetActive(false);
+                anyPanelActive = true;
+            }
+        }
+
+        // 如果有面板被关闭，可能需要解除暂停
+        if (anyPanelActive)
+        {
+            if (PauseManager.isPaused)
+            {
+                Debug.Log("解除暂停状态");
+                pauseManager.TogglePauseUI();
+            }
+        }
+        else // 没有面板被关闭时，切换暂停状态
+        {
+            Debug.Log("没有打开的面板，切换暂停菜单");
+            pauseManager.TogglePauseUI();
+        }
+    }
+
+    public void SimulateCKey()
+    {
+        // 直接调用原有 Update 中的 C 键处理逻辑
+        if (!characterUI.activeSelf)
+        {
+            SwitchTo(null);
+            if (!PauseManager.isPaused) pauseManager.TogglePauseUI();
+            characterUI.SetActive(true);
+        }
+        else
+        {
+            characterUI.SetActive(false);
+            if (PauseManager.isPaused) pauseManager.TogglePauseUI();
+        }
+    }
 
 }

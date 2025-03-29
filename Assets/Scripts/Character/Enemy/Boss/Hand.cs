@@ -24,7 +24,7 @@ public class Hand : MonoBehaviour
         {
             if(hit.GetComponent<Player>() != null){
                 Damageable damageable = hit.GetComponent<Damageable>();
-                damageable.TakeDamage(boss, true, false, false, false, false, false);
+                damageable.TakeDamage(boss, true, false, false, false, false, true);
                  // 每次造成伤害时，按20%的概率召唤怪物
                 TrySummonEnemy();
             }

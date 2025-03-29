@@ -78,8 +78,7 @@ public class Player : Character
         moveSpeed = defaultMoveSpeed;
         jumpForce = defaultJumpForce;
         dashSpeed = defaultDashSpeed;
-        
-        //更方便获得技能
+
         Skill = SkillManager.Instance;
         InputController = GetComponent<InputController>();
         Damageable = GetComponent<Damageable>();

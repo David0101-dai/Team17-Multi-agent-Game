@@ -2720,8 +2720,8 @@ MonoBehaviour:
 
     Can counter enemy''s attack.
 
-    [Click "Right Mouse"
-    to release the skill]'
+    [Click "Right Mouse
+    Button" to release the skill]'
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
 --- !u!1 &821468070078986834
 GameObject:
@@ -10605,7 +10605,7 @@ MonoBehaviour:
     Successfully counter can cause damage.
 
     [Click
-    "Right Mouse" to release the skill]'
+    "Right Mouse Button" to release the skill]'
   lockedColor: {r: 0.2679245, g: 0.26438585, b: 0.26438585, a: 1}
 --- !u!1 &2752199089262009420
 GameObject:
@@ -22623,6 +22623,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4169303488386931731}
+  - {fileID: 2587704793353603364}
+  - {fileID: 3180913045951738934}
+  - {fileID: 4636011373445285852}
+  - {fileID: 7394520979009509072}
   - {fileID: 3274770626708897331}
   - {fileID: 5120140639104733681}
   - {fileID: 8076079456164194433}
@@ -22655,11 +22660,6 @@ RectTransform:
   - {fileID: 7180445395999877198}
   - {fileID: 7077050762648813461}
   - {fileID: 4628996104043261334}
-  - {fileID: 4169303488386931731}
-  - {fileID: 2587704793353603364}
-  - {fileID: 3180913045951738934}
-  - {fileID: 4636011373445285852}
-  - {fileID: 7394520979009509072}
   m_Father: {fileID: 6471186264348043056}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

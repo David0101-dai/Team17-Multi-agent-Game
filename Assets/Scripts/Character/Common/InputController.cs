@@ -65,8 +65,11 @@ public class InputController : MonoBehaviour
             isJumpDown = _jumpAction.triggered || _uiJump;
             isJumpPressed = _jumpAction.IsPressed() || _uiJump;
 
-            isDashDown = _dashAction.triggered || _uiDash;
-            isDashPressed = false; // 这里不再使用长按逻辑
+            // 合并Dash输入前保存状态
+            bool uiDashThisFrame = _uiDash;
+
+            isDashDown = _dashAction.triggered || uiDashThisFrame;
+            isDashPressed = _dashAction.IsPressed() || _uiDash;  // 修复
 
             isAttackDown = _attackAction.triggered || _uiAttack;
             isAttackPressed = _attackAction.IsPressed() || _uiAttack;  // 修复
@@ -81,8 +84,8 @@ public class InputController : MonoBehaviour
             mousePosition = _mouseAction.ReadValue<Vector2>();
 
             // 重置瞬时状态
-            _uiDash = false;
             _uiJump = false;
+            _uiDash = false;
             _uiAttack = false;
             _uiCounter = false;
         }

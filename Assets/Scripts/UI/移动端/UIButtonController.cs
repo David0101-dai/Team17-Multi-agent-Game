@@ -23,19 +23,26 @@ public class UIButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     [SerializeField] private float jumpCooldown = 0.2f;
     private float _lastJumpTime;
 
+    // 新增变量
+    [Header("Dash冷却")]
+    [SerializeField] private float dashCooldown = 0.5f;
+    private float _lastDashTime;
+
     // 删除Start方法中的onClick绑定
 
     // 统一通过Pointer事件处理
     public void OnPointerDown(PointerEventData eventData)
     {
-        switch (buttonType)
+        switch(buttonType)
         {
             case ButtonType.Jump:
-                if (Time.time - _lastJumpTime < jumpCooldown) return;
+                if(Time.time - _lastJumpTime < jumpCooldown) return;
                 _lastJumpTime = Time.time;
                 inputController.UI_Jump();
                 break;
             case ButtonType.Dash:
+                if (Time.time - _lastDashTime < dashCooldown) return; // 新增冷却
+                _lastDashTime = Time.time;
                 inputController.UI_Dash();
                 break;
             case ButtonType.Attack:
@@ -55,7 +62,7 @@ public class UIButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        switch (buttonType)
+        switch(buttonType)
         {
             case ButtonType.MoveLeft:
                 inputController.UI_SetMoveLeft(false);
